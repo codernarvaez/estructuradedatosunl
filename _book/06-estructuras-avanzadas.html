@@ -253,8 +253,11 @@ window.Quarto = {
   <ul>
   <li><a href="#árboles-avl" id="toc-árboles-avl" class="nav-link active" data-scroll-target="#árboles-avl"><span class="header-section-number">8.1</span> Árboles AVL</a>
   <ul class="collapse">
-  <li><a href="#por-qué-son-importantes" id="toc-por-qué-son-importantes" class="nav-link" data-scroll-target="#por-qué-son-importantes"><span class="header-section-number">8.1.1</span> ¿Por qué son importantes?</a></li>
-  <li><a href="#árboles-avl-y-r" id="toc-árboles-avl-y-r" class="nav-link" data-scroll-target="#árboles-avl-y-r"><span class="header-section-number">8.1.2</span> Árboles AVL y R</a></li>
+  <li><a href="#caracteristicas-importantes" id="toc-caracteristicas-importantes" class="nav-link" data-scroll-target="#caracteristicas-importantes"><span class="header-section-number">8.1.1</span> Caracteristicas Importantes</a></li>
+  <li><a href="#estructura-fija-de-un-nodo" id="toc-estructura-fija-de-un-nodo" class="nav-link" data-scroll-target="#estructura-fija-de-un-nodo"><span class="header-section-number">8.1.2</span> Estructura Fija de un Nodo</a></li>
+  <li><a href="#ejemplo-en-java-implementacion-de-un-arbol-avl" id="toc-ejemplo-en-java-implementacion-de-un-arbol-avl" class="nav-link" data-scroll-target="#ejemplo-en-java-implementacion-de-un-arbol-avl"><span class="header-section-number">8.1.3</span> Ejemplo en Java (Implementacion de un arbol AVL)</a></li>
+  <li><a href="#por-qué-son-importantes" id="toc-por-qué-son-importantes" class="nav-link" data-scroll-target="#por-qué-son-importantes"><span class="header-section-number">8.1.4</span> ¿Por qué son importantes?</a></li>
+  <li><a href="#árboles-avl-y-r" id="toc-árboles-avl-y-r" class="nav-link" data-scroll-target="#árboles-avl-y-r"><span class="header-section-number">8.1.5</span> Árboles AVL y R</a></li>
   </ul></li>
   <li><a href="#árboles-b" id="toc-árboles-b" class="nav-link" data-scroll-target="#árboles-b"><span class="header-section-number">8.2</span> Árboles B</a>
   <ul class="collapse">
@@ -298,15 +301,24 @@ window.Quarto = {
 <section id="árboles-avl" class="level2" data-number="8.1">
 <h2 data-number="8.1" class="anchored" data-anchor-id="árboles-avl"><span class="header-section-number">8.1</span> Árboles AVL</h2>
 <p>Los árboles AVL (por sus inventores Adelson-Velsky y Landis) son un tipo de árbol de búsqueda binario auto-balanceado. Esto significa que garantizan que la altura del árbol sea logarítmica con respecto al número de nodos, lo que a su vez asegura que las operaciones de búsqueda, inserción y eliminación se realicen en tiempo <span class="math inline">\(O(\log n)\)</span>. La clave de su auto-balanceo reside en mantener el “factor de balance” de cada nodo (la diferencia de altura entre sus subárboles izquierdo y derecho) entre -1, 0 y 1. Si esta condición se rompe tras una inserción o eliminación, el árbol realiza una serie de rotaciones (simples o dobles, a la izquierda o a la derecha) para restaurar el balance.</p>
-<section id="por-qué-son-importantes" class="level3" data-number="8.1.1">
-<h3 data-number="8.1.1" class="anchored" data-anchor-id="por-qué-son-importantes"><span class="header-section-number">8.1.1</span> ¿Por qué son importantes?</h3>
+<section id="caracteristicas-importantes" class="level3" data-number="8.1.1">
+<h3 data-number="8.1.1" class="anchored" data-anchor-id="caracteristicas-importantes"><span class="header-section-number">8.1.1</span> Caracteristicas Importantes</h3>
+</section>
+<section id="estructura-fija-de-un-nodo" class="level3" data-number="8.1.2">
+<h3 data-number="8.1.2" class="anchored" data-anchor-id="estructura-fija-de-un-nodo"><span class="header-section-number">8.1.2</span> Estructura Fija de un Nodo</h3>
+</section>
+<section id="ejemplo-en-java-implementacion-de-un-arbol-avl" class="level3" data-number="8.1.3">
+<h3 data-number="8.1.3" class="anchored" data-anchor-id="ejemplo-en-java-implementacion-de-un-arbol-avl"><span class="header-section-number">8.1.3</span> Ejemplo en Java (Implementacion de un arbol AVL)</h3>
+</section>
+<section id="por-qué-son-importantes" class="level3" data-number="8.1.4">
+<h3 data-number="8.1.4" class="anchored" data-anchor-id="por-qué-son-importantes"><span class="header-section-number">8.1.4</span> ¿Por qué son importantes?</h3>
 <ul>
 <li><strong>Rendimiento garantizado:</strong> A diferencia de un árbol de búsqueda binario simple, que puede degenerar en una lista enlazada (y <span class="math inline">\(O(n)\)</span> en el peor caso), los árboles AVL siempre ofrecen un rendimiento <span class="math inline">\(O(\log n)\)</span>.</li>
 <li><strong>Aplicaciones:</strong> Son útiles en bases de datos para indexación, sistemas de archivos y cualquier aplicación donde se necesite un diccionario o conjunto ordenado con inserciones y eliminaciones frecuentes y eficientes.</li>
 </ul>
 </section>
-<section id="árboles-avl-y-r" class="level3" data-number="8.1.2">
-<h3 data-number="8.1.2" class="anchored" data-anchor-id="árboles-avl-y-r"><span class="header-section-number">8.1.2</span> Árboles AVL y R</h3>
+<section id="árboles-avl-y-r" class="level3" data-number="8.1.5">
+<h3 data-number="8.1.5" class="anchored" data-anchor-id="árboles-avl-y-r"><span class="header-section-number">8.1.5</span> Árboles AVL y R</h3>
 <p>En R, la implementación de un árbol AVL desde cero es una tarea no trivial y, sinceramente, rara vez el enfoque más eficiente para la mayoría de los problemas que abordamos. R sobresale en operaciones vectorizadas y en el manejo de grandes volúmenes de datos mediante estructuras como <code>data.frame</code>, <code>data.table</code> o <code>tibble</code>, que están altamente optimizadas y, a menudo, respaldadas por código C/C++.</p>
 <p>Sin embargo, podemos ilustrar los conceptos básicos de un nodo y cómo podríamos pensar en la estructura de un árbol.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Definición conceptual de un nodo para un árbol binario</span></span>
