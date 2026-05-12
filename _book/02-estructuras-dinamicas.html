@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>4&nbsp; Estructuras Dinámicas – Estructura de Datos</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./03-algoritmos-ordenacion.html" rel="next">
+<link href="./01-estructuras-estaticas.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-9e3e5b9121e68b3f077afb32f2c64d95.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02-estructuras-dinamicas.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Estructuras Dinámicas</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      <img src="./images/logo-unl.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="./images/logo-unl.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Estructura de Datos</a> 
+        <div class="sidebar-tools-main">
+    <a href="./Estructura-de-Datos.pdf" title="Descargar PDF" class="quarto-navigation-tool px-1" aria-label="Descargar PDF"><i class="bi bi-file-pdf"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introducción</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-estructuras-estaticas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Capítulo 1: Estructuras Estáticas</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-estructuras-dinamicas.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Estructuras Dinámicas</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-algoritmos-ordenacion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Algoritmos de Ordenación</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-algoritmos-busqueda.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Algoritmos de Búsqueda</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-grafos-arboles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Estructuras No Lineales</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-estructuras-avanzadas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Estructuras Avanzadas</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#introducción-a-las-estructuras-dinámicas-en-r" id="toc-introducción-a-las-estructuras-dinámicas-en-r" class="nav-link active" data-scroll-target="#introducción-a-las-estructuras-dinámicas-en-r"><span class="header-section-number">5</span> Introducción a las Estructuras Dinámicas en R</a></li>
+  <li><a href="#listas-enlazadas" id="toc-listas-enlazadas" class="nav-link" data-scroll-target="#listas-enlazadas"><span class="header-section-number">6</span> Listas Enlazadas</a>
+  <ul class="collapse">
+  <li><a href="#listas-generales-en-r" id="toc-listas-generales-en-r" class="nav-link" data-scroll-target="#listas-generales-en-r"><span class="header-section-number">6.1</span> Listas (Generales en R)</a></li>
+  <li><a href="#listas-simples-singly-linked-lists" id="toc-listas-simples-singly-linked-lists" class="nav-link" data-scroll-target="#listas-simples-singly-linked-lists"><span class="header-section-number">6.2</span> Listas Simples (Singly Linked Lists)</a></li>
+  <li><a href="#listas-dobles-doubly-linked-lists" id="toc-listas-dobles-doubly-linked-lists" class="nav-link" data-scroll-target="#listas-dobles-doubly-linked-lists"><span class="header-section-number">6.3</span> Listas Dobles (Doubly Linked Lists)</a></li>
+  <li><a href="#listas-circulares-circular-linked-lists" id="toc-listas-circulares-circular-linked-lists" class="nav-link" data-scroll-target="#listas-circulares-circular-linked-lists"><span class="header-section-number">6.4</span> Listas Circulares (Circular Linked Lists)</a></li>
+  </ul></li>
+  <li><a href="#pilas-stacks" id="toc-pilas-stacks" class="nav-link" data-scroll-target="#pilas-stacks"><span class="header-section-number">7</span> Pilas (Stacks)</a></li>
+  <li><a href="#colas-queues" id="toc-colas-queues" class="nav-link" data-scroll-target="#colas-queues"><span class="header-section-number">8</span> Colas (Queues)</a></li>
+  <li><a href="#conclusión" id="toc-conclusión" class="nav-link" data-scroll-target="#conclusión"><span class="header-section-number">9</span> Conclusión</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Estructuras Dinámicas</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introducción-a-las-estructuras-dinámicas-en-r" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Introducción a las Estructuras Dinámicas en R</h1>
+<p>¡Hola! En este capítulo, nos sumergiremos en el fascinante mundo de las estructuras de datos dinámicas. A diferencia de las estructuras estáticas como los arrays (o vectores en R) que tienen un tamaño fijo una vez definidos, las estructuras dinámicas pueden crecer o encogerse durante la ejecución del programa, adaptándose a las necesidades cambiantes de los datos.</p>
+<p>R, con su enfoque en la manipulación de datos y su poderoso tipo <code>list</code>, nos ofrece una gran flexibilidad. Si bien muchas de estas estructuras dinámicas no tienen una implementación “nativa” y explícita como en lenguajes de bajo nivel (como C++ o Java), entender sus principios y cómo simularlas en R es fundamental para escribir código eficiente y estructurado, especialmente cuando se trabaja con datos que cambian de tamaño o cuando se necesita un control preciso sobre el orden de procesamiento.</p>
+<p>En este capítulo, exploraremos:</p>
+<ul>
+<li><strong>Listas Enlazadas</strong>: Desde las simples hasta las dobles y circulares, comprenderemos cómo construir secuencias de elementos que no necesitan estar contiguos en memoria.</li>
+<li><strong>Pilas (Stacks)</strong>: Una estructura “LIFO” (Last-In, First-Out) que es esencial para tareas como la gestión de funciones o la evaluación de expresiones.</li>
+<li><strong>Colas (Queues)</strong>: Una estructura “FIFO” (First-In, First-Out) que simula líneas de espera y es crucial en escenarios de procesamiento ordenado.</li>
+</ul>
+<p>Prepárate para pensar en cómo R, con su flexibilidad, puede ayudarnos a construir estas abstracciones. Aunque a menudo podemos resolver muchos problemas usando los tipos <code>vector</code> o <code>list</code> directamente, comprender las estructuras dinámicas nos da una base sólida para elegir la herramienta correcta para cada tarea y apreciar la ingeniería detrás de las soluciones más complejas.</p>
+<hr>
+</section>
+<section id="listas-enlazadas" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Listas Enlazadas</h1>
+<p>Las listas enlazadas son una de las estructuras de datos dinámicas más fundamentales. Consisten en una secuencia de “nodos”, donde cada nodo contiene un valor (o datos) y una referencia (o “enlace”) al siguiente nodo en la secuencia. La principal ventaja sobre los vectores es que los elementos no necesitan estar almacenados en ubicaciones de memoria contiguas, lo que facilita las operaciones de inserción y eliminación sin necesidad de reasignar o desplazar grandes bloques de memoria.</p>
+<p>En R, no tenemos “punteros” explícitos como en C o C++. Sin embargo, podemos simular el comportamiento de las listas enlazadas utilizando la flexibilidad del tipo <code>list</code> de R, donde cada “nodo” será una lista que contiene el valor del dato y una referencia al siguiente nodo (que a su vez será otra lista o <code>NULL</code>).</p>
+<section id="listas-generales-en-r" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="listas-generales-en-r"><span class="header-section-number">6.1</span> Listas (Generales en R)</h2>
+<p>Antes de sumergirnos en las listas enlazadas, recordemos cómo funcionan las listas en R, ya que son la base de nuestra simulación. Las listas de R son colecciones ordenadas de objetos, donde los objetos pueden ser de diferentes tipos (heterogéneos).</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Las <code>list</code> de R son extremadamente flexibles y, en muchos escenarios, pueden ser suficientes sin necesidad de implementar explícitamente listas enlazadas. Sin embargo, para entender los principios, las implementaremos.</p>
+</div>
+</div>
+<p>Crear y acceder a elementos de una lista en R es sencillo:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear una lista en R</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>mi_lista_r <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">nombre =</span> <span class="st">"Alice"</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">edad =</span> <span class="dv">30</span>,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">puntuaciones =</span> <span class="fu">c</span>(<span class="dv">95</span>, <span class="dv">88</span>, <span class="dv">92</span>),</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">activa =</span> <span class="cn">TRUE</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Acceder a elementos por nombre</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mi_lista_r<span class="sc">$</span>nombre)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mi_lista_r[[<span class="st">"edad"</span>]])</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Acceder a elementos por posición</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mi_lista_r[[<span class="dv">3</span>]])</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Modificar un elemento</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>mi_lista_r<span class="sc">$</span>edad <span class="ot">&lt;-</span> <span class="dv">31</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mi_lista_r<span class="sc">$</span>edad)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Añadir un nuevo elemento</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>mi_lista_r<span class="sc">$</span>ciudad <span class="ot">&lt;-</span> <span class="st">"Nueva York"</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mi_lista_r)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Eliminar un elemento</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>mi_lista_r<span class="sc">$</span>activa <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mi_lista_r)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="listas-simples-singly-linked-lists" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="listas-simples-singly-linked-lists"><span class="header-section-number">6.2</span> Listas Simples (Singly Linked Lists)</h2>
+<p>Una lista simplemente enlazada es la forma más básica de lista enlazada. Cada nodo tiene un valor y un puntero al siguiente nodo. El último nodo apunta a <code>NULL</code> (o <code>NA</code> en nuestra simulación en R). Solo se puede recorrer hacia adelante.</p>
+<p><strong>Estructura de un nodo:</strong></p>
+<pre><code>[dato | puntero_al_siguiente] -&gt; [dato | puntero_al_siguiente] -&gt; ... -&gt; [dato | NULL]</code></pre>
+<p>Vamos a simular esto en R:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Función para crear un nuevo nodo</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>crear_nodo_simple <span class="ot">&lt;-</span> <span class="cf">function</span>(valor, <span class="at">siguiente =</span> <span class="cn">NULL</span>) {</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">value =</span> valor, <span class="at">next_node =</span> siguiente)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Clase SLL (Singly Linked List) para encapsular la lógica</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>SinglyLinkedList <span class="ot">&lt;-</span> R6<span class="sc">::</span><span class="fu">R6Class</span>(</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"SinglyLinkedList"</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">public =</span> <span class="fu">list</span>(</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">head =</span> <span class="cn">NULL</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">initialize =</span> <span class="cf">function</span>() {</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>      self<span class="sc">$</span>head <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Añadir un nodo al final de la lista</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">append =</span> <span class="cf">function</span>(valor) {</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>      new_node <span class="ot">&lt;-</span> <span class="fu">crear_nodo_simple</span>(valor)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (<span class="fu">is.null</span>(self<span class="sc">$</span>head)) {</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>        self<span class="sc">$</span>head <span class="ot">&lt;-</span> new_node</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>      } <span class="cf">else</span> {</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>        current <span class="ot">&lt;-</span> self<span class="sc">$</span>head</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> (<span class="sc">!</span><span class="fu">is.null</span>(current<span class="sc">$</span>next_node)) {</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>          current <span class="ot">&lt;-</span> current<span class="sc">$</span>next_node</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>        current<span class="sc">$</span>next_node <span class="ot">&lt;-</span> new_node</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>      <span class="fu">invisible</span>(self) <span class="co"># Permite encadenar llamadas</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Añadir un nodo al principio de la lista</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">prepend =</span> <span class="cf">function</span>(valor) {</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>      new_node <span class="ot">&lt;-</span> <span class="fu">crear_nodo_simple</span>(valor, self<span class="sc">$</span>head)</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>      self<span class="sc">$</span>head <span class="ot">&lt;-</span> new_node</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>      <span class="fu">invisible</span>(self)</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Imprimir la lista</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">print =</span> <span class="cf">function</span>() {</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>      nodes_str <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>      current <span class="ot">&lt;-</span> self<span class="sc">$</span>head</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>      <span class="cf">while</span> (<span class="sc">!</span><span class="fu">is.null</span>(current)) {</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>        nodes_str <span class="ot">&lt;-</span> <span class="fu">c</span>(nodes_str, <span class="fu">as.character</span>(current<span class="sc">$</span>value))</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>        current <span class="ot">&lt;-</span> current<span class="sc">$</span>next_node</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>      <span class="fu">cat</span>(<span class="st">"Lista Simple: "</span>, <span class="fu">paste</span>(nodes_str, <span class="at">collapse =</span> <span class="st">" -&gt; "</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Buscar un valor</span></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>    <span class="at">find =</span> <span class="cf">function</span>(valor) {</span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>      current <span class="ot">&lt;-</span> self<span class="sc">$</span>head</span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>      <span class="cf">while</span> (<span class="sc">!</span><span class="fu">is.null</span>(current)) {</span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (<span class="fu">identical</span>(current<span class="sc">$</span>value, valor)) {</span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>          <span class="fu">return</span>(<span class="cn">TRUE</span>)</span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>        current <span class="ot">&lt;-</span> current<span class="sc">$</span>next_node</span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>      <span class="fu">return</span>(<span class="cn">FALSE</span>)</span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Eliminar un nodo por valor</span></span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>    <span class="at">delete =</span> <span class="cf">function</span>(valor) {</span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (<span class="fu">is.null</span>(self<span class="sc">$</span>head)) {</span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>        <span class="fu">return</span>(<span class="fu">invisible</span>(self))</span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Si el nodo a eliminar es la cabeza</span></span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (<span class="fu">identical</span>(self<span class="sc">$</span>head<span class="sc">$</span>value, valor)) {</span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>        self<span class="sc">$</span>head <span class="ot">&lt;-</span> self<span class="sc">$</span>head<span class="sc">$</span>next_node</span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a>        <span class="fu">return</span>(<span class="fu">invisible</span>(self))</span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Buscar el nodo y su predecesor</span></span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a>      current <span class="ot">&lt;-</span> self<span class="sc">$</span>head</span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a>      <span class="cf">while</span> (<span class="sc">!</span><span class="fu">is.null</span>(current<span class="sc">$</span>next_node) <span class="sc">&amp;&amp;</span> <span class="sc">!</span><span class="fu">identical</span>(current<span class="sc">$</span>next_node<span class="sc">$</span>value, valor)) {</span>
+<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a>        current <span class="ot">&lt;-</span> current<span class="sc">$</span>next_node</span>
+<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Si se encontró el nodo a eliminar</span></span>
+<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(current<span class="sc">$</span>next_node)) {</span>
+<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a>        current<span class="sc">$</span>next_node <span class="ot">&lt;-</span> current<span class="sc">$</span>next_node<span class="sc">$</span>next_node</span>
+<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a>      <span class="fu">invisible</span>(self)</span>
+<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo de uso de la lista simple</span></span>
+<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a>sll <span class="ot">&lt;-</span> SinglyLinkedList<span class="sc">$</span><span class="fu">new</span>()</span>
+<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a>sll<span class="sc">$</span><span class="fu">append</span>(<span class="st">"Manzana"</span>)<span class="sc">$</span><span class="fu">append</span>(<span class="st">"Banana"</span>)<span class="sc">$</span><span class="fu">append</span>(<span class="st">"Cereza"</span>)</span>
+<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a>sll<span class="sc">$</span><span class="fu">print</span>()</span>
+<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a>sll<span class="sc">$</span><span class="fu">prepend</span>(<span class="st">"Uva"</span>)</span>
+<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a>sll<span class="sc">$</span><span class="fu">print</span>()</span>
+<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"¿Banana está en la lista?"</span>, sll<span class="sc">$</span><span class="fu">find</span>(<span class="st">"Banana"</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"¿Naranja está en la lista?"</span>, sll<span class="sc">$</span><span class="fu">find</span>(<span class="st">"Naranja"</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a>sll<span class="sc">$</span><span class="fu">delete</span>(<span class="st">"Banana"</span>)</span>
+<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a>sll<span class="sc">$</span><span class="fu">print</span>()</span>
+<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a>sll<span class="sc">$</span><span class="fu">delete</span>(<span class="st">"Uva"</span>) <span class="co"># Eliminar la cabeza</span></span>
+<span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a>sll<span class="sc">$</span><span class="fu">print</span>()</span>
+<span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a>sll<span class="sc">$</span><span class="fu">delete</span>(<span class="st">"Cereza"</span>) <span class="co"># Eliminar el último</span></span>
+<span id="cb3-107"><a href="#cb3-107" aria-hidden="true" tabindex="-1"></a>sll<span class="sc">$</span><span class="fu">print</span>()</span>
+<span id="cb3-108"><a href="#cb3-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a>sll<span class="sc">$</span><span class="fu">delete</span>(<span class="st">"Manzana"</span>) <span class="co"># Eliminar el último que queda</span></span>
+<span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a>sll<span class="sc">$</span><span class="fu">print</span>()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Nota sobre la simulación en R:</strong> Al crear un nodo como <code>list(value = valor, next_node = siguiente)</code>, el <code>siguiente</code> es una referencia <em>copia</em> del objeto <code>list</code> completo. R gestiona la memoria y las referencias de objetos de manera diferente a lenguajes como C, donde un puntero es una dirección de memoria. Sin embargo, para entender el comportamiento lógico de las listas enlazadas, esta simulación es muy efectiva. Para grandes volúmenes de datos y operaciones frecuentes, las <code>list</code> nativas de R o estructuras más optimizadas podrían ser preferibles por rendimiento.</p>
+</div>
+</div>
+</section>
+<section id="listas-dobles-doubly-linked-lists" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="listas-dobles-doubly-linked-lists"><span class="header-section-number">6.3</span> Listas Dobles (Doubly Linked Lists)</h2>
+<p>Una lista doblemente enlazada mejora la lista simple añadiendo un puntero al nodo <em>anterior</em> además del puntero al siguiente nodo. Esto permite recorrer la lista en ambas direcciones y simplifica ciertas operaciones, como la eliminación de un nodo (ya que no necesitamos mantener un puntero al predecesor).</p>
+<p><strong>Estructura de un nodo:</strong></p>
+<pre><code>NULL &lt;- [puntero_anterior | dato | puntero_siguiente] &lt;-&gt; ... &lt;-&gt; [puntero_anterior | dato | puntero_siguiente] -&gt; NULL</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Función para crear un nuevo nodo doble</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>crear_nodo_doble <span class="ot">&lt;-</span> <span class="cf">function</span>(valor, <span class="at">anterior =</span> <span class="cn">NULL</span>, <span class="at">siguiente =</span> <span class="cn">NULL</span>) {</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">value =</span> valor, <span class="at">prev_node =</span> anterior, <span class="at">next_node =</span> siguiente)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Clase DLL (Doubly Linked List)</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>DoublyLinkedList <span class="ot">&lt;-</span> R6<span class="sc">::</span><span class="fu">R6Class</span>(</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"DoublyLinkedList"</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">public =</span> <span class="fu">list</span>(</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">head =</span> <span class="cn">NULL</span>,</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">tail =</span> <span class="cn">NULL</span>, <span class="co"># Mantenemos un puntero a la cola para inserciones rápidas al final</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">initialize =</span> <span class="cf">function</span>() {</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>      self<span class="sc">$</span>head <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>      self<span class="sc">$</span>tail <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Añadir un nodo al final</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">append =</span> <span class="cf">function</span>(valor) {</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>      new_node <span class="ot">&lt;-</span> <span class="fu">crear_nodo_doble</span>(valor)</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (<span class="fu">is.null</span>(self<span class="sc">$</span>head)) {</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>        self<span class="sc">$</span>head <span class="ot">&lt;-</span> new_node</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>        self<span class="sc">$</span>tail <span class="ot">&lt;-</span> new_node</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>      } <span class="cf">else</span> {</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>        self<span class="sc">$</span>tail<span class="sc">$</span>next_node <span class="ot">&lt;-</span> new_node</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>        new_node<span class="sc">$</span>prev_node <span class="ot">&lt;-</span> self<span class="sc">$</span>tail</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>        self<span class="sc">$</span>tail <span class="ot">&lt;-</span> new_node</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>      <span class="fu">invisible</span>(self)</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Añadir un nodo al principio</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">prepend =</span> <span class="cf">function</span>(valor) {</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>      new_node <span class="ot">&lt;-</span> <span class="fu">crear_nodo_doble</span>(valor, <span class="at">siguiente =</span> self<span class="sc">$</span>head)</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (<span class="fu">is.null</span>(self<span class="sc">$</span>head)) {</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>        self<span class="sc">$</span>head <span class="ot">&lt;-</span> new_node</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>        self<span class="sc">$</span>tail <span class="ot">&lt;-</span> new_node</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>      } <span class="cf">else</span> {</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>        self<span class="sc">$</span>head<span class="sc">$</span>prev_node <span class="ot">&lt;-</span> new_node</span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>        self<span class="sc">$</span>head <span class="ot">&lt;-</span> new_node</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>      <span class="fu">invisible</span>(self)</span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Imprimir la lista (hacia adelante)</span></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">print_forward =</span> <span class="cf">function</span>() {</span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>      nodes_str <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>      current <span class="ot">&lt;-</span> self<span class="sc">$</span>head</span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>      <span class="cf">while</span> (<span class="sc">!</span><span class="fu">is.null</span>(current)) {</span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>        nodes_str <span class="ot">&lt;-</span> <span class="fu">c</span>(nodes_str, <span class="fu">as.character</span>(current<span class="sc">$</span>value))</span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>        current <span class="ot">&lt;-</span> current<span class="sc">$</span>next_node</span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>      <span class="fu">cat</span>(<span class="st">"Lista Doble (Adelante): "</span>, <span class="fu">paste</span>(nodes_str, <span class="at">collapse =</span> <span class="st">" &lt;-&gt; "</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Imprimir la lista (hacia atrás)</span></span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>    <span class="at">print_backward =</span> <span class="cf">function</span>() {</span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>      nodes_str <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>      current <span class="ot">&lt;-</span> self<span class="sc">$</span>tail</span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>      <span class="cf">while</span> (<span class="sc">!</span><span class="fu">is.null</span>(current)) {</span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>        nodes_str <span class="ot">&lt;-</span> <span class="fu">c</span>(nodes_str, <span class="fu">as.character</span>(current<span class="sc">$</span>value))</span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>        current <span class="ot">&lt;-</span> current<span class="sc">$</span>prev_node</span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>      <span class="fu">cat</span>(<span class="st">"Lista Doble (Atrás): "</span>, <span class="fu">paste</span>(nodes_str, <span class="at">collapse =</span> <span class="st">" &lt;-&gt; "</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Eliminar un nodo por valor</span></span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a>    <span class="at">delete =</span> <span class="cf">function</span>(valor) {</span>
+<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (<span class="fu">is.null</span>(self<span class="sc">$</span>head)) {</span>
+<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a>        <span class="fu">return</span>(<span class="fu">invisible</span>(self))</span>
+<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a>      current <span class="ot">&lt;-</span> self<span class="sc">$</span>head</span>
+<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a>      <span class="cf">while</span> (<span class="sc">!</span><span class="fu">is.null</span>(current) <span class="sc">&amp;&amp;</span> <span class="sc">!</span><span class="fu">identical</span>(current<span class="sc">$</span>value, valor)) {</span>
+<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a>        current <span class="ot">&lt;-</span> current<span class="sc">$</span>next_node</span>
+<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Si el valor no se encontró</span></span>
+<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (<span class="fu">is.null</span>(current)) {</span>
+<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a>        <span class="fu">return</span>(<span class="fu">invisible</span>(self))</span>
+<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Si el nodo a eliminar es la cabeza</span></span>
+<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (<span class="fu">is.null</span>(current<span class="sc">$</span>prev_node)) {</span>
+<span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a>        self<span class="sc">$</span>head <span class="ot">&lt;-</span> current<span class="sc">$</span>next_node</span>
+<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(self<span class="sc">$</span>head)) {</span>
+<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a>          self<span class="sc">$</span>head<span class="sc">$</span>prev_node <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a>        } <span class="cf">else</span> { <span class="co"># Si la lista queda vacía</span></span>
+<span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a>          self<span class="sc">$</span>tail <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a>      } </span>
+<span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Si el nodo a eliminar es la cola</span></span>
+<span id="cb5-93"><a href="#cb5-93" aria-hidden="true" tabindex="-1"></a>      <span class="cf">else</span> <span class="cf">if</span> (<span class="fu">is.null</span>(current<span class="sc">$</span>next_node)) {</span>
+<span id="cb5-94"><a href="#cb5-94" aria-hidden="true" tabindex="-1"></a>        self<span class="sc">$</span>tail <span class="ot">&lt;-</span> current<span class="sc">$</span>prev_node</span>
+<span id="cb5-95"><a href="#cb5-95" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(self<span class="sc">$</span>tail)) {</span>
+<span id="cb5-96"><a href="#cb5-96" aria-hidden="true" tabindex="-1"></a>          self<span class="sc">$</span>tail<span class="sc">$</span>next_node <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb5-97"><a href="#cb5-97" aria-hidden="true" tabindex="-1"></a>        } <span class="cf">else</span> { <span class="co"># Si la lista queda vacía</span></span>
+<span id="cb5-98"><a href="#cb5-98" aria-hidden="true" tabindex="-1"></a>          self<span class="sc">$</span>head <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb5-99"><a href="#cb5-99" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb5-100"><a href="#cb5-100" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb5-101"><a href="#cb5-101" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Si el nodo está en el medio</span></span>
+<span id="cb5-102"><a href="#cb5-102" aria-hidden="true" tabindex="-1"></a>      <span class="cf">else</span> {</span>
+<span id="cb5-103"><a href="#cb5-103" aria-hidden="true" tabindex="-1"></a>        current<span class="sc">$</span>prev_node<span class="sc">$</span>next_node <span class="ot">&lt;-</span> current<span class="sc">$</span>next_node</span>
+<span id="cb5-104"><a href="#cb5-104" aria-hidden="true" tabindex="-1"></a>        current<span class="sc">$</span>next_node<span class="sc">$</span>prev_node <span class="ot">&lt;-</span> current<span class="sc">$</span>prev_node</span>
+<span id="cb5-105"><a href="#cb5-105" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb5-106"><a href="#cb5-106" aria-hidden="true" tabindex="-1"></a>      <span class="fu">invisible</span>(self)</span>
+<span id="cb5-107"><a href="#cb5-107" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb5-108"><a href="#cb5-108" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb5-109"><a href="#cb5-109" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-110"><a href="#cb5-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-111"><a href="#cb5-111" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo de uso de la lista doble</span></span>
+<span id="cb5-112"><a href="#cb5-112" aria-hidden="true" tabindex="-1"></a>dll <span class="ot">&lt;-</span> DoublyLinkedList<span class="sc">$</span><span class="fu">new</span>()</span>
+<span id="cb5-113"><a href="#cb5-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-114"><a href="#cb5-114" aria-hidden="true" tabindex="-1"></a>dll<span class="sc">$</span><span class="fu">append</span>(<span class="st">"Uno"</span>)<span class="sc">$</span><span class="fu">append</span>(<span class="st">"Dos"</span>)<span class="sc">$</span><span class="fu">append</span>(<span class="st">"Tres"</span>)</span>
+<span id="cb5-115"><a href="#cb5-115" aria-hidden="true" tabindex="-1"></a>dll<span class="sc">$</span><span class="fu">print_forward</span>()</span>
+<span id="cb5-116"><a href="#cb5-116" aria-hidden="true" tabindex="-1"></a>dll<span class="sc">$</span><span class="fu">print_backward</span>()</span>
+<span id="cb5-117"><a href="#cb5-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-118"><a href="#cb5-118" aria-hidden="true" tabindex="-1"></a>dll<span class="sc">$</span><span class="fu">prepend</span>(<span class="st">"Cero"</span>)</span>
+<span id="cb5-119"><a href="#cb5-119" aria-hidden="true" tabindex="-1"></a>dll<span class="sc">$</span><span class="fu">print_forward</span>()</span>
+<span id="cb5-120"><a href="#cb5-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-121"><a href="#cb5-121" aria-hidden="true" tabindex="-1"></a>dll<span class="sc">$</span><span class="fu">delete</span>(<span class="st">"Dos"</span>)</span>
+<span id="cb5-122"><a href="#cb5-122" aria-hidden="true" tabindex="-1"></a>dll<span class="sc">$</span><span class="fu">print_forward</span>()</span>
+<span id="cb5-123"><a href="#cb5-123" aria-hidden="true" tabindex="-1"></a>dll<span class="sc">$</span><span class="fu">print_backward</span>()</span>
+<span id="cb5-124"><a href="#cb5-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-125"><a href="#cb5-125" aria-hidden="true" tabindex="-1"></a>dll<span class="sc">$</span><span class="fu">delete</span>(<span class="st">"Cero"</span>) <span class="co"># Eliminar la cabeza</span></span>
+<span id="cb5-126"><a href="#cb5-126" aria-hidden="true" tabindex="-1"></a>dll<span class="sc">$</span><span class="fu">print_forward</span>()</span>
+<span id="cb5-127"><a href="#cb5-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-128"><a href="#cb5-128" aria-hidden="true" tabindex="-1"></a>dll<span class="sc">$</span><span class="fu">delete</span>(<span class="st">"Tres"</span>) <span class="co"># Eliminar la cola</span></span>
+<span id="cb5-129"><a href="#cb5-129" aria-hidden="true" tabindex="-1"></a>dll<span class="sc">$</span><span class="fu">print_forward</span>()</span>
+<span id="cb5-130"><a href="#cb5-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-131"><a href="#cb5-131" aria-hidden="true" tabindex="-1"></a>dll<span class="sc">$</span><span class="fu">delete</span>(<span class="st">"Uno"</span>) <span class="co"># Eliminar el último</span></span>
+<span id="cb5-132"><a href="#cb5-132" aria-hidden="true" tabindex="-1"></a>dll<span class="sc">$</span><span class="fu">print_forward</span>()</span>
+<span id="cb5-133"><a href="#cb5-133" aria-hidden="true" tabindex="-1"></a>dll<span class="sc">$</span><span class="fu">print_backward</span>() <span class="co"># La lista está vacía</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="listas-circulares-circular-linked-lists" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="listas-circulares-circular-linked-lists"><span class="header-section-number">6.4</span> Listas Circulares (Circular Linked Lists)</h2>
+<p>Una lista circular es una lista enlazada donde el último nodo apunta al primer nodo, creando un ciclo. Puede ser simplemente o doblemente enlazada, pero la característica clave es el cierre del ciclo. Esto es útil para estructuras que no tienen un “principio” o “fin” natural, o donde se necesita un acceso continuo a los elementos (por ejemplo, en la planificación de procesos de un sistema operativo).</p>
+<p><strong>Estructura (Simple Circular):</strong></p>
+<pre><code>[dato | puntero_siguiente] -&gt; [dato | puntero_siguiente] -&gt; ... -&gt; [dato | puntero_al_primero]
+   ^                                                                     |
+   |_____________________________________________________________________|</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Clase CLL (Circular Linked List)</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>CircularLinkedList <span class="ot">&lt;-</span> R6<span class="sc">::</span><span class="fu">R6Class</span>(</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"CircularLinkedList"</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">public =</span> <span class="fu">list</span>(</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">head =</span> <span class="cn">NULL</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">initialize =</span> <span class="cf">function</span>() {</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>      self<span class="sc">$</span>head <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Añadir un nodo al final (mantiene el orden circular)</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">append =</span> <span class="cf">function</span>(valor) {</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>      new_node <span class="ot">&lt;-</span> <span class="fu">crear_nodo_simple</span>(valor) <span class="co"># Usamos el nodo simple para la base</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (<span class="fu">is.null</span>(self<span class="sc">$</span>head)) {</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>        self<span class="sc">$</span>head <span class="ot">&lt;-</span> new_node</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>        new_node<span class="sc">$</span>next_node <span class="ot">&lt;-</span> self<span class="sc">$</span>head <span class="co"># Apunta a sí mismo para formar el círculo</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>      } <span class="cf">else</span> {</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>        current <span class="ot">&lt;-</span> self<span class="sc">$</span>head</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Recorrer hasta el nodo justo antes de la cabeza (el actual "final")</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> (<span class="sc">!</span><span class="fu">identical</span>(current<span class="sc">$</span>next_node, self<span class="sc">$</span>head)) {</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>          current <span class="ot">&lt;-</span> current<span class="sc">$</span>next_node</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>        current<span class="sc">$</span>next_node <span class="ot">&lt;-</span> new_node</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>        new_node<span class="sc">$</span>next_node <span class="ot">&lt;-</span> self<span class="sc">$</span>head <span class="co"># El nuevo nodo apunta a la cabeza</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>      <span class="fu">invisible</span>(self)</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Imprimir la lista (recorre una vez el círculo)</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">print =</span> <span class="cf">function</span>() {</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (<span class="fu">is.null</span>(self<span class="sc">$</span>head)) {</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>        <span class="fu">cat</span>(<span class="st">"Lista Circular: Vacía</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>        <span class="fu">return</span>(<span class="fu">invisible</span>(self))</span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>      nodes_str <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>      current <span class="ot">&lt;-</span> self<span class="sc">$</span>head</span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>      <span class="cf">repeat</span> {</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>        nodes_str <span class="ot">&lt;-</span> <span class="fu">c</span>(nodes_str, <span class="fu">as.character</span>(current<span class="sc">$</span>value))</span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>        current <span class="ot">&lt;-</span> current<span class="sc">$</span>next_node</span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (<span class="fu">identical</span>(current, self<span class="sc">$</span>head)) { <span class="co"># Detener cuando volvemos a la cabeza</span></span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>          <span class="cf">break</span></span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>      <span class="fu">cat</span>(<span class="st">"Lista Circular: "</span>, <span class="fu">paste</span>(nodes_str, <span class="at">collapse =</span> <span class="st">" -&gt; "</span>), <span class="st">" -&gt; (vuelve a "</span>, nodes_str[<span class="dv">1</span>], <span class="st">")</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Eliminar un nodo por valor</span></span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>    <span class="at">delete =</span> <span class="cf">function</span>(valor) {</span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (<span class="fu">is.null</span>(self<span class="sc">$</span>head)) {</span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>        <span class="fu">return</span>(<span class="fu">invisible</span>(self))</span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Si la lista tiene un solo nodo</span></span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (<span class="fu">identical</span>(self<span class="sc">$</span>head<span class="sc">$</span>next_node, self<span class="sc">$</span>head) <span class="sc">&amp;&amp;</span> <span class="fu">identical</span>(self<span class="sc">$</span>head<span class="sc">$</span>value, valor)) {</span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a>        self<span class="sc">$</span>head <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a>        <span class="fu">return</span>(<span class="fu">invisible</span>(self))</span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a>      current <span class="ot">&lt;-</span> self<span class="sc">$</span>head</span>
+<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a>      prev <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Buscar el nodo a eliminar</span></span>
+<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a>      <span class="cf">repeat</span> {</span>
+<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (<span class="fu">identical</span>(current<span class="sc">$</span>value, valor)) {</span>
+<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a>          <span class="cf">break</span> <span class="co"># Se encontró el nodo</span></span>
+<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a>        prev <span class="ot">&lt;-</span> current</span>
+<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a>        current <span class="ot">&lt;-</span> current<span class="sc">$</span>next_node</span>
+<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (<span class="fu">identical</span>(current, self<span class="sc">$</span>head)) { <span class="co"># Se recorrió toda la lista y no se encontró</span></span>
+<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a>          <span class="fu">return</span>(<span class="fu">invisible</span>(self))</span>
+<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Si el nodo a eliminar es la cabeza</span></span>
+<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (<span class="fu">identical</span>(current, self<span class="sc">$</span>head)) {</span>
+<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Encontrar el último nodo para actualizar su puntero</span></span>
+<span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a>        temp_tail <span class="ot">&lt;-</span> self<span class="sc">$</span>head</span>
+<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> (<span class="sc">!</span><span class="fu">identical</span>(temp_tail<span class="sc">$</span>next_node, self<span class="sc">$</span>head)) {</span>
+<span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a>          temp_tail <span class="ot">&lt;-</span> temp_tail<span class="sc">$</span>next_node</span>
+<span id="cb7-81"><a href="#cb7-81" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb7-82"><a href="#cb7-82" aria-hidden="true" tabindex="-1"></a>        self<span class="sc">$</span>head <span class="ot">&lt;-</span> self<span class="sc">$</span>head<span class="sc">$</span>next_node</span>
+<span id="cb7-83"><a href="#cb7-83" aria-hidden="true" tabindex="-1"></a>        temp_tail<span class="sc">$</span>next_node <span class="ot">&lt;-</span> self<span class="sc">$</span>head</span>
+<span id="cb7-84"><a href="#cb7-84" aria-hidden="true" tabindex="-1"></a>      } <span class="cf">else</span> { <span class="co"># El nodo a eliminar no es la cabeza</span></span>
+<span id="cb7-85"><a href="#cb7-85" aria-hidden="true" tabindex="-1"></a>        prev<span class="sc">$</span>next_node <span class="ot">&lt;-</span> current<span class="sc">$</span>next_node</span>
+<span id="cb7-86"><a href="#cb7-86" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb7-87"><a href="#cb7-87" aria-hidden="true" tabindex="-1"></a>      <span class="fu">invisible</span>(self)</span>
+<span id="cb7-88"><a href="#cb7-88" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb7-89"><a href="#cb7-89" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb7-90"><a href="#cb7-90" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-91"><a href="#cb7-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-92"><a href="#cb7-92" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo de uso de la lista circular</span></span>
+<span id="cb7-93"><a href="#cb7-93" aria-hidden="true" tabindex="-1"></a>cll <span class="ot">&lt;-</span> CircularLinkedList<span class="sc">$</span><span class="fu">new</span>()</span>
+<span id="cb7-94"><a href="#cb7-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-95"><a href="#cb7-95" aria-hidden="true" tabindex="-1"></a>cll<span class="sc">$</span><span class="fu">append</span>(<span class="st">"Alfa"</span>)<span class="sc">$</span><span class="fu">append</span>(<span class="st">"Beta"</span>)<span class="sc">$</span><span class="fu">append</span>(<span class="st">"Gamma"</span>)</span>
+<span id="cb7-96"><a href="#cb7-96" aria-hidden="true" tabindex="-1"></a>cll<span class="sc">$</span><span class="fu">print</span>()</span>
+<span id="cb7-97"><a href="#cb7-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-98"><a href="#cb7-98" aria-hidden="true" tabindex="-1"></a>cll<span class="sc">$</span><span class="fu">delete</span>(<span class="st">"Beta"</span>)</span>
+<span id="cb7-99"><a href="#cb7-99" aria-hidden="true" tabindex="-1"></a>cll<span class="sc">$</span><span class="fu">print</span>()</span>
+<span id="cb7-100"><a href="#cb7-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-101"><a href="#cb7-101" aria-hidden="true" tabindex="-1"></a>cll<span class="sc">$</span><span class="fu">delete</span>(<span class="st">"Alfa"</span>) <span class="co"># Eliminar la cabeza</span></span>
+<span id="cb7-102"><a href="#cb7-102" aria-hidden="true" tabindex="-1"></a>cll<span class="sc">$</span><span class="fu">print</span>()</span>
+<span id="cb7-103"><a href="#cb7-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-104"><a href="#cb7-104" aria-hidden="true" tabindex="-1"></a>cll<span class="sc">$</span><span class="fu">delete</span>(<span class="st">"Gamma"</span>) <span class="co"># Eliminar el último que queda</span></span>
+<span id="cb7-105"><a href="#cb7-105" aria-hidden="true" tabindex="-1"></a>cll<span class="sc">$</span><span class="fu">print</span>()</span>
+<span id="cb7-106"><a href="#cb7-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-107"><a href="#cb7-107" aria-hidden="true" tabindex="-1"></a>cll<span class="sc">$</span><span class="fu">append</span>(<span class="st">"Único"</span>)</span>
+<span id="cb7-108"><a href="#cb7-108" aria-hidden="true" tabindex="-1"></a>cll<span class="sc">$</span><span class="fu">print</span>()</span>
+<span id="cb7-109"><a href="#cb7-109" aria-hidden="true" tabindex="-1"></a>cll<span class="sc">$</span><span class="fu">delete</span>(<span class="st">"Único"</span>)</span>
+<span id="cb7-110"><a href="#cb7-110" aria-hidden="true" tabindex="-1"></a>cll<span class="sc">$</span><span class="fu">print</span>() <span class="co"># La lista está vacía</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="pilas-stacks" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Pilas (Stacks)</h1>
+<p>Una Pila es una estructura de datos lineal que sigue el principio “LIFO” (Last-In, First-Out), es decir, el último elemento añadido es el primero en ser eliminado. Piensa en una pila de platos: solo puedes añadir un plato encima y solo puedes quitar el plato de más arriba.</p>
+<p>Las operaciones principales de una pila son:</p>
+<ul>
+<li><strong>Push</strong>: Añadir un elemento a la parte superior de la pila.</li>
+<li><strong>Pop</strong>: Eliminar y devolver el elemento de la parte superior de la pila.</li>
+<li><strong>Peek/Top</strong>: Devolver el elemento de la parte superior sin eliminarlo.</li>
+<li><strong>isEmpty</strong>: Comprobar si la pila está vacía.</li>
+<li><strong>Size</strong>: Devolver el número de elementos en la pila.</li>
+</ul>
+<p>En R, podemos implementar una pila de manera muy eficiente usando un <code>vector</code> o una <code>list</code> estándar, aprovechando que las operaciones de añadir/eliminar al final de un vector/lista son muy rápidas.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Clase Stack</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>Stack <span class="ot">&lt;-</span> R6<span class="sc">::</span><span class="fu">R6Class</span>(</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Stack"</span>,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">public =</span> <span class="fu">list</span>(</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">elements =</span> <span class="cn">NULL</span>,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">initialize =</span> <span class="cf">function</span>() {</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>      self<span class="sc">$</span>elements <span class="ot">&lt;-</span> <span class="fu">list</span>() <span class="co"># Usamos una lista para mayor flexibilidad de tipos</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Añadir un elemento a la pila (Push)</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">push =</span> <span class="cf">function</span>(item) {</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>      self<span class="sc">$</span>elements <span class="ot">&lt;-</span> <span class="fu">c</span>(self<span class="sc">$</span>elements, <span class="fu">list</span>(item)) <span class="co"># Añadir al final</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">invisible</span>(self)</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Eliminar y devolver el elemento superior (Pop)</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">pop =</span> <span class="cf">function</span>() {</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (self<span class="sc">$</span><span class="fu">is_empty</span>()) {</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>        <span class="fu">stop</span>(<span class="st">"La pila está vacía, no se puede hacer pop."</span>)</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>      last_index <span class="ot">&lt;-</span> <span class="fu">length</span>(self<span class="sc">$</span>elements)</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>      item <span class="ot">&lt;-</span> self<span class="sc">$</span>elements[[last_index]]</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>      self<span class="sc">$</span>elements <span class="ot">&lt;-</span> self<span class="sc">$</span>elements[<span class="sc">-</span>last_index] <span class="co"># Eliminar el último</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>      <span class="fu">return</span>(item)</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Devolver el elemento superior sin eliminarlo (Peek/Top)</span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">peek =</span> <span class="cf">function</span>() {</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (self<span class="sc">$</span><span class="fu">is_empty</span>()) {</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>        <span class="fu">return</span>(<span class="cn">NULL</span>) <span class="co"># O podrías lanzar un error, dependiendo del diseño</span></span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>      <span class="fu">return</span>(self<span class="sc">$</span>elements[[<span class="fu">length</span>(self<span class="sc">$</span>elements)]])</span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Comprobar si la pila está vacía</span></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">is_empty =</span> <span class="cf">function</span>() {</span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>      <span class="fu">return</span>(<span class="fu">length</span>(self<span class="sc">$</span>elements) <span class="sc">==</span> <span class="dv">0</span>)</span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Devolver el tamaño de la pila</span></span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="cf">function</span>() {</span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>      <span class="fu">return</span>(<span class="fu">length</span>(self<span class="sc">$</span>elements))</span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Imprimir el contenido de la pila</span></span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a>    <span class="at">print =</span> <span class="cf">function</span>() {</span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (self<span class="sc">$</span><span class="fu">is_empty</span>()) {</span>
+<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a>        <span class="fu">cat</span>(<span class="st">"Pila: Vacía</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a>      } <span class="cf">else</span> {</span>
+<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a>        <span class="fu">cat</span>(<span class="st">"Pila (Top -&gt; Base): "</span>, <span class="fu">paste</span>(<span class="fu">rev</span>(<span class="fu">unlist</span>(self<span class="sc">$</span>elements)), <span class="at">collapse =</span> <span class="st">" | "</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb8-54"><a href="#cb8-54" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb8-55"><a href="#cb8-55" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-56"><a href="#cb8-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-57"><a href="#cb8-57" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo de uso de la pila</span></span>
+<span id="cb8-58"><a href="#cb8-58" aria-hidden="true" tabindex="-1"></a>mi_pila <span class="ot">&lt;-</span> Stack<span class="sc">$</span><span class="fu">new</span>()</span>
+<span id="cb8-59"><a href="#cb8-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-60"><a href="#cb8-60" aria-hidden="true" tabindex="-1"></a>mi_pila<span class="sc">$</span><span class="fu">push</span>(<span class="st">"Primero"</span>)</span>
+<span id="cb8-61"><a href="#cb8-61" aria-hidden="true" tabindex="-1"></a>mi_pila<span class="sc">$</span><span class="fu">push</span>(<span class="st">"Segundo"</span>)</span>
+<span id="cb8-62"><a href="#cb8-62" aria-hidden="true" tabindex="-1"></a>mi_pila<span class="sc">$</span><span class="fu">push</span>(<span class="st">"Tercero"</span>)</span>
+<span id="cb8-63"><a href="#cb8-63" aria-hidden="true" tabindex="-1"></a>mi_pila<span class="sc">$</span><span class="fu">print</span>()</span>
+<span id="cb8-64"><a href="#cb8-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-65"><a href="#cb8-65" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Elemento superior (peek):"</span>, mi_pila<span class="sc">$</span><span class="fu">peek</span>(), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb8-66"><a href="#cb8-66" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Tamaño de la pila:"</span>, mi_pila<span class="sc">$</span><span class="fu">size</span>(), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb8-67"><a href="#cb8-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-68"><a href="#cb8-68" aria-hidden="true" tabindex="-1"></a>item_sacado <span class="ot">&lt;-</span> mi_pila<span class="sc">$</span><span class="fu">pop</span>()</span>
+<span id="cb8-69"><a href="#cb8-69" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Sacado de la pila (pop):"</span>, item_sacado, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb8-70"><a href="#cb8-70" aria-hidden="true" tabindex="-1"></a>mi_pila<span class="sc">$</span><span class="fu">print</span>()</span>
+<span id="cb8-71"><a href="#cb8-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-72"><a href="#cb8-72" aria-hidden="true" tabindex="-1"></a>mi_pila<span class="sc">$</span><span class="fu">push</span>(<span class="st">"Cuarto"</span>)</span>
+<span id="cb8-73"><a href="#cb8-73" aria-hidden="true" tabindex="-1"></a>mi_pila<span class="sc">$</span><span class="fu">print</span>()</span>
+<span id="cb8-74"><a href="#cb8-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-75"><a href="#cb8-75" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> (<span class="sc">!</span>mi_pila<span class="sc">$</span><span class="fu">is_empty</span>()) {</span>
+<span id="cb8-76"><a href="#cb8-76" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Sacando:"</span>, mi_pila<span class="sc">$</span><span class="fu">pop</span>(), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb8-77"><a href="#cb8-77" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-78"><a href="#cb8-78" aria-hidden="true" tabindex="-1"></a>mi_pila<span class="sc">$</span><span class="fu">print</span>()</span>
+<span id="cb8-79"><a href="#cb8-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-80"><a href="#cb8-80" aria-hidden="true" tabindex="-1"></a><span class="co"># Intentar pop en pila vacía (esto causará un error)</span></span>
+<span id="cb8-81"><a href="#cb8-81" aria-hidden="true" tabindex="-1"></a><span class="co"># tryCatch({</span></span>
+<span id="cb8-82"><a href="#cb8-82" aria-hidden="true" tabindex="-1"></a><span class="co">#   mi_pila$pop()</span></span>
+<span id="cb8-83"><a href="#cb8-83" aria-hidden="true" tabindex="-1"></a><span class="co"># }, error = function(e) {</span></span>
+<span id="cb8-84"><a href="#cb8-84" aria-hidden="true" tabindex="-1"></a><span class="co">#   message("Error al hacer pop en pila vacía: ", e$message)</span></span>
+<span id="cb8-85"><a href="#cb8-85" aria-hidden="true" tabindex="-1"></a><span class="co"># })</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+<section id="colas-queues" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Colas (Queues)</h1>
+<p>Una Cola es una estructura de datos lineal que sigue el principio “FIFO” (First-In, First-Out), es decir, el primer elemento añadido es el primero en ser eliminado. Piensa en una cola de personas en un supermercado: la primera persona en llegar es la primera en ser atendida.</p>
+<p>Las operaciones principales de una cola son:</p>
+<ul>
+<li><strong>Enqueue</strong>: Añadir un elemento al final de la cola.</li>
+<li><strong>Dequeue</strong>: Eliminar y devolver el elemento del frente de la cola.</li>
+<li><strong>Front</strong>: Devolver el elemento del frente sin eliminarlo.</li>
+<li><strong>isEmpty</strong>: Comprobar si la cola está vacía.</li>
+<li><strong>Size</strong>: Devolver el número de elementos en la cola.</li>
+</ul>
+<p>La implementación de una cola en R utilizando <code>vector</code> o <code>list</code> requiere un poco más de consideración que la pila. Añadir al final (<code>enqueue</code>) es eficiente. Sin embargo, eliminar del principio (<code>dequeue</code>) en un vector grande puede ser menos eficiente, ya que R tiene que “desplazar” todos los elementos restantes para llenar el hueco. Para colas de gran tamaño y operaciones frecuentes de <code>dequeue</code>, una implementación basada en una lista enlazada (o una estructura optimizada como <code>collections::deque</code> si está disponible) sería más performante. Para propósitos educativos y colas de tamaño moderado, la lista de R es suficiente.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Clase Queue</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>Queue <span class="ot">&lt;-</span> R6<span class="sc">::</span><span class="fu">R6Class</span>(</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Queue"</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">public =</span> <span class="fu">list</span>(</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">elements =</span> <span class="cn">NULL</span>,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">initialize =</span> <span class="cf">function</span>() {</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>      self<span class="sc">$</span>elements <span class="ot">&lt;-</span> <span class="fu">list</span>() <span class="co"># Usamos una lista</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Añadir un elemento a la cola (Enqueue)</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">enqueue =</span> <span class="cf">function</span>(item) {</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>      self<span class="sc">$</span>elements <span class="ot">&lt;-</span> <span class="fu">c</span>(self<span class="sc">$</span>elements, <span class="fu">list</span>(item)) <span class="co"># Añadir al final</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">invisible</span>(self)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Eliminar y devolver el elemento del frente (Dequeue)</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">dequeue =</span> <span class="cf">function</span>() {</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (self<span class="sc">$</span><span class="fu">is_empty</span>()) {</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>        <span class="fu">stop</span>(<span class="st">"La cola está vacía, no se puede hacer dequeue."</span>)</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>      item <span class="ot">&lt;-</span> self<span class="sc">$</span>elements[[<span class="dv">1</span>]] <span class="co"># Obtener el primer elemento</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>      self<span class="sc">$</span>elements <span class="ot">&lt;-</span> self<span class="sc">$</span>elements[<span class="sc">-</span><span class="dv">1</span>] <span class="co"># Eliminar el primer elemento (¡cuidado con rendimiento en grandes colas!)</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>      <span class="fu">return</span>(item)</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Devolver el elemento del frente sin eliminarlo (Front)</span></span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">front =</span> <span class="cf">function</span>() {</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (self<span class="sc">$</span><span class="fu">is_empty</span>()) {</span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>        <span class="fu">return</span>(<span class="cn">NULL</span>)</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>      <span class="fu">return</span>(self<span class="sc">$</span>elements[[<span class="dv">1</span>]])</span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Comprobar si la cola está vacía</span></span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">is_empty =</span> <span class="cf">function</span>() {</span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>      <span class="fu">return</span>(<span class="fu">length</span>(self<span class="sc">$</span>elements) <span class="sc">==</span> <span class="dv">0</span>)</span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Devolver el tamaño de la cola</span></span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="cf">function</span>() {</span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>      <span class="fu">return</span>(<span class="fu">length</span>(self<span class="sc">$</span>elements))</span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Imprimir el contenido de la cola</span></span>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">print =</span> <span class="cf">function</span>() {</span>
+<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (self<span class="sc">$</span><span class="fu">is_empty</span>()) {</span>
+<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a>        <span class="fu">cat</span>(<span class="st">"Cola: Vacía</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a>      } <span class="cf">else</span> {</span>
+<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a>        <span class="fu">cat</span>(<span class="st">"Cola (Frente -&gt; Final): "</span>, <span class="fu">paste</span>(<span class="fu">unlist</span>(self<span class="sc">$</span>elements), <span class="at">collapse =</span> <span class="st">" | "</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo de uso de la cola</span></span>
+<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a>mi_cola <span class="ot">&lt;-</span> Queue<span class="sc">$</span><span class="fu">new</span>()</span>
+<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a>mi_cola<span class="sc">$</span><span class="fu">enqueue</span>(<span class="st">"Cliente 1"</span>)</span>
+<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a>mi_cola<span class="sc">$</span><span class="fu">enqueue</span>(<span class="st">"Cliente 2"</span>)</span>
+<span id="cb9-61"><a href="#cb9-61" aria-hidden="true" tabindex="-1"></a>mi_cola<span class="sc">$</span><span class="fu">enqueue</span>(<span class="st">"Cliente 3"</span>)</span>
+<span id="cb9-62"><a href="#cb9-62" aria-hidden="true" tabindex="-1"></a>mi_cola<span class="sc">$</span><span class="fu">print</span>()</span>
+<span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Elemento al frente (front):"</span>, mi_cola<span class="sc">$</span><span class="fu">front</span>(), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Tamaño de la cola:"</span>, mi_cola<span class="sc">$</span><span class="fu">size</span>(), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb9-66"><a href="#cb9-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-67"><a href="#cb9-67" aria-hidden="true" tabindex="-1"></a>cliente_atendido <span class="ot">&lt;-</span> mi_cola<span class="sc">$</span><span class="fu">dequeue</span>()</span>
+<span id="cb9-68"><a href="#cb9-68" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Atendiendo a (dequeue):"</span>, cliente_atendido, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb9-69"><a href="#cb9-69" aria-hidden="true" tabindex="-1"></a>mi_cola<span class="sc">$</span><span class="fu">print</span>()</span>
+<span id="cb9-70"><a href="#cb9-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-71"><a href="#cb9-71" aria-hidden="true" tabindex="-1"></a>mi_cola<span class="sc">$</span><span class="fu">enqueue</span>(<span class="st">"Cliente 4"</span>)</span>
+<span id="cb9-72"><a href="#cb9-72" aria-hidden="true" tabindex="-1"></a>mi_cola<span class="sc">$</span><span class="fu">print</span>()</span>
+<span id="cb9-73"><a href="#cb9-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-74"><a href="#cb9-74" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> (<span class="sc">!</span>mi_cola<span class="sc">$</span><span class="fu">is_empty</span>()) {</span>
+<span id="cb9-75"><a href="#cb9-75" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Atendiendo a:"</span>, mi_cola<span class="sc">$</span><span class="fu">dequeue</span>(), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb9-76"><a href="#cb9-76" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-77"><a href="#cb9-77" aria-hidden="true" tabindex="-1"></a>mi_cola<span class="sc">$</span><span class="fu">print</span>()</span>
+<span id="cb9-78"><a href="#cb9-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-79"><a href="#cb9-79" aria-hidden="true" tabindex="-1"></a><span class="co"># Intentar dequeue en cola vacía (esto causará un error)</span></span>
+<span id="cb9-80"><a href="#cb9-80" aria-hidden="true" tabindex="-1"></a><span class="co"># tryCatch({</span></span>
+<span id="cb9-81"><a href="#cb9-81" aria-hidden="true" tabindex="-1"></a><span class="co">#   mi_cola$dequeue()</span></span>
+<span id="cb9-82"><a href="#cb9-82" aria-hidden="true" tabindex="-1"></a><span class="co"># }, error = function(e) {</span></span>
+<span id="cb9-83"><a href="#cb9-83" aria-hidden="true" tabindex="-1"></a><span class="co">#   message("Error al hacer dequeue en cola vacía: ", e$message)</span></span>
+<span id="cb9-84"><a href="#cb9-84" aria-hidden="true" tabindex="-1"></a><span class="co"># })</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+<section id="conclusión" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Conclusión</h1>
+<p>¡Felicidades! Has recorrido un camino fundamental en el estudio de las estructuras de datos dinámicas. Hemos explorado las listas enlazadas en sus variantes (simples, dobles, circulares), comprendiendo cómo, aunque R no tenga “punteros” explícitos, podemos simular su comportamiento para entender sus principios y ventajas en la gestión de memoria y flexibilidad.</p>
+<p>También hemos implementado las Pilas (LIFO) y las Colas (FIFO), dos estructuras ubicuas en la informática, mostrando cómo R, con sus tipos <code>list</code> y <code>vector</code>, puede manejarlas de manera eficiente para muchos casos de uso. Hemos destacado las implicaciones de rendimiento, especialmente al realizar <code>dequeue</code> en una cola basada en vectores R estándar.</p>
+<p>Entender estas estructuras no solo te proporciona herramientas para resolver problemas específicos, sino que también mejora tu comprensión de cómo funcionan los datos subyacentes en muchos algoritmos y sistemas. Aunque R a menudo abstrae estas complejidades con sus potentes funciones y tipos de datos de alto nivel, el conocimiento profundo de estas bases te convertirá en un programador de R más versátil y perspicaz. ¡Sigue explorando y construyendo!</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./01-estructuras-estaticas.html" class="pagination-link" aria-label="Capítulo 1: Estructuras Estáticas">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Capítulo 1: Estructuras Estáticas</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./03-algoritmos-ordenacion.html" class="pagination-link" aria-label="Algoritmos de Ordenación">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Algoritmos de Ordenación</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
