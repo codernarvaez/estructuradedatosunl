@@ -275,13 +275,17 @@ Se desea implementar un método de búsqueda binaria en su versión iterativa qu
 /**
  * Método (función) para realizar una búsqueda binaria en un arreglo ordenado.
  *
- * @param datos    Un arreglo numérico o de caracteres ORDENADO donde haremos nuestra búsqueda.
+ * @param datos    Un arreglo numérico o de caracteres ORDENADO donde haremos 
+ nuestra búsqueda.
  * @param objetivo El valor que se desea encontrar.
- * @return El índice (posición) del objetivo si se encuentra, de lo contrario nos devolvería -1 (NULL en Java se representa con -1).
+ * @return El índice (posición) del objetivo si se encuentra, de lo contrario 
+ nos devolvería -1 (NULL en Java se representa con -1).
  * 
  * @example
- * Tenemos un arreglo ordenado (int[] arregloOrdenado = {16, 18, 19, 21, 22, 24, 25, 28, 30, 32};).
- * busquedaBinaria(arregloOrdenado, 22) // Debería devolver 4, ya que en Java el índice inicia en 0 y finaliza en n-1
+ * Tenemos un arreglo ordenado 
+ int[] arregloOrdenado = {16, 18, 19, 21, 22, 24, 25, 28, 30, 32};
+ * busquedaBinaria(arregloOrdenado, 22) // Debería devolver 4, ya que en Java 
+ el índice inicia en 0 y finaliza en n-1
  * busquedaBinaria(arregloOrdenado, 13) // Debería devolver -1
  */
 public class BusquedaBinaria {
@@ -295,7 +299,8 @@ public class BusquedaBinaria {
         // El arreglo ya está ordenado.
         // Si no estuviera ordenado, necesitaríamos una línea como:
         // Arrays.sort(datos);
-        // Pero esto añade una complejidad O(n log n) y no es parte del algoritmo de búsqueda binaria en sí.
+        // Pero esto añade una complejidad O(n log n) y no es parte del
+        algoritmo de búsqueda binaria en sí.
 
         int inicio = 0;
         int fin = datos.length - 1;
@@ -306,7 +311,8 @@ public class BusquedaBinaria {
 
             // Comparamos el elemento en el medio con el objetivo
             if (datos[medio] == objetivo) {
-                System.out.println("Objetivo " + objetivo + " encontrado en el índice " + medio);
+                System.out.println("El objetivo " + objetivo + " encontrado en
+                el índice " + medio);
                 return medio; // Encontrado
             } else if (datos[medio] < objetivo) {
                 // El objetivo está en la mitad derecha
@@ -317,17 +323,18 @@ public class BusquedaBinaria {
             }
         }
         // Si el bucle termina, el objetivo no fue encontrado
-        System.out.println("Objetivo " + objetivo + " no encontrado en el arreglo.");
+        System.out.println("El objetivo " + objetivo + " no se encuentra en el
+        arreglo.");
         return -1;
     }
   public static void main(String[] args) {
     int[] arregloOrdenado = {16, 18, 19, 21, 22, 24, 25, 28, 30, 32};
     
      // Buscar edad existente (22)
-    System.out.println(busquedaBinaria(arregloOrdenado, 22));
+    busquedaBinaria(arregloOrdenado, 22);
     
      // Buscar edad no existente (13)
-    System.out.println(busquedaBinaria(arregloOrdenado, 13)); 
+    busquedaBinaria(arregloOrdenado, 13); 
 }
 }
 ```
@@ -340,7 +347,7 @@ Recuerden, el arreglo DEBE estar ordenado para que la búsqueda binaria funcione
 // Creamos un arreglo ordenado
 int[] arreglo_ordenado = {5, 10, 15, 20, 25, 30, 35, 40, 45, 50};
 
-// Ejemplo 1: El objetivo (número) SÍ se encuentra dentro del arreglo
+// Ejemplo 1: El objetivo (número) Sí se encuentra dentro del arreglo
 System.out.println(busquedaBinaria(arreglo_ordenado, 35));
 
 // Ejemplo 2: El objetivo NO está presente

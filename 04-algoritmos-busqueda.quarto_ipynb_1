@@ -2,7 +2,7 @@
  "cells": [
   {
    "cell_type": "markdown",
-   "id": "7b2d2ddc",
+   "id": "89fe55ea",
    "metadata": {},
    "source": [
     "---\n",
@@ -88,7 +88,7 @@
   {
    "cell_type": "code",
    "execution_count": 1,
-   "id": "340a9356",
+   "id": "20f6a87b",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -115,7 +115,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "22b5e37b",
+   "id": "ef0a7ea4",
    "metadata": {},
    "source": [
     "#### JavaScript\n",
@@ -198,7 +198,7 @@
   {
    "cell_type": "code",
    "execution_count": 2,
-   "id": "4032bc2a",
+   "id": "8c627ce4",
    "metadata": {},
    "outputs": [
     {
@@ -254,7 +254,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "695333c5",
+   "id": "8841eccf",
    "metadata": {},
    "source": [
     "#### JavaScript\n",
@@ -333,13 +333,17 @@
     "/**\n",
     " * Método (función) para realizar una búsqueda binaria en un arreglo ordenado.\n",
     " *\n",
-    " * @param datos    Un arreglo numérico o de caracteres ORDENADO donde haremos nuestra búsqueda.\n",
+    " * @param datos    Un arreglo numérico o de caracteres ORDENADO donde haremos \n",
+    " nuestra búsqueda.\n",
     " * @param objetivo El valor que se desea encontrar.\n",
-    " * @return El índice (posición) del objetivo si se encuentra, de lo contrario nos devolvería -1 (NULL en Java se representa con -1).\n",
+    " * @return El índice (posición) del objetivo si se encuentra, de lo contrario \n",
+    " nos devolvería -1 (NULL en Java se representa con -1).\n",
     " * \n",
     " * @example\n",
-    " * Tenemos un arreglo ordenado (int[] arregloOrdenado = {16, 18, 19, 21, 22, 24, 25, 28, 30, 32};).\n",
-    " * busquedaBinaria(arregloOrdenado, 22) // Debería devolver 4, ya que en Java el índice inicia en 0 y finaliza en n-1\n",
+    " * Tenemos un arreglo ordenado \n",
+    " int[] arregloOrdenado = {16, 18, 19, 21, 22, 24, 25, 28, 30, 32};\n",
+    " * busquedaBinaria(arregloOrdenado, 22) // Debería devolver 4, ya que en Java \n",
+    " el índice inicia en 0 y finaliza en n-1\n",
     " * busquedaBinaria(arregloOrdenado, 13) // Debería devolver -1\n",
     " */\n",
     "public class BusquedaBinaria {\n",
@@ -353,7 +357,8 @@
     "        // El arreglo ya está ordenado.\n",
     "        // Si no estuviera ordenado, necesitaríamos una línea como:\n",
     "        // Arrays.sort(datos);\n",
-    "        // Pero esto añade una complejidad O(n log n) y no es parte del algoritmo de búsqueda binaria en sí.\n",
+    "        // Pero esto añade una complejidad O(n log n) y no es parte del\n",
+    "        algoritmo de búsqueda binaria en sí.\n",
     "\n",
     "        int inicio = 0;\n",
     "        int fin = datos.length - 1;\n",
@@ -364,7 +369,8 @@
     "\n",
     "            // Comparamos el elemento en el medio con el objetivo\n",
     "            if (datos[medio] == objetivo) {\n",
-    "                System.out.println(\"Objetivo \" + objetivo + \" encontrado en el índice \" + medio);\n",
+    "                System.out.println(\"El objetivo \" + objetivo + \" encontrado en\n",
+    "                el índice \" + medio);\n",
     "                return medio; // Encontrado\n",
     "            } else if (datos[medio] < objetivo) {\n",
     "                // El objetivo está en la mitad derecha\n",
@@ -375,17 +381,18 @@
     "            }\n",
     "        }\n",
     "        // Si el bucle termina, el objetivo no fue encontrado\n",
-    "        System.out.println(\"Objetivo \" + objetivo + \" no encontrado en el arreglo.\");\n",
+    "        System.out.println(\"El objetivo \" + objetivo + \" no se encuentra en el\n",
+    "        arreglo.\");\n",
     "        return -1;\n",
     "    }\n",
     "  public static void main(String[] args) {\n",
     "    int[] arregloOrdenado = {16, 18, 19, 21, 22, 24, 25, 28, 30, 32};\n",
     "    \n",
     "     // Buscar edad existente (22)\n",
-    "    System.out.println(busquedaBinaria(arregloOrdenado, 22));\n",
+    "    busquedaBinaria(arregloOrdenado, 22);\n",
     "    \n",
     "     // Buscar edad no existente (13)\n",
-    "    System.out.println(busquedaBinaria(arregloOrdenado, 13)); \n",
+    "    busquedaBinaria(arregloOrdenado, 13); \n",
     "}\n",
     "}\n",
     "```\n",
@@ -398,7 +405,7 @@
     "// Creamos un arreglo ordenado\n",
     "int[] arreglo_ordenado = {5, 10, 15, 20, 25, 30, 35, 40, 45, 50};\n",
     "\n",
-    "// Ejemplo 1: El objetivo (número) SÍ se encuentra dentro del arreglo\n",
+    "// Ejemplo 1: El objetivo (número) Sí se encuentra dentro del arreglo\n",
     "System.out.println(busquedaBinaria(arreglo_ordenado, 35));\n",
     "\n",
     "// Ejemplo 2: El objetivo NO está presente\n",
@@ -427,7 +434,7 @@
   {
    "cell_type": "code",
    "execution_count": 3,
-   "id": "0bbe3c97",
+   "id": "f05aaba5",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -469,7 +476,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "fd28cf9d",
+   "id": "a74d6cf0",
    "metadata": {},
    "source": [
     "### Ejemplos de Uso\n",
@@ -482,7 +489,7 @@
   {
    "cell_type": "code",
    "execution_count": 4,
-   "id": "5f2a2085",
+   "id": "87a91039",
    "metadata": {},
    "outputs": [
     {
@@ -530,7 +537,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "0f09f9a4",
+   "id": "6dcf48c6",
    "metadata": {},
    "source": [
     "**¡Advertencia!** ¿Qué pasa si el arreglo no está ordenado?"
@@ -539,7 +546,7 @@
   {
    "cell_type": "code",
    "execution_count": 5,
-   "id": "70962ec9",
+   "id": "77f565b1",
    "metadata": {},
    "outputs": [
     {
@@ -561,7 +568,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "bfa4683a",
+   "id": "4fc6131c",
    "metadata": {},
    "source": [
     "Para corregirlo, simplemente ordenamos el vector antes de buscar:"
@@ -570,7 +577,7 @@
   {
    "cell_type": "code",
    "execution_count": 6,
-   "id": "bb289677",
+   "id": "c6dfa629",
    "metadata": {},
    "outputs": [
     {
@@ -601,7 +608,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "3ac1107e",
+   "id": "24fb0271",
    "metadata": {},
    "source": [
     "### Eficiencia y Casos de Uso\n",
