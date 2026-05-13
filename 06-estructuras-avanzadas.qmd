@@ -12,7 +12,7 @@ Los árboles AVL (por sus inventores Adelson-Velsky y Landis) son un tipo de ár
 
 #### Auto-balanceo automático
 
-La característica más definitoria de un árbol AVL es que se balancea automáticamente después de cada inserción o eliminación. Ninguna operación puede dejar al árbol en un estado desequilibrado de forma permanente.
+La característica más definitoria de un árbol AVL es que se balancea automáticamente después de cada inserción o eliminación. Ninguna operación puede dejar al árbol en un estado desequilibrado de forma permanente.[@adelson1962avl]
 
 Esto se logra mediante el uso del factor de balance (FB) de cada nodo:
 
@@ -26,7 +26,7 @@ $$
 FB \in \{-1, 0, 1\}
 $$
 
-Si después de una inserción o eliminación algún nodo viola esta condición, el árbol aplica rotaciones (simples o dobles) para restaurar el equilibrio antes de finalizar la operación.
+Si después de una inserción o eliminación algún nodo viola esta condición, el árbol aplica rotaciones (simples o dobles) para restaurar el equilibrio antes de finalizar la operación.[@brown2024avl]
 
 En Java puede implementarse así:
 
@@ -41,7 +41,7 @@ int factorBalance(Nodo nodo) {
 
 ####Altura garantizada O(log n)
 
-En un árbol de búsqueda binario (BST) simple, insertar elementos en orden creciente (1, 2, 3, 4, 5…) produce una estructura degenerada que es prácticamente una lista enlazada.
+En un árbol de búsqueda binario (BST) simple, insertar elementos en orden creciente (1, 2, 3, 4, 5…) produce una estructura degenerada que es prácticamente una lista enlazada.[@nievergelt1972binary]
 
 ```text
 BST degenerado:              AVL (mismos datos):

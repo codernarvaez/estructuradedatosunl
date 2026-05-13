@@ -58,7 +58,26 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -305,7 +324,7 @@ window.Quarto = {
 <h3 data-number="8.1.1" class="anchored" data-anchor-id="caracteristicas-importantes"><span class="header-section-number">8.1.1</span> Caracteristicas Importantes</h3>
 <section id="auto-balanceo-automático" class="level4" data-number="8.1.1.1">
 <h4 data-number="8.1.1.1" class="anchored" data-anchor-id="auto-balanceo-automático"><span class="header-section-number">8.1.1.1</span> Auto-balanceo automático</h4>
-<p>La característica más definitoria de un árbol AVL es que se balancea automáticamente después de cada inserción o eliminación. Ninguna operación puede dejar al árbol en un estado desequilibrado de forma permanente.</p>
+<p>La característica más definitoria de un árbol AVL es que se balancea automáticamente después de cada inserción o eliminación. Ninguna operación puede dejar al árbol en un estado desequilibrado de forma permanente.<span class="citation" data-cites="adelson1962avl">(<a href="#ref-adelson1962avl" role="doc-biblioref">Adelson-Velskii y Landis 1962</a>)</span></p>
 <p>Esto se logra mediante el uso del factor de balance (FB) de cada nodo:</p>
 <p><span class="math display">\[
 FB(nodo) = altura(subárbol\ izquierdo) - altura(subárbol\ derecho)
@@ -314,7 +333,7 @@ FB(nodo) = altura(subárbol\ izquierdo) - altura(subárbol\ derecho)
 <p><span class="math display">\[
 FB \in \{-1, 0, 1\}
 \]</span></p>
-<p>Si después de una inserción o eliminación algún nodo viola esta condición, el árbol aplica rotaciones (simples o dobles) para restaurar el equilibrio antes de finalizar la operación.</p>
+<p>Si después de una inserción o eliminación algún nodo viola esta condición, el árbol aplica rotaciones (simples o dobles) para restaurar el equilibrio antes de finalizar la operación.<span class="citation" data-cites="brown2024avl">(<a href="#ref-brown2024avl" role="doc-biblioref"><strong>brown2024avl?</strong></a>)</span></p>
 <p>En Java puede implementarse así:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode java code-with-copy"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> <span class="fu">factorBalance</span><span class="op">(</span>Nodo nodo<span class="op">)</span> <span class="op">{</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>nodo <span class="op">==</span> <span class="kw">null</span><span class="op">)</span> <span class="op">{</span></span>
@@ -323,7 +342,7 @@ FB \in \{-1, 0, 1\}
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">altura</span><span class="op">(</span>nodo<span class="op">.</span><span class="fu">izquierdo</span><span class="op">)</span> <span class="op">-</span> <span class="fu">altura</span><span class="op">(</span>nodo<span class="op">.</span><span class="fu">derecho</span><span class="op">);</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p>####Altura garantizada O(log n)</p>
-<p>En un árbol de búsqueda binario (BST) simple, insertar elementos en orden creciente (1, 2, 3, 4, 5…) produce una estructura degenerada que es prácticamente una lista enlazada.</p>
+<p>En un árbol de búsqueda binario (BST) simple, insertar elementos en orden creciente (1, 2, 3, 4, 5…) produce una estructura degenerada que es prácticamente una lista enlazada.<span class="citation" data-cites="nievergelt1972binary">(<a href="#ref-nievergelt1972binary" role="doc-biblioref"><strong>nievergelt1972binary?</strong></a>)</span></p>
 <pre class="text"><code>BST degenerado:              AVL (mismos datos):
 
 1                           3
@@ -936,6 +955,11 @@ public class Main {
 <p>Como expertos en R, nuestro poder no reside solo en codificar estructuras de datos desde cero, sino en saber cuándo y dónde se utilizan, cómo interactuar con ellas a través de las abstracciones del lenguaje, y cómo elegir la herramienta adecuada para cada problema, ya sea una función base de R, un paquete externo o la integración con sistemas externos.</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-adelson1962avl" class="csl-entry" role="listitem">
+Adelson-Velskii, G. M., y E. M. Landis. 1962. <span>«An Algorithm for the Organization of Information»</span>. <em>Soviet Mathematics Doklady</em> 3: 1259-63. <a href="https://zhjwpku.com/assets/pdf/AED2-10-avl-paper.pdf">https://zhjwpku.com/assets/pdf/AED2-10-avl-paper.pdf</a>.
+</div>
+</div>
 </section>
 </section>
 
