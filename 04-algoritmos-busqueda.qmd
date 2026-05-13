@@ -245,24 +245,27 @@ Es aquí donde la búsqueda binaria brilla.
 
 ## Búsqueda Binaria (Binary Search)
 
-A diferencia de la búsqueda secuencial, la búsqueda binaria es un algoritmo mucho más eficiente, pero tiene un requisito fundamental: **los datos deben estar ordenados**.
+A diferencia de la búsqueda secuencial, la búsqueda binaria es un método mucho más rápido para encontrar cosas, pero tiene una regla de que deben cumplir: **los datos deben estar perfectamente ordenados (como los números del 1 al 100 o las letras de la A a la Z)**.
 
-Piensen en cómo buscan una palabra en un diccionario.
-No empiezan por la primera palabra y revisan una por una.
-Abren el diccionario por la mitad, miran si la palabra está antes o después, y luego descartan la mitad del diccionario que no les sirve.
-Repiten este proceso en la mitad restante hasta encontrar la palabra.
-La búsqueda binaria opera bajo el mismo principio de "divide y vencerás".
+Piensen en cómo buscan una palabra en un diccionario. No empiezan desde la primera página revisando palabra por palabra. Lo que hacen es abrir el diccionario por la mitad y se fijan: "¿La palabra que busco está antes o después de la que tengo aquí?". Así, descartan de un solo golpe toda la mitad que no les sirve y repiten lo mismo con la parte que queda. A esto se le llama "divide y vencerás".
 
 ### ¿Cómo funciona?
 
-1.  Asegurarse de que el vector esté **ordenado**. Si no lo está, primero deben ordenarlo.
-2.  Se define un rango de búsqueda dentro del vector, inicialmente todo el vector. Este rango está delimitado por un índice `inicio` y un índice `fin`.
-3.  Se calcula el índice del elemento central del rango: `medio = (inicio + fin) / 2`.
-4.  Se compara el elemento en la posición `medio` con el valor objetivo:
-    -   Si coinciden, el elemento ha sido encontrado y se devuelve `medio`.
-    -   Si el elemento en `medio` es **menor** que el objetivo, significa que el objetivo (si existe) debe estar en la mitad **derecha** del rango. Se ajusta `inicio` a `medio + 1`.
-    -   Si el elemento en `medio` es **mayor** que el objetivo, significa que el objetivo (si existe) debe estar en la mitad **izquierda** del rango. Se ajusta `fin` a `medio - 1`.
-5.  Los pasos 2 a 4 se repiten hasta que el objetivo se encuentra o hasta que el rango de búsqueda se reduce a cero (lo que significa que el objetivo no está presente).
+1. Revisar el orden: Primero confirmamos que la lista de datos esté ordenada (por ejemplo, de menos puntos a más puntos). Si está desordenada, el algoritmo se confunde y no funciona.
+
+2. Marcar el territorio: El programa define un área de búsqueda. Al principio es toda la lista, marcando dónde está el inicio (la primera posición) y el fin (la última posición).
+
+3. Calcular el centro: El algoritmo se va directo al grano y calcula quién es el elemento que está justo en el medio de ese rango.
+
+4. Comparar el valor: Miramos el dato que está en el medio y lo comparamos con el que queremos encontrar:
+
+    -Si es igual: Lo encontramos, el programa nos avisa en qué posición está y se detiene.
+
+    -Si es menor: Si el del medio es más pequeño que nuestro objetivo, significa que lo que buscamos está en la derecha. Así que movemos el inicio justo después del medio.
+
+    -Si es mayor: Si el del medio es más grande, lo que buscamos está en la izquierda. Así que movemos el fin justo antes del medio.
+
+5. Cerrar el círculo: Estos pasos se repiten una y otra vez. Cada vez el área de búsqueda es más pequeña, hasta que encontramos el valor o hasta que nos damos cuenta de que el dato no existe porque ya no quedan más lugares donde buscar.
 
 ### Implementación en Java
 
@@ -338,39 +341,8 @@ public class BusquedaBinaria {
 }
 }
 ```
+### Implementación Python
 
-### Ejemplos de Uso
-
-Recuerden, el arreglo DEBE estar ordenado para que la búsqueda binaria funcione correctamente.
-
-```Java
-// Creamos un arreglo ordenado
-int[] arreglo_ordenado = {5, 10, 15, 20, 25, 30, 35, 40, 45, 50};
-
-// Ejemplo 1: El objetivo (número) Sí se encuentra dentro del arreglo
-System.out.println(busquedaBinaria(arreglo_ordenado, 35));
-
-// Ejemplo 2: El objetivo NO está presente
-System.out.println(busquedaBinaria(arreglo_ordenado, 12));
-
-// Ejemplo 3: El objetivo es el primer elemento
-System.out.println(busquedaBinaria(arreglo_ordenado, 5));   
-
-// Ejemplo 4: El objetivo es el último elemento
-System.out.println(busquedaBinaria(arreglo_ordenado, 50));  
-
-// Ejemplo 5: Arreglo de un solo elemento (objetivo presente)
-System.out.println(busquedaBinaria(new int[]{10}, 10));     
-
-// Ejemplo 6: Arreglo de un solo elemento (objetivo ausente)
-System.out.println(busquedaBinaria(new int[]{10}, 60));     
-```
-
-### Implementación
-
-A continuación, implementaremos una función llamada búsqueda secuencial en Java, Python y JavaScript. Esta función tomará una colección de datos (datos) y un valor objetivo (objetivo) como entrada.
-
-#### Python
 ```{python}
 def busqueda_binaria(datos, objetivo):
     """
@@ -408,53 +380,205 @@ def busqueda_binaria(datos, objetivo):
     return None
 ```
 
+### Implementacion JavaScript
+```javascript
+function busqueda_binaria(arr, objetivo) {
+    let inicio = 0;
+    let fin = arr.length - 1;
+
+    while (inicio <= fin) {
+        let medio = Math.floor((inicio + fin) / 2); // Calcula el índice 
+        central
+
+        if (arr[medio] === objetivo) {
+            return medio; // Objetivo encontrado
+        } else if (arr[medio] < objetivo) {
+            inicio = medio + 1; // Buscar en la mitad derecha
+        } else {
+            fin = medio - 1; // Buscar en la mitad izquierda
+        }
+    }
+    return -1; // Objetivo no encontrado
+}
+
+```
+
 ### Ejemplos de Uso
 
 Recuerden, el arreglo debe estar ordenado para que la búsqueda binaria funcione correctamente.
 
-#### Python
+### Java
+```Java
+// Creamos un arreglo ordenado
+int[] arreglo_ordenado = {5, 10, 15, 20, 25, 30, 35, 40, 45, 50};
+
+// Ejemplo 1: El objetivo (número) Sí se encuentra dentro del arreglo
+System.out.println(busquedaBinaria(arreglo_ordenado, 35));
+
+// Ejemplo 2: El objetivo NO está presente
+System.out.println(busquedaBinaria(arreglo_ordenado, 12));
+
+// Ejemplo 3: El objetivo es el primer elemento
+System.out.println(busquedaBinaria(arreglo_ordenado, 5));   
+
+// Ejemplo 4: El objetivo es el último elemento
+System.out.println(busquedaBinaria(arreglo_ordenado, 50));  
+
+// Ejemplo 5: Arreglo de un solo elemento (objetivo presente)
+System.out.println(busquedaBinaria(new int[]{10}, 10));     
+
+// Ejemplo 6: Arreglo de un solo elemento (objetivo ausente)
+System.out.println(busquedaBinaria(new int[]{10}, 60));     
+```
+
+### Python
 ```{python}
 #| output: false
-# Ejemplo 1: Búsqueda de una temperatura específica (Datos decimales)
-temperaturas = [-10.5, 0.0, 5.2, 15.0, 22.8, 31.4, 40.0]
-busqueda_binaria(temperaturas, 22.8)
-# Salida: Objetivo 22.8 encontrado en el índice 4
+# Ejemplo: Búsqueda de un Pokémon por su nombre
+pokedex = ["Abra", "Bulbasaur", "Charmander", "Dragonite", "Eevee", 
+"Gengar", "Zubat"]
+print(busqueda_binaria(pokedex, "Charmander"))
+# Salida: 2 (Objetivo Charmander encontrado en el índice 2)
 
-# Ejemplo 2: Búsqueda alfabética de países (Datos de texto)
-paises = ["Argentina", "Brasil", "Colombia", "Ecuador", "México", "Perú"]
-busqueda_binaria(paises, "Ecuador")
-# Salida: Objetivo Ecuador encontrado en el índice 3
+# Ejemplo: Buscando materiales en un cofre de Minecraft (Ordenado)
+cofre_doble = ["Adoquín", "Carbón", "Diamante", "Hierro", "Madera", 
+"Piedra", "Redstone"]
+print(busqueda_binaria(cofre_doble, "Diamante"))
+# Salida: 2 (¡Diamante encontrado en el Slot 2 del cofre!)
 
-# Ejemplo 3: Búsqueda de un elemento en el límite inferior
-busqueda_binaria(temperaturas, -10.5)
-# Salida: Objetivo -10.5 encontrado en el índice 0
+# Ejemplo: Búsqueda de una Skin de Free Fire
+skins_m4a1 = ["Arenas Ardientes", "Cataclismo", "Genos", "Grifo", 
+"Lobo Ártico", "Subterránea"]
+print(busqueda_binaria(skins_m4a1, "Genos"))
+# Salida: 2 (Objetivo Genos encontrado en el índice 2)
 
-# Ejemplo 4: Búsqueda de un nombre que no existe en la lista
-nombres = ["Ana", "Elena", "Carlos","Diego", "Fernando", "Guillermo"]
-busqueda_binaria(nombres, "Carlos")
-# Salida: NULL
+# Ejemplo: Buscando cartas de Clash Royale por nivel
+niveles_cartas = [1, 5, 9, 11, 12, 13, 14, 15]
+nivel_buscado = 14
+print(busqueda_binaria(niveles_cartas, nivel_buscado))
+# Salida: 6 (Carta nivel 14 encontrada en el índice 6)
 ```
 
-**¡Advertencia!** ¿Qué pasa si el arreglo no está ordenado?
+### Javascript
+```javascript
+// Ejemplo: Búsqueda de un Pokémon por su nombre
+const pokedex = ["Abra", "Bulbasaur", "Charmander", "Dragonite", "Eevee", 
+"Gengar", "Zubat"];
+console.log(busqueda_binaria(pokedex, "Charmander"));
+// Salida: 2 (Objetivo Charmander encontrado en el índice 2)
 
-```{python}
-# Ejemplo de lista desordenada
-numeros_desordenados = [5, 1, 9, 3, 7]
+// Ejemplo: Buscando materiales en un cofre ordenado alfabéticamente
+const cofreDoble = ["Adoquín", "Carbón", "Diamante", "Hierro", "Madera", 
+"Piedra", "Redstone"];
+console.log(busqueda_binaria(cofreDoble, "Diamante"));
+// Salida: 2 (¡Diamante encontrado en el Slot 2 del cofre!)
 
-# Si intentamos buscar 3 en una lista desordenada usando búsqueda binaria,
-# el resultado será incorrecto o None porque el algoritmo asume un orden.
-busqueda_binaria(numeros_desordenados, 3)
+// Ejemplo 1: Búsqueda de una Skin específica en tu colección de Free Fire
+const skinsM4A1 = ["Arenas Ardientes", "Cataclismo", "Genos", "Grifo", 
+"Lobo Ártico", "Subterránea"];
+console.log(busqueda_binaria(skinsM4A1, "Genos"));
+// Salida: 2 (Objetivo Genos encontrado en el índice 2)
+
+// Ejemplo: Buscando cartas por su nivel de fuerza (Datos numéricos)
+const nivelesCartas = [1, 5, 9, 11, 12, 13, 14, 15]; // Nivel 15 es Élite
+const nivelBuscado = 14;
+
+console.log(busqueda_binaria(nivelesCartas, nivelBuscado));
+// Salida: 6 (Carta nivel 14 encontrada en el índice 6)
 ```
 
-Para corregirlo, simplemente ordenamos el vector antes de buscar:
+**¿Qué pasa si el arreglo no está ordenado?**.
+Si en caso de usar busqueda binaria en un arreglo que no este ordenado el valor que se devuelve es NULL como
+en los siguientes casos.
 
+### Java
+```Java
+// Ejemplo: Skins de Free Fire sin ordenar
+String[] skinsDesordenadas = {"Genos", "Arenas Ardientes", "Subterránea", 
+"Grifo"};
+
+// Buscamos "Arenas Ardientes"
+int posicion = busquedaBinariaString(skinsDesordenadas, "Arenas Ardientes");
+
+System.out.println(posicion);
+// Salida: -1 (Objetivo no encontrado debido al desorden del arreglo)
+```
+
+### Python
 ```{python}
+#| output: false
+# Ejemplo: El "Cofre de la Suerte" (Desordenado)
+# Ítems: Diamante, Tierra, Antorcha, Madera
+inventario_desordenado = ["Diamante", "Tierra", "Antorcha", "Madera"]
 
-# En Python usamos sorted() para generar una nueva lista ordenada
-numeros_desordenados_ordenados = sorted(numeros_desordenados)
+# Buscamos "Antorcha"
+resultado = busqueda_binaria(inventario_desordenado, "Antorcha")
 
-# Ahora la búsqueda binaria funcionará perfectamente
-busqueda_binaria(numeros_desordenados_ordenados, 3)
+print(resultado)
+# Salida: -1 (O None). El algoritmo falló: aunque la antorcha está, el desorden lo engañó.
+```
+
+### Javascript
+```javascript
+// Ejemplo: La Pokédex hackeada por el Team Rocket
+const pokedex_caotica = ["Zubat", "Abra", "Charmander", "Mewtwo"];
+
+// Buscamos a "Zubat"
+const resultado = busqueda_binaria(pokedex_caotica, "Zubat");
+
+console.log(resultado);
+// Salida: -1. El algoritmo fue al medio, vio donde esta posicionado "Abra", 
+pensó que "Zubat" debía estar a la derecha del arreglo porque supuestamente 
+esta ordenado y nunca regresó a mirar el inicio.
+```
+**Para corregirlo, simplemente ordenamos el arreglo antes de buscar:**.
+
+### Java
+En Java, usamos la clase utilidad Arrays.sort ,es muy eficiente, pero recuerda que este paso es el que hace que la búsqueda binaria sea posible.
+
+```java
+
+// Ejemplo: Skins de Free Fire desordenadas
+String[] skinsDesordenadas = {"Genos", "Arenas Ardientes", "Subterránea",
+"Grifo"};
+
+// Corregimos: Usamos Arrays.sort para organizar las skins
+Arrays.sort(skinsDesordenadas); 
+// El arreglo ahora es: {"Arenas Ardientes", "Genos", "Grifo", "Subterránea"}
+
+// Ahora buscamos "Arenas Ardientes"
+int posicion = busquedaBinariaString(skinsDesordenadas, "Arenas Ardientes");
+// Salida: 0 (¡Skin encontrada en el índice 0!)
+```
+### Python
+En Python, la forma más limpia es usar sorted(), que toma tu cofre desordenado y te entrega uno nuevo perfectamente alineado.
+```{python}
+#| output: false
+# Ejemplo: El "Cofre de la Suerte" que estaba desordenado
+inventario_desordenado = ["Diamante", "Tierra", "Antorcha", "Madera"]
+
+# Corregimos: Ordenamos alfabéticamente ("Antorcha", "Diamante", "Madera",
+#"Tierra")
+inventario_ordenado = sorted(inventario_desordenado)
+
+# Ahora la búsqueda binaria encontrará la Antorcha sin problemas
+resultado = busqueda_binaria(inventario_ordenado, "Antorcha")
+# Salida: 0 (¡Antorcha encontrada en la primera posición!)
+```
+
+### Javascript
+En JavaScript, usamos el método .sort(), para textos funciona de forma directa
+```javascript
+
+// Ejemplo: La Pokédex hackeada por el Team Rocket
+const pokedex_caotica = ["Zubat", "Abra", "Charmander", "Mewtwo"];
+
+// Corregimos: Ordenamos la Pokédex (Abra, Charmander, Mewtwo, Zubat)
+pokedex_caotica.sort(); 
+
+// Ahora buscamos a Zubat
+const resultado = busqueda_binaria(pokedex_caotica, "Zubat");
+// Salida: 3 (¡Zubat encontrado al final de la lista ordenada!)
 ```
 
 ### Eficiencia y Casos de Uso
