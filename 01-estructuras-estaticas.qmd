@@ -16,6 +16,95 @@ Imagina que tienes un album del mundial con un numero fijo de paginas. Sabes exa
 
 En este capítulo vamos a conocer dos estructuras súper importantes que funcionan de esta manera: los **Arreglos** (los datos que se guardan directamente en memoria) y los **Archivos** (la información que se almacena en el disco). Aunque normalmente usarás Java o Python para trabajar con ellos, entender cómo funcionan “por debajo” te ayudará a programar código mucho más rápido, ordenado y eficiente, casi como saber exactamente en qué página de tu álbum está cada cromo sin perder tiempo buscando.
 
+A continuacion se obersvar ejemplos de como crear estos tipo de estructuras en Java y Phyton:
+
+```{java}
+// EJEMPLO DE ARREGLO EN JAVA
+public class EjemploArreglo {
+    public static void main(String[] args) {
+
+        // Arreglo con cromos del álbum
+        String[] cromos = {
+            "Messi",
+            "Mbappé",
+            "Vinicius",
+            "Bellingham",
+            "Haaland"
+        };
+
+        // Acceso directo a un elemento
+        System.out.println("Cromo en la posición 2: " + cromos[2]);
+
+        // Recorrer el arreglo
+        for (int i = 0; i < cromos.length; i++) {
+            System.out.println("Posición " + i + ": " + cromos[i]);
+        }
+    }
+}
+```
+
+```{java}
+// EJEMPLO DE ARCHIVO EN JAVA
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class EjemploArchivo {
+    public static void main(String[] args) {
+
+        try {
+            FileWriter archivo = new FileWriter("cromos.txt");
+
+            archivo.write("Messi\n");
+            archivo.write("Mbappé\n");
+            archivo.write("Vinicius\n");
+
+            archivo.close();
+
+            System.out.println("Archivo creado correctamente.");
+
+        } catch (IOException e) {
+            System.out.println("Ocurrió un error.");
+        }
+    }
+}
+```
+```{python}
+# EJEMPLO DE ARREGLO EN PYTHON
+
+# Lista de cromos del álbum
+cromos = [
+    "Messi",
+    "Mbappé",
+    "Vinicius",
+    "Bellingham",
+    "Haaland"
+]
+
+# Acceso directo a un elemento
+print("Cromo en la posición 2:", cromos[2])
+
+# Recorrer la lista
+for i in range(len(cromos)):
+    print("Posición", i, ":", cromos[i])
+```
+
+```{python}
+# EJEMPLO DE ARCHIVO EN PYTHON
+
+# Crear archivo de texto
+archivo = open("cromos.txt", "w")
+
+archivo.write("Messi\n")
+archivo.write("Mbappé\n")
+archivo.write("Vinicius\n")
+
+archivo.close()
+
+print("Archivo creado correctamente")
+```
+
+
+
 ## Arreglos: La Caja de Herramientas Estática {#sec-arreglos}
 
 Un arreglo es una colección contigua de cromos de la misma Seleccion. Su tamaño se define en el momento de la creación y, por naturaleza, no resorte cambios dinámicos.
