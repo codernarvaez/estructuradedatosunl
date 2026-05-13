@@ -1,53 +1,78 @@
 ---
 title: "Algoritmos de Búsqueda"
+editor: 
+  markdown: 
+    wrap: sentence
 ---
 
-¡Hola a todos y bienvenidos a este capítulo sobre algoritmos de búsqueda en Java xd! Como analistas de datos, científicos de datos o simplemente entusiastas de la programación, constantemente nos enfrentamos a la tarea de encontrar elementos específicos dentro de colecciones de datos. Ya sea que estemos buscando una transacción particular en un enorme conjunto de datos financieros, un usuario específico en una base de datos de millones de registros, o un valor dentro de un vector en R, la eficiencia con la que realizamos estas búsquedas puede tener un impacto significativo en el rendimiento de nuestras aplicaciones y en nuestro tiempo de espera.
+¡Hola a todos y bienvenidos a este capítulo sobre algoritmos de búsqueda en Java!
+Como analistas de datos, científicos de datos o simplemente entusiastas de la programación, constantemente nos enfrentamos a la tarea de encontrar elementos específicos dentro de colecciones de datos.
+Ya sea que estemos buscando una transacción particular en un enorme conjunto de datos financieros, un usuario específico en una base de datos de millones de registros, o un valor dentro de un vector en R, la eficiencia con la que realizamos estas búsquedas puede tener un impacto significativo en el rendimiento de nuestras aplicaciones y en nuestro tiempo de espera.
 
-En este capítulo, exploraremos dos de los algoritmos de búsqueda más fundamentales y ampliamente utilizados: la Búsqueda Secuencial (también conocida como Búsqueda Lineal) y la Búsqueda Binaria. Entenderemos cómo funcionan, cuándo usar cada uno y cómo implementarlos eficientemente en R. ¡Prepárense para optimizar sus búsquedas!
+En este capítulo, exploraremos dos de los algoritmos de búsqueda más fundamentales y ampliamente utilizados: la Búsqueda Secuencial (también conocida como Búsqueda Lineal) y la Búsqueda Binaria.
+Entenderemos cómo funcionan, cuándo usar cada uno y cómo implementarlos eficientemente en R.
+¡Prepárense para optimizar sus búsquedas!
 
 ## Búsqueda Secuencial (Linear Search)
 
-La búsqueda secuencial es el algoritmo de búsqueda más directo e intuitivo. Imaginen que están buscando un libro específico en una estantería desorganizada. Lo más lógico sería empezar por el primer libro, revisarlo, luego pasar al segundo, y así sucesivamente, hasta que encuentren el libro que buscan o hasta que se queden sin libros. Eso es precisamente lo que hace la búsqueda secuencial.
+La búsqueda secuencial es el algoritmo de búsqueda más directo e intuitivo.
+Imaginen que están buscando un libro específico en una estantería desorganizada.
+Lo más lógico sería empezar por el primer libro, revisarlo, luego pasar al segundo, y así sucesivamente, hasta que encuentren el libro que buscan o hasta que se queden sin libros.
+Eso es precisamente lo que hace la búsqueda secuencial.
 
 Este algoritmo examina cada elemento de la colección uno por uno, en el orden en que aparecen, hasta que encuentra el elemento deseado o hasta que ha revisado todos los elementos sin éxito.
 
 ### ¿Cómo funciona?
 
-1.  Se inicia en el primer elemento de la colección.
-2.  Se compara el elemento actual con el valor objetivo que estamos buscando.
-3.  Si coinciden, la búsqueda termina y se devuelve la posición (índice) del elemento.
-4.  Si no coinciden, se avanza al siguiente elemento.
-5.  Este proceso se repite hasta que se encuentra el elemento o se alcanza el final de la colección.
+1.  El algoritmo comienza en la primera posición porque necesita revisar todos los datos en orden. En este paso toma el primer elemento para empezar la comparación.
+2.  El programa verifica si el dato de la posición actual es igual al valor que el usuario desea encontrar. Esta comparación es la parte más importante del algoritmo.
+3.  Cuando el dato del arreglo coincide con el valor buscado, el algoritmo detiene la búsqueda y muestra la posición donde se encontró el elemento.
+4.  Si el dato actual no coincide, el algoritmo continúa con la siguiente posición del arreglo para seguir buscando.
+5.  El programa sigue revisando cada elemento del arreglo uno por uno hasta encontrar el valor o hasta llegar al último elemento.
+6.  Cuando el algoritmo llega al final del arreglo sin encontrar el valor buscado, muestra un mensaje indicando que el dato no existe dentro de la colección.
 
-### Implementación en R
+### Implementación
+A continuación, implementaremos una función llamada búsqueda secuencial en Java, Python y JavaScript. Esta función tomará una colección de datos (datos) y un valor objetivo (objetivo) como entrada.
 
-Vamos a implementar una función `busqueda_secuencial` en R. Esta función tomará un vector (`datos`) y un valor objetivo (`objetivo`) como entrada.
+#### Java
+```{java}
+public class BusquedaSecuencial {
+    //Se crea el metodo para buscar un numero en un arreglo
+    public static int buscar(int[] numeros, int objetivo) {
 
-```{r}
-#' Función para realizar una búsqueda secuencial en un vector
-#'
-#' @param datos Un vector numérico o de caracteres donde buscar.
-#' @param objetivo El valor que se desea encontrar.
-#' @return El índice (posición) del objetivo si se encuentra, de lo contrario, NULL.
-#'
-#' @examples
-#' mi_vector <- c(10, 5, 20, 15, 30, 25)
-#' busqueda_secuencial(mi_vector, 15) # Debería devolver 4
-#' busqueda_secuencial(mi_vector, 99) # Debería devolver NULL
-busqueda_secuencial <- function(datos, objetivo) {
-  # Recorremos el vector desde el primer elemento hasta el último
-  for (i in seq_along(datos)) {
-    # Comparamos el elemento actual con el objetivo
-    if (datos[i] == objetivo) {
-      # Si coinciden, devolvemos su índice (posición)
-      message(paste("Objetivo", objetivo, "encontrado en el índice", i))
-      return(i)
+        //Recorremos el arreglo por completo
+        for (int i = 0; i < numeros.length; i++) {
+
+            //Despues verificamos si el número actual es igual al objetivo
+            if (numeros[i] == objetivo) {
+
+                System.out.println("Número encontrado en la posición: " + i);
+
+                //Una vez encontramos el numero, retornamos la posición donde se lo encontro
+                return i;
+            }
+        }
+
+        // Se utiliza un sout por si no encuentra el número para que termine el ciclo
+        System.out.println("Número no encontrado");
+
+        return -1;
     }
-  }
-  # Si el bucle termina y no hemos encontrado el objetivo, devolvemos NULL
-  message(paste("Objetivo", objetivo, "no encontrado en el vector."))
-  return(NULL)
+}
+//Se crea una nueva clase Main para poder ejecutar el programa y verificar si funciona nuestra logica en el codigo.
+
+public class Main {
+    public static void main(String[] args) {
+
+        //Generamos un arreglo de numeros aleatorios
+        int[] numeros = {10, 5, 20, 15, 30, 25};
+
+        //Despues ingresamos el numero que queremos buscar
+        int objetivo = 15;
+
+        //Y por ultimo llamamos al metodo buscar para q lo amuestre en consola
+        BusquedaSecuencial.buscar(numeros, objetivo);
+    }
 }
 ```
 
@@ -55,46 +80,77 @@ busqueda_secuencial <- function(datos, objetivo) {
 
 Veamos nuestra función en acción con algunos ejemplos.
 
-```{r}
-# Ejemplo 1: El objetivo está presente
-numeros <- c(4, 2, 7, 1, 9, 5, 8, 3, 6)
-busqueda_secuencial(numeros, 9)
+```{java}
+// Ejemplo 1: El número está presente
+int[] numeros = {10, 5, 20, 15, 30, 25};
+buscar(numeros, 15);
 
-# Ejemplo 2: El objetivo no está presente
-busqueda_secuencial(numeros, 10)
+// Salida:
+// Número encontrado en la posición: 3
 
-# Ejemplo 3: Con datos de texto
-frutas <- c("manzana", "platano", "cereza", "dátil", "elderberry")
-busqueda_secuencial(frutas, "cereza")
-busqueda_secuencial(frutas, "kiwi")
 
-# Ejemplo 4: El objetivo es el primer elemento
-busqueda_secuencial(numeros, 4)
+// Ejemplo 2: El número no está presente
+buscar(numeros, 50);
 
-# Ejemplo 5: El objetivo es el último elemento
-busqueda_secuencial(numeros, 6)
+// Salida:
+// Número no encontrado
+
+
+// Ejemplo 3: El número es el primer elemento
+buscar(numeros, 10);
+
+// Salida:
+// Número encontrado en la posición: 0
+
+
+// Ejemplo 4: El número es el último elemento
+buscar(numeros, 25);
+
+// Salida:
+// Número encontrado en la posición: 5
+
+
+// Ejemplo 5: Búsqueda en otro arreglo
+int[] edades = {18, 20, 22, 25, 30};
+buscar(edades, 22);
+
+// Salida:
+// Número encontrado en la posición: 2
+
+
+// Ejemplo 6: Arreglo con números repetidos
+int[] repetidos = {5, 8, 3, 8, 10};
+buscar(repetidos, 8);
+
+// Salida:
+// Número encontrado en la posición: 1
 ```
 
 ### Eficiencia y Casos de Uso
 
-La principal ventaja de la búsqueda secuencial es su simplicidad y que no requiere que los datos estén ordenados. Sin embargo, su principal desventaja es su eficiencia.
+La principal ventaja de la búsqueda secuencial es su simplicidad y que no requiere que los datos estén ordenados.
+Sin embargo, su principal desventaja es su eficiencia.
 
-*   **Complejidad Temporal (Worst Case):** O(n). En el peor de los casos (cuando el elemento no está presente o está al final), el algoritmo debe revisar todos los `n` elementos.
-*   **Complejidad Temporal (Best Case):** O(1). En el mejor de los casos (cuando el elemento es el primero), solo necesita una comparación.
-*   **Complejidad Temporal (Average Case):** O(n). En promedio, revisará `n/2` elementos.
+-   **Complejidad Temporal (Worst Case):** O(n). En el peor de los casos (cuando el elemento no está presente o está al final), el algoritmo debe revisar todos los `n` elementos.
+-   **Complejidad Temporal (Best Case):** O(1). En el mejor de los casos (cuando el elemento es el primero), solo necesita una comparación.
+-   **Complejidad Temporal (Average Case):** O(n). En promedio, revisará `n/2` elementos.
 
-La búsqueda secuencial es apropiada para:
-*   Conjuntos de datos pequeños.
-*   Datos que no están ordenados y ordenar los datos sería más costoso que realizar la búsqueda secuencial.
-*   Cuando solo se necesitan realizar unas pocas búsquedas.
+La búsqueda secuencial es apropiada para: \* Conjuntos de datos pequeños.
+\* Datos que no están ordenados y ordenar los datos sería más costoso que realizar la búsqueda secuencial.
+\* Cuando solo se necesitan realizar unas pocas búsquedas.
 
-Para conjuntos de datos grandes, la búsqueda secuencial puede ser muy lenta. Es aquí donde la búsqueda binaria brilla.
+Para conjuntos de datos grandes, la búsqueda secuencial puede ser muy lenta.
+Es aquí donde la búsqueda binaria brilla.
 
 ## Búsqueda Binaria (Binary Search)
 
 A diferencia de la búsqueda secuencial, la búsqueda binaria es un algoritmo mucho más eficiente, pero tiene un requisito fundamental: **los datos deben estar ordenados**.
 
-Piensen en cómo buscan una palabra en un diccionario. No empiezan por la primera palabra y revisan una por una. Abren el diccionario por la mitad, miran si la palabra está antes o después, y luego descartan la mitad del diccionario que no les sirve. Repiten este proceso en la mitad restante hasta encontrar la palabra. La búsqueda binaria opera bajo el mismo principio de "divide y vencerás".
+Piensen en cómo buscan una palabra en un diccionario.
+No empiezan por la primera palabra y revisan una por una.
+Abren el diccionario por la mitad, miran si la palabra está antes o después, y luego descartan la mitad del diccionario que no les sirve.
+Repiten este proceso en la mitad restante hasta encontrar la palabra.
+La búsqueda binaria opera bajo el mismo principio de "divide y vencerás".
 
 ### ¿Cómo funciona?
 
@@ -102,9 +158,9 @@ Piensen en cómo buscan una palabra en un diccionario. No empiezan por la primer
 2.  Se define un rango de búsqueda dentro del vector, inicialmente todo el vector. Este rango está delimitado por un índice `inicio` y un índice `fin`.
 3.  Se calcula el índice del elemento central del rango: `medio = (inicio + fin) / 2`.
 4.  Se compara el elemento en la posición `medio` con el valor objetivo:
-    *   Si coinciden, el elemento ha sido encontrado y se devuelve `medio`.
-    *   Si el elemento en `medio` es **menor** que el objetivo, significa que el objetivo (si existe) debe estar en la mitad **derecha** del rango. Se ajusta `inicio` a `medio + 1`.
-    *   Si el elemento en `medio` es **mayor** que el objetivo, significa que el objetivo (si existe) debe estar en la mitad **izquierda** del rango. Se ajusta `fin` a `medio - 1`.
+    -   Si coinciden, el elemento ha sido encontrado y se devuelve `medio`.
+    -   Si el elemento en `medio` es **menor** que el objetivo, significa que el objetivo (si existe) debe estar en la mitad **derecha** del rango. Se ajusta `inicio` a `medio + 1`.
+    -   Si el elemento en `medio` es **mayor** que el objetivo, significa que el objetivo (si existe) debe estar en la mitad **izquierda** del rango. Se ajusta `fin` a `medio - 1`.
 5.  Los pasos 2 a 4 se repiten hasta que el objetivo se encuentra o hasta que el rango de búsqueda se reduce a cero (lo que significa que el objetivo no está presente).
 
 ### Implementación en R
@@ -195,7 +251,9 @@ numeros_desordenados <- c(5, 1, 9, 3, 7)
 # (En este caso, 3 está en la posición 4, pero la búsqueda binaria podría devolver NULL o algo erróneo)
 busqueda_binaria(numeros_desordenados, 3) # Resultado erróneo porque el vector no está ordenado
 ```
+
 Para corregirlo, simplemente ordenamos el vector antes de buscar:
+
 ```{r}
 numeros_desordenados_ordenados <- sort(numeros_desordenados)
 busqueda_binaria(numeros_desordenados_ordenados, 3) # Ahora sí funciona correctamente
@@ -203,34 +261,39 @@ busqueda_binaria(numeros_desordenados_ordenados, 3) # Ahora sí funciona correct
 
 ### Eficiencia y Casos de Uso
 
-La eficiencia de la búsqueda binaria es su mayor fortaleza. En cada paso, el algoritmo reduce el espacio de búsqueda a la mitad.
+La eficiencia de la búsqueda binaria es su mayor fortaleza.
+En cada paso, el algoritmo reduce el espacio de búsqueda a la mitad.
 
-*   **Complejidad Temporal:** O(log n). Esto significa que el tiempo de ejecución crece logarítmicamente con el tamaño de los datos. Para un vector de 1 millón de elementos, la búsqueda binaria podría necesitar solo unas 20 comparaciones (log₂ de 1,000,000 es aproximadamente 19.9), mientras que la búsqueda secuencial podría necesitar hasta 1 millón.
+-   **Complejidad Temporal:** O(log n). Esto significa que el tiempo de ejecución crece logarítmicamente con el tamaño de los datos. Para un vector de 1 millón de elementos, la búsqueda binaria podría necesitar solo unas 20 comparaciones (log₂ de 1,000,000 es aproximadamente 19.9), mientras que la búsqueda secuencial podría necesitar hasta 1 millón.
 
-La búsqueda binaria es ideal para:
-*   Grandes conjuntos de datos.
-*   Cuando los datos están (o pueden estar) ordenados.
-*   Cuando se realizan muchas búsquedas en el mismo conjunto de datos (amortizando el costo de ordenamiento inicial).
+La búsqueda binaria es ideal para: \* Grandes conjuntos de datos.
+\* Cuando los datos están (o pueden estar) ordenados.
+\* Cuando se realizan muchas búsquedas en el mismo conjunto de datos (amortizando el costo de ordenamiento inicial).
 
 ## Comparación y Cuándo Usar Cada Uno
 
-| Característica            | Búsqueda Secuencial (Lineal) | Búsqueda Binaria     |
-| :------------------------ | :--------------------------- | :------------------- |
-| **Requisito de Orden**   | No requiere                  | **Requiere**         |
-| **Complejidad Temporal**  | O(n) (lineal)                | O(log n) (logarítmica) |
-| **Tamaño de Datos**       | Pequeños                     | Grandes              |
-| **Simplicidad**           | Muy simple de implementar    | Más compleja         |
-| **Escenarios Típicos**    | Datos desordenados, pocas búsquedas, listas pequeñas | Datos ordenados, muchas búsquedas, listas grandes |
+| Característica | Búsqueda Secuencial (Lineal) | Búsqueda Binaria |
+|:------------------------|:---------------------------|:-------------------|
+| **Requisito de Orden** | No requiere | **Requiere** |
+| **Complejidad Temporal** | O(n) (lineal) | O(log n) (logarítmica) |
+| **Tamaño de Datos** | Pequeños | Grandes |
+| **Simplicidad** | Muy simple de implementar | Más compleja |
+| **Escenarios Típicos** | Datos desordenados, pocas búsquedas, listas pequeñas | Datos ordenados, muchas búsquedas, listas grandes |
 
 **En resumen:**
 
-*   Si tus datos no están ordenados y el tamaño es pequeño, o si solo necesitas hacer una única búsqueda y el costo de ordenar sería excesivo, usa la **Búsqueda Secuencial**.
-*   Si tus datos están ordenados o si necesitas realizar muchas búsquedas en un conjunto de datos grande (haciendo que el costo de ordenar los datos inicialmente valga la pena), la **Búsqueda Binaria** es la elección superior por su eficiencia.
+-   Si tus datos no están ordenados y el tamaño es pequeño, o si solo necesitas hacer una única búsqueda y el costo de ordenar sería excesivo, usa la **Búsqueda Secuencial**.
+-   Si tus datos están ordenados o si necesitas realizar muchas búsquedas en un conjunto de datos grande (haciendo que el costo de ordenar los datos inicialmente valga la pena), la **Búsqueda Binaria** es la elección superior por su eficiencia.
 
-En R, para tareas comunes de búsqueda, funciones como `which()` o `%in%` a menudo son eficientes para vectores, ya que están implementadas en C y optimizadas. Sin embargo, entender los algoritmos subyacentes como la búsqueda secuencial y binaria es crucial para comprender la eficiencia y el diseño de soluciones en contextos más complejos, como la implementación en estructuras de datos personalizadas o en escenarios de entrevistas técnicas.
+En R, para tareas comunes de búsqueda, funciones como `which()` o `%in%` a menudo son eficientes para vectores, ya que están implementadas en C y optimizadas.
+Sin embargo, entender los algoritmos subyacentes como la búsqueda secuencial y binaria es crucial para comprender la eficiencia y el diseño de soluciones en contextos más complejos, como la implementación en estructuras de datos personalizadas o en escenarios de entrevistas técnicas.
 
 ## Conclusión
 
-Hemos cubierto los fundamentos de la búsqueda secuencial y la búsqueda binaria. Ahora entienden cómo funcionan estos algoritmos, cómo implementarlos en R y, lo que es más importante, cuándo y por qué elegir uno sobre el otro. La eficiencia de sus programas a menudo depende de estas decisiones algorítmicas básicas, y dominar estos conceptos es un paso crucial para convertirse en un experto en R y en programación en general.
+Hemos cubierto los fundamentos de la búsqueda secuencial y la búsqueda binaria.
+Ahora entienden cómo funcionan estos algoritmos, cómo implementarlos en R y, lo que es más importante, cuándo y por qué elegir uno sobre el otro.
+La eficiencia de sus programas a menudo depende de estas decisiones algorítmicas básicas, y dominar estos conceptos es un paso crucial para convertirse en un experto en R y en programación en general.
 
-¡Sigan practicando y experimentando con estos algoritmos! La próxima vez que necesiten encontrar algo en un conjunto de datos, podrán tomar una decisión informada sobre la mejor estrategia de búsqueda. ¡Hasta el próximo capítulo!
+¡Sigan practicando y experimentando con estos algoritmos!
+La próxima vez que necesiten encontrar algo en un conjunto de datos, podrán tomar una decisión informada sobre la mejor estrategia de búsqueda.
+¡Hasta el próximo capítulo!
