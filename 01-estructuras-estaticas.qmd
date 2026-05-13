@@ -79,9 +79,9 @@ El problema es que escribir en ese archivo es muchísimo más lento que simpleme
 
 ## Matrices y Arreglos Multidimensionales {#sec-matrices}
 
-Un paso más allá del arreglo unidimensional (vector), encontramos las matrices. Representan datos tabulares (filas y columnas) o espacios $N$-dimensionales. En memoria, la computadora sigue siendo estrictamente lineal; no existe físicamente una "cuadrícula 2D" dentro de la RAM.
+Para entender porque un arreglo multidimensional va un paso más allá que un arreglo unidimensional, podemos imaginar que un vector (Arreglo unidimensional) es una fila de cromos pegados uno tras otro, mientras que una matriz (Arreglo multidimensional) vendría a ser como una página completa del album del mundial, en la cual los cromos van pegados en sus respectivas filas y columnas.
 
-Para lograr esta ilusión de multidimensionalidad, los compiladores y lenguajes de programación utilizan técnicas de transformación matemática, como la representación **Row-Major Order** (orden contiguo por filas) o la instanciación de "arreglos de arreglos" (el enfoque típico en Java).
+Hay que tener en cuenta que la memoria RAM de una computadora no contiene una cuadrícula 2D física, lo que significa que debemos representar una página completa del album como una fila de infinta de cromos pegados uno tras otro, así se puede lograr que la computadora se engañe así misma para que por consiguiente se guarde en memoria.
 
 ### Mapeo de 2D a Memoria Lineal
 
