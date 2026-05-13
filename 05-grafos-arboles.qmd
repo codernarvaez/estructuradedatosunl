@@ -2,113 +2,400 @@
 title: "Estructuras No Lineales"
 ---
 
-¡Hola a todos y bienvenidos a este capítulo sobre Estructuras No Lineales en R! En el mundo de la programación y el análisis de datos, no todo es una tabla bonita o un vector secuencial. A menudo, la información que manejamos tiene relaciones complejas, jerarquías o interconexiones que las estructuras de datos lineales simplemente no pueden representar de manera eficiente o intuitiva. Aquí es donde entran en juego los grafos y los árboles binarios.
+¡Hola a todos y bienvenidos a este capítulo sobre Estructuras No Lineales en R! En el mundo de la programación y el análisis de datos, no todo es una tabla bonita o un vector secuencial. A menudo, la información que manejamos tiene relaciones complejas, jerarquías o interconexiones que las estructuras de datos lineales simplemente no pueden representar de manera eficiente o intuitiva. Aquí es donde entran en juego los **grafos** y los **árboles binarios**.
 
-En este capítulo, exploraremos cómo R nos permite trabajar con estas estructuras fundamentales, dotándonos de las herramientas para modelar y analizar datos con relaciones más intrincadas. Prepárense para ver cómo R, con la ayuda de paquetes poderosos, transforma estos conceptos abstractos en herramientas prácticas para la ciencia de datos.
+::: {.callout-tip}
+## ¿Por qué importa esto?
+Piensa en cómo funciona Google Maps para encontrar la ruta más rápida entre tu casa y el trabajo, o cómo Facebook sugiere amigos que quizás conozcas. Ambos usan estructuras no lineales. Al finalizar este capítulo, entenderás los principios detrás de esas tecnologías.
+:::
+
+En este capítulo, exploraremos cómo R nos permite trabajar con estas estructuras fundamentales, dotándonos de las herramientas para modelar y analizar datos con relaciones más intrincadas.
+
+---
 
 ## Grafos: Tejiendo Redes de Relaciones
 
-Un **grafo** es una de las estructuras de datos no lineales más potentes y versátiles. Imaginen una red social, las conexiones de una red eléctrica, el mapa de carreteras de una ciudad o incluso las interacciones entre proteínas en un organismo. Todos estos pueden ser modelados como grafos.
+### ¿Qué es un grafo? (La versión sin tecnicismos)
 
-Formalmente, un grafo se compone de un conjunto de **vértices** (también llamados nodos) y un conjunto de **aristas** (también llamadas enlaces o conexiones) que unen pares de vértices.
+Imagina que estás organizando una fiesta y quieres saber quién conoce a quién entre tus invitados. Podrías dibujar un círculo por cada persona y trazar una línea entre los que se conocen. ¡Eso es exactamente un grafo!
+
+- Los **vértices** (o nodos) son los círculos → representan las personas, lugares, o cualquier "entidad"
+- Las **aristas** (o conexiones) son las líneas → representan la relación entre ellas
+
+Formalmente: un grafo se compone de un conjunto de **vértices** y un conjunto de **aristas** que unen pares de vértices. Pero en la práctica, es simplemente una manera de representar *quién está conectado con quién* (o *qué está conectado con qué*).
+
+### Ejemplos de grafos en la vida real
+
+| Situación | Vértices | Aristas |
+|---|---|---|
+| Red social (Instagram) | Usuarios | Quién sigue a quién |
+| Mapa de ciudad | Intersecciones | Calles entre ellas |
+| Internet | Páginas web | Hipervínculos |
+| Recetas de cocina | Ingredientes | Se usan juntos en una receta |
+| Rutas de vuelo | Aeropuertos | Vuelos directos disponibles |
 
 ### Tipos de Grafos
 
-*   **Dirigidos (Directed)**: Las aristas tienen una dirección específica (ej. un seguimiento en Twitter: A sigue a B, pero B no necesariamente sigue a A).
-*   **No Dirigidos (Undirected)**: Las aristas no tienen una dirección (ej. una amistad en Facebook: si A es amigo de B, B es amigo de A).
-*   **Ponderados (Weighted)**: Las aristas tienen un valor o "peso" asociado (ej. la distancia entre dos ciudades, la fuerza de una conexión).
-*   **No Ponderados (Unweighted)**: Las aristas simplemente indican una conexión, sin un valor adicional.
+#### Dirigidos vs. No Dirigidos
+
+Imagina dos situaciones distintas:
+
+- **No Dirigido**: Eres amigo de alguien en Facebook → si A es amigo de B, entonces B también es amigo de A. La relación va en *ambas direcciones*.
+- **Dirigido**: Sigues a alguien en Twitter/X → tú puedes seguir a una celebridad, pero ella no te sigue a ti. La relación tiene *una sola dirección*.
+
+#### Ponderados vs. No Ponderados
+
+- **No Ponderado**: Un mapa que solo muestra si existe o no una carretera entre dos ciudades.
+- **Ponderado**: El mismo mapa, pero ahora cada carretera tiene indicada su distancia en kilómetros o el tiempo que tarda en recorrerse. Ese valor extra es el "peso".
+
+::: {.callout-note}
+## Ejemplo práctico
+Google Maps usa un grafo **dirigido y ponderado**: las calles tienen dirección (calles de un solo sentido) y peso (tiempo de viaje o distancia). El algoritmo busca el camino de menor peso total.
+:::
 
 ### Grafos en R: El Paquete `igraph`
 
 En R, el paquete por excelencia para trabajar con grafos es `igraph`. Es una biblioteca extremadamente eficiente y rica en funcionalidades para la creación, manipulación y análisis de redes complejas.
 
-Primero, si no lo tienen instalado, es momento de hacerlo:
-
 ```r
 # Instalar igraph si no lo tienen
 # install.packages("igraph")
+library(igraph)
 ```
 
-Ahora, carguemos el paquete y empecemos a construir nuestro primer grafo.
+#### Construyendo nuestro primer grafo: una red de amigos
+
+Vamos a modelar un grupo de 4 amigos donde todos se conocen entre sí:
 
 ```r
-library(igraph)
-
 # Creamos un grafo simple no dirigido
-# Podemos definirlo a partir de un listado de aristas
-g1 <- graph_from_literal(A-B, B-C, C-D, D-A, B-D, A-C)
+# Cada par "A-B" significa que A y B son amigos
+g1 <- graph_from_literal(Ana-Bruno, Bruno-Carlos, Carlos-Diana, Diana-Ana, Bruno-Diana, Ana-Carlos)
 print(g1)
 ```
 
-Como pueden ver en la salida, `g1` es un grafo `UN--` (Undirected, Named) con 4 vértices y 6 aristas.
-
-Podemos visualizarlo fácilmente:
+La salida muestra `UN--` (Undirected, Named): un grafo no dirigido con nombres. Tiene 4 vértices (personas) y 6 aristas (amistades).
 
 ```r
-# Visualizar el grafo
-plot(g1)
+# Visualizar la red de amigos
+plot(g1,
+     vertex.color = "lightblue",
+     vertex.size = 40,
+     vertex.label.cex = 1.2,
+     main = "Red de Amigos")
 ```
 
 ::: {.callout-note}
 `plot()` para `igraph` es muy versátil. Permite personalizar el diseño, colores, tamaños y muchas otras propiedades visuales. Experimenten con sus argumentos como `vertex.color`, `edge.color`, `layout`, etc.
 :::
 
-También podemos crear grafos a partir de otros formatos, como una matriz de adyacencia (qué vértices están conectados directamente) o una lista de aristas.
+#### Creando un grafo desde una matriz de adyacencia
+
+La **matriz de adyacencia** es otra forma de representar un grafo. Piénsala como una tabla de doble entrada donde marcas con 1 si dos nodos están conectados, y con 0 si no lo están. Es como una tabla de "¿se conocen?" entre todos los invitados de tu fiesta.
 
 ```r
 # Grafo a partir de una matriz de adyacencia
+# 1 = conectados, 0 = no conectados
 adj_matrix <- matrix(c(0, 1, 1, 0,
                        1, 0, 1, 1,
                        1, 1, 0, 1,
                        0, 1, 1, 0), nrow = 4, byrow = TRUE)
 g2 <- graph_from_adjacency_matrix(adj_matrix, mode = "undirected")
-V(g2)$name <- c("V1", "V2", "V3", "V4") # Asignar nombres a los vértices
-plot(g2, main = "Grafo desde Matriz de Adyacencia")
+V(g2)$name <- c("Ana", "Bruno", "Carlos", "Diana")
+plot(g2,
+     vertex.color = "lightyellow",
+     vertex.size = 40,
+     main = "Grafo desde Matriz de Adyacencia")
 ```
 
+#### Modelando una red social dirigida
+
+Ahora simulemos quién sigue a quién en una red social tipo Twitter:
+
 ```r
-# Grafo dirigido a partir de una lista de aristas
-edge_list <- data.frame(
+# Lista de aristas: quién sigue a quién
+seguimientos <- data.frame(
   from = c("Alice", "Bob", "Charlie", "David", "Eve", "Alice", "Charlie"),
-  to = c("Bob", "Charlie", "David", "Eve", "Alice", "Charlie", "Eve")
+  to   = c("Bob", "Charlie", "David", "Eve", "Alice", "Charlie", "Eve")
 )
-g3 <- graph_from_data_frame(edge_list, directed = TRUE)
-plot(g3, main = "Grafo Dirigido de Red Social", layout = layout_nicely(g3))
+
+# directed = TRUE porque "Alice sigue a Bob" ≠ "Bob sigue a Alice"
+g3 <- graph_from_data_frame(seguimientos, directed = TRUE)
+
+plot(g3,
+     main = "Red Social Dirigida",
+     layout = layout_nicely(g3),
+     vertex.color = "salmon",
+     vertex.size = 35,
+     edge.arrow.size = 0.5)
 ```
 
 ### Propiedades y Análisis de Grafos
 
-`igraph` nos permite calcular una gran cantidad de métricas y propiedades de un grafo:
+Una vez que tenemos nuestro grafo, podemos hacerle preguntas muy interesantes:
+
+#### ¿Cuántas conexiones tiene cada persona?
+
+El **grado** de un vértice es su número de conexiones. En redes sociales, esto equivale al número de seguidores o seguidos.
 
 ```r
-# Número de vértices y aristas
-vcount(g3)
-ecount(g3)
+# En grafos dirigidos:
+# "in-degree"  = cuántos te siguen a ti
+# "out-degree" = a cuántos sigues tú
+# "all"        = suma de ambos
 
-# Grado de los vértices (número de conexiones)
-# Para grafos dirigidos, podemos ver in-degree (entrantes) y out-degree (salientes)
-degree(g3, mode = "in")
-degree(g3, mode = "out")
-degree(g3, mode = "all") # Suma de in y out
+degree(g3, mode = "in")   # Popularidad: quién tiene más seguidores
+degree(g3, mode = "out")  # Actividad: quién sigue a más personas
+degree(g3, mode = "all")  # Grado total
+```
 
-# Componentes conectados (subgrafos donde todos los vértices están conectados entre sí)
+#### ¿Están todos conectados entre sí?
+
+```r
+# Componentes conectados: grupos de vértices que se alcanzan entre sí
+# Ejemplo: en WhatsApp, si bloqueas a alguien, ese "subgrupo" queda desconectado
 components(g1)
+```
 
-# Camino más corto entre dos vértices
+#### ¿Cuál es el camino más corto entre dos personas?
+
+Como en el famoso juego "6 grados de separación" (la idea de que cualquier persona del mundo está conectada a cualquier otra en solo 6 pasos):
+
+```r
+# ¿Cómo llega Alice a Eve, pasando por el menor número de personas?
 shortest_paths(g3, from = "Alice", to = "Eve", output = "vpath")$vpath[[1]]
+```
 
-# Centralidad de un vértice (importancia en la red)
-# Centralidad de intermediación (betweenness centrality)
-# ¿Cuántos caminos más cortos pasan a través de este vértice?
+#### ¿Quién es el más "influyente" o "central" en la red?
+
+Existen varias formas de medir la importancia de un nodo:
+
+```r
+# Centralidad de intermediación (Betweenness Centrality)
+# ¿Por cuántos caminos más cortos pasa este nodo?
+# → En una empresa, sería el empleado que conecta diferentes departamentos
 betweenness(g3, normalized = TRUE)
 
-# Centralidad de cercanía (closeness centrality)
-# ¿Qué tan cerca está un vértice de todos los demás?
+# Centralidad de cercanía (Closeness Centrality)
+# ¿Qué tan rápido puede este nodo alcanzar a todos los demás?
+# → En logística, sería el almacén con mejor ubicación para distribuir
 closeness(g3, normalized = TRUE)
 ```
 
-La exploración de grafos es un campo vasto y fascinante. `igraph` es una herramienta indispensable para cualquier científico de datos que trabaje con relaciones y redes.
+::: {.callout-tip}
+## ¿Para qué sirven estas métricas en la práctica?
+- **Epidemiología**: identificar a las personas más propensas a contagiar una enfermedad (alto betweenness)
+- **Marketing**: encontrar los influencers clave para campañas virales
+- **Logística**: ubicar centros de distribución óptimos
+- **Seguridad informática**: detectar nodos críticos cuya caída colapsaría la red
+:::
+
+---
+
+## Árboles Binarios: Jerarquías y Búsqueda Eficiente
+
+### ¿Qué es un árbol? (La versión sin tecnicismos)
+
+Un **árbol** es un tipo especial de grafo que tiene estructura jerárquica, como... ¡un árbol genealógico! Hay un antepasado común en la cima (la **raíz**), que se ramifica hacia abajo en hijos, nietos, bisnietos, etc.
+
+Características clave:
+- Existe un único nodo principal llamado **raíz** (la cima del árbol)
+- Cada nodo puede tener **hijos** (nodos subordinados)
+- Los nodos sin hijos se llaman **hojas**
+- No hay ciclos: no puedes volver al mismo nodo siguiendo las conexiones hacia abajo
+
+### ¿Qué es un Árbol Binario?
+
+Un **árbol binario** es un árbol donde cada nodo tiene **a lo sumo dos hijos**: uno izquierdo y uno derecho. Nada más, nada menos.
+
+::: {.callout-note}
+## Analogía del torneo deportivo
+Imagina el cuadro de un torneo de tenis (como Wimbledon). En cada ronda, dos jugadores se enfrentan y solo uno avanza. El ganador final está en la cima. Eso es exactamente la estructura de un árbol binario: en cada nodo se toma una decisión entre dos opciones.
+:::
+
+### Ejemplos de árboles en la vida real
+
+| Contexto | Raíz | Nodos intermedios | Hojas |
+|---|---|---|---|
+| Empresa | CEO | Gerentes y jefes de área | Empleados base |
+| Sistema de archivos | Disco duro `/` | Carpetas | Archivos |
+| Torneo deportivo | Campeón | Ganadores de cada ronda | Participantes iniciales |
+| Decisiones médicas | Síntoma inicial | Preguntas de diagnóstico | Diagnóstico final |
+
+### El Árbol Binario de Búsqueda (BST)
+
+El tipo más útil es el **Árbol Binario de Búsqueda** (Binary Search Tree o BST), que sigue una regla muy simple:
+
+> Para cada nodo, todos los valores a su **izquierda** son **menores**, y todos a su **derecha** son **mayores**.
+
+Esto permite encontrar cualquier valor de forma muy eficiente, como buscar una palabra en un diccionario: abres por la mitad, sabes si la palabra está antes o después, y descartas la mitad que no te sirve.
+
+### Árboles Binarios en R
+
+R no tiene una implementación nativa de árboles binarios, pero podemos construirlos con listas anidadas, que son perfectas para representar estructuras jerárquicas:
+
+```r
+# Un nodo del árbol es una lista con: valor, hijo izquierdo, hijo derecho
+crear_nodo <- function(valor) {
+  list(valor = valor, izquierda = NULL, derecha = NULL)
+}
+
+# Insertar un valor respetando la regla BST:
+# menores a la izquierda, mayores a la derecha
+insertar <- function(nodo, valor) {
+  if (is.null(nodo)) return(crear_nodo(valor))
+
+  if (valor < nodo$valor) {
+    nodo$izquierda <- insertar(nodo$izquierda, valor)
+  } else if (valor > nodo$valor) {
+    nodo$derecha <- insertar(nodo$derecha, valor)
+  }
+  return(nodo)
+}
+```
+
+#### Construyendo un árbol con números
+
+```r
+# Insertar los valores: 50, 30, 70, 20, 40, 60, 80
+# El árbol quedará así:
+#
+#         50        ← raíz
+#        /  \
+#      30    70
+#     / \   / \
+#   20  40 60  80
+
+raiz <- NULL
+valores <- c(50, 30, 70, 20, 40, 60, 80)
+for (v in valores) {
+  raiz <- insertar(raiz, v)
+}
+```
+
+::: {.callout-tip}
+## ¿Por qué es útil esta estructura?
+Si quisieras buscar el número 60 en una lista normal de 7 elementos, podrías tener que revisar hasta los 7. En este árbol, solo necesitas 3 pasos: ¿Es mayor que 50? Sí, voy a la derecha. ¿Es menor que 70? Sí, voy a la izquierda. ¡Encontrado! Esta eficiencia se vuelve enorme cuando tienes millones de datos.
+:::
+
+#### Recorridos del árbol: diferentes formas de "visitar" los nodos
+
+Existen tres formas clásicas de recorrer un árbol, y cada una tiene su utilidad:
+
+```r
+# 1. INORDEN (izquierda → raíz → derecha)
+#    Resultado: números en orden ASCENDENTE
+#    Útil para: obtener datos ordenados
+inorden <- function(nodo) {
+  if (is.null(nodo)) return(invisible(NULL))
+  inorden(nodo$izquierda)
+  cat(nodo$valor, "")
+  inorden(nodo$derecha)
+}
+
+# 2. PREORDEN (raíz → izquierda → derecha)
+#    Resultado: raíz primero, luego ramas
+#    Útil para: copiar o serializar el árbol
+preorden <- function(nodo) {
+  if (is.null(nodo)) return(invisible(NULL))
+  cat(nodo$valor, "")
+  preorden(nodo$izquierda)
+  preorden(nodo$derecha)
+}
+
+# 3. POSTORDEN (izquierda → derecha → raíz)
+#    Resultado: raíz al final
+#    Útil para: eliminar el árbol o evaluar expresiones matemáticas
+postorden <- function(nodo) {
+  if (is.null(nodo)) return(invisible(NULL))
+  postorden(nodo$izquierda)
+  postorden(nodo$derecha)
+  cat(nodo$valor, "")
+}
+
+cat("Inorden (ordenado):  "); inorden(raiz);   cat("\n")
+cat("Preorden:            "); preorden(raiz);  cat("\n")
+cat("Postorden:           "); postorden(raiz); cat("\n")
+```
+
+#### Búsqueda en el árbol
+
+```r
+# Buscar un valor: en cada paso descartamos la mitad del árbol
+buscar <- function(nodo, valor) {
+  if (is.null(nodo)) {
+    cat("Valor", valor, "NO encontrado.\n")
+    return(FALSE)
+  }
+  if (valor == nodo$valor) {
+    cat("✓ Valor", valor, "encontrado!\n")
+    return(TRUE)
+  } else if (valor < nodo$valor) {
+    buscar(nodo$izquierda, valor)  # Buscar a la izquierda
+  } else {
+    buscar(nodo$derecha, valor)    # Buscar a la derecha
+  }
+}
+
+buscar(raiz, 40)   # Debería encontrarlo
+buscar(raiz, 99)   # No existe en el árbol
+```
+
+#### Altura del árbol
+
+La **altura** de un árbol es el número de niveles que tiene, como los pisos de un edificio. Un árbol más bajo (con menos niveles) generalmente es más eficiente para las búsquedas.
+
+```r
+# Calcular la altura: ¿cuántos "pisos" tiene nuestro árbol?
+altura <- function(nodo) {
+  if (is.null(nodo)) return(0)
+  1 + max(altura(nodo$izquierda), altura(nodo$derecha))
+}
+
+cat("Altura del árbol:", altura(raiz), "niveles\n")
+# Para 7 nodos bien balanceados, la altura debería ser 3
+```
+
+### Visualizando el árbol con `data.tree`
+
+Para visualizar árboles de forma más intuitiva, el paquete `data.tree` es una excelente opción:
+
+```r
+# install.packages("data.tree")
+library(data.tree)
+
+# Construir el árbol visualmente
+arbol_visual <- Node$new("50 (raíz)")
+  n30 <- arbol_visual$AddChild("30")
+    n30$AddChild("20 (hoja)")
+    n30$AddChild("40 (hoja)")
+  n70 <- arbol_visual$AddChild("70")
+    n70$AddChild("60 (hoja)")
+    n70$AddChild("80 (hoja)")
+
+print(arbol_visual)
+```
+
+La salida mostrará el árbol en forma de diagrama jerárquico, como un organigrama de empresa.
+
+::: {.callout-tip}
+## Árboles en el mundo real de R
+Aunque raramente construimos árboles binarios "a mano" en análisis de datos, los árboles están en el corazón de algoritmos muy usados en ciencia de datos, como los **Árboles de Decisión** (`rpart`) y los **Bosques Aleatorios** (`randomForest`). Entender los fundamentos te ayudará a interpretar mejor esos modelos.
+:::
+
+---
+
+## Resumen Comparativo
+
+| Característica | Grafo | Árbol Binario |
+|---|---|---|
+| **Estructura** | Red de conexiones libres | Jerarquía estricta con raíz |
+| **Ciclos** | Pueden existir | No existen |
+| **Hijos por nodo** | Ilimitados | Máximo 2 |
+| **Caso de uso típico** | Redes sociales, mapas | Búsquedas, ordenamiento, IA |
+| **Paquete en R** | `igraph` | Implementación manual o `data.tree` |
+
+Tanto los grafos como los árboles binarios son herramientas poderosas que nos permiten modelar el mundo real de manera más fiel que las simples listas o tablas. Con la práctica, aprenderás a identificar cuándo cada estructura es la más adecuada para tu problema.
 
 ## Árboles Binarios: Jerarquías con Ramificaciones Limitadas
 

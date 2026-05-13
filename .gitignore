@@ -1,2 +1,10 @@
 /.quarto/
 **/*.quarto_ipynb
+
+.vscode/
+
+_book/
+
+index.tex
+
+index.log
