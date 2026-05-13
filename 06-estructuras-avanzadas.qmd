@@ -10,6 +10,189 @@ Los árboles AVL (por sus inventores Adelson-Velsky y Landis) son un tipo de ár
 
 ### Caracteristicas Importantes
 
+#### Auto-balanceo automático
+
+La característica más definitoria de un árbol AVL es que se balancea automáticamente después de cada inserción o eliminación. Ninguna operación puede dejar al árbol en un estado desequilibrado de forma permanente.
+
+Esto se logra mediante el uso del factor de balance (FB) de cada nodo:
+
+$$
+FB(nodo) = altura(subárbol\ izquierdo) - altura(subárbol\ derecho)
+$$
+
+El árbol garantiza en todo momento que:
+
+$$
+FB \in \{-1, 0, 1\}
+$$
+
+Si después de una inserción o eliminación algún nodo viola esta condición, el árbol aplica rotaciones (simples o dobles) para restaurar el equilibrio antes de finalizar la operación.
+
+En Java puede implementarse así:
+
+```java
+int factorBalance(Nodo nodo) {
+    if (nodo == null) {
+        return 0;
+    }
+    return altura(nodo.izquierdo) - altura(nodo.derecho);
+}
+```
+
+####Altura garantizada O(log n)
+
+En un árbol de búsqueda binario (BST) simple, insertar elementos en orden creciente (1, 2, 3, 4, 5…) produce una estructura degenerada que es prácticamente una lista enlazada.
+
+```text
+BST degenerado:              AVL (mismos datos):
+
+1                           3
+ \                         / \
+  2                       2   4
+   \                     /     \
+    3                   1       5
+     \
+      4
+       \
+        5
+```
+
+Un árbol AVL con \(n\) nodos mantiene siempre una altura \(h\) acotada por:
+
+$$
+\log_2(n+1) \leq h \leq 1.44 \times \log_2(n+2)
+$$
+
+Esto garantiza que, incluso en el peor caso, la altura del árbol nunca supera aproximadamente 1.44 veces el logaritmo del número de nodos.
+
+#### Rendimiento \(O(\log n)\) en todas las operaciones principales 
+
+Como consecuencia directa de la altura logarítmica garantizada, las tres operaciones fundamentales tienen un costo predecible:
+
+| Operación  | Mejor caso | Caso promedio | Peor caso |
+|------------|------------|---------------|-----------|
+| Búsqueda   | O(1)       | O(log n)      | O(log n)  |
+| Inserción  | O(log n)   | O(log n)      | O(log n)  |
+| Eliminación| O(log n)   | O(log n)      | O(log n)  |
+
+En un BST simple, el peor caso puede llegar a ser \(O(n)\). El árbol AVL elimina ese riesgo al mantener siempre su estructura balanceada.
+
+#### Las cuatro rotaciones como mecanismo de corrección
+
+Cuando el factor de balance se rompe, el árbol AVL dispone de exactamente cuatro tipos de rotación para restaurarlo. Cada una corresponde a un patrón específico de desequilibrio:
+
+| Caso | Descripción                               | Solución                       |
+|------|-------------------------------------------|--------------------------------|
+| LL   | Inserción en subárbol izquierdo-izquierdo | Rotación simple a la derecha   |
+| RR   | Inserción en subárbol derecho-derecho     | Rotación simple a la izquierda |
+| LR   | Inserción en subárbol izquierdo-derecho   | Rotación doble (izq → der)     |
+| RL   | Inserción en subárbol derecho-izquierdo   | Rotación doble (der → izq)     |
+
+- **Ejemplo de Rotación Simple Derecha (caso LL):**
+
+Supongamos que se insertan los valores 30, 20 y 10 en ese orden.
+
+Esto provoca un desequilibrio de tipo LL (*Left-Left*), porque la inserción ocurre en el subárbol izquierdo del hijo izquierdo.
+
+```text
+Antes de la rotación (desequilibrio LL):     Después de la rotación simple a la derecha:
+
+        30                                   20
+       /                                    /  \
+     20                                   10    30
+    /
+  10
+```
+- **Ejemplo de Rotación Simple Izquierda (caso RR):**
+
+Supongamos que se insertan los valores 10, 20 y 30 en ese orden.
+
+Esto provoca un desequilibrio de tipo RR (*Right-Right*), porque la inserción ocurre en el subárbol derecho del hijo derecho.
+
+```text
+Antes de la rotación (desequilibrio RR):     Después de la rotación simple a la izquierda:
+
+10                                          20
+  \                                        /  \
+   20                                    10   30
+     \
+      30
+```
+- **Ejemplo de Rotación Doble Izquierda-Derecha (caso LR):**
+
+Supongamos que se insertan los valores 30, 10 y 20 en ese orden.
+
+Esto provoca un desequilibrio de tipo LR (*Left-Right*), porque la inserción ocurre en el subárbol derecho del hijo izquierdo.
+
+```text
+Antes de la rotación (desequilibrio LR):     Después de la rotación doble (izq → der):
+
+      30                                     20
+     /                                      /  \
+   10                                      10   30
+     \
+      20
+```
+- **Ejemplo de Rotación Doble Derecha-Izquierda (caso RL):**
+
+Supongamos que se insertan los valores 10, 30 y 20 en ese orden.
+
+Esto provoca un desequilibrio de tipo RL (*Right-Left*), porque la inserción ocurre en el subárbol izquierdo del hijo derecho.
+
+```text
+Antes de la rotación (desequilibrio RL):     Después de la rotación doble (der → izq):
+
+10                                          20
+  \                                        /  \
+   30                                     10   30
+  /
+20
+```
+#### Árbol de búsqueda binaria (mantiene el orden)
+
+El árbol AVL hereda todas las propiedades de un árbol binario de búsqueda (BST). Para cualquier nodo, todos los valores de su subárbol izquierdo son menores y todos los valores de su subárbol derecho son mayores.
+
+Esto significa que un recorrido *inorden* siempre produce los elementos en orden ascendente, lo que lo hace especialmente útil para búsquedas eficientes, consultas por rangos y recorridos ordenados.
+
+#### Árbol de búsqueda binaria (mantiene el orden)
+
+El árbol AVL hereda todas las propiedades de un árbol binario de búsqueda (BST). Para cualquier nodo, todos los valores de su subárbol izquierdo son menores y todos los valores de su subárbol derecho son mayores.
+
+Esto significa que un recorrido *inorden* siempre produce los elementos en orden ascendente, lo que lo hace especialmente útil para búsquedas eficientes, consultas por rangos y recorridos ordenados.
+
+- **Ejemplo de recorrido inorden:**
+
+Supongamos que se insertan los valores: 20, 10, 30, 5, 15, 25 y 35.
+
+El árbol AVL queda organizado de la siguiente forma:
+
+```text
+        20
+       /  \
+     10    30
+    / \    / \
+   5  15  25  35
+```
+Recorrido inorden (izquierda → raíz → derecha):
+
+5 → 10 → 15 → 20 → 25 → 30 → 35
+
+#### Costo adicional: espacio y tiempo de rotación
+
+Los árboles AVL no son gratuitos. Cada nodo debe almacenar información adicional, como su altura o su factor de balance, lo que implica un pequeño costo extra de memoria en comparación con un BST simple.
+
+Además, cada operación de inserción o eliminación puede requerir procesos de rebalanceo para mantener la propiedad AVL.
+
+#### Costo extra por inserción y eliminación
+
+- **Actualizar alturas en el camino de regreso:** \(O(\log n)\) pasos  
+- **Rotaciones necesarias en inserción:** máximo 2 rotaciones  
+- **Rotaciones necesarias en eliminación:** hasta \(O(\log n)\) rotaciones  
+
+Aunque existe este costo adicional, el beneficio principal es garantizar que las operaciones de búsqueda, inserción y eliminación mantengan un rendimiento eficiente incluso en el peor caso.
+
+
+
 ### Estructura Fija de un Nodo
 
 ### Ejemplo en Java (Implementacion de un arbol AVL)
