@@ -68,9 +68,9 @@ bubble_sort <- function(arr) {
 ### Complejidad
 
 *   **Tiempo**:
-    *   **Peor caso**: O(n^2). Ocurre cuando el array está ordenado en orden inverso. Cada elemento necesita "burbujear" a través de casi toda la lista.
-    *   **Caso promedio**: O(n^2).
-    *   **Mejor caso**: O(n). Si el array ya está ordenado, la optimización con la bandera `swapped` hará que el algoritmo complete en una sola pasada.
+    *   **Peor caso**: $O(n^2)$. Ocurre cuando el array está ordenado en orden inverso. Cada elemento necesita "burbujear" a través de casi toda la lista.
+    *   **Caso promedio**: $O(n^2)$.
+    *   **Mejor caso**: $O(n)$. Si el array ya está ordenado, la optimización con la bandera `swapped` hará que el algoritmo complete en una sola pasada.
 *   **Espacio**: O(1). Es un algoritmo de ordenación "in-place" ya que solo utiliza una cantidad constante de memoria adicional para la variable `temp`.
 
 ### Ejemplo
@@ -149,9 +149,9 @@ insertion_sort <- function(arr) {
 ### Complejidad
 
 *   **Tiempo**:
-    *   **Peor caso**: O(n^2). Ocurre cuando el array está ordenado en orden inverso. Cada elemento debe ser comparado y desplazado a través de casi toda la sublista ordenada.
-    *   **Caso promedio**: O(n^2).
-    *   **Mejor caso**: O(n). Si el array ya está ordenado, cada elemento se compara solo con el elemento adyacente anterior, lo que resulta en un tiempo lineal.
+    *   **Peor caso**: $O(n^2)$. Ocurre cuando el array está ordenado en orden inverso. Cada elemento debe ser comparado y desplazado a través de casi toda la sublista ordenada.
+    *   **Caso promedio**: $O(n^2)$.
+    *   **Mejor caso**: $O(n)$. Si el array ya está ordenado, cada elemento se compara solo con el elemento adyacente anterior, lo que resulta en un tiempo lineal.
 *   **Espacio**: O(1). Es un algoritmo "in-place".
 
 ### Ejemplo
@@ -244,7 +244,7 @@ merge_sort <- function(arr) {
 #### `merge_arrays(left, right)`:
 1.  **`result <- c()`**: Inicializamos un vector vacío para almacenar el resultado combinado.
 2.  **`while (length(left) > 0 && length(right) > 0)`**: Este bucle compara los primeros elementos de `left` y `right`.
-    *   El elemento más pequeño se añade a `result` y se elimina de su array original usando `left[-1]` o `right[-1]`. **Nota**: La eliminación de elementos al inicio de un vector en R es una operación costosa O(n) que puede impactar el rendimiento real de esta implementación en R. En lenguajes de bajo nivel se usarían punteros o índices.
+    *   El elemento más pequeño se añade a `result` y se elimina de su array original usando `left[-1]` o `right[-1]`. **Nota**: La eliminación de elementos al inicio de un vector en R es una operación costosa $O(n)$ que puede impactar el rendimiento real de esta implementación en R. En lenguajes de bajo nivel se usarían punteros o índices.
 3.  **`if (length(left) > 0)` / `if (length(right) > 0)`**: Después del bucle `while`, uno de los arrays podría tener elementos restantes (porque uno se agotó antes que el otro). Estos elementos restantes ya están ordenados y simplemente se añaden al final de `result`.
 4.  **`return(result)`**: Devuelve el array combinado y ordenado.
 
@@ -259,11 +259,11 @@ merge_sort <- function(arr) {
 ### Complejidad
 
 *   **Tiempo**:
-    *   **Peor caso**: O(n log n).
-    *   **Caso promedio**: O(n log n).
-    *   **Mejor caso**: O(n log n).
+    *   **Peor caso**: $O(n \log n)$.
+    *   **Caso promedio**: $O(n \log n)$.
+    *   **Mejor caso**: $O(n \log n)$.
     Mergesort tiene un rendimiento consistente en todos los casos debido a su estrategia de división equitativa y la naturaleza de la operación de fusión. El factor `log n` viene de las divisiones recursivas, y `n` de la operación de fusión en cada nivel.
-*   **Espacio**: O(n). Mergesort no es un algoritmo "in-place" puro. Requiere espacio adicional para almacenar las sublistas temporales durante la fase de fusión. En nuestra implementación de R, la creación de nuevos vectores en cada paso de `merge_arrays` contribuye a esta complejidad espacial.
+*   **Espacio**: $O(n)$. Mergesort no es un algoritmo "in-place" puro. Requiere espacio adicional para almacenar las sublistas temporales durante la fase de fusión. En nuestra implementación de R, la creación de nuevos vectores en cada paso de `merge_arrays` contribuye a esta complejidad espacial.
 
 ### Ejemplo
 
@@ -345,12 +345,12 @@ quick_sort <- function(arr) {
 ### Complejidad
 
 *   **Tiempo**:
-    *   **Peor caso**: O(n^2). Ocurre cuando la elección del pivote es consistentemente mala (por ejemplo, siempre el elemento más pequeño o más grande), lo que resulta en particiones desequilibradas (una sublista de `n-1` elementos y otra de 0).
-    *   **Caso promedio**: O(n log n). Con una buena elección de pivote (que divide el array en dos subproblemas de tamaño similar), Quicksort es muy eficiente.
-    *   **Mejor caso**: O(n log n).
+    *   **Peor caso**: $O(n^2)$. Ocurre cuando la elección del pivote es consistentemente mala (por ejemplo, siempre el elemento más pequeño o más grande), lo que resulta en particiones desequilibradas (una sublista de `n-1` elementos y otra de 0).
+    *   **Caso promedio**: $O(n \log n)$. Con una buena elección de pivote (que divide el array en dos subproblemas de tamaño similar), Quicksort es muy eficiente.
+    *   **Mejor caso**: $O(n \log n)$.
 *   **Espacio**:
     *   **Caso promedio**: O(log n). Esto se debe al espacio utilizado por la pila de recursión para almacenar las llamadas a la función.
-    *   **Peor caso**: O(n). Si las particiones son muy desequilibradas, la pila de recursión puede crecer linealmente con el tamaño de `n`.
+    *   **Peor caso**: $O(n)$. Si las particiones son muy desequilibradas, la pila de recursión puede crecer linealmente con el tamaño de `n`.
     *   Nuestra implementación en R, al crear nuevos vectores `less` y `greater` en cada llamada, tiene una complejidad espacial mayor en la práctica que una implementación "in-place" típica de Quicksort, que solo usa espacio para la pila de recursión.
 
 ### Ejemplo
@@ -375,9 +375,9 @@ print(paste("Vector ordenado (Quicksort):", paste(vector_ordenado_neg, collapse 
 
 Hemos recorrido cuatro algoritmos de ordenación fundamentales, cada uno con su enfoque único y características de rendimiento.
 
-*   **Bubble Sort** e **Insertion Sort** son algoritmos simples de entender e implementar, adecuados para arrays pequeños o casi ordenados (donde rinden en O(n)). Sin embargo, su complejidad de O(n^2) los hace imprácticos para grandes volúmenes de datos.
-*   **Mergesort** y **Quicksort** son algoritmos de "divide y vencerás" que ofrecen un rendimiento mucho mejor, generalmente O(n log n).
-    *   **Mergesort** es estable y tiene un rendimiento consistente de O(n log n) en todos los casos, pero requiere O(n) de espacio adicional.
-    *   **Quicksort** es típicamente el más rápido en la práctica (O(n log n) promedio), especialmente en implementaciones "in-place", aunque su peor caso es O(n^2) y puede ser inestable. La elección del pivote es crítica para su eficiencia.
+*   **Bubble Sort** e **Insertion Sort** son algoritmos simples de entender e implementar, adecuados para arrays pequeños o casi ordenados (donde rinden en $O(n)$). Sin embargo, su complejidad de $O(n^2)$ los hace imprácticos para grandes volúmenes de datos.
+*   **Mergesort** y **Quicksort** son algoritmos de "divide y vencerás" que ofrecen un rendimiento mucho mejor, generalmente $O(n \log n)$.
+    *   **Mergesort** es estable y tiene un rendimiento consistente de $O(n \log n)$ en todos los casos, pero requiere $O(n)$ de espacio adicional.
+    *   **Quicksort** es típicamente el más rápido en la práctica ($O(n \log n)$ promedio), especialmente en implementaciones "in-place", aunque su peor caso es $O(n^2)$ y puede ser inestable. La elección del pivote es crítica para su eficiencia.
 
 En R, para tareas de ordenación cotidianas, generalmente se recomienda usar las funciones nativas optimizadas como `sort()` o `order()`, ya que están implementadas en C/Fortran y son extremadamente eficientes. Sin embargo, comprender los algoritmos subyacentes es crucial para cualquier científico de datos o programador que desee escribir código eficiente y comprender las bases de la informática. ¡Espero que este capítulo le haya proporcionado una base sólida!

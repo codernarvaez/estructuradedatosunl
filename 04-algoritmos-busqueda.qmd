@@ -79,9 +79,9 @@ busqueda_secuencial(numeros, 6)
 
 La principal ventaja de la búsqueda secuencial es su simplicidad y que no requiere que los datos estén ordenados. Sin embargo, su principal desventaja es su eficiencia.
 
-*   **Complejidad Temporal (Worst Case):** O(n). En el peor de los casos (cuando el elemento no está presente o está al final), el algoritmo debe revisar todos los `n` elementos.
+*   **Complejidad Temporal (Worst Case):** $O(n)$. En el peor de los casos (cuando el elemento no está presente o está al final), el algoritmo debe revisar todos los `n` elementos.
 *   **Complejidad Temporal (Best Case):** O(1). En el mejor de los casos (cuando el elemento es el primero), solo necesita una comparación.
-*   **Complejidad Temporal (Average Case):** O(n). En promedio, revisará `n/2` elementos.
+*   **Complejidad Temporal (Average Case):** $O(n)$. En promedio, revisará `n/2` elementos.
 
 La búsqueda secuencial es apropiada para:
 *   Conjuntos de datos pequeños.
@@ -217,7 +217,7 @@ La búsqueda binaria es ideal para:
 | Característica            | Búsqueda Secuencial (Lineal) | Búsqueda Binaria     |
 | :------------------------ | :--------------------------- | :------------------- |
 | **Requisito de Orden**   | No requiere                  | **Requiere**         |
-| **Complejidad Temporal**  | O(n) (lineal)                | O(log n) (logarítmica) |
+| **Complejidad Temporal**  | $O(n)$ (lineal)                | O(log n) (logarítmica) |
 | **Tamaño de Datos**       | Pequeños                     | Grandes              |
 | **Simplicidad**           | Muy simple de implementar    | Más compleja         |
 | **Escenarios Típicos**    | Datos desordenados, pocas búsquedas, listas pequeñas | Datos ordenados, muchas búsquedas, listas grandes |
