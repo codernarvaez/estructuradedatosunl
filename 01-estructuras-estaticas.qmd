@@ -12,26 +12,27 @@ library(tidyverse)
 library(ggplot2)
 ```
 
-Imagina que tienes un album del mundial con un numero fijo de paginas. Sabes exactamente cuántas paginas tiene y cuantos cromos va en cada una. No puedes hacer el albumn mas grande sin esperar a que salga la nueva edicion, pero a cambio, encontrar un un cromo especifico para su seleccion por que conoces en que seleccion va. Así es exactamente como funcionan las **estructuras de datos estáticas** en memoria. 
+Imagina que tienes un album del mundial con un numero fijo de paginas. Sabes exactamente cuántas paginas tiene y cuantos cromos va en cada una. No puedes hacer el albumn mas grande sin esperar a que salga la nueva edicion, pero a cambio, encontrar un un cromo especifico para su seleccion por que conoces en que seleccion va. Así es exactamente como funcionan las **estructuras de datos estáticas** en memoria.
 
 En este capítulo, exploraremos dos de las estructuras más fundamentales que comparten esta característica: los **Arreglos** (en memoria principal) y los **Archivos** (en memoria secundaria). Aunque en tus proyectos usarás lenguajes como Java o Python para interactuar con ellos, entender su comportamiento a nivel fundamental te dará el superpoder de escribir código increíblemente rápido y eficiente.
 
 ## Arreglos: La Caja de Herramientas Estática {#sec-arreglos}
 
-Un arreglo es una colección contigua de elementos del mismo tipo. Su tamaño se define en el momento de la creación y, por naturaleza, no resorte cambios dinámicos.
+Un arreglo es una colección contigua de cromos de la misma Seleccion. Su tamaño se define en el momento de la creación y, por naturaleza, no resorte cambios dinámicos.
 
 ### La Memoria como un Gran Casillero
 
 Pensemos en la RAM como un edificio lleno de casilleros numerados secuencialmente. 
 
 ```java
-// Ilustración en Java de la declaración de un arreglo
+Ilustración en Java de la declaración de un arreglo
 int[] calificaciones = new int[5];
 ```
 
-Cuando declaras ese arreglo en lenguajes fuertemente implementados como Java, el sistema operativo reserva 5 casilleros contiguos. Si la dirección base es la posición lógica `1000`, y cada entero ocupa 4 bytes, el siguiente elemento estará en `1004`, luego `1008`, etc. 
+Cuando creas ese arreglo en Java, es como cuando compras un paquete nuevo de hojas para tu álbum del mundial: el sistema separa espacios seguidos para guardar tus cromos, uno al lado del otro.
+Por ejemplo, si el primer cromo empieza en la posición “1000”, el siguiente estaría en “1004”, luego “1008” y así sucesivamente, porque cada espacio ocupa el mismo tamaño.
 
-Esta contigüidad es la clave de su velocidad extrema de lectura: el tiempo de acceso es $\mathcal{O}(1)$. Veamos una representación abstracta de cómo el tiempo de acceso se mantiene constante sin importar el volumen de la colección:
+Esa organización seguida es lo que hace que encontrar cromos sea súper rápido. Es como abrir tu álbum y saber exactamente en qué página está el cromo de una selección sin tener que buscar por todo el álbum. No importa si tienes pocos o muchísimos cromos, el tiempo para encontrarlos prácticamente siempre será el mismo.
 
 ```{r}
 #| label: fig-acceso-arreglo
