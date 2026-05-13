@@ -62,21 +62,20 @@ Pero de repente llega un Dominus nuevo y el coach decide meterlo justo entre el 
 
 Y ahí está el problema: si en vez de 5 autos tienes 50 repartidos por toda la arena, meter uno nuevo al principio significa que los 50 tienen que correrse. Es como intentar reorganizar toda la rotación del equipo en pleno overtime, lento y caótico. Por eso más adelante se buscan estructuras más flexibles, como si cada auto pudiera simplemente saltar a cualquier parte del campo sin arrastrar a nadie más.
 
-## Archivos: Persistencia más allá de la RAM {#sec-archivos}
+## Archivos: Persistencia mas allá del Partido {#sec-archivos}
 
-Mientras que los arreglos viven limitados al horizonte de la memoria volátil, los **Archivos** residen en el almacenamiento secundario. Funcionalmente, actúan como las inmensas bodegas a largo plazo de nuestra aplicación.
-
-Al igual que un arreglo es una tira de variables, un archivo puede interpretarse en su abstracción más simple como un gran arreglo de bytes apilado permanentemente.
+Los Archivos son como los replays de Rocket League: cuando cierras el juego todo lo que pasó en RAM desaparece, pero el replay queda guardado en tu disco para siempre, como una larga grabación de cada boost consumido, cada gol y cada derrota apilados uno tras otro. Eso es exactamente lo que hace este código, abrir un archivo y escribir jugada por jugada de forma permanente:
 
 ```{r}
 #| eval: false
 # Ejemplo ilusitrativo de cómo en Python el arreglo persistente 
-# se expone como un stream lineal de datos
 with open("datos.txt", "w") as archivo:
-    archivo.write("Persistencia consolidada...")
+    replay.write("Gol de Octane al minuto 2:34...")
+    replay.write("Boost naranja tomado por Fennec...")
+    replay.write("Derrota de 0-3...")
 ```
 
-Interactuar físicamente con los discos magnéticos o solidos (I/O) siempre conlleva una penalización en latencia masiva comparado con la RAM. Por lo tanto, agrupar las peticiones (usando *buffers* locales basados en arreglos temporales rápidos) es la esencia clave para un I/O de calidad superior.
+El problema es que escribir en ese archivo es muchísimo más lento que simplemente recordar lo que acabas de jugar, porque acceder al disco siempre tiene su penalización. Por eso los sistemas inteligentes no mandan cada jugada al disco una por una, sino que las acumulan todas en memoria y las escriben de un solo jalón, como esperar el momento exacto para rematar en vez de tirar a gol cada vez que tocas la bola.
 
 ## Matrices y Arreglos Multidimensionales {#sec-matrices}
 
