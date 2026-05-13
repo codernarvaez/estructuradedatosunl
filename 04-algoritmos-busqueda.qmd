@@ -35,7 +35,7 @@ Este algoritmo examina cada elemento de la colección uno por uno, en el orden e
 A continuación, implementaremos una función llamada búsqueda secuencial en Java, Python y JavaScript. Esta función tomará una colección de datos (datos) y un valor objetivo (objetivo) como entrada.
 
 #### Java
-```{java}
+```java
 public class BusquedaSecuencial {
     //Se crea el metodo para buscar un numero en un arreglo
     public static int buscar(int[] numeros, int objetivo) {
@@ -76,7 +76,7 @@ public class Main {
 }
 ```
 #### Python
-```python
+```{python}
 def busqueda_secuencial(datos, objetivo):
     """
     Función para realizar una búsqueda secuencial en una lista.
@@ -126,7 +126,7 @@ function busquedaSecuencial(datos, objetivo) {
 Veamos nuestra función en acción con algunos ejemplos, probando en cada lenguaje tanto con datos numéricos como de texto.
 
 #### Java
-```{java}
+```java
 // Ejemplo 1: El número está presente
 int[] numeros = {10, 5, 20, 15, 30, 25};
 buscar(numeros, 15);
@@ -172,7 +172,8 @@ buscar(repetidos, 8);
 // Número encontrado en la posición: 1
 ```
 #### Python
-```python
+```{python}
+#| output: false
 edades = [15, 22, 18, 30, 45, 12, 60]
 
 # Ejemplo 1: El objetivo está presente
@@ -263,100 +264,95 @@ La búsqueda binaria opera bajo el mismo principio de "divide y vencerás".
     -   Si el elemento en `medio` es **mayor** que el objetivo, significa que el objetivo (si existe) debe estar en la mitad **izquierda** del rango. Se ajusta `fin` a `medio - 1`.
 5.  Los pasos 2 a 4 se repiten hasta que el objetivo se encuentra o hasta que el rango de búsqueda se reduce a cero (lo que significa que el objetivo no está presente).
 
-### Implementación en R
+### Implementación
 
-Implementaremos una versión iterativa de la búsqueda binaria.
+A continuación, implementaremos una función llamada búsqueda secuencial en Java, Python y JavaScript. Esta función tomará una colección de datos (datos) y un valor objetivo (objetivo) como entrada.
 
-```{r}
-#' Función para realizar una búsqueda binaria en un vector ordenado
-#'
-#' @param datos Un vector numérico o de caracteres ORDENADO donde buscar.
-#' @param objetivo El valor que se desea encontrar.
-#' @return El índice (posición) del objetivo si se encuentra, de lo contrario, NULL.
-#'
-#' @examples
-#' vector_ordenado <- c(5, 10, 15, 20, 25, 30)
-#' busqueda_binaria(vector_ordenado, 20) # Debería devolver 4
-#' busqueda_binaria(vector_ordenado, 12) # Debería devolver NULL
-busqueda_binaria <- function(datos, objetivo) {
-  # Verificar que el vector no esté vacío
-  if (length(datos) == 0) {
-    message("El vector está vacío.")
-    return(NULL)
-  }
+#### Python
+```{python}
+def busqueda_binaria(datos, objetivo):
+    """
+    Función para realizar una búsqueda binaria en una lista ordenada.
+    
+    :param datos: Una lista numérica o de caracteres ORDENADA.
+    :param objetivo: El valor que se desea encontrar.
+    :return: El índice del objetivo si se encuentra, de lo contrario, None.
+    """
+    # Verificar que la lista no esté vacía
+    if not datos:
+        print("La lista está vacía.")
+        return None
 
-  # Se asume que el vector 'datos' ya está ordenado.
-  # Si no estuviera ordenado, necesitaríamos una línea como:
-  # datos <- sort(datos)
-  # Pero esto añade una complejidad O(n log n) y no es parte del algoritmo de búsqueda binaria en sí.
+    inicio = 0
+    fin = len(datos) - 1
 
-  inicio <- 1
-  fin <- length(datos)
+    while inicio <= fin:
+        # Calcular el punto medio usando división entera
+        medio = (inicio + fin) // 2
 
-  while (inicio <= fin) {
-    # Calcular el punto medio. Usamos floor para asegurar un índice entero.
-    medio <- floor((inicio + fin) / 2)
+        # Comparamos el elemento en el medio con el objetivo
+        if datos[medio] == objetivo:
+            print(f"Objetivo {objetivo} encontrado en el índice {medio}")
+            return medio  # ¡Encontrado!
+        elif datos[medio] < objetivo:
+            # El objetivo está en la mitad derecha
+            inicio = medio + 1
+        else:
+            # El objetivo está en la mitad izquierda
+            fin = medio - 1
 
-    # Comparamos el elemento en el medio con el objetivo
-    if (datos[medio] == objetivo) {
-      message(paste("Objetivo", objetivo, "encontrado en el índice", medio))
-      return(medio) # ¡Encontrado!
-    } else if (datos[medio] < objetivo) {
-      # El objetivo está en la mitad derecha
-      inicio <- medio + 1
-    } else {
-      # El objetivo está en la mitad izquierda
-      fin <- medio - 1
-    }
-  }
-
-  # Si el bucle termina, el objetivo no fue encontrado
-  message(paste("Objetivo", objetivo, "no encontrado en el vector."))
-  return(NULL)
-}
+    # Si el bucle termina, el objetivo no fue encontrado
+    print(f"Objetivo {objetivo} no encontrado en la lista.")
+    return None
 ```
 
 ### Ejemplos de Uso
 
-Recuerden, el vector DEBE estar ordenado para que la búsqueda binaria funcione correctamente.
+Recuerden, el arreglo debe estar ordenado para que la búsqueda binaria funcione correctamente.
 
-```{r}
-# Creamos un vector ordenado
-numeros_ordenados <- c(1, 3, 5, 7, 9, 11, 13, 15, 17, 19)
+#### Python
+```{python}
+#| output: false
+# Ejemplo 1: Búsqueda de una temperatura específica (Datos decimales)
+temperaturas = [-10.5, 0.0, 5.2, 15.0, 22.8, 31.4, 40.0]
+busqueda_binaria(temperaturas, 22.8)
+# Salida: Objetivo 22.8 encontrado en el índice 4
 
-# Ejemplo 1: El objetivo está presente
-busqueda_binaria(numeros_ordenados, 9)
+# Ejemplo 2: Búsqueda alfabética de países (Datos de texto)
+paises = ["Argentina", "Brasil", "Colombia", "Ecuador", "México", "Perú"]
+busqueda_binaria(paises, "Ecuador")
+# Salida: Objetivo Ecuador encontrado en el índice 3
 
-# Ejemplo 2: El objetivo no está presente
-busqueda_binaria(numeros_ordenados, 10)
+# Ejemplo 3: Búsqueda de un elemento en el límite inferior
+busqueda_binaria(temperaturas, -10.5)
+# Salida: Objetivo -10.5 encontrado en el índice 0
 
-# Ejemplo 3: El objetivo es el primer elemento
-busqueda_binaria(numeros_ordenados, 1)
-
-# Ejemplo 4: El objetivo es el último elemento
-busqueda_binaria(numeros_ordenados, 19)
-
-# Ejemplo 5: Con un vector de un solo elemento (objetivo presente)
-busqueda_binaria(c(5), 5)
-
-# Ejemplo 6: Con un vector de un solo elemento (objetivo ausente)
-busqueda_binaria(c(5), 10)
+# Ejemplo 4: Búsqueda de un nombre que no existe en la lista
+nombres = ["Ana", "Elena", "Carlos","Diego", "Fernando", "Guillermo"]
+busqueda_binaria(nombres, "Carlos")
+# Salida: NULL
 ```
 
-**¡Advertencia!** ¿Qué pasa si el vector no está ordenado?
+**¡Advertencia!** ¿Qué pasa si el arreglo no está ordenado?
 
-```{r}
-numeros_desordenados <- c(5, 1, 9, 3, 7)
-# Si intentamos buscar 3, ¡dará un resultado incorrecto o NULL!
-# (En este caso, 3 está en la posición 4, pero la búsqueda binaria podría devolver NULL o algo erróneo)
-busqueda_binaria(numeros_desordenados, 3) # Resultado erróneo porque el vector no está ordenado
+```{python}
+# Ejemplo de lista desordenada
+numeros_desordenados = [5, 1, 9, 3, 7]
+
+# Si intentamos buscar 3 en una lista desordenada usando búsqueda binaria,
+# el resultado será incorrecto o None porque el algoritmo asume un orden.
+busqueda_binaria(numeros_desordenados, 3)
 ```
 
 Para corregirlo, simplemente ordenamos el vector antes de buscar:
 
-```{r}
-numeros_desordenados_ordenados <- sort(numeros_desordenados)
-busqueda_binaria(numeros_desordenados_ordenados, 3) # Ahora sí funciona correctamente
+```{python}
+
+# En Python usamos sorted() para generar una nueva lista ordenada
+numeros_desordenados_ordenados = sorted(numeros_desordenados)
+
+# Ahora la búsqueda binaria funcionará perfectamente
+busqueda_binaria(numeros_desordenados_ordenados, 3)
 ```
 
 ### Eficiencia y Casos de Uso
