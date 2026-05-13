@@ -12,7 +12,7 @@ library(tidyverse)
 library(ggplot2)
 ```
 
-Imagina que tienes una caja de herramientas de tamaño fijo. Sabes exactamente cuántos compartimentos tiene y qué herramienta va en cada uno. No puedes hacer la caja más grande sin comprar una nueva, pero a cambio, encontrar un destornillador específico es instantáneo porque conoces su ubicación exacta. Así es exactamente como funcionan las **estructuras de datos estáticas** en memoria.
+Imagina que tienes un album del mundial con un numero fijo de paginas. Sabes exactamente cuántas paginas tiene y cuantos cromos va en cada una. No puedes hacer el albumn mas grande sin esperar a que salga la nueva edicion, pero a cambio, encontrar un un cromo especifico para su seleccion por que conoces en que seleccion va. Así es exactamente como funcionan las **estructuras de datos estáticas** en memoria. 
 
 En este capítulo, exploraremos dos de las estructuras más fundamentales que comparten esta característica: los **Arreglos** (en memoria principal) y los **Archivos** (en memoria secundaria). Aunque en tus proyectos usarás lenguajes como Java o Python para interactuar con ellos, entender su comportamiento a nivel fundamental te dará el superpoder de escribir código increíblemente rápido y eficiente.
 
