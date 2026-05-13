@@ -5,12 +5,12 @@ editor:
     wrap: sentence
 ---
 
-¡Hola a todos y bienvenidos a este capítulo sobre algoritmos de búsqueda en Java!
+¡Hola a todos y bienvenidos a este capítulo sobre algoritmos de búsqueda!
 Como analistas de datos, científicos de datos o simplemente entusiastas de la programación, constantemente nos enfrentamos a la tarea de encontrar elementos específicos dentro de colecciones de datos.
-Ya sea que estemos buscando una transacción particular en un enorme conjunto de datos financieros, un usuario específico en una base de datos de millones de registros, o un valor dentro de un vector en R, la eficiencia con la que realizamos estas búsquedas puede tener un impacto significativo en el rendimiento de nuestras aplicaciones y en nuestro tiempo de espera.
+Ya sea que estemos buscando una transacción particular en un enorme conjunto de datos financieros, un usuario específico en una base de datos de millones de registros, o un valor dentro de un arreglo o lista, la eficiencia con la que realizamos estas búsquedas puede tener un impacto significativo en el rendimiento de nuestras aplicaciones y en nuestro tiempo de espera.
 
 En este capítulo, exploraremos dos de los algoritmos de búsqueda más fundamentales y ampliamente utilizados: la Búsqueda Secuencial (también conocida como Búsqueda Lineal) y la Búsqueda Binaria.
-Entenderemos cómo funcionan, cuándo usar cada uno y cómo implementarlos eficientemente en R.
+Entenderemos cómo funcionan, cuándo usar cada uno y cómo implementarlos eficientemente en en Java, Python y JavaScript.
 ¡Prepárense para optimizar sus búsquedas!
 
 ## Búsqueda Secuencial (Linear Search)
@@ -75,11 +75,57 @@ public class Main {
     }
 }
 ```
+#### Python
+```python
+def busqueda_secuencial(datos, objetivo):
+    """
+    Función para realizar una búsqueda secuencial en una lista.
+    
+    :param datos: Una lista numérica o de texto donde buscar.
+    :param objetivo: El valor que se desea encontrar.
+    :return: El índice (posición) del objetivo si se encuentra, de lo contrario, None.
+    """
+    # Recorremos la lista desde el primer elemento hasta el último
+    for i in range(len(datos)):
+        # Comparamos el elemento actual con el objetivo
+        if datos[i] == objetivo:
+            # Si coinciden, mostramos mensaje y devolvemos su índice
+            print(f"Objetivo {objetivo} encontrado en el índice {i}")
+            return i
+            
+    # Si el bucle termina y no hemos encontrado el objetivo, devolvemos None
+    print(f"Objetivo {objetivo} no encontrado en la lista.")
+    return None
+```
+#### JavaScript
+```javascript
+/**
+ * Función para realizar una búsqueda secuencial en un arreglo
+ *
+ * @param {Array} datos Un arreglo numérico o de texto donde buscar.
+ * @param {*} objetivo El valor que se desea encontrar.
+ * @return {number|null} El índice (posición) del objetivo si se encuentra, de lo contrario, null.
+ */
+function busquedaSecuencial(datos, objetivo) {
+    // Recorremos el arreglo desde el primer elemento hasta el último
+    for (let i = 0; i < datos.length; i++) {
+        // Comparamos el elemento actual con el objetivo
+        if (datos[i] === objetivo) {
+            // Si coinciden, mostramos mensaje y devolvemos su índice
+            console.log(`Objetivo ${objetivo} encontrado en el índice ${i}`);
+            return i;
+        }
+    }
+    // Si el bucle termina y no hemos encontrado el objetivo, devolvemos null
+    console.log(`Objetivo ${objetivo} no encontrado en el arreglo.`);
+    return null;
+}
+```
 
 ### Ejemplos de Uso
+Veamos nuestra función en acción con algunos ejemplos, probando en cada lenguaje tanto con datos numéricos como de texto.
 
-Veamos nuestra función en acción con algunos ejemplos.
-
+#### Java
 ```{java}
 // Ejemplo 1: El número está presente
 int[] numeros = {10, 5, 20, 15, 30, 25};
@@ -124,6 +170,60 @@ buscar(repetidos, 8);
 
 // Salida:
 // Número encontrado en la posición: 1
+```
+#### Python
+```python
+edades = [15, 22, 18, 30, 45, 12, 60]
+
+# Ejemplo 1: El objetivo está presente
+busqueda_secuencial(edades, 30)
+# Salida: Objetivo 30 encontrado en el índice 3
+
+# Ejemplo 2: El objetivo no está presente
+busqueda_secuencial(edades, 99)
+# Salida: Objetivo 99 no encontrado en la lista.
+
+# Ejemplo 3: Con datos de texto
+colores = ["rojo", "verde", "azul", "amarillo", "naranja"]
+busqueda_secuencial(colores, "azul")
+# Salida: Objetivo azul encontrado en el índice 2
+busqueda_secuencial(colores, "morado")
+# Salida: Objetivo morado no encontrado en la lista.
+
+# Ejemplo 4: El objetivo es el primer elemento
+busqueda_secuencial(edades, 15)
+# Salida: Objetivo 15 encontrado en el índice 0
+
+# Ejemplo 5: El objetivo es el último elemento
+busqueda_secuencial(edades, 60)
+# Salida: Objetivo 60 encontrado en el índice 6
+```
+#### JavaScript
+```javascript
+const edades = [15, 22, 18, 30, 45, 12, 60];
+
+// Ejemplo 1: El objetivo está presente
+busquedaSecuencial(edades, 30);
+// Salida: Objetivo 30 encontrado en el índice 3
+
+// Ejemplo 2: El objetivo no está presente
+busquedaSecuencial(edades, 99);
+// Salida: Objetivo 99 no encontrado en el arreglo.
+
+// Ejemplo 3: Con datos de texto
+const colores = ["rojo", "verde", "azul", "amarillo", "naranja"];
+busquedaSecuencial(colores, "azul");
+// Salida: Objetivo azul encontrado en el índice 2
+busquedaSecuencial(colores, "morado");
+// Salida: Objetivo morado no encontrado en el arreglo.
+
+// Ejemplo 4: El objetivo es el primer elemento
+busquedaSecuencial(edades, 15);
+// Salida: Objetivo 15 encontrado en el índice 0
+
+// Ejemplo 5: El objetivo es el último elemento
+busquedaSecuencial(edades, 60);
+// Salida: Objetivo 60 encontrado en el índice 6
 ```
 
 ### Eficiencia y Casos de Uso
@@ -285,14 +385,13 @@ La búsqueda binaria es ideal para: \* Grandes conjuntos de datos.
 -   Si tus datos no están ordenados y el tamaño es pequeño, o si solo necesitas hacer una única búsqueda y el costo de ordenar sería excesivo, usa la **Búsqueda Secuencial**.
 -   Si tus datos están ordenados o si necesitas realizar muchas búsquedas en un conjunto de datos grande (haciendo que el costo de ordenar los datos inicialmente valga la pena), la **Búsqueda Binaria** es la elección superior por su eficiencia.
 
-En R, para tareas comunes de búsqueda, funciones como `which()` o `%in%` a menudo son eficientes para vectores, ya que están implementadas en C y optimizadas.
-Sin embargo, entender los algoritmos subyacentes como la búsqueda secuencial y binaria es crucial para comprender la eficiencia y el diseño de soluciones en contextos más complejos, como la implementación en estructuras de datos personalizadas o en escenarios de entrevistas técnicas.
+En lenguajes modernos, para tareas comunes de búsqueda existen métodos nativos (como in en Python, o indexOf() en Java y JS) que ya están optimizados. Sin embargo, entender los algoritmos subyacentes como la búsqueda secuencial y binaria es crucial para comprender la eficiencia y el diseño de soluciones en contextos más complejos, como la implementación en estructuras de datos personalizadas o en escenarios de entrevistas técnicas.
 
 ## Conclusión
 
 Hemos cubierto los fundamentos de la búsqueda secuencial y la búsqueda binaria.
-Ahora entienden cómo funcionan estos algoritmos, cómo implementarlos en R y, lo que es más importante, cuándo y por qué elegir uno sobre el otro.
-La eficiencia de sus programas a menudo depende de estas decisiones algorítmicas básicas, y dominar estos conceptos es un paso crucial para convertirse en un experto en R y en programación en general.
+Ahora entienden cómo funcionan estos algoritmos, cómo implementarlos en estos lenguajes y, lo que es más importante, cuándo y por qué elegir uno sobre el otro.
+La eficiencia de sus programas a menudo depende de estas decisiones algorítmicas básicas, y dominar estos conceptos es un paso crucial para convertirse en programación en general.
 
 ¡Sigan practicando y experimentando con estos algoritmos!
 La próxima vez que necesiten encontrar algo en un conjunto de datos, podrán tomar una decisión informada sobre la mejor estrategia de búsqueda.

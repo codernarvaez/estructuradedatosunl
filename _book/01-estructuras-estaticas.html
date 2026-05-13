@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.26">
+<meta name="generator" content="quarto-1.9.37">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -10,6 +10,9 @@
 
 <title>3&nbsp; Capítulo 1: Estructuras Estáticas – Estructura de Datos</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -70,15 +73,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="./intro.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-1798dc2df27ed30f8675b060112705b6.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-7fb61bb2f7b6c57eafb3f731ea55799c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -108,7 +110,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -342,7 +344,7 @@ Figura&nbsp;3.1: Tiempo de acceso constante O(1) en arreglos estáticos al conoc
 </div>
 </div>
 </div>
-<p>Como observamos en la <a href="#fig-acceso-arreglo" class="quarto-xref">Figura&nbsp;<span>3.1</span></a>, buscar el elemento <code>500</code> toma idéntico esfuerzo que buscar el primer elemento. La máquina simplemente ejecuta un cálculo matemático de salto: <code>Dirección Base + (Índice × Tamaño del Tipo)</code>.</p>
+<p>Como observamos en la <a href="#fig-acceso-arreglo" class="quarto-xref">Figura&nbsp;<span class="quarto-unresolved-ref">fig-acceso-arreglo</span></a>, buscar el elemento <code>500</code> toma idéntico esfuerzo que buscar el primer elemento. La máquina simplemente ejecuta un cálculo matemático de salto: <code>Dirección Base + (Índice × Tamaño del Tipo)</code>.</p>
 </section>
 <section id="el-lado-oscuro-inserciones-y-eliminaciones" class="level3" data-number="3.2.2">
 <h3 data-number="3.2.2" class="anchored" data-anchor-id="el-lado-oscuro-inserciones-y-eliminaciones"><span class="header-section-number">3.2.2</span> El Lado Oscuro: Inserciones y Eliminaciones</h3>

@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.26">
+<meta name="generator" content="quarto-1.9.37">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>6&nbsp; Algoritmos de Búsqueda – Estructura de Datos</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -69,15 +72,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="./03-algoritmos-ordenacion.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-1798dc2df27ed30f8675b060112705b6.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-7fb61bb2f7b6c57eafb3f731ea55799c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -261,8 +263,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>¡Hola a todos y bienvenidos a este capítulo sobre algoritmos de búsqueda en Java! Como analistas de datos, científicos de datos o simplemente entusiastas de la programación, constantemente nos enfrentamos a la tarea de encontrar elementos específicos dentro de colecciones de datos. Ya sea que estemos buscando una transacción particular en un enorme conjunto de datos financieros, un usuario específico en una base de datos de millones de registros, o un valor dentro de un vector en R, la eficiencia con la que realizamos estas búsquedas puede tener un impacto significativo en el rendimiento de nuestras aplicaciones y en nuestro tiempo de espera.</p>
-<p>En este capítulo, exploraremos dos de los algoritmos de búsqueda más fundamentales y ampliamente utilizados: la Búsqueda Secuencial (también conocida como Búsqueda Lineal) y la Búsqueda Binaria. Entenderemos cómo funcionan, cuándo usar cada uno y cómo implementarlos eficientemente en R. ¡Prepárense para optimizar sus búsquedas!</p>
+<p>¡Hola a todos y bienvenidos a este capítulo sobre algoritmos de búsqueda! Como analistas de datos, científicos de datos o simplemente entusiastas de la programación, constantemente nos enfrentamos a la tarea de encontrar elementos específicos dentro de colecciones de datos. Ya sea que estemos buscando una transacción particular en un enorme conjunto de datos financieros, un usuario específico en una base de datos de millones de registros, o un valor dentro de un arreglo o lista, la eficiencia con la que realizamos estas búsquedas puede tener un impacto significativo en el rendimiento de nuestras aplicaciones y en nuestro tiempo de espera.</p>
+<p>En este capítulo, exploraremos dos de los algoritmos de búsqueda más fundamentales y ampliamente utilizados: la Búsqueda Secuencial (también conocida como Búsqueda Lineal) y la Búsqueda Binaria. Entenderemos cómo funcionan, cuándo usar cada uno y cómo implementarlos eficientemente en en Java, Python y JavaScript. ¡Prepárense para optimizar sus búsquedas!</p>
 <section id="búsqueda-secuencial-linear-search" class="level2" data-number="6.1">
 <h2 data-number="6.1" class="anchored" data-anchor-id="búsqueda-secuencial-linear-search"><span class="header-section-number">6.1</span> Búsqueda Secuencial (Linear Search)</h2>
 <p>La búsqueda secuencial es el algoritmo de búsqueda más directo e intuitivo. Imaginen que están buscando un libro específico en una estantería desorganizada. Lo más lógico sería empezar por el primer libro, revisarlo, luego pasar al segundo, y así sucesivamente, hasta que encuentren el libro que buscan o hasta que se queden sin libros. Eso es precisamente lo que hace la búsqueda secuencial.</p>
@@ -324,55 +326,158 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
+<section id="python" class="level4" data-number="6.1.2.2">
+<h4 data-number="6.1.2.2" class="anchored" data-anchor-id="python"><span class="header-section-number">6.1.2.2</span> Python</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> busqueda_secuencial(datos, objetivo):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Función para realizar una búsqueda secuencial en una lista.</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">    :param datos: Una lista numérica o de texto donde buscar.</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">    :param objetivo: El valor que se desea encontrar.</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">    :return: El índice (posición) del objetivo si se encuentra, de lo contrario, None.</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Recorremos la lista desde el primer elemento hasta el último</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(datos)):</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Comparamos el elemento actual con el objetivo</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> datos[i] <span class="op">==</span> objetivo:</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Si coinciden, mostramos mensaje y devolvemos su índice</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"Objetivo </span><span class="sc">{</span>objetivo<span class="sc">}</span><span class="ss"> encontrado en el índice </span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> i</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Si el bucle termina y no hemos encontrado el objetivo, devolvemos None</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Objetivo </span><span class="sc">{</span>objetivo<span class="sc">}</span><span class="ss"> no encontrado en la lista."</span>)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">None</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="javascript" class="level4" data-number="6.1.2.3">
+<h4 data-number="6.1.2.3" class="anchored" data-anchor-id="javascript"><span class="header-section-number">6.1.2.3</span> JavaScript</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * Función para realizar una búsqueda secuencial en un arreglo</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"> *</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"> * </span><span class="an">@param</span><span class="co"> </span><span class="cv">{Array}</span><span class="co"> datos Un arreglo numérico o de texto donde buscar.</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"> * </span><span class="an">@param</span><span class="co"> </span><span class="cv">{*}</span><span class="co"> objetivo El valor que se desea encontrar.</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"> * </span><span class="an">@return</span><span class="co"> {number|null} El índice (posición) del objetivo si se encuentra, de lo contrario, null.</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"> */</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">busquedaSecuencial</span>(datos<span class="op">,</span> objetivo) {</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Recorremos el arreglo desde el primer elemento hasta el último</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> datos<span class="op">.</span><span class="at">length</span><span class="op">;</span> i<span class="op">++</span>) {</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Comparamos el elemento actual con el objetivo</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (datos[i] <span class="op">===</span> objetivo) {</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>            <span class="co">// Si coinciden, mostramos mensaje y devolvemos su índice</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>            <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="vs">`Objetivo </span><span class="sc">${</span>objetivo<span class="sc">}</span><span class="vs"> encontrado en el índice </span><span class="sc">${</span>i<span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> i<span class="op">;</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Si el bucle termina y no hemos encontrado el objetivo, devolvemos null</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="vs">`Objetivo </span><span class="sc">${</span>objetivo<span class="sc">}</span><span class="vs"> no encontrado en el arreglo.`</span>)<span class="op">;</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="kw">null</span><span class="op">;</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
 </section>
 <section id="ejemplos-de-uso" class="level3" data-number="6.1.3">
 <h3 data-number="6.1.3" class="anchored" data-anchor-id="ejemplos-de-uso"><span class="header-section-number">6.1.3</span> Ejemplos de Uso</h3>
-<p>Veamos nuestra función en acción con algunos ejemplos.</p>
+<p>Veamos nuestra función en acción con algunos ejemplos, probando en cada lenguaje tanto con datos numéricos como de texto.</p>
+<section id="java-1" class="level4" data-number="6.1.3.1">
+<h4 data-number="6.1.3.1" class="anchored" data-anchor-id="java-1"><span class="header-section-number">6.1.3.1</span> Java</h4>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode java code-with-copy"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Ejemplo 1: El número está presente</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span><span class="op">[]</span> numeros <span class="op">=</span> <span class="op">{</span><span class="dv">10</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">20</span><span class="op">,</span> <span class="dv">15</span><span class="op">,</span> <span class="dv">30</span><span class="op">,</span> <span class="dv">25</span><span class="op">};</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">buscar</span><span class="op">(</span>numeros<span class="op">,</span> <span class="dv">15</span><span class="op">);</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">// Salida:</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">// Número encontrado en la posición: 3</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">// Ejemplo 2: El número no está presente</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">buscar</span><span class="op">(</span>numeros<span class="op">,</span> <span class="dv">50</span><span class="op">);</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">// Salida:</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">// Número no encontrado</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">// Ejemplo 3: El número es el primer elemento</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="fu">buscar</span><span class="op">(</span>numeros<span class="op">,</span> <span class="dv">10</span><span class="op">);</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co">// Salida:</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co">// Número encontrado en la posición: 0</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co">// Ejemplo 4: El número es el último elemento</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="fu">buscar</span><span class="op">(</span>numeros<span class="op">,</span> <span class="dv">25</span><span class="op">);</span></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co">// Salida:</span></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co">// Número encontrado en la posición: 5</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="co">// Ejemplo 5: Búsqueda en otro arreglo</span></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span><span class="op">[]</span> edades <span class="op">=</span> <span class="op">{</span><span class="dv">18</span><span class="op">,</span> <span class="dv">20</span><span class="op">,</span> <span class="dv">22</span><span class="op">,</span> <span class="dv">25</span><span class="op">,</span> <span class="dv">30</span><span class="op">};</span></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="fu">buscar</span><span class="op">(</span>edades<span class="op">,</span> <span class="dv">22</span><span class="op">);</span></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="co">// Salida:</span></span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="co">// Número encontrado en la posición: 2</span></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="co">// Ejemplo 6: Arreglo con números repetidos</span></span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span><span class="op">[]</span> repetidos <span class="op">=</span> <span class="op">{</span><span class="dv">5</span><span class="op">,</span> <span class="dv">8</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">8</span><span class="op">,</span> <span class="dv">10</span><span class="op">};</span></span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="fu">buscar</span><span class="op">(</span>repetidos<span class="op">,</span> <span class="dv">8</span><span class="op">);</span></span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="co">// Salida:</span></span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="co">// Número encontrado en la posición: 1</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode java code-with-copy"><code class="sourceCode java"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Ejemplo 1: El número está presente</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span><span class="op">[]</span> numeros <span class="op">=</span> <span class="op">{</span><span class="dv">10</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">20</span><span class="op">,</span> <span class="dv">15</span><span class="op">,</span> <span class="dv">30</span><span class="op">,</span> <span class="dv">25</span><span class="op">};</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">buscar</span><span class="op">(</span>numeros<span class="op">,</span> <span class="dv">15</span><span class="op">);</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">// Salida:</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">// Número encontrado en la posición: 3</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">// Ejemplo 2: El número no está presente</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">buscar</span><span class="op">(</span>numeros<span class="op">,</span> <span class="dv">50</span><span class="op">);</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">// Salida:</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">// Número no encontrado</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co">// Ejemplo 3: El número es el primer elemento</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="fu">buscar</span><span class="op">(</span>numeros<span class="op">,</span> <span class="dv">10</span><span class="op">);</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co">// Salida:</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co">// Número encontrado en la posición: 0</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="co">// Ejemplo 4: El número es el último elemento</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="fu">buscar</span><span class="op">(</span>numeros<span class="op">,</span> <span class="dv">25</span><span class="op">);</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="co">// Salida:</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="co">// Número encontrado en la posición: 5</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="co">// Ejemplo 5: Búsqueda en otro arreglo</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span><span class="op">[]</span> edades <span class="op">=</span> <span class="op">{</span><span class="dv">18</span><span class="op">,</span> <span class="dv">20</span><span class="op">,</span> <span class="dv">22</span><span class="op">,</span> <span class="dv">25</span><span class="op">,</span> <span class="dv">30</span><span class="op">};</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a><span class="fu">buscar</span><span class="op">(</span>edades<span class="op">,</span> <span class="dv">22</span><span class="op">);</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="co">// Salida:</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="co">// Número encontrado en la posición: 2</span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a><span class="co">// Ejemplo 6: Arreglo con números repetidos</span></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span><span class="op">[]</span> repetidos <span class="op">=</span> <span class="op">{</span><span class="dv">5</span><span class="op">,</span> <span class="dv">8</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">8</span><span class="op">,</span> <span class="dv">10</span><span class="op">};</span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a><span class="fu">buscar</span><span class="op">(</span>repetidos<span class="op">,</span> <span class="dv">8</span><span class="op">);</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a><span class="co">// Salida:</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a><span class="co">// Número encontrado en la posición: 1</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+</section>
+<section id="python-1" class="level4" data-number="6.1.3.2">
+<h4 data-number="6.1.3.2" class="anchored" data-anchor-id="python-1"><span class="header-section-number">6.1.3.2</span> Python</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>edades <span class="op">=</span> [<span class="dv">15</span>, <span class="dv">22</span>, <span class="dv">18</span>, <span class="dv">30</span>, <span class="dv">45</span>, <span class="dv">12</span>, <span class="dv">60</span>]</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo 1: El objetivo está presente</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>busqueda_secuencial(edades, <span class="dv">30</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Salida: Objetivo 30 encontrado en el índice 3</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo 2: El objetivo no está presente</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>busqueda_secuencial(edades, <span class="dv">99</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Salida: Objetivo 99 no encontrado en la lista.</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo 3: Con datos de texto</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>colores <span class="op">=</span> [<span class="st">"rojo"</span>, <span class="st">"verde"</span>, <span class="st">"azul"</span>, <span class="st">"amarillo"</span>, <span class="st">"naranja"</span>]</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>busqueda_secuencial(colores, <span class="st">"azul"</span>)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Salida: Objetivo azul encontrado en el índice 2</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>busqueda_secuencial(colores, <span class="st">"morado"</span>)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Salida: Objetivo morado no encontrado en la lista.</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo 4: El objetivo es el primer elemento</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>busqueda_secuencial(edades, <span class="dv">15</span>)</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Salida: Objetivo 15 encontrado en el índice 0</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo 5: El objetivo es el último elemento</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>busqueda_secuencial(edades, <span class="dv">60</span>)</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Salida: Objetivo 60 encontrado en el índice 6</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="javascript-1" class="level4" data-number="6.1.3.3">
+<h4 data-number="6.1.3.3" class="anchored" data-anchor-id="javascript-1"><span class="header-section-number">6.1.3.3</span> JavaScript</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> edades <span class="op">=</span> [<span class="dv">15</span><span class="op">,</span> <span class="dv">22</span><span class="op">,</span> <span class="dv">18</span><span class="op">,</span> <span class="dv">30</span><span class="op">,</span> <span class="dv">45</span><span class="op">,</span> <span class="dv">12</span><span class="op">,</span> <span class="dv">60</span>]<span class="op">;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">// Ejemplo 1: El objetivo está presente</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">busquedaSecuencial</span>(edades<span class="op">,</span> <span class="dv">30</span>)<span class="op">;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">// Salida: Objetivo 30 encontrado en el índice 3</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">// Ejemplo 2: El objetivo no está presente</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">busquedaSecuencial</span>(edades<span class="op">,</span> <span class="dv">99</span>)<span class="op">;</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">// Salida: Objetivo 99 no encontrado en el arreglo.</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">// Ejemplo 3: Con datos de texto</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> colores <span class="op">=</span> [<span class="st">"rojo"</span><span class="op">,</span> <span class="st">"verde"</span><span class="op">,</span> <span class="st">"azul"</span><span class="op">,</span> <span class="st">"amarillo"</span><span class="op">,</span> <span class="st">"naranja"</span>]<span class="op">;</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="fu">busquedaSecuencial</span>(colores<span class="op">,</span> <span class="st">"azul"</span>)<span class="op">;</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co">// Salida: Objetivo azul encontrado en el índice 2</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="fu">busquedaSecuencial</span>(colores<span class="op">,</span> <span class="st">"morado"</span>)<span class="op">;</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co">// Salida: Objetivo morado no encontrado en el arreglo.</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="co">// Ejemplo 4: El objetivo es el primer elemento</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="fu">busquedaSecuencial</span>(edades<span class="op">,</span> <span class="dv">15</span>)<span class="op">;</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="co">// Salida: Objetivo 15 encontrado en el índice 0</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="co">// Ejemplo 5: El objetivo es el último elemento</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="fu">busquedaSecuencial</span>(edades<span class="op">,</span> <span class="dv">60</span>)<span class="op">;</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="co">// Salida: Objetivo 60 encontrado en el índice 6</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
 </section>
 <section id="eficiencia-y-casos-de-uso" class="level3" data-number="6.1.4">
 <h3 data-number="6.1.4" class="anchored" data-anchor-id="eficiencia-y-casos-de-uso"><span class="header-section-number">6.1.4</span> Eficiencia y Casos de Uso</h3>
@@ -409,103 +514,103 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 data-number="6.2.2" class="anchored" data-anchor-id="implementación-en-r"><span class="header-section-number">6.2.2</span> Implementación en R</h3>
 <p>Implementaremos una versión iterativa de la búsqueda binaria.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' Función para realizar una búsqueda binaria en un vector ordenado</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#'</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param datos Un vector numérico o de caracteres ORDENADO donde buscar.</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param objetivo El valor que se desea encontrar.</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#' @return El índice (posición) del objetivo si se encuentra, de lo contrario, NULL.</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#'</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#' @examples</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#' vector_ordenado &lt;- c(5, 10, 15, 20, 25, 30)</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#' busqueda_binaria(vector_ordenado, 20) # Debería devolver 4</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#' busqueda_binaria(vector_ordenado, 12) # Debería devolver NULL</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>busqueda_binaria <span class="ot">&lt;-</span> <span class="cf">function</span>(datos, objetivo) {</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Verificar que el vector no esté vacío</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(datos) <span class="sc">==</span> <span class="dv">0</span>) {</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">message</span>(<span class="st">"El vector está vacío."</span>)</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="cn">NULL</span>)</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Se asume que el vector 'datos' ya está ordenado.</span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Si no estuviera ordenado, necesitaríamos una línea como:</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># datos &lt;- sort(datos)</span></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Pero esto añade una complejidad O(n log n) y no es parte del algoritmo de búsqueda binaria en sí.</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>  inicio <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>  fin <span class="ot">&lt;-</span> <span class="fu">length</span>(datos)</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> (inicio <span class="sc">&lt;=</span> fin) {</span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Calcular el punto medio. Usamos floor para asegurar un índice entero.</span></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    medio <span class="ot">&lt;-</span> <span class="fu">floor</span>((inicio <span class="sc">+</span> fin) <span class="sc">/</span> <span class="dv">2</span>)</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Comparamos el elemento en el medio con el objetivo</span></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (datos[medio] <span class="sc">==</span> objetivo) {</span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>      <span class="fu">message</span>(<span class="fu">paste</span>(<span class="st">"Objetivo"</span>, objetivo, <span class="st">"encontrado en el índice"</span>, medio))</span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>      <span class="fu">return</span>(medio) <span class="co"># ¡Encontrado!</span></span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> <span class="cf">if</span> (datos[medio] <span class="sc">&lt;</span> objetivo) {</span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>      <span class="co"># El objetivo está en la mitad derecha</span></span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>      inicio <span class="ot">&lt;-</span> medio <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>      <span class="co"># El objetivo está en la mitad izquierda</span></span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>      fin <span class="ot">&lt;-</span> medio <span class="sc">-</span> <span class="dv">1</span></span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Si el bucle termina, el objetivo no fue encontrado</span></span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(<span class="fu">paste</span>(<span class="st">"Objetivo"</span>, objetivo, <span class="st">"no encontrado en el vector."</span>))</span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="cn">NULL</span>)</span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' Función para realizar una búsqueda binaria en un vector ordenado</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#'</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param datos Un vector numérico o de caracteres ORDENADO donde buscar.</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param objetivo El valor que se desea encontrar.</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#' @return El índice (posición) del objetivo si se encuentra, de lo contrario, NULL.</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#'</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#' @examples</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">#' vector_ordenado &lt;- c(5, 10, 15, 20, 25, 30)</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#' busqueda_binaria(vector_ordenado, 20) # Debería devolver 4</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">#' busqueda_binaria(vector_ordenado, 12) # Debería devolver NULL</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>busqueda_binaria <span class="ot">&lt;-</span> <span class="cf">function</span>(datos, objetivo) {</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Verificar que el vector no esté vacío</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(datos) <span class="sc">==</span> <span class="dv">0</span>) {</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">message</span>(<span class="st">"El vector está vacío."</span>)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="cn">NULL</span>)</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Se asume que el vector 'datos' ya está ordenado.</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Si no estuviera ordenado, necesitaríamos una línea como:</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># datos &lt;- sort(datos)</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Pero esto añade una complejidad O(n log n) y no es parte del algoritmo de búsqueda binaria en sí.</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>  inicio <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>  fin <span class="ot">&lt;-</span> <span class="fu">length</span>(datos)</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> (inicio <span class="sc">&lt;=</span> fin) {</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Calcular el punto medio. Usamos floor para asegurar un índice entero.</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    medio <span class="ot">&lt;-</span> <span class="fu">floor</span>((inicio <span class="sc">+</span> fin) <span class="sc">/</span> <span class="dv">2</span>)</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Comparamos el elemento en el medio con el objetivo</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (datos[medio] <span class="sc">==</span> objetivo) {</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>      <span class="fu">message</span>(<span class="fu">paste</span>(<span class="st">"Objetivo"</span>, objetivo, <span class="st">"encontrado en el índice"</span>, medio))</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>      <span class="fu">return</span>(medio) <span class="co"># ¡Encontrado!</span></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> <span class="cf">if</span> (datos[medio] <span class="sc">&lt;</span> objetivo) {</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>      <span class="co"># El objetivo está en la mitad derecha</span></span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>      inicio <span class="ot">&lt;-</span> medio <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>      <span class="co"># El objetivo está en la mitad izquierda</span></span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>      fin <span class="ot">&lt;-</span> medio <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Si el bucle termina, el objetivo no fue encontrado</span></span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(<span class="fu">paste</span>(<span class="st">"Objetivo"</span>, objetivo, <span class="st">"no encontrado en el vector."</span>))</span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="cn">NULL</span>)</span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="ejemplos-de-uso-1" class="level3" data-number="6.2.3">
 <h3 data-number="6.2.3" class="anchored" data-anchor-id="ejemplos-de-uso-1"><span class="header-section-number">6.2.3</span> Ejemplos de Uso</h3>
 <p>Recuerden, el vector DEBE estar ordenado para que la búsqueda binaria funcione correctamente.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creamos un vector ordenado</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>numeros_ordenados <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">9</span>, <span class="dv">11</span>, <span class="dv">13</span>, <span class="dv">15</span>, <span class="dv">17</span>, <span class="dv">19</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo 1: El objetivo está presente</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">busqueda_binaria</span>(numeros_ordenados, <span class="dv">9</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creamos un vector ordenado</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>numeros_ordenados <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">9</span>, <span class="dv">11</span>, <span class="dv">13</span>, <span class="dv">15</span>, <span class="dv">17</span>, <span class="dv">19</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo 1: El objetivo está presente</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">busqueda_binaria</span>(numeros_ordenados, <span class="dv">9</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Objetivo 9 encontrado en el índice 5</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 5</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo 2: El objetivo no está presente</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">busqueda_binaria</span>(numeros_ordenados, <span class="dv">10</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo 2: El objetivo no está presente</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">busqueda_binaria</span>(numeros_ordenados, <span class="dv">10</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Objetivo 10 no encontrado en el vector.</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>NULL</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo 3: El objetivo es el primer elemento</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">busqueda_binaria</span>(numeros_ordenados, <span class="dv">1</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo 3: El objetivo es el primer elemento</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">busqueda_binaria</span>(numeros_ordenados, <span class="dv">1</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Objetivo 1 encontrado en el índice 1</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo 4: El objetivo es el último elemento</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">busqueda_binaria</span>(numeros_ordenados, <span class="dv">19</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo 4: El objetivo es el último elemento</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">busqueda_binaria</span>(numeros_ordenados, <span class="dv">19</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Objetivo 19 encontrado en el índice 10</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 10</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo 5: Con un vector de un solo elemento (objetivo presente)</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">busqueda_binaria</span>(<span class="fu">c</span>(<span class="dv">5</span>), <span class="dv">5</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo 5: Con un vector de un solo elemento (objetivo presente)</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">busqueda_binaria</span>(<span class="fu">c</span>(<span class="dv">5</span>), <span class="dv">5</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Objetivo 5 encontrado en el índice 1</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo 6: Con un vector de un solo elemento (objetivo ausente)</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">busqueda_binaria</span>(<span class="fu">c</span>(<span class="dv">5</span>), <span class="dv">10</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo 6: Con un vector de un solo elemento (objetivo ausente)</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">busqueda_binaria</span>(<span class="fu">c</span>(<span class="dv">5</span>), <span class="dv">10</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Objetivo 10 no encontrado en el vector.</code></pre>
 </div>
@@ -515,10 +620,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p><strong>¡Advertencia!</strong> ¿Qué pasa si el vector no está ordenado?</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>numeros_desordenados <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">9</span>, <span class="dv">3</span>, <span class="dv">7</span>)</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Si intentamos buscar 3, ¡dará un resultado incorrecto o NULL!</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># (En este caso, 3 está en la posición 4, pero la búsqueda binaria podría devolver NULL o algo erróneo)</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">busqueda_binaria</span>(numeros_desordenados, <span class="dv">3</span>) <span class="co"># Resultado erróneo porque el vector no está ordenado</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>numeros_desordenados <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">9</span>, <span class="dv">3</span>, <span class="dv">7</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Si intentamos buscar 3, ¡dará un resultado incorrecto o NULL!</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># (En este caso, 3 está en la posición 4, pero la búsqueda binaria podría devolver NULL o algo erróneo)</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">busqueda_binaria</span>(numeros_desordenados, <span class="dv">3</span>) <span class="co"># Resultado erróneo porque el vector no está ordenado</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Objetivo 3 no encontrado en el vector.</code></pre>
 </div>
@@ -528,8 +633,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Para corregirlo, simplemente ordenamos el vector antes de buscar:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>numeros_desordenados_ordenados <span class="ot">&lt;-</span> <span class="fu">sort</span>(numeros_desordenados)</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">busqueda_binaria</span>(numeros_desordenados_ordenados, <span class="dv">3</span>) <span class="co"># Ahora sí funciona correctamente</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>numeros_desordenados_ordenados <span class="ot">&lt;-</span> <span class="fu">sort</span>(numeros_desordenados)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">busqueda_binaria</span>(numeros_desordenados_ordenados, <span class="dv">3</span>) <span class="co"># Ahora sí funciona correctamente</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Objetivo 3 encontrado en el índice 2</code></pre>
 </div>
@@ -595,11 +700,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Si tus datos no están ordenados y el tamaño es pequeño, o si solo necesitas hacer una única búsqueda y el costo de ordenar sería excesivo, usa la <strong>Búsqueda Secuencial</strong>.</li>
 <li>Si tus datos están ordenados o si necesitas realizar muchas búsquedas en un conjunto de datos grande (haciendo que el costo de ordenar los datos inicialmente valga la pena), la <strong>Búsqueda Binaria</strong> es la elección superior por su eficiencia.</li>
 </ul>
-<p>En R, para tareas comunes de búsqueda, funciones como <code>which()</code> o <code>%in%</code> a menudo son eficientes para vectores, ya que están implementadas en C y optimizadas. Sin embargo, entender los algoritmos subyacentes como la búsqueda secuencial y binaria es crucial para comprender la eficiencia y el diseño de soluciones en contextos más complejos, como la implementación en estructuras de datos personalizadas o en escenarios de entrevistas técnicas.</p>
+<p>En lenguajes modernos, para tareas comunes de búsqueda existen métodos nativos (como in en Python, o indexOf() en Java y JS) que ya están optimizados. Sin embargo, entender los algoritmos subyacentes como la búsqueda secuencial y binaria es crucial para comprender la eficiencia y el diseño de soluciones en contextos más complejos, como la implementación en estructuras de datos personalizadas o en escenarios de entrevistas técnicas.</p>
 </section>
 <section id="conclusión" class="level2" data-number="6.4">
 <h2 data-number="6.4" class="anchored" data-anchor-id="conclusión"><span class="header-section-number">6.4</span> Conclusión</h2>
-<p>Hemos cubierto los fundamentos de la búsqueda secuencial y la búsqueda binaria. Ahora entienden cómo funcionan estos algoritmos, cómo implementarlos en R y, lo que es más importante, cuándo y por qué elegir uno sobre el otro. La eficiencia de sus programas a menudo depende de estas decisiones algorítmicas básicas, y dominar estos conceptos es un paso crucial para convertirse en un experto en R y en programación en general.</p>
+<p>Hemos cubierto los fundamentos de la búsqueda secuencial y la búsqueda binaria. Ahora entienden cómo funcionan estos algoritmos, cómo implementarlos en estos lenguajes y, lo que es más importante, cuándo y por qué elegir uno sobre el otro. La eficiencia de sus programas a menudo depende de estas decisiones algorítmicas básicas, y dominar estos conceptos es un paso crucial para convertirse en programación en general.</p>
 <p>¡Sigan practicando y experimentando con estos algoritmos! La próxima vez que necesiten encontrar algo en un conjunto de datos, podrán tomar una decisión informada sobre la mejor estrategia de búsqueda. ¡Hasta el próximo capítulo!</p>
 
 
