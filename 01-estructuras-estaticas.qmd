@@ -96,8 +96,8 @@ Para explicar esta fórmula, imaginemos que $N$ es el número total de columnas,
 EJEMPLO EN JAVA
 
 ```java
-# Ejemplo en Java usando listas por comprensión para simular
-# una matriz (comportamiento 2D) de 3x3 inicializada en 0:
+// Ejemplo en Java usando listas por comprensión para simular
+// una matriz (comportamiento 2D) de 3x3 inicializada en 0:
 int[][] paginaAlbum = new int[3][3];
 paginaAlbum[1][2] = 5;
 System.out.println("El cromo en la posición [1][2] es el número: " + paginaAlbum[1][2]);
