@@ -54,11 +54,13 @@ ggplot(data.frame(tamanios, tiempo_acceso), aes(x = tamanios, y = tiempo_acceso)
 
 Como observamos en la @fig-acceso-arreglo, buscar el elemento `500` toma idéntico esfuerzo que buscar el primer elemento. La máquina simplemente ejecuta un cálculo matemático de salto: `Dirección Base + (Índice × Tamaño del Tipo)`.
 
-### El Lado Oscuro: Inserciones y Eliminaciones
+### Inserciones y Eliminaciones
 
-Si bien acceder mediante un índice es magia pura, insertar un nuevo valor en medio del arreglo es un escenario diferente. Es similar a intentar meter un libro ancho en medio de un estante de biblioteca que ya está rebosante de tomos fuertemente empaquetados. Debes desplazar manualmente uno por uno todos los libros de la derecha para abrir un hueco.
+Imagínate que tienes una fila de autos en el campo de Mannfield, cada uno estacionado perfectamente desde la portería hasta el boost grande naranja. El coach sabe exactamente en qué posición está el Octane, el Fennec y el Breakout, los ubica al instante sin problema. Todo ordenado, como una rotación perfecta.
 
-Este corrimiento implica un tiempo que escala linealmente u $\mathcal{O}(N)$ en el peor de los casos, preparando el terreno para la imperiosa necesidad de *estructuras dinámicas* que analizaremos más adelante.
+Pero de repente llega un Dominus nuevo y el coach decide meterlo justo entre el Octane y el Fennec. El problema es que el Fennec no puede simplemente aparecer en otro lado, tiene que retroceder un lugar, empujando al Breakout, que empuja al siguiente auto, y así hasta el fondo del campo. Todos moviéndose uno por uno como cuando en un partido te chocan en cadena contra la pared.
+
+Y ahí está el problema: si en vez de 5 autos tienes 50 repartidos por toda la arena, meter uno nuevo al principio significa que los 50 tienen que correrse. Es como intentar reorganizar toda la rotación del equipo en pleno overtime, lento y caótico. Por eso más adelante se buscan estructuras más flexibles, como si cada auto pudiera simplemente saltar a cualquier parte del campo sin arrastrar a nadie más.
 
 ## Archivos: Persistencia más allá de la RAM {#sec-archivos}
 
