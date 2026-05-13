@@ -102,15 +102,11 @@ matriz[1][2] = 5 # Acceso lógico bidimensional O(1)
 
 ## Cadenas de Caracteres (Strings) {#sec-strings}
 
-Las cadenas de texto, en su formato más fundacional (como en el lenguaje C), no son más que arreglos estáticos de caracteres primitivos (`char`) terminados por un carácter nulo (`\0`).
-
-En lenguajes orientados a objetos modernos como Java y Python, la mayoría de los `Strings` se diseñan como **objetos inmutables**, respaldados internamente bajo el capó por un arreglo estático de caracteres (o bytes para codificaciones como UTF-8). 
+La cadena de caracteres es como el álbum del Mundial de Fútbol: cada página es una cadena de texto, un arreglo fijo de huecos para stickers de jugadores como "Messi" o "Mbappé". En lenguajes como Java o Python, estas cadenas son objetos inmutables, como un álbum plastificado que no puedes mover ni borrar stickers una vez pegados; Internamente usan un arreglo estático de caracteres terminados por un marcador invisible (\0), para saber dónde acaba.
 
 **La Trampa del Rendimiento (Eficiencia $\mathcal{O}(N^2)$)**
 
-Esta inmutabilidad tiene una consecuencia directa en el rendimiento algorítmico: cada vez que "modificas" un String (por ejemplo, concatenando un carácter dentro de un bucle `for`), el sistema no modifica el arreglo original porque es estático e inmutable. En su lugar, el sistema se ve forzado a solicitar nueva memoria, crear un **nuevo arreglo estático** más grande, y copiar secuencialmente todos los caracteres viejos más el nuevo. 
-
-Si repites esto miles de veces, el rendimiento de tu aplicación se desplomará drásticamente. Esta es la razón técnica por la cual, a nivel de síntesis de software avanzado, se debe utilizar `StringBuilder` en Java o métodos como `''.join(lista)` en Python cuando se construyen concatenaciones masivas de texto.
+El problema surge cuando quieres "agregar" una figurita. Como el álbum no cambia, la computadora se ve obligada a comprar un álbum nuevo más grande, copiar todas las figuritas que ya tenías y recién ahí pegar la nueva. Si haces esto figurita por figurita, el proceso se vuelve lentísimo y pesado (O(N^2)); por eso, para pegar miles de fotos, es mejor usar un StringBuilder, que funciona como una carpeta de ganchos donde agregas hojas sin tener que desechar todo el álbum cada vez.
 
 ## Metodologías Activas
 
