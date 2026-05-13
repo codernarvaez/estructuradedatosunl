@@ -196,6 +196,245 @@ Aunque existe este costo adicional, el beneficio principal es garantizar que las
 ### Estructura Fija de un Nodo
 
 ### Ejemplo en Java (Implementacion de un arbol AVL)
+```text
+public class Node {
+    int key;
+    int height;
+    Node left, right;
+
+    public Node(int key) {
+        this.key = key;
+        this.height = 1;
+    }
+}
+public class AVLTree {
+
+    private Node root;
+
+    // ── Altura ──────────────────────────────────────
+    private int height(Node n) {
+        return (n == null) ? 0 : n.height;
+    }
+
+    private void updateHeight(Node n) {
+        n.height = 1 + Math.max(height(n.left), height(n.right));
+    }
+
+    private int balanceFactor(Node n) {
+        return (n == null) ? 0 : height(n.left) - height(n.right);
+    }
+
+    // ── Rotaciones ──────────────────────────────────
+    private Node rotateRight(Node y) {
+        Node x  = y.left;
+        Node T2 = x.right;
+
+        x.right = y;
+        y.left  = T2;
+
+        updateHeight(y);
+        updateHeight(x);
+
+        return x;
+    }
+
+    private Node rotateLeft(Node x) {
+        Node y  = x.right;
+        Node T2 = y.left;
+
+        y.left  = x;
+        x.right = T2;
+
+        updateHeight(x);
+        updateHeight(y);
+
+        return y;
+    }
+
+    // ── Rebalanceo ──────────────────────────────────
+    private Node rebalance(Node n) {
+        updateHeight(n);
+        int bf = balanceFactor(n);
+
+        if (bf > 1 && balanceFactor(n.left) >= 0)
+            return rotateRight(n);
+
+        if (bf > 1 && balanceFactor(n.left) < 0) {
+            n.left = rotateLeft(n.left);
+            return rotateRight(n);
+        }
+
+        if (bf < -1 && balanceFactor(n.right) <= 0)
+            return rotateLeft(n);
+
+        if (bf < -1 && balanceFactor(n.right) > 0) {
+            n.right = rotateRight(n.right);
+            return rotateLeft(n);
+        }
+
+        return n;
+    }
+
+    // ── Insert ──────────────────────────────────────
+    public void insert(int key) {
+        root = insertRec(root, key);
+    }
+
+    private Node insertRec(Node n, int key) {
+        if (n == null) return new Node(key);
+
+        if      (key < n.key) n.left  = insertRec(n.left,  key);
+        else if (key > n.key) n.right = insertRec(n.right, key);
+        else                  return n;
+
+        return rebalance(n);
+    }
+
+    // ── Search ──────────────────────────────────────
+    public boolean search(int key) {
+        return searchRec(root, key);
+    }
+
+    private boolean searchRec(Node n, int key) {
+        if (n == null)    return false;
+        if (key == n.key) return true;
+        if (key < n.key)  return searchRec(n.left,  key);
+        else              return searchRec(n.right, key);
+    }
+
+    // ── Delete ──────────────────────────────────────
+    public void delete(int key) {
+        root = deleteRec(root, key);
+    }
+
+    private Node deleteRec(Node n, int key) {
+        if (n == null) return null;
+
+        if (key < n.key) {
+            n.left  = deleteRec(n.left,  key);
+        } else if (key > n.key) {
+            n.right = deleteRec(n.right, key);
+        } else {
+            if (n.left == null)  return n.right;
+            if (n.right == null) return n.left;
+
+            Node successor = minNode(n.right);
+            n.key   = successor.key;
+            n.right = deleteRec(n.right, successor.key);
+        }
+
+        return rebalance(n);
+    }
+
+    private Node minNode(Node n) {
+        while (n.left != null) n = n.left;
+        return n;
+    }
+
+    // ── Recorridos ──────────────────────────────────
+    public void inOrder() {
+        System.out.print("In-Order:  [ ");
+        inOrderRec(root);
+        System.out.println("]");
+    }
+
+    private void inOrderRec(Node n) {
+        if (n == null) return;
+        inOrderRec(n.left);
+        System.out.print(n.key + " ");
+        inOrderRec(n.right);
+    }
+
+    public void preOrder() {
+        System.out.print("Pre-Order: [ ");
+        preOrderRec(root);
+        System.out.println("]");
+    }
+
+    private void preOrderRec(Node n) {
+        if (n == null) return;
+        System.out.print(n.key + " ");
+        preOrderRec(n.left);
+        preOrderRec(n.right);
+    }
+
+    public void printTree() {
+        System.out.println("Estructura del arbol:");
+        printTreeRec(root, "", true);
+    }
+
+    private void printTreeRec(Node n, String prefix, boolean isLeft) {
+        if (n == null) return;
+        System.out.println(prefix + (isLeft ? "+-- " : "\\-- ") + n.key + " (h=" + n.height + ")");
+        printTreeRec(n.left,  prefix + (isLeft ? "|   " : "    "), true);
+        printTreeRec(n.right, prefix + (isLeft ? "|   " : "    "), false);
+    }
+
+    public int treeHeight() {
+        return height(root);
+    }
+}
+public class Main {
+
+    public static void main(String[] args) {
+
+        AVLTree avl = new AVLTree();
+
+        System.out.println("==========================================");
+        System.out.println("         ARBOL AVL - DEMOSTRACION        ");
+        System.out.println("==========================================\n");
+
+        // -- Inserciones
+        int[] valores = {30, 20, 40, 10, 25, 35, 50, 5, 15, 28};
+
+        System.out.println("-- Insertando:");
+        for (int v : valores) {
+            System.out.print("  insert(" + v + ")");
+            avl.insert(v);
+        }
+        System.out.println("\n");
+
+        avl.printTree();
+        System.out.println();
+        avl.inOrder();
+        avl.preOrder();
+        System.out.println("Altura del arbol: " + avl.treeHeight());
+
+        // -- Busquedas
+        System.out.println("\n-- Busquedas:");
+        int[] buscar = {25, 99, 10, 1};
+        for (int k : buscar) {
+            System.out.printf("  search(%2d) -> %s%n", k,
+                avl.search(k) ? "ENCONTRADO" : "NO encontrado");
+        }
+
+        // -- Eliminaciones
+        System.out.println("\n-- Eliminaciones:");
+
+        System.out.println("  delete(20) [nodo con dos hijos]");
+        avl.delete(20);
+        avl.inOrder();
+        avl.printTree();
+
+        System.out.println("  delete(50) [hoja]");
+        avl.delete(50);
+        avl.inOrder();
+
+        System.out.println("  delete(30) [raiz actual]");
+        avl.delete(30);
+        avl.inOrder();
+        avl.printTree();
+
+        System.out.println("  delete(99) [no existe]");
+        avl.delete(99);
+        avl.inOrder();
+
+        System.out.println("\nAltura final: " + avl.treeHeight());
+        System.out.println("\nTodas las operaciones completadas correctamente.");
+    }
+}
+```
+
 ### ¿Por qué son importantes?
 
 *   **Rendimiento garantizado:** A diferencia de un árbol de búsqueda binario simple, que puede degenerar en una lista enlazada (y $O(n)$ en el peor caso), los árboles AVL siempre ofrecen un rendimiento $O(\log n)$.

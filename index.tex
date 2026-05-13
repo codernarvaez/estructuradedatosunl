@@ -3586,6 +3586,247 @@ Nodo}\label{estructura-fija-de-un-nodo}
 \subsection{Ejemplo en Java (Implementacion de un arbol
 AVL)}\label{ejemplo-en-java-implementacion-de-un-arbol-avl}
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{public class Node \{}
+\NormalTok{    int key;}
+\NormalTok{    int height;}
+\NormalTok{    Node left, right;}
+
+\NormalTok{    public Node(int key) \{}
+\NormalTok{        this.key = key;}
+\NormalTok{        this.height = 1;}
+\NormalTok{    \}}
+\NormalTok{\}}
+\NormalTok{public class AVLTree \{}
+
+\NormalTok{    private Node root;}
+
+\NormalTok{    // ── Altura ──────────────────────────────────────}
+\NormalTok{    private int height(Node n) \{}
+\NormalTok{        return (n == null) ? 0 : n.height;}
+\NormalTok{    \}}
+
+\NormalTok{    private void updateHeight(Node n) \{}
+\NormalTok{        n.height = 1 + Math.max(height(n.left), height(n.right));}
+\NormalTok{    \}}
+
+\NormalTok{    private int balanceFactor(Node n) \{}
+\NormalTok{        return (n == null) ? 0 : height(n.left) {-} height(n.right);}
+\NormalTok{    \}}
+
+\NormalTok{    // ── Rotaciones ──────────────────────────────────}
+\NormalTok{    private Node rotateRight(Node y) \{}
+\NormalTok{        Node x  = y.left;}
+\NormalTok{        Node T2 = x.right;}
+
+\NormalTok{        x.right = y;}
+\NormalTok{        y.left  = T2;}
+
+\NormalTok{        updateHeight(y);}
+\NormalTok{        updateHeight(x);}
+
+\NormalTok{        return x;}
+\NormalTok{    \}}
+
+\NormalTok{    private Node rotateLeft(Node x) \{}
+\NormalTok{        Node y  = x.right;}
+\NormalTok{        Node T2 = y.left;}
+
+\NormalTok{        y.left  = x;}
+\NormalTok{        x.right = T2;}
+
+\NormalTok{        updateHeight(x);}
+\NormalTok{        updateHeight(y);}
+
+\NormalTok{        return y;}
+\NormalTok{    \}}
+
+\NormalTok{    // ── Rebalanceo ──────────────────────────────────}
+\NormalTok{    private Node rebalance(Node n) \{}
+\NormalTok{        updateHeight(n);}
+\NormalTok{        int bf = balanceFactor(n);}
+
+\NormalTok{        if (bf \textgreater{} 1 \&\& balanceFactor(n.left) \textgreater{}= 0)}
+\NormalTok{            return rotateRight(n);}
+
+\NormalTok{        if (bf \textgreater{} 1 \&\& balanceFactor(n.left) \textless{} 0) \{}
+\NormalTok{            n.left = rotateLeft(n.left);}
+\NormalTok{            return rotateRight(n);}
+\NormalTok{        \}}
+
+\NormalTok{        if (bf \textless{} {-}1 \&\& balanceFactor(n.right) \textless{}= 0)}
+\NormalTok{            return rotateLeft(n);}
+
+\NormalTok{        if (bf \textless{} {-}1 \&\& balanceFactor(n.right) \textgreater{} 0) \{}
+\NormalTok{            n.right = rotateRight(n.right);}
+\NormalTok{            return rotateLeft(n);}
+\NormalTok{        \}}
+
+\NormalTok{        return n;}
+\NormalTok{    \}}
+
+\NormalTok{    // ── Insert ──────────────────────────────────────}
+\NormalTok{    public void insert(int key) \{}
+\NormalTok{        root = insertRec(root, key);}
+\NormalTok{    \}}
+
+\NormalTok{    private Node insertRec(Node n, int key) \{}
+\NormalTok{        if (n == null) return new Node(key);}
+
+\NormalTok{        if      (key \textless{} n.key) n.left  = insertRec(n.left,  key);}
+\NormalTok{        else if (key \textgreater{} n.key) n.right = insertRec(n.right, key);}
+\NormalTok{        else                  return n;}
+
+\NormalTok{        return rebalance(n);}
+\NormalTok{    \}}
+
+\NormalTok{    // ── Search ──────────────────────────────────────}
+\NormalTok{    public boolean search(int key) \{}
+\NormalTok{        return searchRec(root, key);}
+\NormalTok{    \}}
+
+\NormalTok{    private boolean searchRec(Node n, int key) \{}
+\NormalTok{        if (n == null)    return false;}
+\NormalTok{        if (key == n.key) return true;}
+\NormalTok{        if (key \textless{} n.key)  return searchRec(n.left,  key);}
+\NormalTok{        else              return searchRec(n.right, key);}
+\NormalTok{    \}}
+
+\NormalTok{    // ── Delete ──────────────────────────────────────}
+\NormalTok{    public void delete(int key) \{}
+\NormalTok{        root = deleteRec(root, key);}
+\NormalTok{    \}}
+
+\NormalTok{    private Node deleteRec(Node n, int key) \{}
+\NormalTok{        if (n == null) return null;}
+
+\NormalTok{        if (key \textless{} n.key) \{}
+\NormalTok{            n.left  = deleteRec(n.left,  key);}
+\NormalTok{        \} else if (key \textgreater{} n.key) \{}
+\NormalTok{            n.right = deleteRec(n.right, key);}
+\NormalTok{        \} else \{}
+\NormalTok{            if (n.left == null)  return n.right;}
+\NormalTok{            if (n.right == null) return n.left;}
+
+\NormalTok{            Node successor = minNode(n.right);}
+\NormalTok{            n.key   = successor.key;}
+\NormalTok{            n.right = deleteRec(n.right, successor.key);}
+\NormalTok{        \}}
+
+\NormalTok{        return rebalance(n);}
+\NormalTok{    \}}
+
+\NormalTok{    private Node minNode(Node n) \{}
+\NormalTok{        while (n.left != null) n = n.left;}
+\NormalTok{        return n;}
+\NormalTok{    \}}
+
+\NormalTok{    // ── Recorridos ──────────────────────────────────}
+\NormalTok{    public void inOrder() \{}
+\NormalTok{        System.out.print("In{-}Order:  [ ");}
+\NormalTok{        inOrderRec(root);}
+\NormalTok{        System.out.println("]");}
+\NormalTok{    \}}
+
+\NormalTok{    private void inOrderRec(Node n) \{}
+\NormalTok{        if (n == null) return;}
+\NormalTok{        inOrderRec(n.left);}
+\NormalTok{        System.out.print(n.key + " ");}
+\NormalTok{        inOrderRec(n.right);}
+\NormalTok{    \}}
+
+\NormalTok{    public void preOrder() \{}
+\NormalTok{        System.out.print("Pre{-}Order: [ ");}
+\NormalTok{        preOrderRec(root);}
+\NormalTok{        System.out.println("]");}
+\NormalTok{    \}}
+
+\NormalTok{    private void preOrderRec(Node n) \{}
+\NormalTok{        if (n == null) return;}
+\NormalTok{        System.out.print(n.key + " ");}
+\NormalTok{        preOrderRec(n.left);}
+\NormalTok{        preOrderRec(n.right);}
+\NormalTok{    \}}
+
+\NormalTok{    public void printTree() \{}
+\NormalTok{        System.out.println("Estructura del arbol:");}
+\NormalTok{        printTreeRec(root, "", true);}
+\NormalTok{    \}}
+
+\NormalTok{    private void printTreeRec(Node n, String prefix, boolean isLeft) \{}
+\NormalTok{        if (n == null) return;}
+\NormalTok{        System.out.println(prefix + (isLeft ? "+{-}{-} " : "\textbackslash{}\textbackslash{}{-}{-} ") + n.key + " (h=" + n.height + ")");}
+\NormalTok{        printTreeRec(n.left,  prefix + (isLeft ? "|   " : "    "), true);}
+\NormalTok{        printTreeRec(n.right, prefix + (isLeft ? "|   " : "    "), false);}
+\NormalTok{    \}}
+
+\NormalTok{    public int treeHeight() \{}
+\NormalTok{        return height(root);}
+\NormalTok{    \}}
+\NormalTok{\}}
+\NormalTok{public class Main \{}
+
+\NormalTok{    public static void main(String[] args) \{}
+
+\NormalTok{        AVLTree avl = new AVLTree();}
+
+\NormalTok{        System.out.println("==========================================");}
+\NormalTok{        System.out.println("         ARBOL AVL {-} DEMOSTRACION        ");}
+\NormalTok{        System.out.println("==========================================\textbackslash{}n");}
+
+\NormalTok{        // {-}{-} Inserciones}
+\NormalTok{        int[] valores = \{30, 20, 40, 10, 25, 35, 50, 5, 15, 28\};}
+
+\NormalTok{        System.out.println("{-}{-} Insertando:");}
+\NormalTok{        for (int v : valores) \{}
+\NormalTok{            System.out.print("  insert(" + v + ")");}
+\NormalTok{            avl.insert(v);}
+\NormalTok{        \}}
+\NormalTok{        System.out.println("\textbackslash{}n");}
+
+\NormalTok{        avl.printTree();}
+\NormalTok{        System.out.println();}
+\NormalTok{        avl.inOrder();}
+\NormalTok{        avl.preOrder();}
+\NormalTok{        System.out.println("Altura del arbol: " + avl.treeHeight());}
+
+\NormalTok{        // {-}{-} Busquedas}
+\NormalTok{        System.out.println("\textbackslash{}n{-}{-} Busquedas:");}
+\NormalTok{        int[] buscar = \{25, 99, 10, 1\};}
+\NormalTok{        for (int k : buscar) \{}
+\NormalTok{            System.out.printf("  search(\%2d) {-}\textgreater{} \%s\%n", k,}
+\NormalTok{                avl.search(k) ? "ENCONTRADO" : "NO encontrado");}
+\NormalTok{        \}}
+
+\NormalTok{        // {-}{-} Eliminaciones}
+\NormalTok{        System.out.println("\textbackslash{}n{-}{-} Eliminaciones:");}
+
+\NormalTok{        System.out.println("  delete(20) [nodo con dos hijos]");}
+\NormalTok{        avl.delete(20);}
+\NormalTok{        avl.inOrder();}
+\NormalTok{        avl.printTree();}
+
+\NormalTok{        System.out.println("  delete(50) [hoja]");}
+\NormalTok{        avl.delete(50);}
+\NormalTok{        avl.inOrder();}
+
+\NormalTok{        System.out.println("  delete(30) [raiz actual]");}
+\NormalTok{        avl.delete(30);}
+\NormalTok{        avl.inOrder();}
+\NormalTok{        avl.printTree();}
+
+\NormalTok{        System.out.println("  delete(99) [no existe]");}
+\NormalTok{        avl.delete(99);}
+\NormalTok{        avl.inOrder();}
+
+\NormalTok{        System.out.println("\textbackslash{}nAltura final: " + avl.treeHeight());}
+\NormalTok{        System.out.println("\textbackslash{}nTodas las operaciones completadas correctamente.");}
+\NormalTok{    \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
 \subsection{¿Por qué son importantes?}\label{por-quuxe9-son-importantes}
 
 \begin{itemize}
