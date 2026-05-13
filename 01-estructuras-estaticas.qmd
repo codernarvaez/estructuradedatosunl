@@ -85,19 +85,22 @@ Hay que tener en cuenta que la memoria RAM de una computadora no contiene una cu
 
 ### Mapeo de 2D a Memoria Lineal
 
-Si tenemos una matriz cuadrática de $3 \times 3$, en un enfoque de orden por filas, la primera fila completa ocupará las primeras 3 posiciones contiguas de memoria, seguida inmediatamente por la segunda fila, y así sucesivamente.
+¿Cómo mete la computadora una página del album en una fila de memoria? Para ello esta utiliza un truco llamado Row-Major Order (orden por filas). 
 
-La fórmula de traducción de un índice lógico $(i, j)$ a una posición física lineal en una matriz de tamaño $M \times N$ (filas $\times$ columnas), asumiendo índices basados en cero, es:
+Imaginemos que se despegan los cromos de una de las páginas del album, pero en un orden estricto, primero se pega toda la fila 1, depues se pega la fila 2, y al final la fila 3. Para encontrar rapidamente  al jugador que está en la Fila i y Columna i, la computadora evita buscar página por página, y para esto se necesita la siguiente fórmula:
 
 $Posición = DirecciónBase + (i \times N + j) \times TamañoDelDato$
 
-Esto garantiza que el acceso a cualquier celda de la matriz siga siendo una operación aritmética simple y, por tanto, mantenga un tiempo de acceso $\mathcal{O}(1)$.
+Para explicar esta fórmula, imaginemos que $N$ es el número total de columnas, o sea cuántos cromos caben por fila, si se busca al primer jugador de la segunda fila $(i=1)$, se saltan todos los cromos de la primera fila $(1xN)$ y luego se mueve j espacios para así llegar al jugador que se busca.
 
-```python
-# Ejemplo en Python usando listas por comprensión para simular
+EJEMPLO EN JAVA
+
+```java
+# Ejemplo en Java usando listas por comprensión para simular
 # una matriz (comportamiento 2D) de 3x3 inicializada en 0:
-matriz = [[0 for _ in range(3)] for _ in range(3)]
-matriz[1][2] = 5 # Acceso lógico bidimensional O(1)
+int[][] paginaAlbum = new int[3][3];
+paginaAlbum[1][2] = 5;
+System.out.println("El cromo en la posición [1][2] es el número: " + paginaAlbum[1][2]);
 ```
 
 ## Cadenas de Caracteres (Strings) {#sec-strings}
