@@ -79,7 +79,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-9e3e5b9121e68b3f077afb32f2c64d95.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-bf1aafbadaf02b9ec7354e25efb8ff39.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -341,8 +341,8 @@ FB \in \{-1, 0, 1\}
 \]</span></p>
 <p>Esto garantiza que, incluso en el peor caso, la altura del árbol nunca supera aproximadamente 1.44 veces el logaritmo del número de nodos.</p>
 </section>
-<section id="rendimiento-on-en-todas-las-operaciones-principales" class="level4" data-number="8.1.1.2">
-<h4 data-number="8.1.1.2" class="anchored" data-anchor-id="rendimiento-on-en-todas-las-operaciones-principales"><span class="header-section-number">8.1.1.2</span> Rendimiento (O(n)) en todas las operaciones principales</h4>
+<section id="rendimiento-olog-n-en-todas-las-operaciones-principales" class="level4" data-number="8.1.1.2">
+<h4 data-number="8.1.1.2" class="anchored" data-anchor-id="rendimiento-olog-n-en-todas-las-operaciones-principales"><span class="header-section-number">8.1.1.2</span> Rendimiento <span class="math inline">\(O(\log n)\)</span> en todas las operaciones principales</h4>
 <p>Como consecuencia directa de la altura logarítmica garantizada, las tres operaciones fundamentales tienen un costo predecible:</p>
 <table class="caption-top table">
 <thead>
@@ -494,11 +494,11 @@ FB \in \{-1, 0, 1\}
 <section id="costo-extra-por-inserción-y-eliminación" class="level4" data-number="8.1.1.7">
 <h4 data-number="8.1.1.7" class="anchored" data-anchor-id="costo-extra-por-inserción-y-eliminación"><span class="header-section-number">8.1.1.7</span> Costo extra por inserción y eliminación</h4>
 <ul>
-<li><strong>Actualizar alturas en el camino de regreso:</strong> (O(n)) pasos<br>
+<li><strong>Actualizar alturas en el camino de regreso:</strong> <span class="math inline">\(O(\log n)\)</span> pasos<br>
 </li>
 <li><strong>Rotaciones necesarias en inserción:</strong> máximo 2 rotaciones<br>
 </li>
-<li><strong>Rotaciones necesarias en eliminación:</strong> hasta (O(n)) rotaciones</li>
+<li><strong>Rotaciones necesarias en eliminación:</strong> hasta <span class="math inline">\(O(\log n)\)</span> rotaciones</li>
 </ul>
 <p>Aunque existe este costo adicional, el beneficio principal es garantizar que las operaciones de búsqueda, inserción y eliminación mantengan un rendimiento eficiente incluso en el peor caso.</p>
 </section>

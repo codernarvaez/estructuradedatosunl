@@ -79,7 +79,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-9e3e5b9121e68b3f077afb32f2c64d95.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-bf1aafbadaf02b9ec7354e25efb8ff39.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -108,6 +108,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -350,9 +379,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li><strong>Tiempo</strong>:
 <ul>
-<li><strong>Peor caso</strong>: O(n^2). Ocurre cuando el array está ordenado en orden inverso. Cada elemento necesita “burbujear” a través de casi toda la lista.</li>
-<li><strong>Caso promedio</strong>: O(n^2).</li>
-<li><strong>Mejor caso</strong>: O(n). Si el array ya está ordenado, la optimización con la bandera <code>swapped</code> hará que el algoritmo complete en una sola pasada.</li>
+<li><strong>Peor caso</strong>: <span class="math inline">\(O(n^2)\)</span>. Ocurre cuando el array está ordenado en orden inverso. Cada elemento necesita “burbujear” a través de casi toda la lista.</li>
+<li><strong>Caso promedio</strong>: <span class="math inline">\(O(n^2)\)</span>.</li>
+<li><strong>Mejor caso</strong>: <span class="math inline">\(O(n)\)</span>. Si el array ya está ordenado, la optimización con la bandera <code>swapped</code> hará que el algoritmo complete en una sola pasada.</li>
 </ul></li>
 <li><strong>Espacio</strong>: O(1). Es un algoritmo de ordenación “in-place” ya que solo utiliza una cantidad constante de memoria adicional para la variable <code>temp</code>.</li>
 </ul>
@@ -453,9 +482,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li><strong>Tiempo</strong>:
 <ul>
-<li><strong>Peor caso</strong>: O(n^2). Ocurre cuando el array está ordenado en orden inverso. Cada elemento debe ser comparado y desplazado a través de casi toda la sublista ordenada.</li>
-<li><strong>Caso promedio</strong>: O(n^2).</li>
-<li><strong>Mejor caso</strong>: O(n). Si el array ya está ordenado, cada elemento se compara solo con el elemento adyacente anterior, lo que resulta en un tiempo lineal.</li>
+<li><strong>Peor caso</strong>: <span class="math inline">\(O(n^2)\)</span>. Ocurre cuando el array está ordenado en orden inverso. Cada elemento debe ser comparado y desplazado a través de casi toda la sublista ordenada.</li>
+<li><strong>Caso promedio</strong>: <span class="math inline">\(O(n^2)\)</span>.</li>
+<li><strong>Mejor caso</strong>: <span class="math inline">\(O(n)\)</span>. Si el array ya está ordenado, cada elemento se compara solo con el elemento adyacente anterior, lo que resulta en un tiempo lineal.</li>
 </ul></li>
 <li><strong>Espacio</strong>: O(1). Es un algoritmo “in-place”.</li>
 </ul>
@@ -558,7 +587,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong><code>result &lt;- c()</code></strong>: Inicializamos un vector vacío para almacenar el resultado combinado.</li>
 <li><strong><code>while (length(left) &gt; 0 &amp;&amp; length(right) &gt; 0)</code></strong>: Este bucle compara los primeros elementos de <code>left</code> y <code>right</code>.
 <ul>
-<li>El elemento más pequeño se añade a <code>result</code> y se elimina de su array original usando <code>left[-1]</code> o <code>right[-1]</code>. <strong>Nota</strong>: La eliminación de elementos al inicio de un vector en R es una operación costosa O(n) que puede impactar el rendimiento real de esta implementación en R. En lenguajes de bajo nivel se usarían punteros o índices.</li>
+<li>El elemento más pequeño se añade a <code>result</code> y se elimina de su array original usando <code>left[-1]</code> o <code>right[-1]</code>. <strong>Nota</strong>: La eliminación de elementos al inicio de un vector en R es una operación costosa <span class="math inline">\(O(n)\)</span> que puede impactar el rendimiento real de esta implementación en R. En lenguajes de bajo nivel se usarían punteros o índices.</li>
 </ul></li>
 <li><strong><code>if (length(left) &gt; 0)</code> / <code>if (length(right) &gt; 0)</code></strong>: Después del bucle <code>while</code>, uno de los arrays podría tener elementos restantes (porque uno se agotó antes que el otro). Estos elementos restantes ya están ordenados y simplemente se añaden al final de <code>result</code>.</li>
 <li><strong><code>return(result)</code></strong>: Devuelve el array combinado y ordenado.</li>
@@ -581,11 +610,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li><strong>Tiempo</strong>:
 <ul>
-<li><strong>Peor caso</strong>: O(n log n).</li>
-<li><strong>Caso promedio</strong>: O(n log n).</li>
-<li><strong>Mejor caso</strong>: O(n log n). Mergesort tiene un rendimiento consistente en todos los casos debido a su estrategia de división equitativa y la naturaleza de la operación de fusión. El factor <code>log n</code> viene de las divisiones recursivas, y <code>n</code> de la operación de fusión en cada nivel.</li>
+<li><strong>Peor caso</strong>: <span class="math inline">\(O(n \log n)\)</span>.</li>
+<li><strong>Caso promedio</strong>: <span class="math inline">\(O(n \log n)\)</span>.</li>
+<li><strong>Mejor caso</strong>: <span class="math inline">\(O(n \log n)\)</span>. Mergesort tiene un rendimiento consistente en todos los casos debido a su estrategia de división equitativa y la naturaleza de la operación de fusión. El factor <code>log n</code> viene de las divisiones recursivas, y <code>n</code> de la operación de fusión en cada nivel.</li>
 </ul></li>
-<li><strong>Espacio</strong>: O(n). Mergesort no es un algoritmo “in-place” puro. Requiere espacio adicional para almacenar las sublistas temporales durante la fase de fusión. En nuestra implementación de R, la creación de nuevos vectores en cada paso de <code>merge_arrays</code> contribuye a esta complejidad espacial.</li>
+<li><strong>Espacio</strong>: <span class="math inline">\(O(n)\)</span>. Mergesort no es un algoritmo “in-place” puro. Requiere espacio adicional para almacenar las sublistas temporales durante la fase de fusión. En nuestra implementación de R, la creación de nuevos vectores en cada paso de <code>merge_arrays</code> contribuye a esta complejidad espacial.</li>
 </ul>
 </section>
 <section id="ejemplo-2" class="level3" data-number="6.3.5">
@@ -679,14 +708,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li><strong>Tiempo</strong>:
 <ul>
-<li><strong>Peor caso</strong>: O(n^2). Ocurre cuando la elección del pivote es consistentemente mala (por ejemplo, siempre el elemento más pequeño o más grande), lo que resulta en particiones desequilibradas (una sublista de <code>n-1</code> elementos y otra de 0).</li>
-<li><strong>Caso promedio</strong>: O(n log n). Con una buena elección de pivote (que divide el array en dos subproblemas de tamaño similar), Quicksort es muy eficiente.</li>
-<li><strong>Mejor caso</strong>: O(n log n).</li>
+<li><strong>Peor caso</strong>: <span class="math inline">\(O(n^2)\)</span>. Ocurre cuando la elección del pivote es consistentemente mala (por ejemplo, siempre el elemento más pequeño o más grande), lo que resulta en particiones desequilibradas (una sublista de <code>n-1</code> elementos y otra de 0).</li>
+<li><strong>Caso promedio</strong>: <span class="math inline">\(O(n \log n)\)</span>. Con una buena elección de pivote (que divide el array en dos subproblemas de tamaño similar), Quicksort es muy eficiente.</li>
+<li><strong>Mejor caso</strong>: <span class="math inline">\(O(n \log n)\)</span>.</li>
 </ul></li>
 <li><strong>Espacio</strong>:
 <ul>
 <li><strong>Caso promedio</strong>: O(log n). Esto se debe al espacio utilizado por la pila de recursión para almacenar las llamadas a la función.</li>
-<li><strong>Peor caso</strong>: O(n). Si las particiones son muy desequilibradas, la pila de recursión puede crecer linealmente con el tamaño de <code>n</code>.</li>
+<li><strong>Peor caso</strong>: <span class="math inline">\(O(n)\)</span>. Si las particiones son muy desequilibradas, la pila de recursión puede crecer linealmente con el tamaño de <code>n</code>.</li>
 <li>Nuestra implementación en R, al crear nuevos vectores <code>less</code> y <code>greater</code> en cada llamada, tiene una complejidad espacial mayor en la práctica que una implementación “in-place” típica de Quicksort, que solo usa espacio para la pila de recursión.</li>
 </ul></li>
 </ul>
@@ -724,11 +753,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="6.5" class="anchored" data-anchor-id="conclusión"><span class="header-section-number">6.5</span> Conclusión</h2>
 <p>Hemos recorrido cuatro algoritmos de ordenación fundamentales, cada uno con su enfoque único y características de rendimiento.</p>
 <ul>
-<li><strong>Bubble Sort</strong> e <strong>Insertion Sort</strong> son algoritmos simples de entender e implementar, adecuados para arrays pequeños o casi ordenados (donde rinden en O(n)). Sin embargo, su complejidad de O(n^2) los hace imprácticos para grandes volúmenes de datos.</li>
-<li><strong>Mergesort</strong> y <strong>Quicksort</strong> son algoritmos de “divide y vencerás” que ofrecen un rendimiento mucho mejor, generalmente O(n log n).
+<li><strong>Bubble Sort</strong> e <strong>Insertion Sort</strong> son algoritmos simples de entender e implementar, adecuados para arrays pequeños o casi ordenados (donde rinden en <span class="math inline">\(O(n)\)</span>). Sin embargo, su complejidad de <span class="math inline">\(O(n^2)\)</span> los hace imprácticos para grandes volúmenes de datos.</li>
+<li><strong>Mergesort</strong> y <strong>Quicksort</strong> son algoritmos de “divide y vencerás” que ofrecen un rendimiento mucho mejor, generalmente <span class="math inline">\(O(n \log n)\)</span>.
 <ul>
-<li><strong>Mergesort</strong> es estable y tiene un rendimiento consistente de O(n log n) en todos los casos, pero requiere O(n) de espacio adicional.</li>
-<li><strong>Quicksort</strong> es típicamente el más rápido en la práctica (O(n log n) promedio), especialmente en implementaciones “in-place”, aunque su peor caso es O(n^2) y puede ser inestable. La elección del pivote es crítica para su eficiencia.</li>
+<li><strong>Mergesort</strong> es estable y tiene un rendimiento consistente de <span class="math inline">\(O(n \log n)\)</span> en todos los casos, pero requiere <span class="math inline">\(O(n)\)</span> de espacio adicional.</li>
+<li><strong>Quicksort</strong> es típicamente el más rápido en la práctica (<span class="math inline">\(O(n \log n)\)</span> promedio), especialmente en implementaciones “in-place”, aunque su peor caso es <span class="math inline">\(O(n^2)\)</span> y puede ser inestable. La elección del pivote es crítica para su eficiencia.</li>
 </ul></li>
 </ul>
 <p>En R, para tareas de ordenación cotidianas, generalmente se recomienda usar las funciones nativas optimizadas como <code>sort()</code> o <code>order()</code>, ya que están implementadas en C/Fortran y son extremadamente eficientes. Sin embargo, comprender los algoritmos subyacentes es crucial para cualquier científico de datos o programador que desee escribir código eficiente y comprender las bases de la informática. ¡Espero que este capítulo le haya proporcionado una base sólida!</p>

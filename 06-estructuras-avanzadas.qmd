@@ -65,7 +65,7 @@ $$
 
 Esto garantiza que, incluso en el peor caso, la altura del árbol nunca supera aproximadamente 1.44 veces el logaritmo del número de nodos.
 
-#### Rendimiento \(O(\log n)\) en todas las operaciones principales 
+#### Rendimiento $O(\log n)$ en todas las operaciones principales 
 
 Como consecuencia directa de la altura logarítmica garantizada, las tres operaciones fundamentales tienen un costo predecible:
 
@@ -185,9 +185,9 @@ Además, cada operación de inserción o eliminación puede requerir procesos de
 
 #### Costo extra por inserción y eliminación
 
-- **Actualizar alturas en el camino de regreso:** \(O(\log n)\) pasos  
+- **Actualizar alturas en el camino de regreso:** $O(\log n)$ pasos  
 - **Rotaciones necesarias en inserción:** máximo 2 rotaciones  
-- **Rotaciones necesarias en eliminación:** hasta \(O(\log n)\) rotaciones  
+- **Rotaciones necesarias en eliminación:** hasta $O(\log n)$ rotaciones  
 
 Aunque existe este costo adicional, el beneficio principal es garantizar que las operaciones de búsqueda, inserción y eliminación mantengan un rendimiento eficiente incluso en el peor caso.
 
