@@ -58,9 +58,23 @@ Particion y pivote
 
 ### Implementación en Java
 
-Implementaremos `quick_sort` en Java. Esta implementación es una versión simplificada que crea nuevos arrays en cada paso de la partición, lo cual es más facil de entender pero menos eficiente en espacio que una implementación "in-place" con índices.
+::: {style="display: grid; grid-template-columns: 3fr 1fr; grid-gap: 18px;"}
 
-```{java}
+::: {}
+Implementaremos `quick_sort` en Java. Esta implementación es una versión 
+simplificada que crea nuevos arrays en cada paso de la partición, lo cual 
+es más fácil de entender pero menos eficiente en espacio que una 
+implementación "in-place" con índices.
+:::
+
+::: {style="margin-left: 20px; margin-top: -15px;"}
+![](images/java111.png){width=80%}
+:::
+
+:::
+
+
+```java
 public class QuickSort {
     
     public static int[] quick_sort(int[] arr) {
@@ -154,7 +168,7 @@ public class QuickSort {
 
 Veamos `quick_sort` en acción.
 
-```{java}
+```java
 # Ejemplo 1: Un vector desordenado
 int[] vector_desordenado = {10, 80, 30, 90, 40, 50, 70};
 System.out.print("Vector original: " + Arrays.toString(vector_desordenado));
@@ -169,10 +183,20 @@ System.out.print("Vector ordenado (Quicksort): " + Arrays.toString(vector_ordena
 ```
 
 ### Implementación en Python
+::: {style="display: grid; grid-template-columns: 3fr 1fr; grid-gap: 18px;"}
 
+::: {}
 Implementaremos `quick_sort` en Java. Esta implementacion es una versión simplificada que crea nueva listas en cada paso de la partición, lo cual es más idiomático en Python pero menos eficiente en especio que una implementación "in-place" con índices.
+:::
 
-```{python}
+::: {style="margin-left: 20px; margin-top: -15px;"}
+![](images/Python.svg.png){width=80%}
+
+:::
+
+:::
+
+```python
 def quick_sort(arr):
     n = len(arr)
     
@@ -225,7 +249,7 @@ def quick_sort(arr):
 
 Veamos `quick_sort` en acción.
 
-```{python}
+```python
 # Ejemplo 1: Una lista desordenada
 vector_desordenado = [10, 80, 30, 90, 40, 50, 70]
 print(f"Vector original: {vector_desordenado}")
@@ -246,10 +270,18 @@ print(f"Vector ordenado (Quicksort): {vector_ordenado_dup}")
 ```
 
 ### Implementación en JavaScript
+::: {style="display: grid; grid-template-columns: 3fr 1fr; grid-gap: 18px;"}
 
+::: {}
 Implementaremos `quick_sort` en JavaScript. Esta implementacion es unaversión simplificada que crea nuevos arrays en cada paso de la partición, lo cual es más idiomático en JavaScript pero menos eficiente en especio que una implementación "in-place" con índices.
+:::
 
-```{js}
+::: {style="margin-left: 20px; margin-top: -15px;"}
+![](images/js.png){width=80%}
+:::
+:::
+
+```js
 function quick_sort(arr) {
     const n = arr.length;
     
@@ -305,7 +337,7 @@ function quick_sort(arr) {
 
 Veamos `quick_sort` en acción.
 
-```{js}
+```js
 # Ejemplo 1: Una lista desordenada
 const vector_desordenado = [10, 80, 30, 90, 40, 50, 70];
 console.log(`Vector original: ${vector_desordenado}`);
