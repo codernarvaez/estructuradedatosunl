@@ -334,40 +334,42 @@ print("Cantidad de letras:", len(jugador))
 
 El problema surge cuando quieres "agregar" una figurita. Como el álbum no cambia, la computadora se ve obligada a comprar un álbum nuevo más grande, copiar todas las figuritas que ya tenías y recién ahí pegar la nueva. Si haces esto figurita por figurita, el proceso se vuelve lentísimo y pesado (O(N^2)); por eso, para pegar miles de fotos, es mejor usar un StringBuilder, que funciona como una carpeta de ganchos donde agregas hojas sin tener que desechar todo el álbum cada vez.
 
-## Metodologías Activas
 
 ### Autoevaluación
 
-1. **Reflexiona:** Si necesitas almacenar una lista de usuarios de un *chat-room* activo, donde participantes se desconectan aleatoriamente y entran otros a diferente ritmo; ¿Qué desventajas concretas sufriera tu servidor intentando gestionar esas bajas si solo posees estructuras de tipo arreglo puro?
-2. **Experimenta Mentalmente:** Modula la fórmula matemática de un arreglo `DirecciónBase + (Índice * OffsetBytes)`. ¿Qué ocurriría si intentaras buscar `calificaciones[10]` en el arreglo de 5 casillas instanciado antes? ¿Hacia donde apunta la memoria? (Investiga el concepto de *Buffer Overflow* o excepcion *Out of Bounds* de Java).
+1. **Reflexion Crítica:** Las estructuras estáticas demostraron ser fundamentales para comprender cómo la computadora organiza la memoria y accede rápidamente a la información, de manera similar a un álbum del Mundial donde cada cromo tiene una posición exacta. A lo largo del proyecto se observó que arreglos, matrices, cadenas de caracteres y archivos permiten trabajar con datos de forma eficiente cuando el tamaño ya está definido, logrando accesos rápidos y un uso ordenado de la memoria Heap. Sin embargo, también quedó claro que esta rigidez puede convertirse en una limitación cuando los datos cambian constantemente, ya que insertar o eliminar elementos implica mover información completa, como reorganizar todos los cromos de una página. Además, el análisis de archivos permitió comprender la diferencia entre almacenamiento temporal en RAM y persistencia permanente en disco, mientras que conceptos como Garbage Collector mostraron cómo lenguajes como Java y Python administran automáticamente la memoria. En conjunto, el proyecto permitió entender no solo cómo funcionan las estructuras estáticas a nivel técnico, sino también por qué son la base para desarrollar sistemas más complejos y eficientes en programación.
 
-### Resolución de Problemas
 
-*Reto:*
-Sistema de Álbum del Mundial
+## Resolución de Problemas
+
+### Reto: Sistema de Álbum del Mundial
 
 Crea un programa en Java que simule un álbum del Mundial usando arreglos estáticos.
 
 El programa debe permitir lo siguiente:
+
 1. Registrar hasta 20 cromos de jugadores.
 2. Mostrar todos los cromos guardados.
 3. Buscar un jugador específico.
 4. Contar cuántos espacios del álbum siguen vacíos.
 5. Reemplazar un cromo repetido por otro jugador.
 
-Reglas del desafio:
-1. Usa únicamente arreglos estáticos (String[]).
-2. No se permite usar ArrayList.
-3. El tamaño del arreglo debe ser fijo.
-4. Los espacios vacíos deben mostrarse como "VACÍO".
+### Reglas del desafío
 
-Operaciones opcionales para el desafio:
-Agregar un menú interactivo con lo siguiente(usar Scanner):
-1. Agregar cromo
-2. Mostrar álbum
-3. Buscar jugador
-4. Reemplazar cromo
-5. Salir
+1. Usa únicamente arreglos estáticos (`String[]`).
+2. No se permite usar `ArrayList`.
+3. El tamaño del arreglo debe ser fijo.
+4. Los espacios vacíos deben mostrarse como `"VACÍO"`.
+
+### Operaciones opcionales para el desafío
+
+Agregar un menú interactivo con lo siguiente (usar `Scanner`):
+
+1. Agregar cromo.
+2. Mostrar álbum.
+3. Buscar jugador.
+4. Reemplazar cromo.
+5. Salir.
 
 
 ### Enlace del repositorio de github en donde se hicieron los cambios
