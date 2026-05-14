@@ -98,7 +98,7 @@ div.csl-indent {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-9e3e5b9121e68b3f077afb32f2c64d95.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-bf1aafbadaf02b9ec7354e25efb8ff39.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -537,289 +537,328 @@ FB \in \{-1, 0, 1\}
 </section>
 <section id="ejemplo-en-java-implementacion-de-un-arbol-avl" class="level3" data-number="8.1.3">
 <h3 data-number="8.1.3" class="anchored" data-anchor-id="ejemplo-en-java-implementacion-de-un-arbol-avl"><span class="header-section-number">8.1.3</span> Ejemplo en Java (Implementacion de un arbol AVL)</h3>
-<pre class="text"><code>public class Node {
-    int key;
-    int height;
-    Node left, right;
-
-    public Node(int key) {
-        this.key = key;
-        this.height = 1;
-    }
-}
-public class AVLTree {
-
-    private Node root;
-
-    // ── Altura ──────────────────────────────────────
-    private int height(Node n) {
-        return (n == null) ? 0 : n.height;
-    }
-
-    private void updateHeight(Node n) {
-        n.height = 1 + Math.max(height(n.left), height(n.right));
-    }
-
-    private int balanceFactor(Node n) {
-        return (n == null) ? 0 : height(n.left) - height(n.right);
-    }
-
-    // ── Rotaciones ──────────────────────────────────
-    private Node rotateRight(Node y) {
-        Node x  = y.left;
-        Node T2 = x.right;
-
-        x.right = y;
-        y.left  = T2;
-
-        updateHeight(y);
-        updateHeight(x);
-
-        return x;
-    }
-
-    private Node rotateLeft(Node x) {
-        Node y  = x.right;
-        Node T2 = y.left;
-
-        y.left  = x;
-        x.right = T2;
-
-        updateHeight(x);
-        updateHeight(y);
-
-        return y;
-    }
-
-    // ── Rebalanceo ──────────────────────────────────
-    private Node rebalance(Node n) {
-        updateHeight(n);
-        int bf = balanceFactor(n);
-
-        if (bf &gt; 1 &amp;&amp; balanceFactor(n.left) &gt;= 0)
-            return rotateRight(n);
-
-        if (bf &gt; 1 &amp;&amp; balanceFactor(n.left) &lt; 0) {
-            n.left = rotateLeft(n.left);
-            return rotateRight(n);
-        }
-
-        if (bf &lt; -1 &amp;&amp; balanceFactor(n.right) &lt;= 0)
-            return rotateLeft(n);
-
-        if (bf &lt; -1 &amp;&amp; balanceFactor(n.right) &gt; 0) {
-            n.right = rotateRight(n.right);
-            return rotateLeft(n);
-        }
-
-        return n;
-    }
-
-    // ── Insert ──────────────────────────────────────
-    public void insert(int key) {
-        root = insertRec(root, key);
-    }
-
-    private Node insertRec(Node n, int key) {
-        if (n == null) return new Node(key);
-
-        if      (key &lt; n.key) n.left  = insertRec(n.left,  key);
-        else if (key &gt; n.key) n.right = insertRec(n.right, key);
-        else                  return n;
-
-        return rebalance(n);
-    }
-
-    // ── Search ──────────────────────────────────────
-    public boolean search(int key) {
-        return searchRec(root, key);
-    }
-
-    private boolean searchRec(Node n, int key) {
-        if (n == null)    return false;
-        if (key == n.key) return true;
-        if (key &lt; n.key)  return searchRec(n.left,  key);
-        else              return searchRec(n.right, key);
-    }
-
-    // ── Delete ──────────────────────────────────────
-    public void delete(int key) {
-        root = deleteRec(root, key);
-    }
-
-    private Node deleteRec(Node n, int key) {
-        if (n == null) return null;
-
-        if (key &lt; n.key) {
-            n.left  = deleteRec(n.left,  key);
-        } else if (key &gt; n.key) {
-            n.right = deleteRec(n.right, key);
-        } else {
-            if (n.left == null)  return n.right;
-            if (n.right == null) return n.left;
-
-            Node successor = minNode(n.right);
-            n.key   = successor.key;
-            n.right = deleteRec(n.right, successor.key);
-        }
-
-        return rebalance(n);
-    }
-
-    private Node minNode(Node n) {
-        while (n.left != null) n = n.left;
-        return n;
-    }
-
-    // ── Recorridos ──────────────────────────────────
-    public void inOrder() {
-        System.out.print("In-Order:  [ ");
-        inOrderRec(root);
-        System.out.println("]");
-    }
-
-    private void inOrderRec(Node n) {
-        if (n == null) return;
-        inOrderRec(n.left);
-        System.out.print(n.key + " ");
-        inOrderRec(n.right);
-    }
-
-    public void preOrder() {
-        System.out.print("Pre-Order: [ ");
-        preOrderRec(root);
-        System.out.println("]");
-    }
-
-    private void preOrderRec(Node n) {
-        if (n == null) return;
-        System.out.print(n.key + " ");
-        preOrderRec(n.left);
-        preOrderRec(n.right);
-    }
-
-    public void printTree() {
-        System.out.println("Estructura del arbol:");
-        printTreeRec(root, "", true);
-    }
-
-    private void printTreeRec(Node n, String prefix, boolean isLeft) {
-        if (n == null) return;
-        System.out.println(prefix + (isLeft ? "+-- " : "\\-- ") + n.key + " (h=" + n.height + ")");
-        printTreeRec(n.left,  prefix + (isLeft ? "|   " : "    "), true);
-        printTreeRec(n.right, prefix + (isLeft ? "|   " : "    "), false);
-    }
-
-    public int treeHeight() {
-        return height(root);
-    }
-}
-public class Main {
-
-    public static void main(String[] args) {
-
-        AVLTree avl = new AVLTree();
-
-        System.out.println("==========================================");
-        System.out.println("         ARBOL AVL - DEMOSTRACION        ");
-        System.out.println("==========================================\n");
-
-        // -- Inserciones
-        int[] valores = {30, 20, 40, 10, 25, 35, 50, 5, 15, 28};
-
-        System.out.println("-- Insertando:");
-        for (int v : valores) {
-            System.out.print("  insert(" + v + ")");
-            avl.insert(v);
-        }
-        System.out.println("\n");
-
-        avl.printTree();
-        System.out.println();
-        avl.inOrder();
-        avl.preOrder();
-        System.out.println("Altura del arbol: " + avl.treeHeight());
-
-        // -- Busquedas
-        System.out.println("\n-- Busquedas:");
-        int[] buscar = {25, 99, 10, 1};
-        for (int k : buscar) {
-            System.out.printf("  search(%2d) -&gt; %s%n", k,
-                avl.search(k) ? "ENCONTRADO" : "NO encontrado");
-        }
-
-        // -- Eliminaciones
-        System.out.println("\n-- Eliminaciones:");
-
-        System.out.println("  delete(20) [nodo con dos hijos]");
-        avl.delete(20);
-        avl.inOrder();
-        avl.printTree();
-
-        System.out.println("  delete(50) [hoja]");
-        avl.delete(50);
-        avl.inOrder();
-
-        System.out.println("  delete(30) [raiz actual]");
-        avl.delete(30);
-        avl.inOrder();
-        avl.printTree();
-
-        System.out.println("  delete(99) [no existe]");
-        avl.delete(99);
-        avl.inOrder();
-
-        System.out.println("\nAltura final: " + avl.treeHeight());
-        System.out.println("\nTodas las operaciones completadas correctamente.");
-    }
-}</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode java code-with-copy"><code class="sourceCode java"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> <span class="bu">Node</span> <span class="op">{</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> key<span class="op">;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> height<span class="op">;</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">Node</span> left<span class="op">,</span> right<span class="op">;</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">Node</span><span class="op">(</span><span class="dt">int</span> key<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">key</span> <span class="op">=</span> key<span class="op">;</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">height</span> <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode java code-with-copy"><code class="sourceCode java"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> AVLTree <span class="op">{</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">Node</span> root<span class="op">;</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ── Altura ──────────────────────────────────────</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">int</span> <span class="fu">height</span><span class="op">(</span><span class="bu">Node</span> n<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="op">(</span>n <span class="op">==</span> <span class="kw">null</span><span class="op">)</span> <span class="op">?</span> <span class="dv">0</span> <span class="op">:</span> n<span class="op">.</span><span class="fu">height</span><span class="op">;</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">void</span> <span class="fu">updateHeight</span><span class="op">(</span><span class="bu">Node</span> n<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>        n<span class="op">.</span><span class="fu">height</span> <span class="op">=</span> <span class="dv">1</span> <span class="op">+</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span><span class="op">(</span><span class="fu">height</span><span class="op">(</span>n<span class="op">.</span><span class="fu">left</span><span class="op">),</span> <span class="fu">height</span><span class="op">(</span>n<span class="op">.</span><span class="fu">right</span><span class="op">));</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">int</span> <span class="fu">balanceFactor</span><span class="op">(</span><span class="bu">Node</span> n<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="op">(</span>n <span class="op">==</span> <span class="kw">null</span><span class="op">)</span> <span class="op">?</span> <span class="dv">0</span> <span class="op">:</span> <span class="fu">height</span><span class="op">(</span>n<span class="op">.</span><span class="fu">left</span><span class="op">)</span> <span class="op">-</span> <span class="fu">height</span><span class="op">(</span>n<span class="op">.</span><span class="fu">right</span><span class="op">);</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ── Rotaciones ──────────────────────────────────</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">Node</span> <span class="fu">rotateRight</span><span class="op">(</span><span class="bu">Node</span> y<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Node</span> x  <span class="op">=</span> y<span class="op">.</span><span class="fu">left</span><span class="op">;</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Node</span> T2 <span class="op">=</span> x<span class="op">.</span><span class="fu">right</span><span class="op">;</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>        x<span class="op">.</span><span class="fu">right</span> <span class="op">=</span> y<span class="op">;</span></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>        y<span class="op">.</span><span class="fu">left</span>  <span class="op">=</span> T2<span class="op">;</span></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>        <span class="fu">updateHeight</span><span class="op">(</span>y<span class="op">);</span></span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>        <span class="fu">updateHeight</span><span class="op">(</span>x<span class="op">);</span></span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> x<span class="op">;</span></span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">Node</span> <span class="fu">rotateLeft</span><span class="op">(</span><span class="bu">Node</span> x<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Node</span> y  <span class="op">=</span> x<span class="op">.</span><span class="fu">right</span><span class="op">;</span></span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Node</span> T2 <span class="op">=</span> y<span class="op">.</span><span class="fu">left</span><span class="op">;</span></span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>        y<span class="op">.</span><span class="fu">left</span>  <span class="op">=</span> x<span class="op">;</span></span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a>        x<span class="op">.</span><span class="fu">right</span> <span class="op">=</span> T2<span class="op">;</span></span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a>        <span class="fu">updateHeight</span><span class="op">(</span>x<span class="op">);</span></span>
+<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a>        <span class="fu">updateHeight</span><span class="op">(</span>y<span class="op">);</span></span>
+<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> y<span class="op">;</span></span>
+<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ── Rebalanceo ──────────────────────────────────</span></span>
+<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">Node</span> <span class="fu">rebalance</span><span class="op">(</span><span class="bu">Node</span> n<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a>        <span class="fu">updateHeight</span><span class="op">(</span>n<span class="op">);</span></span>
+<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> bf <span class="op">=</span> <span class="fu">balanceFactor</span><span class="op">(</span>n<span class="op">);</span></span>
+<span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>bf <span class="op">&gt;</span> <span class="dv">1</span> <span class="op">&amp;&amp;</span> <span class="fu">balanceFactor</span><span class="op">(</span>n<span class="op">.</span><span class="fu">left</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="fu">rotateRight</span><span class="op">(</span>n<span class="op">);</span></span>
+<span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-53"><a href="#cb11-53" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>bf <span class="op">&gt;</span> <span class="dv">1</span> <span class="op">&amp;&amp;</span> <span class="fu">balanceFactor</span><span class="op">(</span>n<span class="op">.</span><span class="fu">left</span><span class="op">)</span> <span class="op">&lt;</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb11-54"><a href="#cb11-54" aria-hidden="true" tabindex="-1"></a>            n<span class="op">.</span><span class="fu">left</span> <span class="op">=</span> <span class="fu">rotateLeft</span><span class="op">(</span>n<span class="op">.</span><span class="fu">left</span><span class="op">);</span></span>
+<span id="cb11-55"><a href="#cb11-55" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="fu">rotateRight</span><span class="op">(</span>n<span class="op">);</span></span>
+<span id="cb11-56"><a href="#cb11-56" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb11-57"><a href="#cb11-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-58"><a href="#cb11-58" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>bf <span class="op">&lt;</span> <span class="op">-</span><span class="dv">1</span> <span class="op">&amp;&amp;</span> <span class="fu">balanceFactor</span><span class="op">(</span>n<span class="op">.</span><span class="fu">right</span><span class="op">)</span> <span class="op">&lt;=</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb11-59"><a href="#cb11-59" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="fu">rotateLeft</span><span class="op">(</span>n<span class="op">);</span></span>
+<span id="cb11-60"><a href="#cb11-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-61"><a href="#cb11-61" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>bf <span class="op">&lt;</span> <span class="op">-</span><span class="dv">1</span> <span class="op">&amp;&amp;</span> <span class="fu">balanceFactor</span><span class="op">(</span>n<span class="op">.</span><span class="fu">right</span><span class="op">)</span> <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb11-62"><a href="#cb11-62" aria-hidden="true" tabindex="-1"></a>            n<span class="op">.</span><span class="fu">right</span> <span class="op">=</span> <span class="fu">rotateRight</span><span class="op">(</span>n<span class="op">.</span><span class="fu">right</span><span class="op">);</span></span>
+<span id="cb11-63"><a href="#cb11-63" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="fu">rotateLeft</span><span class="op">(</span>n<span class="op">);</span></span>
+<span id="cb11-64"><a href="#cb11-64" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb11-65"><a href="#cb11-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-66"><a href="#cb11-66" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> n<span class="op">;</span></span>
+<span id="cb11-67"><a href="#cb11-67" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb11-68"><a href="#cb11-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-69"><a href="#cb11-69" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ── Insert ──────────────────────────────────────</span></span>
+<span id="cb11-70"><a href="#cb11-70" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">insert</span><span class="op">(</span><span class="dt">int</span> key<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb11-71"><a href="#cb11-71" aria-hidden="true" tabindex="-1"></a>        root <span class="op">=</span> <span class="fu">insertRec</span><span class="op">(</span>root<span class="op">,</span> key<span class="op">);</span></span>
+<span id="cb11-72"><a href="#cb11-72" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb11-73"><a href="#cb11-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-74"><a href="#cb11-74" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">Node</span> <span class="fu">insertRec</span><span class="op">(</span><span class="bu">Node</span> n<span class="op">,</span> <span class="dt">int</span> key<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb11-75"><a href="#cb11-75" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>n <span class="op">==</span> <span class="kw">null</span><span class="op">)</span> <span class="cf">return</span> <span class="kw">new</span> <span class="bu">Node</span><span class="op">(</span>key<span class="op">);</span></span>
+<span id="cb11-76"><a href="#cb11-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-77"><a href="#cb11-77" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>      <span class="op">(</span>key <span class="op">&lt;</span> n<span class="op">.</span><span class="fu">key</span><span class="op">)</span> n<span class="op">.</span><span class="fu">left</span>  <span class="op">=</span> <span class="fu">insertRec</span><span class="op">(</span>n<span class="op">.</span><span class="fu">left</span><span class="op">,</span>  key<span class="op">);</span></span>
+<span id="cb11-78"><a href="#cb11-78" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>key <span class="op">&gt;</span> n<span class="op">.</span><span class="fu">key</span><span class="op">)</span> n<span class="op">.</span><span class="fu">right</span> <span class="op">=</span> <span class="fu">insertRec</span><span class="op">(</span>n<span class="op">.</span><span class="fu">right</span><span class="op">,</span> key<span class="op">);</span></span>
+<span id="cb11-79"><a href="#cb11-79" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>                  <span class="cf">return</span> n<span class="op">;</span></span>
+<span id="cb11-80"><a href="#cb11-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-81"><a href="#cb11-81" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="fu">rebalance</span><span class="op">(</span>n<span class="op">);</span></span>
+<span id="cb11-82"><a href="#cb11-82" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb11-83"><a href="#cb11-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-84"><a href="#cb11-84" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ── Search ──────────────────────────────────────</span></span>
+<span id="cb11-85"><a href="#cb11-85" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">boolean</span> <span class="fu">search</span><span class="op">(</span><span class="dt">int</span> key<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb11-86"><a href="#cb11-86" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="fu">searchRec</span><span class="op">(</span>root<span class="op">,</span> key<span class="op">);</span></span>
+<span id="cb11-87"><a href="#cb11-87" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb11-88"><a href="#cb11-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-89"><a href="#cb11-89" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">boolean</span> <span class="fu">searchRec</span><span class="op">(</span><span class="bu">Node</span> n<span class="op">,</span> <span class="dt">int</span> key<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb11-90"><a href="#cb11-90" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>n <span class="op">==</span> <span class="kw">null</span><span class="op">)</span>    <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb11-91"><a href="#cb11-91" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>key <span class="op">==</span> n<span class="op">.</span><span class="fu">key</span><span class="op">)</span> <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb11-92"><a href="#cb11-92" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>key <span class="op">&lt;</span> n<span class="op">.</span><span class="fu">key</span><span class="op">)</span>  <span class="cf">return</span> <span class="fu">searchRec</span><span class="op">(</span>n<span class="op">.</span><span class="fu">left</span><span class="op">,</span>  key<span class="op">);</span></span>
+<span id="cb11-93"><a href="#cb11-93" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>              <span class="cf">return</span> <span class="fu">searchRec</span><span class="op">(</span>n<span class="op">.</span><span class="fu">right</span><span class="op">,</span> key<span class="op">);</span></span>
+<span id="cb11-94"><a href="#cb11-94" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb11-95"><a href="#cb11-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-96"><a href="#cb11-96" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ── Delete ──────────────────────────────────────</span></span>
+<span id="cb11-97"><a href="#cb11-97" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">delete</span><span class="op">(</span><span class="dt">int</span> key<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb11-98"><a href="#cb11-98" aria-hidden="true" tabindex="-1"></a>        root <span class="op">=</span> <span class="fu">deleteRec</span><span class="op">(</span>root<span class="op">,</span> key<span class="op">);</span></span>
+<span id="cb11-99"><a href="#cb11-99" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb11-100"><a href="#cb11-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-101"><a href="#cb11-101" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">Node</span> <span class="fu">deleteRec</span><span class="op">(</span><span class="bu">Node</span> n<span class="op">,</span> <span class="dt">int</span> key<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb11-102"><a href="#cb11-102" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>n <span class="op">==</span> <span class="kw">null</span><span class="op">)</span> <span class="cf">return</span> <span class="kw">null</span><span class="op">;</span></span>
+<span id="cb11-103"><a href="#cb11-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-104"><a href="#cb11-104" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>key <span class="op">&lt;</span> n<span class="op">.</span><span class="fu">key</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb11-105"><a href="#cb11-105" aria-hidden="true" tabindex="-1"></a>            n<span class="op">.</span><span class="fu">left</span>  <span class="op">=</span> <span class="fu">deleteRec</span><span class="op">(</span>n<span class="op">.</span><span class="fu">left</span><span class="op">,</span>  key<span class="op">);</span></span>
+<span id="cb11-106"><a href="#cb11-106" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>key <span class="op">&gt;</span> n<span class="op">.</span><span class="fu">key</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb11-107"><a href="#cb11-107" aria-hidden="true" tabindex="-1"></a>            n<span class="op">.</span><span class="fu">right</span> <span class="op">=</span> <span class="fu">deleteRec</span><span class="op">(</span>n<span class="op">.</span><span class="fu">right</span><span class="op">,</span> key<span class="op">);</span></span>
+<span id="cb11-108"><a href="#cb11-108" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb11-109"><a href="#cb11-109" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>n<span class="op">.</span><span class="fu">left</span> <span class="op">==</span> <span class="kw">null</span><span class="op">)</span>  <span class="cf">return</span> n<span class="op">.</span><span class="fu">right</span><span class="op">;</span></span>
+<span id="cb11-110"><a href="#cb11-110" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>n<span class="op">.</span><span class="fu">right</span> <span class="op">==</span> <span class="kw">null</span><span class="op">)</span> <span class="cf">return</span> n<span class="op">.</span><span class="fu">left</span><span class="op">;</span></span>
+<span id="cb11-111"><a href="#cb11-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-112"><a href="#cb11-112" aria-hidden="true" tabindex="-1"></a>            <span class="bu">Node</span> successor <span class="op">=</span> <span class="fu">minNode</span><span class="op">(</span>n<span class="op">.</span><span class="fu">right</span><span class="op">);</span></span>
+<span id="cb11-113"><a href="#cb11-113" aria-hidden="true" tabindex="-1"></a>            n<span class="op">.</span><span class="fu">key</span>   <span class="op">=</span> successor<span class="op">.</span><span class="fu">key</span><span class="op">;</span></span>
+<span id="cb11-114"><a href="#cb11-114" aria-hidden="true" tabindex="-1"></a>            n<span class="op">.</span><span class="fu">right</span> <span class="op">=</span> <span class="fu">deleteRec</span><span class="op">(</span>n<span class="op">.</span><span class="fu">right</span><span class="op">,</span> successor<span class="op">.</span><span class="fu">key</span><span class="op">);</span></span>
+<span id="cb11-115"><a href="#cb11-115" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb11-116"><a href="#cb11-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-117"><a href="#cb11-117" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="fu">rebalance</span><span class="op">(</span>n<span class="op">);</span></span>
+<span id="cb11-118"><a href="#cb11-118" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb11-119"><a href="#cb11-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-120"><a href="#cb11-120" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">Node</span> <span class="fu">minNode</span><span class="op">(</span><span class="bu">Node</span> n<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb11-121"><a href="#cb11-121" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> <span class="op">(</span>n<span class="op">.</span><span class="fu">left</span> <span class="op">!=</span> <span class="kw">null</span><span class="op">)</span> n <span class="op">=</span> n<span class="op">.</span><span class="fu">left</span><span class="op">;</span></span>
+<span id="cb11-122"><a href="#cb11-122" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> n<span class="op">;</span></span>
+<span id="cb11-123"><a href="#cb11-123" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb11-124"><a href="#cb11-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-125"><a href="#cb11-125" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ── Recorridos ──────────────────────────────────</span></span>
+<span id="cb11-126"><a href="#cb11-126" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">inOrder</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb11-127"><a href="#cb11-127" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">print</span><span class="op">(</span><span class="st">"In-Order:  [ "</span><span class="op">);</span></span>
+<span id="cb11-128"><a href="#cb11-128" aria-hidden="true" tabindex="-1"></a>        <span class="fu">inOrderRec</span><span class="op">(</span>root<span class="op">);</span></span>
+<span id="cb11-129"><a href="#cb11-129" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">"]"</span><span class="op">);</span></span>
+<span id="cb11-130"><a href="#cb11-130" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb11-131"><a href="#cb11-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-132"><a href="#cb11-132" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">void</span> <span class="fu">inOrderRec</span><span class="op">(</span><span class="bu">Node</span> n<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb11-133"><a href="#cb11-133" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>n <span class="op">==</span> <span class="kw">null</span><span class="op">)</span> <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb11-134"><a href="#cb11-134" aria-hidden="true" tabindex="-1"></a>        <span class="fu">inOrderRec</span><span class="op">(</span>n<span class="op">.</span><span class="fu">left</span><span class="op">);</span></span>
+<span id="cb11-135"><a href="#cb11-135" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">print</span><span class="op">(</span>n<span class="op">.</span><span class="fu">key</span> <span class="op">+</span> <span class="st">" "</span><span class="op">);</span></span>
+<span id="cb11-136"><a href="#cb11-136" aria-hidden="true" tabindex="-1"></a>        <span class="fu">inOrderRec</span><span class="op">(</span>n<span class="op">.</span><span class="fu">right</span><span class="op">);</span></span>
+<span id="cb11-137"><a href="#cb11-137" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb11-138"><a href="#cb11-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-139"><a href="#cb11-139" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">preOrder</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb11-140"><a href="#cb11-140" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">print</span><span class="op">(</span><span class="st">"Pre-Order: [ "</span><span class="op">);</span></span>
+<span id="cb11-141"><a href="#cb11-141" aria-hidden="true" tabindex="-1"></a>        <span class="fu">preOrderRec</span><span class="op">(</span>root<span class="op">);</span></span>
+<span id="cb11-142"><a href="#cb11-142" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">"]"</span><span class="op">);</span></span>
+<span id="cb11-143"><a href="#cb11-143" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb11-144"><a href="#cb11-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-145"><a href="#cb11-145" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">void</span> <span class="fu">preOrderRec</span><span class="op">(</span><span class="bu">Node</span> n<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb11-146"><a href="#cb11-146" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>n <span class="op">==</span> <span class="kw">null</span><span class="op">)</span> <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb11-147"><a href="#cb11-147" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">print</span><span class="op">(</span>n<span class="op">.</span><span class="fu">key</span> <span class="op">+</span> <span class="st">" "</span><span class="op">);</span></span>
+<span id="cb11-148"><a href="#cb11-148" aria-hidden="true" tabindex="-1"></a>        <span class="fu">preOrderRec</span><span class="op">(</span>n<span class="op">.</span><span class="fu">left</span><span class="op">);</span></span>
+<span id="cb11-149"><a href="#cb11-149" aria-hidden="true" tabindex="-1"></a>        <span class="fu">preOrderRec</span><span class="op">(</span>n<span class="op">.</span><span class="fu">right</span><span class="op">);</span></span>
+<span id="cb11-150"><a href="#cb11-150" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb11-151"><a href="#cb11-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-152"><a href="#cb11-152" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">printTree</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb11-153"><a href="#cb11-153" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">"Estructura del arbol:"</span><span class="op">);</span></span>
+<span id="cb11-154"><a href="#cb11-154" aria-hidden="true" tabindex="-1"></a>        <span class="fu">printTreeRec</span><span class="op">(</span>root<span class="op">,</span> <span class="st">""</span><span class="op">,</span> <span class="kw">true</span><span class="op">);</span></span>
+<span id="cb11-155"><a href="#cb11-155" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb11-156"><a href="#cb11-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-157"><a href="#cb11-157" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">void</span> <span class="fu">printTreeRec</span><span class="op">(</span><span class="bu">Node</span> n<span class="op">,</span> <span class="bu">String</span> prefix<span class="op">,</span> <span class="dt">boolean</span> isLeft<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb11-158"><a href="#cb11-158" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>n <span class="op">==</span> <span class="kw">null</span><span class="op">)</span> <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb11-159"><a href="#cb11-159" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>prefix <span class="op">+</span> <span class="op">(</span>isLeft <span class="op">?</span> <span class="st">"+-- "</span> <span class="op">:</span> <span class="st">"</span><span class="sc">\\</span><span class="st">-- "</span><span class="op">)</span> <span class="op">+</span> n<span class="op">.</span><span class="fu">key</span> <span class="op">+</span> <span class="st">" (h="</span> <span class="op">+</span> n<span class="op">.</span><span class="fu">height</span> <span class="op">+</span> <span class="st">")"</span><span class="op">);</span></span>
+<span id="cb11-160"><a href="#cb11-160" aria-hidden="true" tabindex="-1"></a>        <span class="fu">printTreeRec</span><span class="op">(</span>n<span class="op">.</span><span class="fu">left</span><span class="op">,</span>  prefix <span class="op">+</span> <span class="op">(</span>isLeft <span class="op">?</span> <span class="st">"|   "</span> <span class="op">:</span> <span class="st">"    "</span><span class="op">),</span> <span class="kw">true</span><span class="op">);</span></span>
+<span id="cb11-161"><a href="#cb11-161" aria-hidden="true" tabindex="-1"></a>        <span class="fu">printTreeRec</span><span class="op">(</span>n<span class="op">.</span><span class="fu">right</span><span class="op">,</span> prefix <span class="op">+</span> <span class="op">(</span>isLeft <span class="op">?</span> <span class="st">"|   "</span> <span class="op">:</span> <span class="st">"    "</span><span class="op">),</span> <span class="kw">false</span><span class="op">);</span></span>
+<span id="cb11-162"><a href="#cb11-162" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb11-163"><a href="#cb11-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-164"><a href="#cb11-164" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">int</span> <span class="fu">treeHeight</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb11-165"><a href="#cb11-165" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="fu">height</span><span class="op">(</span>root<span class="op">);</span></span>
+<span id="cb11-166"><a href="#cb11-166" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb11-167"><a href="#cb11-167" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode java code-with-copy"><code class="sourceCode java"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Main <span class="op">{</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>        AVLTree avl <span class="op">=</span> <span class="kw">new</span> <span class="fu">AVLTree</span><span class="op">();</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">"=========================================="</span><span class="op">);</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">"         ARBOL AVL - DEMOSTRACION        "</span><span class="op">);</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">"==========================================</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>        <span class="co">// -- Inserciones</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span><span class="op">[]</span> valores <span class="op">=</span> <span class="op">{</span><span class="dv">30</span><span class="op">,</span> <span class="dv">20</span><span class="op">,</span> <span class="dv">40</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">25</span><span class="op">,</span> <span class="dv">35</span><span class="op">,</span> <span class="dv">50</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">15</span><span class="op">,</span> <span class="dv">28</span><span class="op">};</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">"-- Insertando:"</span><span class="op">);</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> v <span class="op">:</span> valores<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>            <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">print</span><span class="op">(</span><span class="st">"  insert("</span> <span class="op">+</span> v <span class="op">+</span> <span class="st">")"</span><span class="op">);</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>            avl<span class="op">.</span><span class="fu">insert</span><span class="op">(</span>v<span class="op">);</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">"</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>        avl<span class="op">.</span><span class="fu">printTree</span><span class="op">();</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">();</span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>        avl<span class="op">.</span><span class="fu">inOrder</span><span class="op">();</span></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>        avl<span class="op">.</span><span class="fu">preOrder</span><span class="op">();</span></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">"Altura del arbol: "</span> <span class="op">+</span> avl<span class="op">.</span><span class="fu">treeHeight</span><span class="op">());</span></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>        <span class="co">// -- Busquedas</span></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">"</span><span class="sc">\n</span><span class="st">-- Busquedas:"</span><span class="op">);</span></span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span><span class="op">[]</span> buscar <span class="op">=</span> <span class="op">{</span><span class="dv">25</span><span class="op">,</span> <span class="dv">99</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">1</span><span class="op">};</span></span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> k <span class="op">:</span> buscar<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>            <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">printf</span><span class="op">(</span><span class="st">"  search(</span><span class="sc">%2d</span><span class="st">) -&gt; </span><span class="sc">%s%n</span><span class="st">"</span><span class="op">,</span> k<span class="op">,</span></span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>                avl<span class="op">.</span><span class="fu">search</span><span class="op">(</span>k<span class="op">)</span> <span class="op">?</span> <span class="st">"ENCONTRADO"</span> <span class="op">:</span> <span class="st">"NO encontrado"</span><span class="op">);</span></span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a>        <span class="co">// -- Eliminaciones</span></span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">"</span><span class="sc">\n</span><span class="st">-- Eliminaciones:"</span><span class="op">);</span></span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">"  delete(20) [nodo con dos hijos]"</span><span class="op">);</span></span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a>        avl<span class="op">.</span><span class="fu">delete</span><span class="op">(</span><span class="dv">20</span><span class="op">);</span></span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a>        avl<span class="op">.</span><span class="fu">inOrder</span><span class="op">();</span></span>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a>        avl<span class="op">.</span><span class="fu">printTree</span><span class="op">();</span></span>
+<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">"  delete(50) [hoja]"</span><span class="op">);</span></span>
+<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a>        avl<span class="op">.</span><span class="fu">delete</span><span class="op">(</span><span class="dv">50</span><span class="op">);</span></span>
+<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a>        avl<span class="op">.</span><span class="fu">inOrder</span><span class="op">();</span></span>
+<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">"  delete(30) [raiz actual]"</span><span class="op">);</span></span>
+<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a>        avl<span class="op">.</span><span class="fu">delete</span><span class="op">(</span><span class="dv">30</span><span class="op">);</span></span>
+<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a>        avl<span class="op">.</span><span class="fu">inOrder</span><span class="op">();</span></span>
+<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a>        avl<span class="op">.</span><span class="fu">printTree</span><span class="op">();</span></span>
+<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">"  delete(99) [no existe]"</span><span class="op">);</span></span>
+<span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a>        avl<span class="op">.</span><span class="fu">delete</span><span class="op">(</span><span class="dv">99</span><span class="op">);</span></span>
+<span id="cb12-54"><a href="#cb12-54" aria-hidden="true" tabindex="-1"></a>        avl<span class="op">.</span><span class="fu">inOrder</span><span class="op">();</span></span>
+<span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-56"><a href="#cb12-56" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">"</span><span class="sc">\n</span><span class="st">Altura final: "</span> <span class="op">+</span> avl<span class="op">.</span><span class="fu">treeHeight</span><span class="op">());</span></span>
+<span id="cb12-57"><a href="#cb12-57" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">"</span><span class="sc">\n</span><span class="st">Todas las operaciones completadas correctamente."</span><span class="op">);</span></span>
+<span id="cb12-58"><a href="#cb12-58" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb12-59"><a href="#cb12-59" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="por-qué-son-importantes" class="level3" data-number="8.1.4">
 <h3 data-number="8.1.4" class="anchored" data-anchor-id="por-qué-son-importantes"><span class="header-section-number">8.1.4</span> ¿Por qué son importantes?</h3>
 <ul>
 <li><strong>Rendimiento garantizado:</strong> A diferencia de un árbol de búsqueda binario simple, que puede degenerar en una lista enlazada (y <span class="math inline">\(O(n)\)</span> en el peor caso), los árboles AVL siempre ofrecen un rendimiento <span class="math inline">\(O(\log n)\)</span>.</li>
+</ul>
+<p>Gracias a su equilibio, las operaciones principales tienen complejidad: <span class="math display">\[
+O(log  n)
+\]</span> Esto significa que el tiempo de búsqueda aumenta muy poco aunque existen miles o millones de datos. <span class="citation" data-cites="adrianarboles">(<a href="references.html#ref-adrianarboles" role="doc-biblioref"><strong>adrianarboles?</strong></a>)</span></p>
+<p><strong>Ejemplo</strong> Si se almacena números en orden: 10 → 20 → 30 → 40</p>
+<p>En un árbol binario simple podría formarse algo parecido a una lista:</p>
+<p>10<br>
+&nbsp;<br>
+20<br>
+<br>
+30<br>
+40 La búsqueda sería más lenta.</p>
+<p>En cambio, en el árbol AVL rotaciones para equilibrarse:</p>
+<pre><code>20</code></pre>
+<p>/<br>
+10 30<br>
+40 Así las búsquedas son mucho más rápidas.</p>
+<ul>
 <li><strong>Aplicaciones:</strong> Son útiles en bases de datos para indexación, sistemas de archivos y cualquier aplicación donde se necesite un diccionario o conjunto ordenado con inserciones y eliminaciones frecuentes y eficientes.</li>
 </ul>
+<p><strong>Indexación en Base de Datos:</strong> Se utilizan para mantener registros ordenados que requieren búsquedas rápidas, especialmente en escenarios donde las búsquedas son más frecuentes que las actualizaciones.</p>
+<p><strong>Sistemas de Archivos:</strong> Los sistemas de archivos utilizan árboles AVL para gestionar eficientemente directorios y estructuras de archivos, lo que permite búsquedas, inserciones y eliminaciones rápidas de archivos.</p>
+<p><strong>Diccionario y Conjuntos:</strong> Son ideales para implementar estructuras de datos de tipo diccionario (mapas) o conjuntos donde el orden de los elementos es importante y se necesitan búsquedas y modificaciones frecuentes.<span class="citation" data-cites="gurin2004arboles">(<a href="references.html#ref-gurin2004arboles" role="doc-biblioref"><strong>gurin2004arboles?</strong></a>)</span></p>
+<ul>
+<li><strong>Auto - Equilibrio:</strong> La diferencia de altura entre los subárboles izquierdo y derecho de cualquier nodo (factor equilibrio) es máximo 1. Esto se mantiene mediante rotaciones (simples o dobles) tras cada inserción o eliminación. La diferencia entre la altura del subárbol izquierdo y derecho de un nodo no puede ser mayor que A esto se le llama factor de equilibrio.</li>
+</ul>
+<p><span class="math display">\[
+Factor = Altura(Izquierda) − Altura(Derecha)
+\]</span> Los valores permitidos son: -1, 0, 1 Si el árbol pierde el equilibrio, se realizan rotaciones para corregirlo. <span class="citation" data-cites="gonzalez2004visualizacion">(<a href="references.html#ref-gonzalez2004visualizacion" role="doc-biblioref"><strong>gonzalez2004visualizacion?</strong></a>)</span></p>
+<p><strong>Ejemplo</strong> Al insertar los números: 30, 20, 10 El árbol queda desbalanceado:</p>
+<pre><code>   30
+  /
+20</code></pre>
+<p>/ 10</p>
+<p>Entonces se aplica una rotación simple a la derecha y el árbol queda:</p>
+<p>20 /<br>
+10 30</p>
+<ul>
+<li><strong>Busqueda rápida:</strong> Al mantener la altura lo más baja posible (logarítmica), el tiempo para localizar datos es constante y rápido, ideal para conjuntos de datos grandes.</li>
+</ul>
+<p><strong>Ejemplo</strong> Un sistema universitario podría usar árboles AVL para buscar rápidamente: estudiantes, materias, códigos y calificaciones. En lugar de revisar todos los registros uno por uno, el árbol permite encontrar datos en pocos pasos.</p>
 </section>
 <section id="árboles-avl-y-r" class="level3" data-number="8.1.5">
 <h3 data-number="8.1.5" class="anchored" data-anchor-id="árboles-avl-y-r"><span class="header-section-number">8.1.5</span> Árboles AVL y R</h3>
 <p>En R, la implementación de un árbol AVL desde cero es una tarea no trivial y, sinceramente, rara vez el enfoque más eficiente para la mayoría de los problemas que abordamos. R sobresale en operaciones vectorizadas y en el manejo de grandes volúmenes de datos mediante estructuras como <code>data.frame</code>, <code>data.table</code> o <code>tibble</code>, que están altamente optimizadas y, a menudo, respaldadas por código C/C++.</p>
 <p>Sin embargo, podemos ilustrar los conceptos básicos de un nodo y cómo podríamos pensar en la estructura de un árbol.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Definición conceptual de un nodo para un árbol binario</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># En R, esto sería típicamente una lista recursiva.</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>create_node <span class="ot">&lt;-</span> <span class="cf">function</span>(value) {</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">value =</span> value,</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">left =</span> <span class="cn">NULL</span>,</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">right =</span> <span class="cn">NULL</span>,</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">height =</span> <span class="dv">1</span>, <span class="co"># Altura del nodo (1 para nodo hoja)</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">balance_factor =</span> <span class="dv">0</span> <span class="co"># Diferencia de altura entre subárboles</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Creamos algunos nodos para ilustrar</span></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>root <span class="ot">&lt;-</span> <span class="fu">create_node</span>(<span class="dv">10</span>)</span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>root<span class="sc">$</span>left <span class="ot">&lt;-</span> <span class="fu">create_node</span>(<span class="dv">5</span>)</span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>root<span class="sc">$</span>right <span class="ot">&lt;-</span> <span class="fu">create_node</span>(<span class="dv">15</span>)</span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>root<span class="sc">$</span>left<span class="sc">$</span>right <span class="ot">&lt;-</span> <span class="fu">create_node</span>(<span class="dv">7</span>)</span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualización simple (conceptual)</span></span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(root)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Definición conceptual de un nodo para un árbol binario</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># En R, esto sería típicamente una lista recursiva.</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>create_node <span class="ot">&lt;-</span> <span class="cf">function</span>(value) {</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">value =</span> value,</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">left =</span> <span class="cn">NULL</span>,</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">right =</span> <span class="cn">NULL</span>,</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">height =</span> <span class="dv">1</span>, <span class="co"># Altura del nodo (1 para nodo hoja)</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">balance_factor =</span> <span class="dv">0</span> <span class="co"># Diferencia de altura entre subárboles</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Creamos algunos nodos para ilustrar</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>root <span class="ot">&lt;-</span> <span class="fu">create_node</span>(<span class="dv">10</span>)</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>root<span class="sc">$</span>left <span class="ot">&lt;-</span> <span class="fu">create_node</span>(<span class="dv">5</span>)</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>root<span class="sc">$</span>right <span class="ot">&lt;-</span> <span class="fu">create_node</span>(<span class="dv">15</span>)</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>root<span class="sc">$</span>left<span class="sc">$</span>right <span class="ot">&lt;-</span> <span class="fu">create_node</span>(<span class="dv">7</span>)</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualización simple (conceptual)</span></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(root)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Una implementación completa de rotaciones y rebalanceo en R sería bastante extensa. Para escenarios donde se requiere un diccionario o conjunto ordenado, un enfoque más idiomático en R sería:</p>
 <ol type="1">
 <li><strong>Tablas hash (environments o <code>list</code> con nombres):</strong> Para búsquedas <span class="math inline">\(O(1)\)</span> promedio, pero sin orden inherente.</li>
 <li><strong>Vectores ordenados con <code>match</code> o <code>findInterval</code>:</strong> Para conjuntos pequeños a medianos, las operaciones vectorizadas de R son increíblemente rápidas.</li>
 <li><strong>Paquetes especializados:</strong> El paquete <code>collections</code> ofrece una clase <code>Deque</code> o <code>PriorityQueue</code> que puede ser útil para ciertos patrones, aunque no implementa directamente árboles AVL.</li>
 </ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo de un "set" ordenado conceptualmente usando un vector</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>sorted_vector <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">5</span>, <span class="dv">15</span>, <span class="dv">7</span>, <span class="dv">20</span>, <span class="dv">3</span>))</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(sorted_vector)</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Búsqueda eficiente en un vector ordenado</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Equivale a una búsqueda binaria en términos de complejidad O(log n)</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># pero es una función de C optimizada en R.</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span>(sorted_vector <span class="sc">==</span> <span class="dv">7</span>)</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="fu">findInterval</span>(<span class="dv">7</span>, sorted_vector) <span class="co"># Indica el índice donde se insertaría o se encuentra</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo de un "set" ordenado conceptualmente usando un vector</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>sorted_vector <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">5</span>, <span class="dv">15</span>, <span class="dv">7</span>, <span class="dv">20</span>, <span class="dv">3</span>))</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(sorted_vector)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Búsqueda eficiente en un vector ordenado</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Equivale a una búsqueda binaria en términos de complejidad O(log n)</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co"># pero es una función de C optimizada en R.</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span>(sorted_vector <span class="sc">==</span> <span class="dv">7</span>)</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="fu">findInterval</span>(<span class="dv">7</span>, sorted_vector) <span class="co"># Indica el índice donde se insertaría o se encuentra</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p>En resumen, mientras que los árboles AVL son fundamentales en la ciencia de la computación, en R, su implementación directa rara vez es el camino más eficiente. En su lugar, nos apoyamos en las optimizaciones internas de R para vectores ordenados o utilizamos estructuras de datos proporcionadas por paquetes bien diseñados que pueden tener sus propias implementaciones en C/C++.</p>
 </section>
 </section>
@@ -845,54 +884,54 @@ public class Main {
 <h3 data-number="8.2.3" class="anchored" data-anchor-id="árboles-b-y-r"><span class="header-section-number">8.2.3</span> Árboles B y R</h3>
 <p>R, por su naturaleza, no implementa árboles B internamente para la gestión de sus objetos principales. Sin embargo, como analistas de datos, interactuamos constantemente con sistemas que <em>sí</em> los utilizan. Cada vez que ejecutamos una consulta SQL con un <code>WHERE</code> o <code>ORDER BY</code> en una columna indexada, estamos indirectamente aprovechando el poder de un árbol B.</p>
 <p>Podemos ilustrar el concepto de un nodo B-tree muy simplificadamente en R para entender cómo podría almacenar múltiples claves y punteros.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Representación conceptual de un nodo B-tree</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Un nodo contiene varias claves y punteros a sus hijos.</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># El número de claves es m-1, el número de hijos es m.</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>create_b_tree_node <span class="ot">&lt;-</span> <span class="cf">function</span>(keys, <span class="at">children_pointers =</span> <span class="cn">NULL</span>, <span class="at">is_leaf =</span> <span class="cn">FALSE</span>) {</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">keys =</span> <span class="fu">sort</span>(keys), <span class="co"># Las claves están siempre ordenadas</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">children =</span> children_pointers, <span class="co"># Lista de punteros a nodos hijos</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">is_leaf =</span> is_leaf</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo de un nodo B-tree de orden 3 (máximo 2 claves, 3 hijos)</span></span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Nodo raíz con dos claves</span></span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>root_b_node <span class="ot">&lt;-</span> <span class="fu">create_b_tree_node</span>(<span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">100</span>))</span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Nodos hijos (conceptualmente, aquí solo representamos su "idea")</span></span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="co"># En una implementación real, 'children' contendría referencias a otros nodos.</span></span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>child1 <span class="ot">&lt;-</span> <span class="fu">create_b_tree_node</span>(<span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">40</span>), <span class="at">is_leaf =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>child2 <span class="ot">&lt;-</span> <span class="fu">create_b_tree_node</span>(<span class="fu">c</span>(<span class="dv">60</span>, <span class="dv">80</span>), <span class="at">is_leaf =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>child3 <span class="ot">&lt;-</span> <span class="fu">create_b_tree_node</span>(<span class="fu">c</span>(<span class="dv">110</span>, <span class="dv">130</span>), <span class="at">is_leaf =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>root_b_node<span class="sc">$</span>children <span class="ot">&lt;-</span> <span class="fu">list</span>(child1, child2, child3)</span>
-<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(root_b_node, <span class="at">max.level =</span> <span class="dv">2</span>) <span class="co"># Limitar la profundidad para la visualización</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Representación conceptual de un nodo B-tree</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Un nodo contiene varias claves y punteros a sus hijos.</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># El número de claves es m-1, el número de hijos es m.</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>create_b_tree_node <span class="ot">&lt;-</span> <span class="cf">function</span>(keys, <span class="at">children_pointers =</span> <span class="cn">NULL</span>, <span class="at">is_leaf =</span> <span class="cn">FALSE</span>) {</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">keys =</span> <span class="fu">sort</span>(keys), <span class="co"># Las claves están siempre ordenadas</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">children =</span> children_pointers, <span class="co"># Lista de punteros a nodos hijos</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">is_leaf =</span> is_leaf</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo de un nodo B-tree de orden 3 (máximo 2 claves, 3 hijos)</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Nodo raíz con dos claves</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>root_b_node <span class="ot">&lt;-</span> <span class="fu">create_b_tree_node</span>(<span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">100</span>))</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Nodos hijos (conceptualmente, aquí solo representamos su "idea")</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="co"># En una implementación real, 'children' contendría referencias a otros nodos.</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>child1 <span class="ot">&lt;-</span> <span class="fu">create_b_tree_node</span>(<span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">40</span>), <span class="at">is_leaf =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>child2 <span class="ot">&lt;-</span> <span class="fu">create_b_tree_node</span>(<span class="fu">c</span>(<span class="dv">60</span>, <span class="dv">80</span>), <span class="at">is_leaf =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>child3 <span class="ot">&lt;-</span> <span class="fu">create_b_tree_node</span>(<span class="fu">c</span>(<span class="dv">110</span>, <span class="dv">130</span>), <span class="at">is_leaf =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>root_b_node<span class="sc">$</span>children <span class="ot">&lt;-</span> <span class="fu">list</span>(child1, child2, child3)</span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(root_b_node, <span class="at">max.level =</span> <span class="dv">2</span>) <span class="co"># Limitar la profundidad para la visualización</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Cuando trabajamos con R y grandes volúmenes de datos que residen en bases de datos, los paquetes como <code>DBI</code>, <code>RPostgres</code>, <code>RSQLite</code>, <code>odbc</code>, etc., nos permiten interactuar con estos sistemas que hacen un uso extensivo de árboles B.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo conceptual: creando un índice en una base de datos usando R</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DBI)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RSQLite)</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Conexión a una base de datos en memoria (SQLite)</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(RSQLite<span class="sc">::</span><span class="fu">SQLite</span>(), <span class="st">":memory:"</span>)</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear una tabla</span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(con, <span class="st">"CREATE TABLE usuarios (id INTEGER PRIMARY KEY, nombre TEXT, edad INTEGER)"</span>)</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Insertar algunos datos</span></span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="fu">dbAppendTable</span>(con, <span class="st">"usuarios"</span>, <span class="fu">data.frame</span>(<span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">nombre =</span> <span class="fu">paste0</span>(<span class="st">"Usuario"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>), <span class="at">edad =</span> <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">30</span>, <span class="dv">22</span>, <span class="dv">35</span>, <span class="dv">28</span>)))</span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear un índice en la columna 'edad'</span></span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Detrás de escena, la base de datos probablemente usa un B-tree para este índice.</span></span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(con, <span class="st">"CREATE INDEX idx_edad ON usuarios (edad)"</span>)</span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Consulta que se beneficiará del índice</span></span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(con, <span class="st">"SELECT * FROM usuarios WHERE edad &gt; 25 ORDER BY edad"</span>)</span>
-<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(res)</span>
-<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Desconectar</span></span>
-<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a><span class="fu">dbDisconnect</span>(con)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo conceptual: creando un índice en una base de datos usando R</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DBI)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RSQLite)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Conexión a una base de datos en memoria (SQLite)</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(RSQLite<span class="sc">::</span><span class="fu">SQLite</span>(), <span class="st">":memory:"</span>)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear una tabla</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(con, <span class="st">"CREATE TABLE usuarios (id INTEGER PRIMARY KEY, nombre TEXT, edad INTEGER)"</span>)</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Insertar algunos datos</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="fu">dbAppendTable</span>(con, <span class="st">"usuarios"</span>, <span class="fu">data.frame</span>(<span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">nombre =</span> <span class="fu">paste0</span>(<span class="st">"Usuario"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>), <span class="at">edad =</span> <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">30</span>, <span class="dv">22</span>, <span class="dv">35</span>, <span class="dv">28</span>)))</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear un índice en la columna 'edad'</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Detrás de escena, la base de datos probablemente usa un B-tree para este índice.</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(con, <span class="st">"CREATE INDEX idx_edad ON usuarios (edad)"</span>)</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Consulta que se beneficiará del índice</span></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(con, <span class="st">"SELECT * FROM usuarios WHERE edad &gt; 25 ORDER BY edad"</span>)</span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(res)</span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Desconectar</span></span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a><span class="fu">dbDisconnect</span>(con)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Los árboles B son fundamentales para la persistencia y recuperación eficiente de datos a gran escala, y aunque R no los maneje directamente como objetos de primera clase, son una parte invisible pero vital de nuestro ecosistema de trabajo con datos.</p>
 </section>
 </section>
@@ -924,34 +963,34 @@ public class Main {
 <h3 data-number="8.3.3" class="anchored" data-anchor-id="fibonacci-heaps-y-r"><span class="header-section-number">8.3.3</span> Fibonacci Heaps y R</h3>
 <p>Al igual que con los árboles AVL y B, los Fibonacci Heaps no forman parte del conjunto de estructuras de datos básicas de R y su implementación desde cero sería extremadamente compleja y difícil de mantener. La razón principal es que R no está diseñado para la manipulación a bajo nivel de punteros y estructuras de datos dinámicas con la misma eficiencia que lenguajes como C o C++.</p>
 <p>Para la mayoría de las necesidades de colas de prioridad en R, un heap binario es más que suficiente y mucho más simple de implementar o encontrar en paquetes existentes. El paquete <code>collections</code> proporciona una implementación eficiente de <code>PriorityQueue</code> que, bajo el capó, probablemente utiliza un heap binario o una estructura similar.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo de uso de una cola de prioridad en R (usando el paquete 'collections')</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Primero, asegúrate de tener el paquete instalado: install.packages("collections")</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(collections)</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear una cola de prioridad</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>pq <span class="ot">&lt;-</span> <span class="fu">priority_queue</span>()</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Insertar elementos con su prioridad (por defecto, valores menores tienen mayor prioridad)</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>pq<span class="sc">$</span><span class="fu">push</span>(<span class="st">"Tarea A"</span>, <span class="dv">3</span>)</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>pq<span class="sc">$</span><span class="fu">push</span>(<span class="st">"Tarea B"</span>, <span class="dv">1</span>)</span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>pq<span class="sc">$</span><span class="fu">push</span>(<span class="st">"Tarea C"</span>, <span class="dv">5</span>)</span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>pq<span class="sc">$</span><span class="fu">push</span>(<span class="st">"Tarea D"</span>, <span class="dv">2</span>)</span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Ver el elemento con la prioridad más alta (mínimo)</span></span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(pq<span class="sc">$</span><span class="fu">front</span>())</span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Extraer el elemento con la prioridad más alta</span></span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>extracted_item <span class="ot">&lt;-</span> pq<span class="sc">$</span><span class="fu">pop</span>()</span>
-<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(extracted_item)</span>
-<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(pq<span class="sc">$</span><span class="fu">front</span>()) <span class="co"># El siguiente elemento con mayor prioridad</span></span>
-<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Una operación de "decrease-key" no es directa en un heap binario típico,</span></span>
-<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a><span class="co"># pero se podría simular eliminando y reinsertando, o creando una nueva entrada</span></span>
-<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a><span class="co"># con la prioridad actualizada.</span></span>
-<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Si 'Tarea A' ahora tiene prioridad 0 (más alta)</span></span>
-<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>pq<span class="sc">$</span><span class="fu">push</span>(<span class="st">"Tarea A_new_priority"</span>, <span class="dv">0</span>) <span class="co"># Esto crea una nueva entrada, no actualiza la existente</span></span>
-<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(pq<span class="sc">$</span><span class="fu">pop</span>()) <span class="co"># "Tarea A_new_priority" ahora será la siguiente en salir</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo de uso de una cola de prioridad en R (usando el paquete 'collections')</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Primero, asegúrate de tener el paquete instalado: install.packages("collections")</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(collections)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear una cola de prioridad</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>pq <span class="ot">&lt;-</span> <span class="fu">priority_queue</span>()</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Insertar elementos con su prioridad (por defecto, valores menores tienen mayor prioridad)</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>pq<span class="sc">$</span><span class="fu">push</span>(<span class="st">"Tarea A"</span>, <span class="dv">3</span>)</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>pq<span class="sc">$</span><span class="fu">push</span>(<span class="st">"Tarea B"</span>, <span class="dv">1</span>)</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>pq<span class="sc">$</span><span class="fu">push</span>(<span class="st">"Tarea C"</span>, <span class="dv">5</span>)</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>pq<span class="sc">$</span><span class="fu">push</span>(<span class="st">"Tarea D"</span>, <span class="dv">2</span>)</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Ver el elemento con la prioridad más alta (mínimo)</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(pq<span class="sc">$</span><span class="fu">front</span>())</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Extraer el elemento con la prioridad más alta</span></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>extracted_item <span class="ot">&lt;-</span> pq<span class="sc">$</span><span class="fu">pop</span>()</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(extracted_item)</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(pq<span class="sc">$</span><span class="fu">front</span>()) <span class="co"># El siguiente elemento con mayor prioridad</span></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Una operación de "decrease-key" no es directa en un heap binario típico,</span></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a><span class="co"># pero se podría simular eliminando y reinsertando, o creando una nueva entrada</span></span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a><span class="co"># con la prioridad actualizada.</span></span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Si 'Tarea A' ahora tiene prioridad 0 (más alta)</span></span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>pq<span class="sc">$</span><span class="fu">push</span>(<span class="st">"Tarea A_new_priority"</span>, <span class="dv">0</span>) <span class="co"># Esto crea una nueva entrada, no actualiza la existente</span></span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(pq<span class="sc">$</span><span class="fu">pop</span>()) <span class="co"># "Tarea A_new_priority" ahora será la siguiente en salir</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Para los escenarios donde la eficiencia teórica de <code>decrease-key</code> es crítica (principalmente en implementaciones de algoritmos de grafos muy específicos para investigación o benchmarks), uno debería considerar implementar el algoritmo en un lenguaje de propósito general más cercano al hardware (como C++), o buscar bibliotecas especializadas que ya los hayan implementado. Para la mayoría de los análisis de datos y tareas estadísticas en R, la simplicidad y el buen rendimiento práctico de los heaps binarios son preferibles.</p>
 </section>
 <section id="conclusión" class="level3" data-number="8.3.4">

@@ -209,7 +209,7 @@ Aunque existe este costo adicional, el beneficio principal es garantizar que las
 ### Estructura Fija de un Nodo
 
 ### Ejemplo en Java (Implementacion de un arbol AVL)
-```text
+```java
 public class Node {
     int key;
     int height;
@@ -220,6 +220,9 @@ public class Node {
         this.height = 1;
     }
 }
+```
+
+```java
 public class AVLTree {
 
     private Node root;
@@ -387,6 +390,9 @@ public class AVLTree {
         return height(root);
     }
 }
+```
+
+```java
 public class Main {
 
     public static void main(String[] args) {
