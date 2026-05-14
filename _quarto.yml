@@ -1,0 +1,36 @@
+project:
+  type: book
+
+lang: es
+
+book:
+  title: "Estructura de Datos"
+  author: "Cristian Narváez Guillén"
+  date: "mar-ago 2026"
+
+  sidebar:
+    logo: images/logo-unl.png
+
+  downloads: [pdf]
+
+  chapters:
+    - index.qmd
+    - summary.qmd
+    - intro.qmd
+    - 01-estructuras-estaticas.qmd
+    - 02-estructuras-dinamicas.qmd
+    - 03-algoritmos-ordenacion.qmd
+    - 04-algoritmos-busqueda.qmd
+    - 05-grafos-arboles.qmd
+    - 06-estructuras-avanzadas.qmd
+    - references.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    theme:
+      - cosmo
+
+  pdf:
+    documentclass: scrreprt
