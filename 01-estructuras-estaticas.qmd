@@ -315,7 +315,28 @@ El problema surge cuando quieres "agregar" una figurita. Como el álbum no cambi
 
 Imagina un caso de la vida real: tienes en posesión dos archivos gigantes, `registros_A.csv` y `registros_B.csv`, y ambos contienen columnas financieras estáticas formadas por IDs crecientes ordenados ascendentemente (1, 2, 5... | 3, 4, 6...). Están ubicados en el lenta memoria secundaria, pero son colosales; no todos los IDs caben dentro del corto cinturón RAM como arreglos masivos.
 
-*Tu misión:*
-Escribe pseudocódigo o diseña la arquitectura paso-a-paso de una rutina (estilo de las que implementaríamos en Java o Python) que logre leer ambos archivos *simultáneamente* e ir inyectando sus datos fusionados iterativamente de manera sincronizada en un gran y final `merge.csv` ordenado, utilizando exclusivamente de a 2 casillas temporales en tu RAM mientras iteran.
+*Reto:*
+Sistema de Álbum del Mundial
 
-Este ejercicio fusiona lo mejor de ambos mundos: la inmensa capacidad de iteración de flujos de archivos estáticos y punteros lógicos en arreglos de retención. ¡Presenta tu algoritmo en el siguiente encuentro de codiseño!
+Crea un programa en Java que simule un álbum del Mundial usando arreglos estáticos.
+
+El programa debe permitir lo siguiente:
+1. Registrar hasta 20 cromos de jugadores.
+2. Mostrar todos los cromos guardados.
+3. Buscar un jugador específico.
+4. Contar cuántos espacios del álbum siguen vacíos.
+5. Reemplazar un cromo repetido por otro jugador.
+
+Reglas del desafio:
+1. Usa únicamente arreglos estáticos (String[]).
+2. No se permite usar ArrayList.
+3. El tamaño del arreglo debe ser fijo.
+4. Los espacios vacíos deben mostrarse como "VACÍO".
+
+Operaciones opcionales para el desafio:
+Agregar un menú interactivo con lo siguiente(usar Scanner):
+1. Agregar cromo
+2. Mostrar álbum
+3. Buscar jugador
+4. Reemplazar cromo
+5. Salir
