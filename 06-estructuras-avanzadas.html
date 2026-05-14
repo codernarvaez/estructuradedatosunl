@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>8&nbsp; Estructuras Avanzadas – Estructura de Datos</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./references.html" rel="next">
+<link href="./05-grafos-arboles.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-9e3e5b9121e68b3f077afb32f2c64d95.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./06-estructuras-avanzadas.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Estructuras Avanzadas</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      <img src="./images/logo-unl.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="./images/logo-unl.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Estructura de Datos</a> 
+        <div class="sidebar-tools-main">
+    <a href="./Estructura-de-Datos.pdf" title="Descargar PDF" class="quarto-navigation-tool px-1" aria-label="Descargar PDF"><i class="bi bi-file-pdf"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introducción</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-estructuras-estaticas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Capítulo 1: Estructuras Estáticas</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-estructuras-dinamicas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Estructuras Dinámicas</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-algoritmos-ordenacion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Algoritmos de Ordenación</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-algoritmos-busqueda.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Algoritmos de Búsqueda</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-grafos-arboles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Estructuras No Lineales</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-estructuras-avanzadas.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Estructuras Avanzadas</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#árboles-avl" id="toc-árboles-avl" class="nav-link active" data-scroll-target="#árboles-avl"><span class="header-section-number">8.1</span> Árboles AVL</a>
+  <ul class="collapse">
+  <li><a href="#por-qué-son-importantes" id="toc-por-qué-son-importantes" class="nav-link" data-scroll-target="#por-qué-son-importantes"><span class="header-section-number">8.1.1</span> ¿Por qué son importantes?</a></li>
+  <li><a href="#árboles-avl-y-r" id="toc-árboles-avl-y-r" class="nav-link" data-scroll-target="#árboles-avl-y-r"><span class="header-section-number">8.1.2</span> Árboles AVL y R</a></li>
+  </ul></li>
+  <li><a href="#árboles-b" id="toc-árboles-b" class="nav-link" data-scroll-target="#árboles-b"><span class="header-section-number">8.2</span> Árboles B</a>
+  <ul class="collapse">
+  <li><a href="#características-clave" id="toc-características-clave" class="nav-link" data-scroll-target="#características-clave"><span class="header-section-number">8.2.1</span> Características Clave</a></li>
+  <li><a href="#por-qué-son-importantes-1" id="toc-por-qué-son-importantes-1" class="nav-link" data-scroll-target="#por-qué-son-importantes-1"><span class="header-section-number">8.2.2</span> ¿Por qué son importantes?</a></li>
+  <li><a href="#árboles-b-y-r" id="toc-árboles-b-y-r" class="nav-link" data-scroll-target="#árboles-b-y-r"><span class="header-section-number">8.2.3</span> Árboles B y R</a></li>
+  </ul></li>
+  <li><a href="#fibonacci-heap" id="toc-fibonacci-heap" class="nav-link" data-scroll-target="#fibonacci-heap"><span class="header-section-number">8.3</span> Fibonacci Heap</a>
+  <ul class="collapse">
+  <li><a href="#operaciones-y-complejidad-amortizada" id="toc-operaciones-y-complejidad-amortizada" class="nav-link" data-scroll-target="#operaciones-y-complejidad-amortizada"><span class="header-section-number">8.3.1</span> Operaciones y Complejidad Amortizada</a></li>
+  <li><a href="#por-qué-son-importantes-2" id="toc-por-qué-son-importantes-2" class="nav-link" data-scroll-target="#por-qué-son-importantes-2"><span class="header-section-number">8.3.2</span> ¿Por qué son importantes?</a></li>
+  <li><a href="#fibonacci-heaps-y-r" id="toc-fibonacci-heaps-y-r" class="nav-link" data-scroll-target="#fibonacci-heaps-y-r"><span class="header-section-number">8.3.3</span> Fibonacci Heaps y R</a></li>
+  <li><a href="#conclusión" id="toc-conclusión" class="nav-link" data-scroll-target="#conclusión"><span class="header-section-number">8.3.4</span> Conclusión</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Estructuras Avanzadas</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>¡Bienvenidos a un viaje por el fascinante mundo de las estructuras de datos avanzadas! Como expertos en R, sabemos que si bien el lenguaje brilla por su capacidad de manipulación de datos a alto nivel y su ecosistema de paquetes estadísticos, comprender las estructuras subyacentes puede ser crucial para optimizar algoritmos o entender cómo funcionan ciertas herramientas internas o externas a R. En este capítulo, exploraremos tres estructuras de datos sofisticadas: los Árboles AVL, los Árboles B y los Fibonacci Heaps. Nos centraremos en sus fundamentos, sus casos de uso y cómo podemos pensar en ellas o interactuar con ellas desde la perspectiva de R.</p>
+<section id="árboles-avl" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="árboles-avl"><span class="header-section-number">8.1</span> Árboles AVL</h2>
+<p>Los árboles AVL (por sus inventores Adelson-Velsky y Landis) son un tipo de árbol de búsqueda binario auto-balanceado. Esto significa que garantizan que la altura del árbol sea logarítmica con respecto al número de nodos, lo que a su vez asegura que las operaciones de búsqueda, inserción y eliminación se realicen en tiempo <span class="math inline">\(O(\log n)\)</span>. La clave de su auto-balanceo reside en mantener el “factor de balance” de cada nodo (la diferencia de altura entre sus subárboles izquierdo y derecho) entre -1, 0 y 1. Si esta condición se rompe tras una inserción o eliminación, el árbol realiza una serie de rotaciones (simples o dobles, a la izquierda o a la derecha) para restaurar el balance.</p>
+<section id="por-qué-son-importantes" class="level3" data-number="8.1.1">
+<h3 data-number="8.1.1" class="anchored" data-anchor-id="por-qué-son-importantes"><span class="header-section-number">8.1.1</span> ¿Por qué son importantes?</h3>
+<ul>
+<li><strong>Rendimiento garantizado:</strong> A diferencia de un árbol de búsqueda binario simple, que puede degenerar en una lista enlazada (y <span class="math inline">\(O(n)\)</span> en el peor caso), los árboles AVL siempre ofrecen un rendimiento <span class="math inline">\(O(\log n)\)</span>.</li>
+<li><strong>Aplicaciones:</strong> Son útiles en bases de datos para indexación, sistemas de archivos y cualquier aplicación donde se necesite un diccionario o conjunto ordenado con inserciones y eliminaciones frecuentes y eficientes.</li>
+</ul>
+</section>
+<section id="árboles-avl-y-r" class="level3" data-number="8.1.2">
+<h3 data-number="8.1.2" class="anchored" data-anchor-id="árboles-avl-y-r"><span class="header-section-number">8.1.2</span> Árboles AVL y R</h3>
+<p>En R, la implementación de un árbol AVL desde cero es una tarea no trivial y, sinceramente, rara vez el enfoque más eficiente para la mayoría de los problemas que abordamos. R sobresale en operaciones vectorizadas y en el manejo de grandes volúmenes de datos mediante estructuras como <code>data.frame</code>, <code>data.table</code> o <code>tibble</code>, que están altamente optimizadas y, a menudo, respaldadas por código C/C++.</p>
+<p>Sin embargo, podemos ilustrar los conceptos básicos de un nodo y cómo podríamos pensar en la estructura de un árbol.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Definición conceptual de un nodo para un árbol binario</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># En R, esto sería típicamente una lista recursiva.</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>create_node <span class="ot">&lt;-</span> <span class="cf">function</span>(value) {</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">value =</span> value,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">left =</span> <span class="cn">NULL</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">right =</span> <span class="cn">NULL</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">height =</span> <span class="dv">1</span>, <span class="co"># Altura del nodo (1 para nodo hoja)</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">balance_factor =</span> <span class="dv">0</span> <span class="co"># Diferencia de altura entre subárboles</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Creamos algunos nodos para ilustrar</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>root <span class="ot">&lt;-</span> <span class="fu">create_node</span>(<span class="dv">10</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>root<span class="sc">$</span>left <span class="ot">&lt;-</span> <span class="fu">create_node</span>(<span class="dv">5</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>root<span class="sc">$</span>right <span class="ot">&lt;-</span> <span class="fu">create_node</span>(<span class="dv">15</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>root<span class="sc">$</span>left<span class="sc">$</span>right <span class="ot">&lt;-</span> <span class="fu">create_node</span>(<span class="dv">7</span>)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualización simple (conceptual)</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(root)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Una implementación completa de rotaciones y rebalanceo en R sería bastante extensa. Para escenarios donde se requiere un diccionario o conjunto ordenado, un enfoque más idiomático en R sería:</p>
+<ol type="1">
+<li><strong>Tablas hash (environments o <code>list</code> con nombres):</strong> Para búsquedas <span class="math inline">\(O(1)\)</span> promedio, pero sin orden inherente.</li>
+<li><strong>Vectores ordenados con <code>match</code> o <code>findInterval</code>:</strong> Para conjuntos pequeños a medianos, las operaciones vectorizadas de R son increíblemente rápidas.</li>
+<li><strong>Paquetes especializados:</strong> El paquete <code>collections</code> ofrece una clase <code>Deque</code> o <code>PriorityQueue</code> que puede ser útil para ciertos patrones, aunque no implementa directamente árboles AVL.</li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo de un "set" ordenado conceptualmente usando un vector</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>sorted_vector <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">5</span>, <span class="dv">15</span>, <span class="dv">7</span>, <span class="dv">20</span>, <span class="dv">3</span>))</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(sorted_vector)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Búsqueda eficiente en un vector ordenado</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Equivale a una búsqueda binaria en términos de complejidad O(log n)</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># pero es una función de C optimizada en R.</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span>(sorted_vector <span class="sc">==</span> <span class="dv">7</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">findInterval</span>(<span class="dv">7</span>, sorted_vector) <span class="co"># Indica el índice donde se insertaría o se encuentra</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>En resumen, mientras que los árboles AVL son fundamentales en la ciencia de la computación, en R, su implementación directa rara vez es el camino más eficiente. En su lugar, nos apoyamos en las optimizaciones internas de R para vectores ordenados o utilizamos estructuras de datos proporcionadas por paquetes bien diseñados que pueden tener sus propias implementaciones en C/C++.</p>
+</section>
+</section>
+<section id="árboles-b" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="árboles-b"><span class="header-section-number">8.2</span> Árboles B</h2>
+<p>Los árboles B son estructuras de datos de árbol que generalizan el concepto de árbol binario de búsqueda, permitiendo que un nodo tenga más de dos hijos. Fueron diseñados específicamente para optimizar el acceso a datos en sistemas de almacenamiento secundario (como discos duros), donde los accesos son lentos y costosos.</p>
+<section id="características-clave" class="level3" data-number="8.2.1">
+<h3 data-number="8.2.1" class="anchored" data-anchor-id="características-clave"><span class="header-section-number">8.2.1</span> Características Clave</h3>
+<ul>
+<li><strong>Multi-camino:</strong> Cada nodo puede tener un gran número de claves y un número aún mayor de hijos (orden <code>m</code>).</li>
+<li><strong>Balanceado:</strong> Al igual que los AVL, los árboles B están balanceados, lo que significa que todos los caminos desde la raíz hasta las hojas tienen la misma longitud. Esto garantiza un rendimiento <span class="math inline">\(O(\log_m n)\)</span> para las operaciones de búsqueda, inserción y eliminación, donde <code>m</code> es el orden del árbol.</li>
+<li><strong>Optimizado para disco:</strong> El tamaño de un nodo en un árbol B se elige para que coincida con el tamaño de un bloque de disco (o un múltiplo de él). Esto minimiza el número de accesos a disco, ya que al leer un nodo, se lee un bloque completo de datos.</li>
+</ul>
+</section>
+<section id="por-qué-son-importantes-1" class="level3" data-number="8.2.2">
+<h3 data-number="8.2.2" class="anchored" data-anchor-id="por-qué-son-importantes-1"><span class="header-section-number">8.2.2</span> ¿Por qué son importantes?</h3>
+<ul>
+<li><strong>Bases de datos:</strong> Son la estructura de datos fundamental detrás de la indexación en la mayoría de los sistemas de gestión de bases de datos (SQL, NoSQL). Un índice B-tree permite que las consultas accedan a filas específicas de manera extremadamente rápida.</li>
+<li><strong>Sistemas de archivos:</strong> Algunos sistemas de archivos utilizan variantes de árboles B (como los B+-trees) para organizar los metadatos y los bloques de datos.</li>
+</ul>
+</section>
+<section id="árboles-b-y-r" class="level3" data-number="8.2.3">
+<h3 data-number="8.2.3" class="anchored" data-anchor-id="árboles-b-y-r"><span class="header-section-number">8.2.3</span> Árboles B y R</h3>
+<p>R, por su naturaleza, no implementa árboles B internamente para la gestión de sus objetos principales. Sin embargo, como analistas de datos, interactuamos constantemente con sistemas que <em>sí</em> los utilizan. Cada vez que ejecutamos una consulta SQL con un <code>WHERE</code> o <code>ORDER BY</code> en una columna indexada, estamos indirectamente aprovechando el poder de un árbol B.</p>
+<p>Podemos ilustrar el concepto de un nodo B-tree muy simplificadamente en R para entender cómo podría almacenar múltiples claves y punteros.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Representación conceptual de un nodo B-tree</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Un nodo contiene varias claves y punteros a sus hijos.</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># El número de claves es m-1, el número de hijos es m.</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>create_b_tree_node <span class="ot">&lt;-</span> <span class="cf">function</span>(keys, <span class="at">children_pointers =</span> <span class="cn">NULL</span>, <span class="at">is_leaf =</span> <span class="cn">FALSE</span>) {</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">keys =</span> <span class="fu">sort</span>(keys), <span class="co"># Las claves están siempre ordenadas</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">children =</span> children_pointers, <span class="co"># Lista de punteros a nodos hijos</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">is_leaf =</span> is_leaf</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo de un nodo B-tree de orden 3 (máximo 2 claves, 3 hijos)</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Nodo raíz con dos claves</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>root_b_node <span class="ot">&lt;-</span> <span class="fu">create_b_tree_node</span>(<span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">100</span>))</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Nodos hijos (conceptualmente, aquí solo representamos su "idea")</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co"># En una implementación real, 'children' contendría referencias a otros nodos.</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>child1 <span class="ot">&lt;-</span> <span class="fu">create_b_tree_node</span>(<span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">40</span>), <span class="at">is_leaf =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>child2 <span class="ot">&lt;-</span> <span class="fu">create_b_tree_node</span>(<span class="fu">c</span>(<span class="dv">60</span>, <span class="dv">80</span>), <span class="at">is_leaf =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>child3 <span class="ot">&lt;-</span> <span class="fu">create_b_tree_node</span>(<span class="fu">c</span>(<span class="dv">110</span>, <span class="dv">130</span>), <span class="at">is_leaf =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>root_b_node<span class="sc">$</span>children <span class="ot">&lt;-</span> <span class="fu">list</span>(child1, child2, child3)</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(root_b_node, <span class="at">max.level =</span> <span class="dv">2</span>) <span class="co"># Limitar la profundidad para la visualización</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Cuando trabajamos con R y grandes volúmenes de datos que residen en bases de datos, los paquetes como <code>DBI</code>, <code>RPostgres</code>, <code>RSQLite</code>, <code>odbc</code>, etc., nos permiten interactuar con estos sistemas que hacen un uso extensivo de árboles B.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo conceptual: creando un índice en una base de datos usando R</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DBI)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RSQLite)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Conexión a una base de datos en memoria (SQLite)</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(RSQLite<span class="sc">::</span><span class="fu">SQLite</span>(), <span class="st">":memory:"</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear una tabla</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(con, <span class="st">"CREATE TABLE usuarios (id INTEGER PRIMARY KEY, nombre TEXT, edad INTEGER)"</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Insertar algunos datos</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="fu">dbAppendTable</span>(con, <span class="st">"usuarios"</span>, <span class="fu">data.frame</span>(<span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">nombre =</span> <span class="fu">paste0</span>(<span class="st">"Usuario"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>), <span class="at">edad =</span> <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">30</span>, <span class="dv">22</span>, <span class="dv">35</span>, <span class="dv">28</span>)))</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear un índice en la columna 'edad'</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Detrás de escena, la base de datos probablemente usa un B-tree para este índice.</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(con, <span class="st">"CREATE INDEX idx_edad ON usuarios (edad)"</span>)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Consulta que se beneficiará del índice</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(con, <span class="st">"SELECT * FROM usuarios WHERE edad &gt; 25 ORDER BY edad"</span>)</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(res)</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Desconectar</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="fu">dbDisconnect</span>(con)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Los árboles B son fundamentales para la persistencia y recuperación eficiente de datos a gran escala, y aunque R no los maneje directamente como objetos de primera clase, son una parte invisible pero vital de nuestro ecosistema de trabajo con datos.</p>
+</section>
+</section>
+<section id="fibonacci-heap" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="fibonacci-heap"><span class="header-section-number">8.3</span> Fibonacci Heap</h2>
+<p>Los Fibonacci Heaps son una estructura de datos de cola de prioridad (priority queue) compleja, conocida por sus excepcionales tiempos amortizados para un conjunto específico de operaciones, especialmente <code>decrease-key</code>. Fueron introducidos por Fredman y Tarjan en 1987.</p>
+<section id="operaciones-y-complejidad-amortizada" class="level3" data-number="8.3.1">
+<h3 data-number="8.3.1" class="anchored" data-anchor-id="operaciones-y-complejidad-amortizada"><span class="header-section-number">8.3.1</span> Operaciones y Complejidad Amortizada</h3>
+<p>Las operaciones más comunes en un Fibonacci Heap y sus complejidades temporales (amortizadas):</p>
+<ul>
+<li><code>make-heap</code>: <span class="math inline">\(O(1)\)</span></li>
+<li><code>insert</code>: <span class="math inline">\(O(1)\)</span></li>
+<li><code>minimum</code>: <span class="math inline">\(O(1)\)</span></li>
+<li><code>extract-min</code>: <span class="math inline">\(O(\log n)\)</span></li>
+<li><code>decrease-key</code>: <span class="math inline">\(O(1)\)</span></li>
+<li><code>delete</code>: <span class="math inline">\(O(\log n)\)</span></li>
+<li><code>union</code>: <span class="math inline">\(O(1)\)</span></li>
+</ul>
+<p>La eficiencia de <span class="math inline">\(O(1)\)</span> amortizado para <code>decrease-key</code> es particularmente notoria, ya que en un heap binario esta operación suele ser <span class="math inline">\(O(\log n)\)</span>.</p>
+</section>
+<section id="por-qué-son-importantes-2" class="level3" data-number="8.3.2">
+<h3 data-number="8.3.2" class="anchored" data-anchor-id="por-qué-son-importantes-2"><span class="header-section-number">8.3.2</span> ¿Por qué son importantes?</h3>
+<ul>
+<li><strong>Algoritmos de grafos:</strong> Su principal aplicación es la optimización de algoritmos de grafos como el algoritmo de Dijkstra para encontrar la ruta más corta en un grafo con pesos de arista no negativos, y el algoritmo de Prim para encontrar un árbol de expansión mínima. La reducción de la complejidad de <code>decrease-key</code> a <span class="math inline">\(O(1)\)</span> amortizado puede acelerar significativamente estos algoritmos en grafos densos.</li>
+<li><strong>Eficiencia teórica:</strong> Son importantes en la teoría de la complejidad computacional por sus límites asintóticos.</li>
+</ul>
+</section>
+<section id="fibonacci-heaps-y-r" class="level3" data-number="8.3.3">
+<h3 data-number="8.3.3" class="anchored" data-anchor-id="fibonacci-heaps-y-r"><span class="header-section-number">8.3.3</span> Fibonacci Heaps y R</h3>
+<p>Al igual que con los árboles AVL y B, los Fibonacci Heaps no forman parte del conjunto de estructuras de datos básicas de R y su implementación desde cero sería extremadamente compleja y difícil de mantener. La razón principal es que R no está diseñado para la manipulación a bajo nivel de punteros y estructuras de datos dinámicas con la misma eficiencia que lenguajes como C o C++.</p>
+<p>Para la mayoría de las necesidades de colas de prioridad en R, un heap binario es más que suficiente y mucho más simple de implementar o encontrar en paquetes existentes. El paquete <code>collections</code> proporciona una implementación eficiente de <code>PriorityQueue</code> que, bajo el capó, probablemente utiliza un heap binario o una estructura similar.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo de uso de una cola de prioridad en R (usando el paquete 'collections')</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Primero, asegúrate de tener el paquete instalado: install.packages("collections")</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(collections)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear una cola de prioridad</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>pq <span class="ot">&lt;-</span> <span class="fu">priority_queue</span>()</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Insertar elementos con su prioridad (por defecto, valores menores tienen mayor prioridad)</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>pq<span class="sc">$</span><span class="fu">push</span>(<span class="st">"Tarea A"</span>, <span class="dv">3</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>pq<span class="sc">$</span><span class="fu">push</span>(<span class="st">"Tarea B"</span>, <span class="dv">1</span>)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>pq<span class="sc">$</span><span class="fu">push</span>(<span class="st">"Tarea C"</span>, <span class="dv">5</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>pq<span class="sc">$</span><span class="fu">push</span>(<span class="st">"Tarea D"</span>, <span class="dv">2</span>)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Ver el elemento con la prioridad más alta (mínimo)</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(pq<span class="sc">$</span><span class="fu">front</span>())</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Extraer el elemento con la prioridad más alta</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>extracted_item <span class="ot">&lt;-</span> pq<span class="sc">$</span><span class="fu">pop</span>()</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(extracted_item)</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(pq<span class="sc">$</span><span class="fu">front</span>()) <span class="co"># El siguiente elemento con mayor prioridad</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Una operación de "decrease-key" no es directa en un heap binario típico,</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="co"># pero se podría simular eliminando y reinsertando, o creando una nueva entrada</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="co"># con la prioridad actualizada.</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Si 'Tarea A' ahora tiene prioridad 0 (más alta)</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>pq<span class="sc">$</span><span class="fu">push</span>(<span class="st">"Tarea A_new_priority"</span>, <span class="dv">0</span>) <span class="co"># Esto crea una nueva entrada, no actualiza la existente</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(pq<span class="sc">$</span><span class="fu">pop</span>()) <span class="co"># "Tarea A_new_priority" ahora será la siguiente en salir</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Para los escenarios donde la eficiencia teórica de <code>decrease-key</code> es crítica (principalmente en implementaciones de algoritmos de grafos muy específicos para investigación o benchmarks), uno debería considerar implementar el algoritmo en un lenguaje de propósito general más cercano al hardware (como C++), o buscar bibliotecas especializadas que ya los hayan implementado. Para la mayoría de los análisis de datos y tareas estadísticas en R, la simplicidad y el buen rendimiento práctico de los heaps binarios son preferibles.</p>
+</section>
+<section id="conclusión" class="level3" data-number="8.3.4">
+<h3 data-number="8.3.4" class="anchored" data-anchor-id="conclusión"><span class="header-section-number">8.3.4</span> Conclusión</h3>
+<p>Hemos explorado tres estructuras de datos avanzadas: Árboles AVL, Árboles B y Fibonacci Heaps. Si bien sus implementaciones directas en R no son comunes debido a la naturaleza de alto nivel del lenguaje, comprender sus principios es crucial para cualquier experto en R:</p>
+<ul>
+<li><strong>Árboles AVL</strong> nos enseñan la importancia del balance para el rendimiento garantizado en estructuras de búsqueda. En R, sus principios se ven reflejados en la eficiencia de las operaciones vectorizadas en datos ordenados.</li>
+<li><strong>Árboles B</strong> son la columna vertebral de la persistencia de datos a gran escala, optimizando los accesos a disco. Como usuarios de R, nos beneficiamos de ellos cada vez que interactuamos con bases de datos relacionales.</li>
+<li><strong>Fibonacci Heaps</strong> representan la cúspide de la optimización en colas de prioridad para escenarios específicos de algoritmos de grafos, aunque para la mayoría de las aplicaciones en R, las implementaciones de heaps binarios son más prácticas y eficientes.</li>
+</ul>
+<p>Como expertos en R, nuestro poder no reside solo en codificar estructuras de datos desde cero, sino en saber cuándo y dónde se utilizan, cómo interactuar con ellas a través de las abstracciones del lenguaje, y cómo elegir la herramienta adecuada para cada problema, ya sea una función base de R, un paquete externo o la integración con sistemas externos.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./05-grafos-arboles.html" class="pagination-link" aria-label="Estructuras No Lineales">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Estructuras No Lineales</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./references.html" class="pagination-link" aria-label="References">
+        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

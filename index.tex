@@ -461,23 +461,122 @@ Estáticas}\label{capuxedtulo-1-estructuras-estuxe1ticas}
 \end{Highlighting}
 \end{Shaded}
 
-Imagina que tienes una caja de herramientas de tamaño fijo. Sabes
-exactamente cuántos compartimentos tiene y qué herramienta va en cada
-uno. No puedes hacer la caja más grande sin comprar una nueva, pero a
-cambio, encontrar un destornillador específico es instantáneo porque
-conoces su ubicación exacta. Así es exactamente como funcionan las
-\textbf{estructuras de datos estáticas} en memoria.
+Imagina que tienes un album del mundial con un numero fijo de paginas.
+Sabes exactamente cuántas paginas tiene y cuantos cromos va en cada una.
+No puedes hacer el albumn mas grande sin esperar a que salga la nueva
+edicion, pero a cambio, encontrar un un cromo especifico para su
+seleccion por que conoces en que seleccion va. Así es exactamente como
+funcionan las \textbf{estructuras de datos estáticas} en memoria.
 
-En este capítulo, exploraremos dos de las estructuras más fundamentales
-que comparten esta característica: los \textbf{Arreglos} (en memoria
-principal) y los \textbf{Archivos} (en memoria secundaria). Aunque en
-tus proyectos usarás lenguajes como Java o Python para interactuar con
-ellos, entender su comportamiento a nivel fundamental te dará el
-superpoder de escribir código increíblemente rápido y eficiente.
+En este capítulo vamos a conocer dos estructuras súper importantes que
+funcionan de esta manera: los \textbf{Arreglos} (los datos que se
+guardan directamente en memoria) y los \textbf{Archivos} (la información
+que se almacena en el disco). Aunque normalmente usarás Java o Python
+para trabajar con ellos, entender cómo funcionan ``por debajo'' te
+ayudará a programar código mucho más rápido, ordenado y eficiente, casi
+como saber exactamente en qué página de tu álbum está cada cromo sin
+perder tiempo buscando.
+
+A continuacion se obersvar ejemplos de como crear estos tipo de
+estructuras en Java y Phyton:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{// EJEMPLO DE ARREGLO EN JAVA}
+\KeywordTok{public} \KeywordTok{class}\NormalTok{ EjemploArreglo }\OperatorTok{\{}
+    \KeywordTok{public} \DataTypeTok{static} \DataTypeTok{void} \FunctionTok{main}\OperatorTok{(}\BuiltInTok{String}\OperatorTok{[]}\NormalTok{ args}\OperatorTok{)} \OperatorTok{\{}
+
+        \CommentTok{// Arreglo con cromos del álbum}
+        \BuiltInTok{String}\OperatorTok{[]}\NormalTok{ cromos }\OperatorTok{=} \OperatorTok{\{}
+            \StringTok{"Messi"}\OperatorTok{,}
+            \StringTok{"Mbappé"}\OperatorTok{,}
+            \StringTok{"Vinicius"}\OperatorTok{,}
+            \StringTok{"Bellingham"}\OperatorTok{,}
+            \StringTok{"Haaland"}
+        \OperatorTok{\};}
+
+        \CommentTok{// Acceso directo a un elemento}
+        \BuiltInTok{System}\OperatorTok{.}\FunctionTok{out}\OperatorTok{.}\FunctionTok{println}\OperatorTok{(}\StringTok{"Cromo en la posición 2: "} \OperatorTok{+}\NormalTok{ cromos}\OperatorTok{[}\DecValTok{2}\OperatorTok{]);}
+
+        \CommentTok{// Recorrer el arreglo}
+        \ControlFlowTok{for} \OperatorTok{(}\DataTypeTok{int}\NormalTok{ i }\OperatorTok{=} \DecValTok{0}\OperatorTok{;}\NormalTok{ i }\OperatorTok{\textless{}}\NormalTok{ cromos}\OperatorTok{.}\FunctionTok{length}\OperatorTok{;}\NormalTok{ i}\OperatorTok{++)} \OperatorTok{\{}
+            \BuiltInTok{System}\OperatorTok{.}\FunctionTok{out}\OperatorTok{.}\FunctionTok{println}\OperatorTok{(}\StringTok{"Posición "} \OperatorTok{+}\NormalTok{ i }\OperatorTok{+} \StringTok{": "} \OperatorTok{+}\NormalTok{ cromos}\OperatorTok{[}\NormalTok{i}\OperatorTok{]);}
+        \OperatorTok{\}}
+    \OperatorTok{\}}
+\OperatorTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{// EJEMPLO DE ARCHIVO EN JAVA}
+\KeywordTok{import} \ImportTok{java}\OperatorTok{.}\ImportTok{io}\OperatorTok{.}\ImportTok{FileWriter}\OperatorTok{;}
+\KeywordTok{import} \ImportTok{java}\OperatorTok{.}\ImportTok{io}\OperatorTok{.}\ImportTok{IOException}\OperatorTok{;}
+
+\KeywordTok{public} \KeywordTok{class}\NormalTok{ EjemploArchivo }\OperatorTok{\{}
+    \KeywordTok{public} \DataTypeTok{static} \DataTypeTok{void} \FunctionTok{main}\OperatorTok{(}\BuiltInTok{String}\OperatorTok{[]}\NormalTok{ args}\OperatorTok{)} \OperatorTok{\{}
+
+        \ControlFlowTok{try} \OperatorTok{\{}
+            \BuiltInTok{FileWriter}\NormalTok{ archivo }\OperatorTok{=} \KeywordTok{new} \BuiltInTok{FileWriter}\OperatorTok{(}\StringTok{"cromos.txt"}\OperatorTok{);}
+
+\NormalTok{            archivo}\OperatorTok{.}\FunctionTok{write}\OperatorTok{(}\StringTok{"Messi}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\OperatorTok{);}
+\NormalTok{            archivo}\OperatorTok{.}\FunctionTok{write}\OperatorTok{(}\StringTok{"Mbappé}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\OperatorTok{);}
+\NormalTok{            archivo}\OperatorTok{.}\FunctionTok{write}\OperatorTok{(}\StringTok{"Vinicius}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\OperatorTok{);}
+
+\NormalTok{            archivo}\OperatorTok{.}\FunctionTok{close}\OperatorTok{();}
+
+            \BuiltInTok{System}\OperatorTok{.}\FunctionTok{out}\OperatorTok{.}\FunctionTok{println}\OperatorTok{(}\StringTok{"Archivo creado correctamente."}\OperatorTok{);}
+
+        \OperatorTok{\}} \ControlFlowTok{catch} \OperatorTok{(}\BuiltInTok{IOException}\NormalTok{ e}\OperatorTok{)} \OperatorTok{\{}
+            \BuiltInTok{System}\OperatorTok{.}\FunctionTok{out}\OperatorTok{.}\FunctionTok{println}\OperatorTok{(}\StringTok{"Ocurrió un error."}\OperatorTok{);}
+        \OperatorTok{\}}
+    \OperatorTok{\}}
+\OperatorTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# EJEMPLO DE ARREGLO EN PYTHON}
+
+\CommentTok{\# Lista de cromos del álbum}
+\NormalTok{cromos }\OperatorTok{=}\NormalTok{ [}
+    \StringTok{"Messi"}\NormalTok{,}
+    \StringTok{"Mbappé"}\NormalTok{,}
+    \StringTok{"Vinicius"}\NormalTok{,}
+    \StringTok{"Bellingham"}\NormalTok{,}
+    \StringTok{"Haaland"}
+\NormalTok{]}
+
+\CommentTok{\# Acceso directo a un elemento}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Cromo en la posición 2:"}\NormalTok{, cromos[}\DecValTok{2}\NormalTok{])}
+
+\CommentTok{\# Recorrer la lista}
+\ControlFlowTok{for}\NormalTok{ i }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(}\BuiltInTok{len}\NormalTok{(cromos)):}
+    \BuiltInTok{print}\NormalTok{(}\StringTok{"Posición"}\NormalTok{, i, }\StringTok{":"}\NormalTok{, cromos[i])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# EJEMPLO DE ARCHIVO EN PYTHON}
+
+\CommentTok{\# Crear archivo de texto}
+\NormalTok{archivo }\OperatorTok{=} \BuiltInTok{open}\NormalTok{(}\StringTok{"cromos.txt"}\NormalTok{, }\StringTok{"w"}\NormalTok{)}
+
+\NormalTok{archivo.write(}\StringTok{"Messi}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\NormalTok{archivo.write(}\StringTok{"Mbappé}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\NormalTok{archivo.write(}\StringTok{"Vinicius}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+
+\NormalTok{archivo.close()}
+
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Archivo creado correctamente"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
 \section{Arreglos: La Caja de Herramientas Estática}\label{sec-arreglos}
 
-Un arreglo es una colección contigua de elementos del mismo tipo. Su
+Un arreglo es una colección contigua de cromos de la misma Seleccion. Su
 tamaño se define en el momento de la creación y, por naturaleza, no
 resorte cambios dinámicos.
 
@@ -489,21 +588,23 @@ secuencialmente.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{// Ilustración en Java de la declaración de un arreglo}
+\NormalTok{Ilustración en Java de la declaración de un arreglo}
 \DataTypeTok{int}\OperatorTok{[]}\NormalTok{ calificaciones }\OperatorTok{=} \KeywordTok{new} \DataTypeTok{int}\OperatorTok{[}\DecValTok{5}\OperatorTok{];}
 \end{Highlighting}
 \end{Shaded}
 
-Cuando declaras ese arreglo en lenguajes fuertemente implementados como
-Java, el sistema operativo reserva 5 casilleros contiguos. Si la
-dirección base es la posición lógica \texttt{1000}, y cada entero ocupa
-4 bytes, el siguiente elemento estará en \texttt{1004}, luego
-\texttt{1008}, etc.
+Cuando creas ese arreglo en Java, es como cuando compras un paquete
+nuevo de hojas para tu álbum del mundial: el sistema separa espacios
+seguidos para guardar tus cromos, uno al lado del otro. Por ejemplo, si
+el primer cromo empieza en la posición ``1000'', el siguiente estaría en
+``1004'', luego ``1008'' y así sucesivamente, porque cada espacio ocupa
+el mismo tamaño.
 
-Esta contigüidad es la clave de su velocidad extrema de lectura: el
-tiempo de acceso es \(\mathcal{O}(1)\). Veamos una representación
-abstracta de cómo el tiempo de acceso se mantiene constante sin importar
-el volumen de la colección:
+Esa organización seguida es lo que hace que encontrar cromos sea súper
+rápido. Es como abrir tu álbum y saber exactamente en qué página está el
+cromo de una selección sin tener que buscar por todo el álbum. No
+importa si tienes pocos o muchísimos cromos, el tiempo para encontrarlos
+prácticamente siempre será el mismo.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -538,116 +639,238 @@ elemento \texttt{500} toma idéntico esfuerzo que buscar el primer
 elemento. La máquina simplemente ejecuta un cálculo matemático de salto:
 \texttt{Dirección\ Base\ +\ (Índice\ ×\ Tamaño\ del\ Tipo)}.
 
-\subsection{El Lado Oscuro: Inserciones y
-Eliminaciones}\label{el-lado-oscuro-inserciones-y-eliminaciones}
+\subsection{Inserciones y
+Eliminaciones}\label{inserciones-y-eliminaciones}
 
-Si bien acceder mediante un índice es magia pura, insertar un nuevo
-valor en medio del arreglo es un escenario diferente. Es similar a
-intentar meter un libro ancho en medio de un estante de biblioteca que
-ya está rebosante de tomos fuertemente empaquetados. Debes desplazar
-manualmente uno por uno todos los libros de la derecha para abrir un
-hueco.
+Imagínate que tienes una fila de autos en el campo de Mannfield, cada
+uno estacionado perfectamente desde la portería hasta el boost grande
+naranja. El coach sabe exactamente en qué posición está el Octane, el
+Fennec y el Breakout, los ubica al instante sin problema. Todo ordenado,
+como una rotación perfecta.
 
-Este corrimiento implica un tiempo que escala linealmente u
-\(\mathcal{O}(N)\) en el peor de los casos, preparando el terreno para
-la imperiosa necesidad de \emph{estructuras dinámicas} que analizaremos
-más adelante.
+Pero de repente llega un Dominus nuevo y el coach decide meterlo justo
+entre el Octane y el Fennec. El problema es que el Fennec no puede
+simplemente aparecer en otro lado, tiene que retroceder un lugar,
+empujando al Breakout, que empuja al siguiente auto, y así hasta el
+fondo del campo. Todos moviéndose uno por uno como cuando en un partido
+te chocan en cadena contra la pared.
 
-\section{Archivos: Persistencia más allá de la RAM}\label{sec-archivos}
+Y ahí está el problema: si en vez de 5 autos tienes 50 repartidos por
+toda la arena, meter uno nuevo al principio significa que los 50 tienen
+que correrse. Es como intentar reorganizar toda la rotación del equipo
+en pleno overtime, lento y caótico. Por eso más adelante se buscan
+estructuras más flexibles, como si cada auto pudiera simplemente saltar
+a cualquier parte del campo sin arrastrar a nadie más.
 
-Mientras que los arreglos viven limitados al horizonte de la memoria
-volátil, los \textbf{Archivos} residen en el almacenamiento secundario.
-Funcionalmente, actúan como las inmensas bodegas a largo plazo de
-nuestra aplicación.
+Ejemplos en Java, Javascrip y Python
 
-Al igual que un arreglo es una tira de variables, un archivo puede
-interpretarse en su abstracción más simple como un gran arreglo de bytes
-apilado permanentemente.
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Ejemplo en Python de inserciones}
+\NormalTok{autos }\OtherTok{=}\NormalTok{ [}\StringTok{"Octane"}\NormalTok{, }\StringTok{"Fennec"}\NormalTok{, }\StringTok{"Breakout"}\NormalTok{]}
+\FunctionTok{autos.insert}\NormalTok{(}\DecValTok{1}\NormalTok{, }\StringTok{"Dominus"}\NormalTok{)  }\CommentTok{\# Todos se corren un lugar}
+\FunctionTok{print}\NormalTok{(autos)  }\CommentTok{\# ["Octane", "Dominus", "Fennec", "Breakout"]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Ejemplo en Java de eliminación }
+\NormalTok{List}\SpecialCharTok{\textless{}}\NormalTok{String}\SpecialCharTok{\textgreater{}}\NormalTok{ autos }\OtherTok{=}\NormalTok{ new ArrayList}\SpecialCharTok{\textless{}}\ErrorTok{\textgreater{}}\NormalTok{(}\FunctionTok{Arrays.asList}\NormalTok{(}\StringTok{"Octane"}\NormalTok{, }\StringTok{"Fennec"}\NormalTok{, }\StringTok{"Breakout"}\NormalTok{));}
+\FunctionTok{autos.add}\NormalTok{(}\DecValTok{1}\NormalTok{, }\StringTok{"Dominus"}\NormalTok{);      }
+\FunctionTok{autos.remove}\NormalTok{(}\StringTok{"Fennec"}\NormalTok{);        }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Ejemplo en Javascrip de inserciones}
+\NormalTok{const autos }\OtherTok{=}\NormalTok{ [}\StringTok{"Octane"}\NormalTok{, }\StringTok{"Fennec"}\NormalTok{, }\StringTok{"Breakout"}\NormalTok{];}
+\FunctionTok{autos.splice}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\StringTok{"Dominus"}\NormalTok{); }
+\FunctionTok{console.log}\NormalTok{(autos); }
+\end{Highlighting}
+\end{Shaded}
+
+\section{Archivos: Persistencia mas allá del
+Partido}\label{sec-archivos}
+
+Los Archivos son como los replays de Rocket League: cuando cierras el
+juego todo lo que pasó en RAM desaparece, pero el replay queda guardado
+en tu disco para siempre, como una larga grabación de cada boost
+consumido, cada gol y cada derrota apilados uno tras otro. Eso es
+exactamente lo que hace este código, abrir un archivo y escribir jugada
+por jugada de forma permanente:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# Ejemplo ilusitrativo de cómo en Python el arreglo persistente }
-\CommentTok{\# se expone como un stream lineal de datos}
 \NormalTok{with }\FunctionTok{open}\NormalTok{(}\StringTok{"datos.txt"}\NormalTok{, }\StringTok{"w"}\NormalTok{) as archivo}\SpecialCharTok{:}
-    \FunctionTok{archivo.write}\NormalTok{(}\StringTok{"Persistencia consolidada..."}\NormalTok{)}
+    \FunctionTok{replay.write}\NormalTok{(}\StringTok{"Gol de Octane al minuto 2:34..."}\NormalTok{)}
+    \FunctionTok{replay.write}\NormalTok{(}\StringTok{"Boost naranja tomado por Fennec..."}\NormalTok{)}
+    \FunctionTok{replay.write}\NormalTok{(}\StringTok{"Derrota de 0{-}3..."}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-Interactuar físicamente con los discos magnéticos o solidos (I/O)
-siempre conlleva una penalización en latencia masiva comparado con la
-RAM. Por lo tanto, agrupar las peticiones (usando \emph{buffers} locales
-basados en arreglos temporales rápidos) es la esencia clave para un I/O
-de calidad superior.
+El problema es que escribir en ese archivo es muchísimo más lento que
+simplemente recordar lo que acabas de jugar, porque acceder al disco
+siempre tiene su penalización. Por eso los sistemas inteligentes no
+mandan cada jugada al disco una por una, sino que las acumulan todas en
+memoria y las escriben de un solo jalón, como esperar el momento exacto
+para rematar en vez de tirar a gol cada vez que tocas la bola.
+
+Ahora presentare dos ejemplos de persintencias realizados en Java y
+Javascrip:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Ejemplo en Java}
+\NormalTok{FileWriter replay }\OtherTok{=}\NormalTok{ new }\FunctionTok{FileWriter}\NormalTok{(}\StringTok{"datos.txt"}\NormalTok{);}
+\FunctionTok{replay.write}\NormalTok{(}\StringTok{"Salvada épica de Breakout en la línea de gol..."}\NormalTok{);}
+\FunctionTok{replay.write}\NormalTok{(}\StringTok{"Choque aéreo fallido por Fennec..."}\NormalTok{);}
+\FunctionTok{replay.write}\NormalTok{(}\StringTok{"Victoria en tiempo extra 2{-}1..."}\NormalTok{);}
+\FunctionTok{replay.close}\NormalTok{();}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Ejemplo Javascrip}
+\NormalTok{const fs }\OtherTok{=} \FunctionTok{require}\NormalTok{(}\StringTok{"fs"}\NormalTok{);}
+\FunctionTok{fs.writeFileSync}\NormalTok{(}\StringTok{"datos.txt"}\NormalTok{,}
+    \StringTok{"Dominus roba boost grande a los 4:12...}\SpecialCharTok{\textbackslash{}n}\StringTok{"} \SpecialCharTok{+}
+    \StringTok{"Octane anota de techo con supersónico...}\SpecialCharTok{\textbackslash{}n}\StringTok{"} \SpecialCharTok{+}
+    \StringTok{"Remontada épica de 0{-}2 a 3{-}2..."}
+\NormalTok{);}
+\end{Highlighting}
+\end{Shaded}
 
 \section{Matrices y Arreglos Multidimensionales}\label{sec-matrices}
 
-Un paso más allá del arreglo unidimensional (vector), encontramos las
-matrices. Representan datos tabulares (filas y columnas) o espacios
-\(N\)-dimensionales. En memoria, la computadora sigue siendo
-estrictamente lineal; no existe físicamente una ``cuadrícula 2D'' dentro
-de la RAM.
+Para entender porque un arreglo multidimensional va un paso más allá que
+un arreglo unidimensional, podemos imaginar que un vector (Arreglo
+unidimensional) es una fila de cromos pegados uno tras otro, mientras
+que una matriz (Arreglo multidimensional) vendría a ser como una página
+completa del album del mundial, en la cual los cromos van pegados en sus
+respectivas filas y columnas.
 
-Para lograr esta ilusión de multidimensionalidad, los compiladores y
-lenguajes de programación utilizan técnicas de transformación
-matemática, como la representación \textbf{Row-Major Order} (orden
-contiguo por filas) o la instanciación de ``arreglos de arreglos'' (el
-enfoque típico en Java).
+Hay que tener en cuenta que la memoria RAM de una computadora no
+contiene una cuadrícula 2D física, lo que significa que debemos
+representar una página completa del album como una fila de infinta de
+cromos pegados uno tras otro, así se puede lograr que la computadora se
+engañe así misma para que por consiguiente se guarde en memoria.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Ejemplo en Python}
+\NormalTok{matriz }\OtherTok{=}\NormalTok{ [}
+\NormalTok{    [}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{],}
+\NormalTok{    [}\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{6}\NormalTok{],}
+\NormalTok{    [}\DecValTok{7}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{9}\NormalTok{]}
+\NormalTok{]}
+\FunctionTok{print}\NormalTok{(matriz[}\DecValTok{1}\NormalTok{][}\DecValTok{2}\NormalTok{])  }\CommentTok{\# → 6}
+\NormalTok{fila, col, num\_cols }\OtherTok{=} \DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}
+\NormalTok{indice\_real }\OtherTok{=}\NormalTok{ fila }\SpecialCharTok{*}\NormalTok{ num\_cols }\SpecialCharTok{+}\NormalTok{ col}
+\FunctionTok{print}\NormalTok{(indice\_real)  }\CommentTok{\#}
+\ErrorTok{)}\NormalTok{;}
+\end{Highlighting}
+\end{Shaded}
 
 \subsection{Mapeo de 2D a Memoria
 Lineal}\label{mapeo-de-2d-a-memoria-lineal}
 
-Si tenemos una matriz cuadrática de \(3 \times 3\), en un enfoque de
-orden por filas, la primera fila completa ocupará las primeras 3
-posiciones contiguas de memoria, seguida inmediatamente por la segunda
-fila, y así sucesivamente.
+¿Cómo mete la computadora una página del album en una fila de memoria?
+Para ello esta utiliza un truco llamado Row-Major Order (orden por
+filas).
 
-La fórmula de traducción de un índice lógico \((i, j)\) a una posición
-física lineal en una matriz de tamaño \(M \times N\) (filas \(\times\)
-columnas), asumiendo índices basados en cero, es:
+Imaginemos que se despegan los cromos de una de las páginas del album,
+pero en un orden estricto, primero se pega toda la fila 1, depues se
+pega la fila 2, y al final la fila 3. Para encontrar rapidamente al
+jugador que está en la Fila i y Columna i, la computadora evita buscar
+página por página, y para esto se necesita la siguiente fórmula:
 
 \(Posición = DirecciónBase + (i \times N + j) \times TamañoDelDato\)
 
-Esto garantiza que el acceso a cualquier celda de la matriz siga siendo
-una operación aritmética simple y, por tanto, mantenga un tiempo de
-acceso \(\mathcal{O}(1)\).
+Para explicar esta fórmula, imaginemos que \(N\) es el número total de
+columnas, o sea cuántos cromos caben por fila, si se busca al primer
+jugador de la segunda fila \((i=1)\), se saltan todos los cromos de la
+primera fila \((1xN)\) y luego se mueve j espacios para así llegar al
+jugador que se busca.
+
+EJEMPLO EN JAVA
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Ejemplo en Python usando listas por comprensión para simular}
-\CommentTok{\# una matriz (comportamiento 2D) de 3x3 inicializada en 0:}
-\NormalTok{matriz }\OperatorTok{=}\NormalTok{ [[}\DecValTok{0} \ControlFlowTok{for}\NormalTok{ \_ }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(}\DecValTok{3}\NormalTok{)] }\ControlFlowTok{for}\NormalTok{ \_ }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(}\DecValTok{3}\NormalTok{)]}
-\NormalTok{matriz[}\DecValTok{1}\NormalTok{][}\DecValTok{2}\NormalTok{] }\OperatorTok{=} \DecValTok{5} \CommentTok{\# Acceso lógico bidimensional O(1)}
+\CommentTok{// Ejemplo en Java usando listas por comprensión para simular}
+\CommentTok{// una matriz (comportamiento 2D) de 3x3 inicializada en 0:}
+\DataTypeTok{int}\OperatorTok{[][]}\NormalTok{ paginaAlbum }\OperatorTok{=} \KeywordTok{new} \DataTypeTok{int}\OperatorTok{[}\DecValTok{3}\OperatorTok{][}\DecValTok{3}\OperatorTok{];}
+\NormalTok{paginaAlbum}\OperatorTok{[}\DecValTok{1}\OperatorTok{][}\DecValTok{2}\OperatorTok{]} \OperatorTok{=} \DecValTok{5}\OperatorTok{;}
+\BuiltInTok{System}\OperatorTok{.}\FunctionTok{out}\OperatorTok{.}\FunctionTok{println}\OperatorTok{(}\StringTok{"El cromo en la posición [1][2] es el número: "} \OperatorTok{+}\NormalTok{ paginaAlbum}\OperatorTok{[}\DecValTok{1}\OperatorTok{][}\DecValTok{2}\OperatorTok{]);}
 \end{Highlighting}
 \end{Shaded}
 
 \section{Cadenas de Caracteres (Strings)}\label{sec-strings}
 
-Las cadenas de texto, en su formato más fundacional (como en el lenguaje
-C), no son más que arreglos estáticos de caracteres primitivos
-(\texttt{char}) terminados por un carácter nulo
-(\texttt{\textbackslash{}0}).
+La cadena de caracteres es como el álbum del Mundial de Fútbol: cada
+página es una cadena de texto, un arreglo fijo de huecos para stickers
+de jugadores como ``Messi'' o ``Mbappé''. En lenguajes como Java o
+Python, estas cadenas son objetos inmutables, como un álbum plastificado
+que no puedes mover ni borrar stickers una vez pegados; Internamente
+usan un arreglo estático de caracteres terminados por un marcador
+invisible (\textbackslash0), para saber dónde acaba.
 
-En lenguajes orientados a objetos modernos como Java y Python, la
-mayoría de los \texttt{Strings} se diseñan como \textbf{objetos
-inmutables}, respaldados internamente bajo el capó por un arreglo
-estático de caracteres (o bytes para codificaciones como UTF-8).
+La declaracion de cadenas de caracteres suele variar un poco, pero en
+si, la sintaxis es la misma, por ejemplo:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{// EJEMPLO DE CADENA DE CARACTERES EN JAVA}
+
+\KeywordTok{public} \KeywordTok{class}\NormalTok{ EjemploCadena }\OperatorTok{\{}
+    \KeywordTok{public} \DataTypeTok{static} \DataTypeTok{void} \FunctionTok{main}\OperatorTok{(}\BuiltInTok{String}\OperatorTok{[]}\NormalTok{ args}\OperatorTok{)} \OperatorTok{\{}
+
+        \CommentTok{// Cadena con nombres de jugadores}
+        \BuiltInTok{String}\NormalTok{ jugador }\OperatorTok{=} \StringTok{"Messi"}\OperatorTok{;}
+
+        \CommentTok{// Mostrar la cadena completa}
+        \BuiltInTok{System}\OperatorTok{.}\FunctionTok{out}\OperatorTok{.}\FunctionTok{println}\OperatorTok{(}\StringTok{"Jugador favorito: "} \OperatorTok{+}\NormalTok{ jugador}\OperatorTok{);}
+
+        \CommentTok{// Acceder a un carácter específico}
+        \BuiltInTok{System}\OperatorTok{.}\FunctionTok{out}\OperatorTok{.}\FunctionTok{println}\OperatorTok{(}\StringTok{"Primera letra: "} \OperatorTok{+}\NormalTok{ jugador}\OperatorTok{.}\FunctionTok{charAt}\OperatorTok{(}\DecValTok{0}\OperatorTok{));}
+
+        \CommentTok{// Longitud de la cadena}
+        \BuiltInTok{System}\OperatorTok{.}\FunctionTok{out}\OperatorTok{.}\FunctionTok{println}\OperatorTok{(}\StringTok{"Cantidad de letras: "} \OperatorTok{+}\NormalTok{ jugador}\OperatorTok{.}\FunctionTok{length}\OperatorTok{());}
+    \OperatorTok{\}}
+\OperatorTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# EJEMPLO DE CADENA DE CARACTERES EN PYTHON}
+
+\CommentTok{\# Cadena con nombre de jugador}
+\NormalTok{jugador }\OperatorTok{=} \StringTok{"Mbappé"}
+
+\CommentTok{\# Mostrar la cadena completa}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Jugador favorito:"}\NormalTok{, jugador)}
+
+\CommentTok{\# Acceder a un carácter específico}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Primera letra:"}\NormalTok{, jugador[}\DecValTok{0}\NormalTok{])}
+
+\CommentTok{\# Longitud de la cadena}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Cantidad de letras:"}\NormalTok{, }\BuiltInTok{len}\NormalTok{(jugador))}
+\end{Highlighting}
+\end{Shaded}
 
 \textbf{La Trampa del Rendimiento (Eficiencia \(\mathcal{O}(N^2)\))}
 
-Esta inmutabilidad tiene una consecuencia directa en el rendimiento
-algorítmico: cada vez que ``modificas'' un String (por ejemplo,
-concatenando un carácter dentro de un bucle \texttt{for}), el sistema no
-modifica el arreglo original porque es estático e inmutable. En su
-lugar, el sistema se ve forzado a solicitar nueva memoria, crear un
-\textbf{nuevo arreglo estático} más grande, y copiar secuencialmente
-todos los caracteres viejos más el nuevo.
-
-Si repites esto miles de veces, el rendimiento de tu aplicación se
-desplomará drásticamente. Esta es la razón técnica por la cual, a nivel
-de síntesis de software avanzado, se debe utilizar
-\texttt{StringBuilder} en Java o métodos como
-\texttt{\textquotesingle{}\textquotesingle{}.join(lista)} en Python
-cuando se construyen concatenaciones masivas de texto.
+El problema surge cuando quieres ``agregar'' una figurita. Como el álbum
+no cambia, la computadora se ve obligada a comprar un álbum nuevo más
+grande, copiar todas las figuritas que ya tenías y recién ahí pegar la
+nueva. Si haces esto figurita por figurita, el proceso se vuelve
+lentísimo y pesado (O(N\^{}2)); por eso, para pegar miles de fotos, es
+mejor usar un StringBuilder, que funciona como una carpeta de ganchos
+donde agregas hojas sin tener que desechar todo el álbum cada vez.
 
 \section{Metodologías Activas}\label{metodologuxedas-activas}
 
@@ -3643,12 +3866,6 @@ utilizan, cómo interactuar con ellas a través de las abstracciones del
 lenguaje, y cómo elegir la herramienta adecuada para cada problema, ya
 sea una función base de R, un paquete externo o la integración con
 sistemas externos.
-
-\bookmarksetup{startatroot}
-
-\chapter{}\label{section}
-
-\#Esta es demo de pruebas
 
 \bookmarksetup{startatroot}
 
