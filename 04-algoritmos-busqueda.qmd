@@ -15,7 +15,7 @@ Entenderemos cómo funcionan, cuándo usar cada uno y cómo implementarlos efici
 
 ## Búsqueda Secuencial (Linear Search)
 
-La búsqueda secuencial es el método más simple de extracción en ataques SQL ciegos, pero su efectividad depende del tipo de técnica utilizada (tiempo o error) y de las condiciones de la red [@taborda2020comparacion].
+La búsqueda secuencial es uno de los algoritmos más sencillos para localizar un elemento dentro de una colección de datos. Consiste en recorrer los elementos uno por uno, desde el inicio hasta el final, comparando cada valor con el objetivo buscado hasta encontrarlo o hasta agotar toda la colección [@taborda2020comparacion].
 Imaginen que están buscando un libro específico en una estantería desorganizada.
 Lo más lógico sería empezar por el primer libro, revisarlo, luego pasar al segundo, y así sucesivamente, hasta que encuentren el libro que buscan o hasta que se queden sin libros.
 Eso es precisamente lo que hace la búsqueda secuencial.
