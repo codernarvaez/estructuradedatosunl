@@ -2,16 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.37">
+<meta name="generator" content="quarto-1.8.26">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>6&nbsp; Algoritmos de Búsqueda – Estructura de Datos</title>
 <style>
-/* Default styles provided by pandoc.
-** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -58,7 +55,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -72,14 +89,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="./03-algoritmos-ordenacion.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-66c9649715f74f1e4324758aa2390964.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-1798dc2df27ed30f8675b060112705b6.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -278,7 +296,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>En este capítulo, exploraremos dos de los algoritmos de búsqueda más fundamentales y ampliamente utilizados: la Búsqueda Secuencial (también conocida como Búsqueda Lineal) y la Búsqueda Binaria. Entenderemos cómo funcionan, cuándo usar cada uno y cómo implementarlos eficientemente en en Java, Python y JavaScript. ¡Prepárense para optimizar sus búsquedas!</p>
 <section id="búsqueda-secuencial-linear-search" class="level2" data-number="6.1">
 <h2 data-number="6.1" class="anchored" data-anchor-id="búsqueda-secuencial-linear-search"><span class="header-section-number">6.1</span> Búsqueda Secuencial (Linear Search)</h2>
-<p>La búsqueda secuencial es el algoritmo de búsqueda más directo e intuitivo. Imaginen que están buscando un libro específico en una estantería desorganizada. Lo más lógico sería empezar por el primer libro, revisarlo, luego pasar al segundo, y así sucesivamente, hasta que encuentren el libro que buscan o hasta que se queden sin libros. Eso es precisamente lo que hace la búsqueda secuencial.</p>
+<p>La búsqueda secuencial es el método más simple de extracción en ataques SQL ciegos, pero su efectividad depende del tipo de técnica utilizada (tiempo o error) y de las condiciones de la red <span class="citation" data-cites="taborda2020comparacion">(<a href="references.html#ref-taborda2020comparacion" role="doc-biblioref">Taborda y Duque 2020</a>)</span>. Imaginen que están buscando un libro específico en una estantería desorganizada. Lo más lógico sería empezar por el primer libro, revisarlo, luego pasar al segundo, y así sucesivamente, hasta que encuentren el libro que buscan o hasta que se queden sin libros. Eso es precisamente lo que hace la búsqueda secuencial.</p>
 <p>Este algoritmo examina cada elemento de la colección uno por uno, en el orden en que aparecen, hasta que encuentra el elemento deseado o hasta que ha revisado todos los elementos sin éxito.</p>
 <section id="cómo-funciona" class="level3" data-number="6.1.1">
 <h3 data-number="6.1.1" class="anchored" data-anchor-id="cómo-funciona"><span class="header-section-number">6.1.1</span> ¿Cómo funciona?</h3>
@@ -337,7 +355,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="python" class="level4" data-number="6.1.2.2">
 <h4 data-number="6.1.2.2" class="anchored" data-anchor-id="python"><span class="header-section-number">6.1.2.2</span> Python</h4>
-<div id="4ae4ed78" class="cell" data-execution_count="1">
+<div id="7da84b12" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> busqueda_secuencial(datos, objetivo):</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Función para realizar una búsqueda secuencial en una lista.</span></span>
@@ -435,7 +453,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="python-1" class="level4" data-number="6.1.3.2">
 <h4 data-number="6.1.3.2" class="anchored" data-anchor-id="python-1"><span class="header-section-number">6.1.3.2</span> Python</h4>
-<div id="a673daaa" class="cell" data-execution_count="2">
+<div id="f1e07cc1" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>edades <span class="op">=</span> [<span class="dv">15</span>, <span class="dv">22</span>, <span class="dv">18</span>, <span class="dv">30</span>, <span class="dv">45</span>, <span class="dv">12</span>, <span class="dv">60</span>]</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo 1: El objetivo está presente</span></span>
@@ -504,7 +522,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="búsqueda-binaria-binary-search" class="level2" data-number="6.2">
 <h2 data-number="6.2" class="anchored" data-anchor-id="búsqueda-binaria-binary-search"><span class="header-section-number">6.2</span> Búsqueda Binaria (Binary Search)</h2>
-<p>A diferencia de la búsqueda secuencial, la búsqueda binaria es un método mucho más rápido para encontrar cosas, pero tiene una regla de que deben cumplir: <strong>los datos deben estar perfectamente ordenados (como los números del 1 al 100 o las letras de la A a la Z)</strong>.</p>
+<p>A diferencia de la búsqueda secuencial, la búsqueda binaria permite extraer información almacenada de manera organizada, navegando a través de enlaces entre nodos basados en comparaciones de claves por lo que es un método mucho más rápido para encontrar cosas <span class="citation" data-cites="rojasaprender">(<a href="references.html#ref-rojasaprender" role="doc-biblioref">Rojas Salazar, Ramírez Alfaro, y Haahr 2021</a>)</span>. Este concepto se define y aplica de la siguiente manera:</p>
+<ul>
+<li><strong>Estructura Base:</strong> El algoritmo opera sobre una estructura de datos donde la información se organiza en nodos. Cada nodo contiene una clave comparable (representada en el juego DS-Hacker como el ID de una habitación) y enlaces o punteros que dirigen hacia otros nodos<span class="citation" data-cites="rojasaprender">(<a href="references.html#ref-rojasaprender" role="doc-biblioref">Rojas Salazar, Ramírez Alfaro, y Haahr 2021</a>)</span>.</li>
+<li><strong>Funcionamiento del Algoritmo:</strong> La búsqueda consiste en una secuencia de pasos definidos y resultados específicos . En la enseñanza de este concepto, se suele cubrir tanto la estructura de los nodos como la lógica de los pasos que el algoritmo debe seguir para localizar un dato <span class="citation" data-cites="rojasaprender">(<a href="references.html#ref-rojasaprender" role="doc-biblioref">Rojas Salazar, Ramírez Alfaro, y Haahr 2021</a>)</span>.</li>
+<li><strong>Importancia Educativa:</strong> Debido a que es un concepto abstracto y difícil de relacionar con conocimientos previos, se considera un tema de nivel avanzado en las carreras de computación . Su aprendizaje suele reforzarse mediante el uso de analogías, como niveles de un juego donde los desafíos representan el algoritmo de búsqueda <span class="citation" data-cites="rojasaprender">(<a href="references.html#ref-rojasaprender" role="doc-biblioref">Rojas Salazar, Ramírez Alfaro, y Haahr 2021</a>)</span>.</li>
+</ul>
+<p>Pero tiene una regla de que deben cumplir: <strong>los datos deben estar perfectamente ordenados (como los números del 1 al 100 o las letras de la A a la Z)</strong>.</p>
 <p>Piensen en cómo buscan una palabra en un diccionario. No empiezan desde la primera página revisando palabra por palabra. Lo que hacen es abrir el diccionario por la mitad y se fijan: “¿La palabra que busco está antes o después de la que tengo aquí?”. Así, descartan de un solo golpe toda la mitad que no les sirve y repiten lo mismo con la parte que queda. A esto se le llama “divide y vencerás”.</p>
 <section id="cómo-funciona-1" class="level3" data-number="6.2.1">
 <h3 data-number="6.2.1" class="anchored" data-anchor-id="cómo-funciona-1"><span class="header-section-number">6.2.1</span> ¿Cómo funciona?</h3>
@@ -591,7 +615,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="implementación-python" class="level3" data-number="6.2.3">
 <h3 data-number="6.2.3" class="anchored" data-anchor-id="implementación-python"><span class="header-section-number">6.2.3</span> Implementación Python</h3>
-<div id="1830002e" class="cell" data-execution_count="3">
+<div id="b73f263f" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> busqueda_binaria(datos, objetivo):</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Función para realizar una búsqueda binaria en una lista ordenada.</span></span>
@@ -678,7 +702,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="python-2" class="level3" data-number="6.2.7">
 <h3 data-number="6.2.7" class="anchored" data-anchor-id="python-2"><span class="header-section-number">6.2.7</span> Python</h3>
-<div id="52cf1434" class="cell" data-execution_count="4">
+<div id="5b5653cc" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo: Búsqueda de un Pokémon por su nombre</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>pokedex <span class="op">=</span> [<span class="st">"Abra"</span>, <span class="st">"Bulbasaur"</span>, <span class="st">"Charmander"</span>, <span class="st">"Dragonite"</span>, <span class="st">"Eevee"</span>, </span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="st">"Gengar"</span>, <span class="st">"Zubat"</span>]</span>
@@ -746,7 +770,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="python-3" class="level3" data-number="6.2.10">
 <h3 data-number="6.2.10" class="anchored" data-anchor-id="python-3"><span class="header-section-number">6.2.10</span> Python</h3>
-<div id="8edf955f" class="cell" data-execution_count="5">
+<div id="24718137" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo: El "Cofre de la Suerte" (Desordenado)</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Ítems: Diamante, Tierra, Antorcha, Madera</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>inventario_desordenado <span class="op">=</span> [<span class="st">"Diamante"</span>, <span class="st">"Tierra"</span>, <span class="st">"Antorcha"</span>, <span class="st">"Madera"</span>]</span>
@@ -774,7 +798,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="java-4" class="level3" data-number="6.2.12">
 <h3 data-number="6.2.12" class="anchored" data-anchor-id="java-4"><span class="header-section-number">6.2.12</span> Java</h3>
-<p>En Java, usamos la clase utilidad Arrays.sort Es muy eficiente, pero recuerda que este paso es el que hace que la búsqueda binaria sea posible.</p>
+<p>En Java, usamos la clase utilidad Arrays.sort ,es muy eficiente, pero recuerda que este paso es el que hace que la búsqueda binaria sea posible.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode java code-with-copy"><code class="sourceCode java"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co">// Ejemplo: Skins de Free Fire desordenadas</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="bu">String</span><span class="op">[]</span> skinsDesordenadas <span class="op">=</span> <span class="op">{</span><span class="st">"Genos"</span><span class="op">,</span> <span class="st">"Arenas Ardientes"</span><span class="op">,</span> <span class="st">"Subterránea"</span><span class="op">,</span></span>
@@ -791,7 +815,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="python-4" class="level3" data-number="6.2.13">
 <h3 data-number="6.2.13" class="anchored" data-anchor-id="python-4"><span class="header-section-number">6.2.13</span> Python</h3>
 <p>En Python, la forma más limpia es usar sorted(), que toma tu cofre desordenado y te entrega uno nuevo perfectamente alineado.</p>
-<div id="f3203a53" class="cell" data-execution_count="6">
+<div id="4afd3a32" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo: El "Cofre de la Suerte" que estaba desordenado</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>inventario_desordenado <span class="op">=</span> [<span class="st">"Diamante"</span>, <span class="st">"Tierra"</span>, <span class="st">"Antorcha"</span>, <span class="st">"Madera"</span>]</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -806,7 +830,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="javascript-4" class="level3" data-number="6.2.14">
 <h3 data-number="6.2.14" class="anchored" data-anchor-id="javascript-4"><span class="header-section-number">6.2.14</span> Javascript</h3>
-<p>En JavaScript, usamos el método .sort(), para textos funciona directo</p>
+<p>En JavaScript, usamos el método .sort(), para textos funciona de forma directa</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co">// Ejemplo: La Pokédex hackeada por el Team Rocket</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> pokedex_caotica <span class="op">=</span> [<span class="st">"Zubat"</span><span class="op">,</span> <span class="st">"Abra"</span><span class="op">,</span> <span class="st">"Charmander"</span><span class="op">,</span> <span class="st">"Mewtwo"</span>]<span class="op">;</span></span>
@@ -831,9 +855,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="6.3" class="anchored" data-anchor-id="comparación-y-cuándo-usar-cada-uno"><span class="header-section-number">6.3</span> Comparación y Cuándo Usar Cada Uno</h2>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 34%">
-<col style="width: 38%">
-<col style="width: 27%">
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -883,6 +907,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>¡Sigan practicando y experimentando con estos algoritmos! La próxima vez que necesiten encontrar algo en un conjunto de datos, podrán tomar una decisión informada sobre la mejor estrategia de búsqueda. ¡Hasta el próximo capítulo!</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-rojasaprender" class="csl-entry" role="listitem">
+Rojas Salazar, Alberto, Paula María Ramírez Alfaro, y Mads Haahr. 2021. <span>«Aprender árboles de búsqueda binaria a través de juegos serios»</span>. <em>Revista de Educación en Computación</em>.
+</div>
+<div id="ref-taborda2020comparacion" class="csl-entry" role="listitem">
+Taborda, Alexis Miguel, y Francisco Javier Valencia Duque. 2020. <span>«Comparaci<span>ó</span>n de algoritmos de b<span>ú</span>squeda binarios y secuenciales para evaluar el riesgo de inyecciones SQL inferenciales en aplicaciones web»</span>. <em>Revista Ib<span>é</span>rica de Sistemas e Tecnologias de Informa<span>ç</span><span>ã</span>o</em>, n.º E34: 276-92.
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->

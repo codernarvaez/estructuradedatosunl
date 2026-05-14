@@ -15,7 +15,7 @@ Entenderemos cómo funcionan, cuándo usar cada uno y cómo implementarlos efici
 
 ## Búsqueda Secuencial (Linear Search)
 
-La búsqueda secuencial es el algoritmo de búsqueda más directo e intuitivo.
+La búsqueda secuencial es el método más simple de extracción en ataques SQL ciegos, pero su efectividad depende del tipo de técnica utilizada (tiempo o error) y de las condiciones de la red [@taborda2020comparacion].
 Imaginen que están buscando un libro específico en una estantería desorganizada.
 Lo más lógico sería empezar por el primer libro, revisarlo, luego pasar al segundo, y así sucesivamente, hasta que encuentren el libro que buscan o hasta que se queden sin libros.
 Eso es precisamente lo que hace la búsqueda secuencial.
@@ -32,10 +32,13 @@ Este algoritmo examina cada elemento de la colección uno por uno, en el orden e
 6.  Cuando el algoritmo llega al final del arreglo sin encontrar el valor buscado, muestra un mensaje indicando que el dato no existe dentro de la colección.
 
 ### Implementación
-A continuación, implementaremos una función llamada búsqueda secuencial en Java, Python y JavaScript. Esta función tomará una colección de datos (datos) y un valor objetivo (objetivo) como entrada.
+
+A continuación, implementaremos una función llamada búsqueda secuencial en Java, Python y JavaScript.
+Esta función tomará una colección de datos (datos) y un valor objetivo (objetivo) como entrada.
 
 #### Java
-```java
+
+``` java
 public class BusquedaSecuencial {
     //Se crea el metodo para buscar un numero en un arreglo
     public static int buscar(int[] numeros, int objetivo) {
@@ -75,7 +78,9 @@ public class Main {
     }
 }
 ```
+
 #### Python
+
 ```{python}
 def busqueda_secuencial(datos, objetivo):
     """
@@ -97,8 +102,10 @@ def busqueda_secuencial(datos, objetivo):
     print(f"Objetivo {objetivo} no encontrado en la lista.")
     return None
 ```
+
 #### JavaScript
-```javascript
+
+``` javascript
 /**
  * Función para realizar una búsqueda secuencial en un arreglo
  *
@@ -123,10 +130,12 @@ function busquedaSecuencial(datos, objetivo) {
 ```
 
 ### Ejemplos de Uso
+
 Veamos nuestra función en acción con algunos ejemplos, probando en cada lenguaje tanto con datos numéricos como de texto.
 
 #### Java
-```java
+
+``` java
 // Ejemplo 1: El número está presente
 int[] numeros = {10, 5, 20, 15, 30, 25};
 buscar(numeros, 15);
@@ -171,7 +180,9 @@ buscar(repetidos, 8);
 // Salida:
 // Número encontrado en la posición: 1
 ```
+
 #### Python
+
 ```{python}
 #| output: false
 edades = [15, 22, 18, 30, 45, 12, 60]
@@ -199,8 +210,10 @@ busqueda_secuencial(edades, 15)
 busqueda_secuencial(edades, 60)
 # Salida: Objetivo 60 encontrado en el índice 6
 ```
+
 #### JavaScript
-```javascript
+
+``` javascript
 const edades = [15, 22, 18, 30, 45, 12, 60];
 
 // Ejemplo 1: El objetivo está presente
@@ -245,36 +258,52 @@ Es aquí donde la búsqueda binaria brilla.
 
 ## Búsqueda Binaria (Binary Search)
 
-A diferencia de la búsqueda secuencial, la búsqueda binaria es un método mucho más rápido para encontrar cosas, pero tiene una regla de que deben cumplir: **los datos deben estar perfectamente ordenados (como los números del 1 al 100 o las letras de la A a la Z)**.
+A diferencia de la búsqueda secuencial, la búsqueda binaria permite extraer información almacenada de manera organizada, navegando a través de enlaces entre nodos basados en comparaciones de claves por lo que es un método mucho más rápido para encontrar cosas [@rojasaprender].
+Este concepto se define y aplica de la siguiente manera:
 
-Piensen en cómo buscan una palabra en un diccionario. No empiezan desde la primera página revisando palabra por palabra. Lo que hacen es abrir el diccionario por la mitad y se fijan: "¿La palabra que busco está antes o después de la que tengo aquí?". Así, descartan de un solo golpe toda la mitad que no les sirve y repiten lo mismo con la parte que queda. A esto se le llama "divide y vencerás".
+-   **Estructura Base:** El algoritmo opera sobre una estructura de datos donde la información se organiza en nodos. Cada nodo contiene una clave comparable (representada en el juego DS-Hacker como el ID de una habitación) y enlaces o punteros que dirigen hacia otros nodos[@rojasaprender].
+-   **Funcionamiento del Algoritmo:** La búsqueda consiste en una secuencia de pasos definidos y resultados específicos . En la enseñanza de este concepto, se suele cubrir tanto la estructura de los nodos como la lógica de los pasos que el algoritmo debe seguir para localizar un dato [@rojasaprender].
+-   **Importancia Educativa:** Debido a que es un concepto abstracto y difícil de relacionar con conocimientos previos, se considera un tema de nivel avanzado en las carreras de computación . Su aprendizaje suele reforzarse mediante el uso de analogías, como niveles de un juego donde los desafíos representan el algoritmo de búsqueda [@rojasaprender].
+
+Pero tiene una regla de que deben cumplir: **los datos deben estar perfectamente ordenados (como los números del 1 al 100 o las letras de la A a la Z)**.
+
+Piensen en cómo buscan una palabra en un diccionario.
+No empiezan desde la primera página revisando palabra por palabra.
+Lo que hacen es abrir el diccionario por la mitad y se fijan: "¿La palabra que busco está antes o después de la que tengo aquí?".
+Así, descartan de un solo golpe toda la mitad que no les sirve y repiten lo mismo con la parte que queda.
+A esto se le llama "divide y vencerás".
 
 ### ¿Cómo funciona?
 
-1. Revisar el orden: Primero confirmamos que la lista de datos esté ordenada (por ejemplo, de menos puntos a más puntos). Si está desordenada, el algoritmo se confunde y no funciona.
+1.  Revisar el orden: Primero confirmamos que la lista de datos esté ordenada (por ejemplo, de menos puntos a más puntos).
+    Si está desordenada, el algoritmo se confunde y no funciona.
 
-2. Marcar el territorio: El programa define un área de búsqueda. Al principio es toda la lista, marcando dónde está el inicio (la primera posición) y el fin (la última posición).
+2.  Marcar el territorio: El programa define un área de búsqueda.
+    Al principio es toda la lista, marcando dónde está el inicio (la primera posición) y el fin (la última posición).
 
-3. Calcular el centro: El algoritmo se va directo al grano y calcula quién es el elemento que está justo en el medio de ese rango.
+3.  Calcular el centro: El algoritmo se va directo al grano y calcula quién es el elemento que está justo en el medio de ese rango.
 
-4. Comparar el valor: Miramos el dato que está en el medio y lo comparamos con el que queremos encontrar:
+4.  Comparar el valor: Miramos el dato que está en el medio y lo comparamos con el que queremos encontrar:
 
     -Si es igual: Lo encontramos, el programa nos avisa en qué posición está y se detiene.
 
-    -Si es menor: Si el del medio es más pequeño que nuestro objetivo, significa que lo que buscamos está en la derecha. Así que movemos el inicio justo después del medio.
+    -Si es menor: Si el del medio es más pequeño que nuestro objetivo, significa que lo que buscamos está en la derecha.
+    Así que movemos el inicio justo después del medio.
 
-    -Si es mayor: Si el del medio es más grande, lo que buscamos está en la izquierda. Así que movemos el fin justo antes del medio.
+    -Si es mayor: Si el del medio es más grande, lo que buscamos está en la izquierda.
+    Así que movemos el fin justo antes del medio.
 
-5. Cerrar el círculo: Estos pasos se repiten una y otra vez. Cada vez el área de búsqueda es más pequeña, hasta que encontramos el valor o hasta que nos damos cuenta de que el dato no existe porque ya no quedan más lugares donde buscar.
+5.  Cerrar el círculo: Estos pasos se repiten una y otra vez.
+    Cada vez el área de búsqueda es más pequeña, hasta que encontramos el valor o hasta que nos damos cuenta de que el dato no existe porque ya no quedan más lugares donde buscar.
 
 ### Implementación en Java
 
-Se dispone de un arreglo de números enteros (int[]) que contiene las edades de los jugadores (16, 18, 19, 21, 22, 24, 25, 28, 30, 32) de un equipo de fútbol.
+Se dispone de un arreglo de números enteros (int\[\]) que contiene las edades de los jugadores (16, 18, 19, 21, 22, 24, 25, 28, 30, 32) de un equipo de fútbol.
 Por la organización por categorías, las edades están ordenadas de menor a mayor (orden ascendente).
 
 Se desea implementar un método de búsqueda binaria en su versión iterativa que, dada una edad objetivo (target), devuelva la posición (índice) dentro del arreglo donde se encuentra dicha edad.
 
-```Java
+``` java
 /**
  * Método (función) para realizar una búsqueda binaria en un arreglo ordenado.
  *
@@ -341,6 +370,7 @@ public class BusquedaBinaria {
 }
 }
 ```
+
 ### Implementación Python
 
 ```{python}
@@ -381,7 +411,8 @@ def busqueda_binaria(datos, objetivo):
 ```
 
 ### Implementacion JavaScript
-```javascript
+
+``` javascript
 function busqueda_binaria(arr, objetivo) {
     let inicio = 0;
     let fin = arr.length - 1;
@@ -400,7 +431,6 @@ function busqueda_binaria(arr, objetivo) {
     }
     return -1; // Objetivo no encontrado
 }
-
 ```
 
 ### Ejemplos de Uso
@@ -408,7 +438,8 @@ function busqueda_binaria(arr, objetivo) {
 Recuerden, el arreglo debe estar ordenado para que la búsqueda binaria funcione correctamente.
 
 ### Java
-```Java
+
+``` java
 // Creamos un arreglo ordenado
 int[] arreglo_ordenado = {5, 10, 15, 20, 25, 30, 35, 40, 45, 50};
 
@@ -432,6 +463,7 @@ System.out.println(busquedaBinaria(new int[]{10}, 60));
 ```
 
 ### Python
+
 ```{python}
 #| output: false
 # Ejemplo: Búsqueda de un Pokémon por su nombre
@@ -460,7 +492,8 @@ print(busqueda_binaria(niveles_cartas, nivel_buscado))
 ```
 
 ### Javascript
-```javascript
+
+``` javascript
 // Ejemplo: Búsqueda de un Pokémon por su nombre
 const pokedex = ["Abra", "Bulbasaur", "Charmander", "Dragonite", "Eevee", 
 "Gengar", "Zubat"];
@@ -488,11 +521,11 @@ console.log(busqueda_binaria(nivelesCartas, nivelBuscado));
 ```
 
 **¿Qué pasa si el arreglo no está ordenado?**.
-Si en caso de usar busqueda binaria en un arreglo que no este ordenado el valor que se devuelve es NULL como
-en los siguientes casos.
+Si en caso de usar busqueda binaria en un arreglo que no este ordenado el valor que se devuelve es NULL como en los siguientes casos.
 
 ### Java
-```Java
+
+``` java
 // Ejemplo: Skins de Free Fire sin ordenar
 String[] skinsDesordenadas = {"Genos", "Arenas Ardientes", "Subterránea", 
 "Grifo"};
@@ -505,6 +538,7 @@ System.out.println(posicion);
 ```
 
 ### Python
+
 ```{python}
 #| output: false
 # Ejemplo: El "Cofre de la Suerte" (Desordenado)
@@ -519,7 +553,8 @@ print(resultado)
 ```
 
 ### Javascript
-```javascript
+
+``` javascript
 // Ejemplo: La Pokédex hackeada por el Team Rocket
 const pokedex_caotica = ["Zubat", "Abra", "Charmander", "Mewtwo"];
 
@@ -531,12 +566,14 @@ console.log(resultado);
 pensó que "Zubat" debía estar a la derecha del arreglo porque supuestamente 
 esta ordenado y nunca regresó a mirar el inicio.
 ```
+
 **Para corregirlo, simplemente ordenamos el arreglo antes de buscar:**.
 
 ### Java
+
 En Java, usamos la clase utilidad Arrays.sort ,es muy eficiente, pero recuerda que este paso es el que hace que la búsqueda binaria sea posible.
 
-```java
+``` java
 
 // Ejemplo: Skins de Free Fire desordenadas
 String[] skinsDesordenadas = {"Genos", "Arenas Ardientes", "Subterránea",
@@ -550,8 +587,11 @@ Arrays.sort(skinsDesordenadas);
 int posicion = busquedaBinariaString(skinsDesordenadas, "Arenas Ardientes");
 // Salida: 0 (¡Skin encontrada en el índice 0!)
 ```
+
 ### Python
+
 En Python, la forma más limpia es usar sorted(), que toma tu cofre desordenado y te entrega uno nuevo perfectamente alineado.
+
 ```{python}
 #| output: false
 # Ejemplo: El "Cofre de la Suerte" que estaba desordenado
@@ -567,8 +607,10 @@ resultado = busqueda_binaria(inventario_ordenado, "Antorcha")
 ```
 
 ### Javascript
+
 En JavaScript, usamos el método .sort(), para textos funciona de forma directa
-```javascript
+
+``` javascript
 
 // Ejemplo: La Pokédex hackeada por el Team Rocket
 const pokedex_caotica = ["Zubat", "Abra", "Charmander", "Mewtwo"];
@@ -595,7 +637,7 @@ La búsqueda binaria es ideal para: \* Grandes conjuntos de datos.
 ## Comparación y Cuándo Usar Cada Uno
 
 | Característica | Búsqueda Secuencial (Lineal) | Búsqueda Binaria |
-|:------------------------|:---------------------------|:-------------------|
+|:-----------------------|:-----------------------|:-----------------------|
 | **Requisito de Orden** | No requiere | **Requiere** |
 | **Complejidad Temporal** | O(n) (lineal) | O(log n) (logarítmica) |
 | **Tamaño de Datos** | Pequeños | Grandes |
@@ -607,7 +649,8 @@ La búsqueda binaria es ideal para: \* Grandes conjuntos de datos.
 -   Si tus datos no están ordenados y el tamaño es pequeño, o si solo necesitas hacer una única búsqueda y el costo de ordenar sería excesivo, usa la **Búsqueda Secuencial**.
 -   Si tus datos están ordenados o si necesitas realizar muchas búsquedas en un conjunto de datos grande (haciendo que el costo de ordenar los datos inicialmente valga la pena), la **Búsqueda Binaria** es la elección superior por su eficiencia.
 
-En lenguajes modernos, para tareas comunes de búsqueda existen métodos nativos (como in en Python, o indexOf() en Java y JS) que ya están optimizados. Sin embargo, entender los algoritmos subyacentes como la búsqueda secuencial y binaria es crucial para comprender la eficiencia y el diseño de soluciones en contextos más complejos, como la implementación en estructuras de datos personalizadas o en escenarios de entrevistas técnicas.
+En lenguajes modernos, para tareas comunes de búsqueda existen métodos nativos (como in en Python, o indexOf() en Java y JS) que ya están optimizados.
+Sin embargo, entender los algoritmos subyacentes como la búsqueda secuencial y binaria es crucial para comprender la eficiencia y el diseño de soluciones en contextos más complejos, como la implementación en estructuras de datos personalizadas o en escenarios de entrevistas técnicas.
 
 ## Conclusión
 
