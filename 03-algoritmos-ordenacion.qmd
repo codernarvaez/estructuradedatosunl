@@ -683,3 +683,21 @@ Hemos recorrido cuatro algoritmos de ordenación fundamentales, cada uno con su 
     *   **Quicksort** es típicamente el más rápido en la práctica (O(n log n) promedio), especialmente en implementaciones "in-place", aunque su peor caso es O(n^2) y puede ser inestable. La elección del pivote es crítica para su eficiencia.
 
 En R, para tareas de ordenación cotidianas, generalmente se recomienda usar las funciones nativas optimizadas como `sort()` o `order()`, ya que están implementadas en C/Fortran y son extremadamente eficientes. Sin embargo, comprender los algoritmos subyacentes es crucial para cualquier científico de datos o programador que desee escribir código eficiente y comprender las bases de la informática. ¡Espero que este capítulo le haya proporcionado una base sólida!
+
+## Reto
+
+Imagina que tienes una caja llena de azulejos con letras (mayúsculas y minúsculas) totalmente desordenadas. Tu objetivo es crear un programa que saque todas las letras de la caja y las organice en una fila perfectamente ordenada de la A a la Z.
+Escribe una función que reciba una cadena de texto (la caja desordenada) y devuelva una nueva cadena con las letras en orden alfabético.
+
+### Restricciones
+
+1.  **Libertad de Algoritmo:** Puedes usar cualquier método de ordenación que prefieras (desde los más sencillos hasta los más avanzados).
+2.  **Sin Librerías Externas:** Intenta programar la lógica de ordenamiento tú mismo en lugar de usar funciones automáticas del lenguaje (como .sort() o sorted()), para demostrar que entiendes cómo se mueven los datos
+3.  **Resultado Limpio:**: El resultado final debe ser una sola cadena de texto con todas las letras juntas y en orden.
+
+### Ejemplo
+
+ *   **Entrada:** "algoritmo".
+ *   **Salida:** "agilmort".
+ 
+ Ahora la palabra "algoritmo" se encuentra ordenada en orden alfabetico.
