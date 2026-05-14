@@ -16,7 +16,21 @@ Imagina que tienes un album del mundial con un numero fijo de paginas. Sabes exa
 
 En este capítulo vamos a conocer dos estructuras súper importantes que funcionan de esta manera: los **Arreglos** (los datos que se guardan directamente en memoria) y los **Archivos** (la información que se almacena en el disco). Aunque normalmente usarás Java o Python para trabajar con ellos, entender cómo funcionan “por debajo” te ayudará a programar código mucho más rápido, ordenado y eficiente, casi como saber exactamente en qué página de tu álbum está cada cromo sin perder tiempo buscando.
 
-A continuacion se obersvar ejemplos de como crear estos tipo de estructuras en Java y Phyton:
+::: {.callout-tip}
+## Definición de Arreglo
+
+Un arreglo es como una página del álbum del Mundial donde todos los espacios para cromos ya vienen organizados desde el inicio. Cada casilla tiene una posición exacta y solo puede guardar un tipo específico de dato, igual que una página dedicada únicamente a jugadores de una misma selección. La gran ventaja de los arreglos es que permiten encontrar cualquier cromo súper rápido, porque la computadora sabe exactamente en qué posición está guardado, sin necesidad de buscar por todo el álbum. Sin embargo, su tamaño es fijo, así que si se llena la página y quieres agregar más cromos, no puedes simplemente crear nuevos espacios; tendrías que conseguir otra página más grande y mover todo nuevamente.
+:::
+
+::: {.callout-tip}
+## Definición de Archivo
+
+Un archivo es como guardar los mejores momentos de una partida o una colección completa de cromos del Mundial para poder volver a verla después, incluso cuando el programa ya se cerró. A diferencia de los arreglos, que viven temporalmente en memoria RAM, los archivos permiten almacenar información de forma permanente en el disco duro. Dentro de ellos se pueden guardar datos como nombres de jugadores, resultados de partidos o estadísticas, organizados línea por línea, igual que un historial de jugadas o un álbum digital que permanece intacto aunque apagues la computadora.
+:::
+
+A continuacion se obersvar ejemplos de como crear estos tipo de estructuras en Java y Phyton, ademas de su consumos de memoria al momento de declarar cada tipo de estructura:
+
+En Java, la memoria Heap funciona como el lugar donde se guardan temporalmente los arreglos y archivos mientras el programa está en ejecución. Los arreglos reservan espacios consecutivos en memoria para acceder rápidamente a los datos, mientras que objetos como `FileWriter` permiten guardar información permanentemente en el disco. Cuando esos objetos ya no se utilizan, el Garbage Collector libera automáticamente el espacio para evitar que la memoria se llene [@deitel_java; @datastructure_lab].
 
 ```{java eval=FALSE}
 // EJEMPLO DE ARREGLO EN JAVA
@@ -68,6 +82,8 @@ public class EjemploArchivo {
     }
 }
 ```
+
+En Python, la memoria Heap también funciona como el espacio donde se almacenan los arreglos, cadenas y archivos mientras el programa está ejecutándose. Cuando creamos listas o abrimos archivos, Python guarda esos objetos dinámicamente en memoria para poder acceder a ellos rápidamente. A diferencia de otros lenguajes, Python administra la memoria de forma automática, utilizando un recolector de basura (*Garbage Collector*) que elimina los objetos que ya no se usan, evitando así que la memoria se llene innecesariamente [@python_docs; @datastructure_lab].
 
 ```{python eval=FALSE}
 # EJEMPLO DE ARREGLO EN PYTHON
