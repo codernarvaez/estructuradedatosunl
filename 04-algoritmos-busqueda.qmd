@@ -260,20 +260,13 @@ Es aquí donde la búsqueda binaria brilla.
 
 ## Búsqueda Binaria (Binary Search)
 
-A diferencia de la búsqueda secuencial, la búsqueda binaria permite extraer información almacenada de manera organizada, navegando a través de enlaces entre nodos basados en comparaciones de claves por lo que es un método mucho más rápido para encontrar cosas [@rojasaprender].
-Este concepto se define y aplica de la siguiente manera:
-
--   **Estructura Base:** El algoritmo opera sobre una estructura de datos donde la información se organiza en nodos. Cada nodo contiene una clave comparable (representada en el juego DS-Hacker como el ID de una habitación) y enlaces o punteros que dirigen hacia otros nodos[@rojasaprender].
--   **Funcionamiento del Algoritmo:** La búsqueda consiste en una secuencia de pasos definidos y resultados específicos . En la enseñanza de este concepto, se suele cubrir tanto la estructura de los nodos como la lógica de los pasos que el algoritmo debe seguir para localizar un dato [@rojasaprender].
--   **Importancia Educativa:** Debido a que es un concepto abstracto y difícil de relacionar con conocimientos previos, se considera un tema de nivel avanzado en las carreras de computación . Su aprendizaje suele reforzarse mediante el uso de analogías, como niveles de un juego donde los desafíos representan el algoritmo de búsqueda [@rojasaprender].
-
-Pero tiene una regla de que deben cumplir: **los datos deben estar perfectamente ordenados (como los números del 1 al 100 o las letras de la A a la Z)**.
+A diferencia de la búsqueda secuencial, la búsqueda binaria permite extraer información almacenada de manera organizada,y es un metodo mas rapido que la secuencial,pero tiene una regla de que deben cumplir: **los datos deben estar perfectamente ordenados (como los números del 1 al 100 o las letras de la A a la Z)** [@rojasaprender].
 
 Piensen en cómo buscan una palabra en un diccionario.
 No empiezan desde la primera página revisando palabra por palabra.
 Lo que hacen es abrir el diccionario por la mitad y se fijan: "¿La palabra que busco está antes o después de la que tengo aquí?".
 Así, descartan de un solo golpe toda la mitad que no les sirve y repiten lo mismo con la parte que queda.
-A esto se le llama "divide y vencerás".
+A esto se le llama "divide y vencerás" [@rojasaprender].
 
 ### ¿Cómo funciona?
 
