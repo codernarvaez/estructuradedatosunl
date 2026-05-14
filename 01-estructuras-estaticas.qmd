@@ -221,6 +221,21 @@ Para entender porque un arreglo multidimensional va un paso más allá que un ar
 
 Hay que tener en cuenta que la memoria RAM de una computadora no contiene una cuadrícula 2D física, lo que significa que debemos representar una página completa del album como una fila de infinta de cromos pegados uno tras otro, así se puede lograr que la computadora se engañe así misma para que por consiguiente se guarde en memoria.
 
+```{r}
+#| eval: false
+# Ejemplo en Python
+matriz = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+print(matriz[1][2])  # → 6
+fila, col, num_cols = 1, 2, 3
+indice_real = fila * num_cols + col
+print(indice_real)  #
+);
+```
+
 ### Mapeo de 2D a Memoria Lineal
 
 ¿Cómo mete la computadora una página del album en una fila de memoria? Para ello esta utiliza un truco llamado Row-Major Order (orden por filas). 
