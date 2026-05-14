@@ -1,10 +1,26 @@
 ---
 title: "Estructuras No Lineales"
+        "Grafos y arboles
 ---
 
 ¡Hola a todos y bienvenidos a este capítulo sobre Estructuras No Lineales en R! En el mundo de la programación y el análisis de datos, no todo es una tabla bonita o un vector secuencial. A menudo, la información que manejamos tiene relaciones complejas, jerarquías o interconexiones que las estructuras de datos lineales simplemente no pueden representar de manera eficiente o intuitiva. Aquí es donde entran en juego los grafos y los árboles binarios.
 
 En este capítulo, exploraremos cómo R nos permite trabajar con estas estructuras fundamentales, dotándonos de las herramientas para modelar y analizar datos con relaciones más intrincadas. Prepárense para ver cómo R, con la ayuda de paquetes poderosos, transforma estos conceptos abstractos en herramientas prácticas para la ciencia de datos.
+
+Los grafos y los árboles son estructuras fundamentales en informática y matemáticas, usadas para representar relaciones entre elementos.
+
+Las principales semejanzas de estas dos estructuras de datos no lineales: Grafos y arboles son:
+
+1. Estan formados por nodos y aristas.
+2. Representan relaciones, y ambos sirven para modelar conexiones entre elementos.
+3. Se pueden recorrer de manera transversal, pues ambos algoritmos sirven para buscar informacion dentro de la estructura.
+4. Se utilizan en informatica y en programacion para Bases de datos, redes y sistemas de recomendacion.
+5. Ambos pueden representarse graficamente y se visualizan como diagrama de puntos(nodos) conectados por lineas(aristas).
+6. Ambos modelan estructuras en la vida real y se usan para representar: jerarquias, redes, dependencias.
+
+NOTA: Un punto clave a mencionar es que todo arbol es un grafo, pero no todo grafo es un arbol.
+
+Hasta ahora hemos visto las semejanzas y las relaciones de estas dos estructuras de datos no lineales, ahora a continuacion veremos cada estructura de datos no lineales, por separado y daremos una breve conclusion de los grafos y de los arboles como estructuras de datos no lineales.
 
 ## Grafos: Tejiendo Redes de Relaciones
 
