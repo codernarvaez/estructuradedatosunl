@@ -51,18 +51,21 @@ public class BusquedaSecuencial {
 
                 System.out.println("Número encontrado en la posición: " + i);
 
-                //Una vez encontramos el numero, retornamos la posición donde se lo encontro
+                //Una vez encontramos el numero, retornamos la posición donde 
+                se lo encontro
                 return i;
             }
         }
 
-        // Se utiliza un sout por si no encuentra el número para que termine el ciclo
+        // Se utiliza un sout por si no encuentra el número para que termine 
+        el ciclo
         System.out.println("Número no encontrado");
 
         return -1;
     }
 }
-//Se crea una nueva clase Main para poder ejecutar el programa y verificar si funciona nuestra logica en el codigo.
+//Se crea una nueva clase Main para poder ejecutar el programa y verificar si
+funciona nuestra logica en el codigo.
 
 public class Main {
     public static void main(String[] args) {
@@ -88,7 +91,8 @@ def busqueda_secuencial(datos, objetivo):
     
     :param datos: Una lista numérica o de texto donde buscar.
     :param objetivo: El valor que se desea encontrar.
-    :return: El índice (posición) del objetivo si se encuentra, de lo contrario, None.
+    :return: El índice (posición) del objetivo si se encuentra, de lo contrario
+    , None.
     """
     # Recorremos la lista desde el primer elemento hasta el último
     for i in range(len(datos)):
@@ -111,7 +115,8 @@ def busqueda_secuencial(datos, objetivo):
  *
  * @param {Array} datos Un arreglo numérico o de texto donde buscar.
  * @param {*} objetivo El valor que se desea encontrar.
- * @return {number|null} El índice (posición) del objetivo si se encuentra, de lo contrario, null.
+ * @return {number|null} El índice (posición) del objetivo si se encuentra, 
+ de lo contrario, null.
  */
 function busquedaSecuencial(datos, objetivo) {
     // Recorremos el arreglo desde el primer elemento hasta el último
@@ -280,12 +285,15 @@ A esto se le llama "divide y vencerás" [@rojasaprender].
 
 4.  Comparar el valor: Miramos el dato que está en el medio y lo comparamos con el que queremos encontrar:
 
-    -Si es igual: Lo encontramos, el programa nos avisa en qué posición está y se detiene.
+    -Si es igual: Lo encontramos, el programa nos avisa en qué posición 
+    está y se detiene.
 
-    -Si es menor: Si el del medio es más pequeño que nuestro objetivo, significa que lo que buscamos está en la derecha.
+    -Si es menor: Si el del medio es más pequeño que nuestro objetivo, 
+    significa que lo que buscamos está en la derecha.
     Así que movemos el inicio justo después del medio.
 
-    -Si es mayor: Si el del medio es más grande, lo que buscamos está en la izquierda.
+    -Si es mayor: Si el del medio es más grande, lo que buscamos está en 
+    la izquierda.
     Así que movemos el fin justo antes del medio.
 
 5.  Cerrar el círculo: Estos pasos se repiten una y otra vez.
@@ -544,7 +552,8 @@ inventario_desordenado = ["Diamante", "Tierra", "Antorcha", "Madera"]
 resultado = busqueda_binaria(inventario_desordenado, "Antorcha")
 
 print(resultado)
-# Salida: -1 (O None). El algoritmo falló: aunque la antorcha está, el desorden lo engañó.
+# Salida: -1 (O None). El algoritmo falló: aunque la antorcha está, 
+#el desorden lo engañó.
 ```
 
 ### Javascript
@@ -623,7 +632,7 @@ const resultado = busqueda_binaria(pokedex_caotica, "Zubat");
 La eficiencia de la búsqueda binaria es su mayor fortaleza.
 En cada paso, el algoritmo reduce el espacio de búsqueda a la mitad.
 
--   **Complejidad Temporal:** O(log n). Esto significa que el tiempo de ejecución crece logarítmicamente con el tamaño de los datos. Para un vector de 1 millón de elementos, la búsqueda binaria podría necesitar solo unas 20 comparaciones (log₂ de 1,000,000 es aproximadamente 19.9), mientras que la búsqueda secuencial podría necesitar hasta 1 millón.
+-   **Complejidad Temporal:** O(log n). Esto significa que el tiempo de ejecución crece logarítmicamente con el tamaño de los datos. Para un arreglo de 1 millón de elementos, la búsqueda binaria podría necesitar solo unas 20 comparaciones (log₂ de 1,000,000 es aproximadamente 19.9), mientras que la búsqueda secuencial podría necesitar hasta 1 millón.
 
 La búsqueda binaria es ideal para: 
 
