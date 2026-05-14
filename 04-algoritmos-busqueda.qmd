@@ -273,33 +273,26 @@ Lo que hacen es abrir el diccionario por la mitad y se fijan: "¿La palabra que 
 Así, descartan de un solo golpe toda la mitad que no les sirve y repiten lo mismo con la parte que queda.
 A esto se le llama "divide y vencerás" [@rojasaprender].
 
-### ¿Cómo funciona?
+**¿Cómo funciona?**
 
-1.  Revisar el orden: Primero confirmamos que la lista de datos esté ordenada (por ejemplo, de menos puntos a más puntos).
+1.  **Revisar el orden**: Primero confirmamos que la lista de datos esté ordenada (por ejemplo, de menos puntos a más puntos).
     Si está desordenada, el algoritmo se confunde y no funciona.
 
-2.  Marcar el territorio: El programa define un área de búsqueda.
+2.  **Marcar el territorio**: El programa define un área de búsqueda.
     Al principio es toda la lista, marcando dónde está el inicio (la primera posición) y el fin (la última posición).
 
-3.  Calcular el centro: El algoritmo se va directo al grano y calcula quién es el elemento que está justo en el medio de ese rango.
+3.  **Calcular el centro**: El algoritmo se va directo al grano y calcula quién es el elemento que está justo en el medio de ese rango.
 
-4.  Comparar el valor: Miramos el dato que está en el medio y lo comparamos con el que queremos encontrar:
+4.  **Comparar el valor**: Miramos el dato que está en el medio y lo comparamos con el que queremos encontrar:
 
-    -Si es igual: Lo encontramos, el programa nos avisa en qué posición 
-    está y se detiene.
+    - **Si es igual**: Lo encontramos, el programa nos avisa en qué posición está y se detiene.
+    - **Si es menor**: Si el del medio es más pequeño que nuestro objetivo, significa que lo que buscamos está en la derecha. Así que movemos el inicio justo después del medio.
+    - **Si es mayor**: Si el del medio es más grande, lo que buscamos está en la izquierda. Así que movemos el fin justo antes del medio.
 
-    -Si es menor: Si el del medio es más pequeño que nuestro objetivo, 
-    significa que lo que buscamos está en la derecha.
-    Así que movemos el inicio justo después del medio.
-
-    -Si es mayor: Si el del medio es más grande, lo que buscamos está en 
-    la izquierda.
-    Así que movemos el fin justo antes del medio.
-
-5.  Cerrar el círculo: Estos pasos se repiten una y otra vez.
+5.  **Cerrar el círculo**: Estos pasos se repiten una y otra vez.
     Cada vez el área de búsqueda es más pequeña, hasta que encontramos el valor o hasta que nos damos cuenta de que el dato no existe porque ya no quedan más lugares donde buscar.
 
-### Implementación en Java
+### Implementación en Java !
 
 Se dispone de un arreglo de números enteros (int\[\]) que contiene las edades de los jugadores (16, 18, 19, 21, 22, 24, 25, 28, 30, 32) de un equipo de fútbol.
 Por la organización por categorías, las edades están ordenadas de menor a mayor (orden ascendente).
