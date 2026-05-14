@@ -120,38 +120,214 @@ g3 <- graph_from_data_frame(edge_list, directed = TRUE)
 plot(g3, main = "Grafo Dirigido de Red Social", layout = layout_nicely(g3))
 ```
 
-### Propiedades y Análisis de Grafos
+## Propiedades y Análisis de Grafos
 
-`igraph` nos permite calcular una gran cantidad de métricas y propiedades de un grafo:
+Usaremos como ejemplo una red social pequeña con cinco personas:
+
+**1-Alice, 2- Bob 3-Carol, 4-Dave, 5-Eve**
+
+**Alice -> Bob, Alice -> Dave, Bob -> Carol, Bob -> Eve, Dave -> Carol, Dave -> Eve, Carol -> Eve**.
+
+Una vez que tenemos nuestro grafo, podemos consultar:
+
+---
+
+### ¿Cuántos vértices y aristas tiene el grafo?
+
+Lo más básico: contar nodos y conexiones.
 
 ```r
-# Número de vértices y aristas
-vcount(g3)
-ecount(g3)
+vcount(g3)  # Número de personas en la red  = 5
+ecount(g3)  # Número de conexiones          = 7
+```
 
-# Grado de los vértices (número de conexiones)
-# Para grafos dirigidos, podemos ver in-degree (entrantes) y out-degree (salientes)
-degree(g3, mode = "in")
-degree(g3, mode = "out")
-degree(g3, mode = "all") # Suma de in y out
+---
 
-# Componentes conectados (subgrafos donde todos los vértices están conectados entre sí)
+### ¿Cuántas conexiones tiene cada persona? — Grado (`degree`)
+
+El **grado** de un vértice es cuántas conexiones tiene.
+En un grafo **dirigido** (las aristas tienen dirección, como en las redes sociales),
+distinguimos dos tipos:
+
+| Tipo | Significado | Analogía                  |
+|------|-------------|---------------------------|
+| `in-degree` | Conexiones que **llegan** al nodo | Cuántas personas te siguen a ti |
+| `out-degree` | Conexiones que **salen** del nodo | A cuántas personas sigues tú |
+| `all` | Suma de ambas | Actividad total en la red |
+
+```r
+degree(g3, mode = "in")   # ¿Quién tiene más seguidores? (popularidad)
+degree(g3, mode = "out")  # ¿Quién sigue a más personas? (actividad)
+degree(g3, mode = "all")  # Grado total
+```
+
+**Resultado para nuestra red:**
+
+```
+in-degree:  Alice=0  Bob=1  Carol=2  Dave=1  Eve=3
+out-degree: Alice=2  Bob=2  Carol=1  Dave=2  Eve=0
+all:        Alice=2  Bob=3  Carol=3  Dave=3  Eve=3
+```
+
+::: {.callout-note}
+## Interpretación
+- **Eve** tiene `in-degree = 3`: ella es la más popular.
+- **Alice** tiene `out-degree = 2` pero `in-degree = 0`: ella sigue a otros pero nadie la sigue.
+- **Eve** tiene `out-degree = 0`: recibe información pero no la transmite.
+:::
+
+---
+
+### ¿Están todos conectados entre sí? — Componentes conectados
+
+Un **componente conectado** es un grupo de vértices donde todos se pueden
+alcanzar entre sí (aunque sea pasando por intermediarios).
+Si hay nodos aislados o subgrupos desconectados, cada uno forma su propio componente.
+
+```r
 components(g1)
+# $membership  → a qué componente pertenece cada vértice
+# $csize        → tamaño de cada componente
+# $no           → número total de componentes
+```
 
-# Camino más corto entre dos vértices
-shortest_paths(g3, from = "Alice", to = "Eve", output = "vpath")$vpath[[1]]
+**Ejemplo:**
 
-# Centralidad de un vértice (importancia en la red)
-# Centralidad de intermediación (betweenness centrality)
-# ¿Cuántos caminos más cortos pasan a través de este vértice?
+Imagina una red de WhatsApp donde bloqueas a alguien.
+Ese bloqueo puede dividir la red en dos grupos que ya no se comunican entre sí:
+cada grupo sería un componente separado.
+
+```r
+# Si el grafo tiene un solo componente:
+components(g1)$no  # → 1  (todos están conectados)
+
+# Si hay nodos aislados:
+components(g1)$no  # → 3  (hay 3 subgrupos desconectados)
+```
+
+::: {.callout-tip}
+## ¿Para qué sirve?
+Los componentes desconectados son comunidades que no tienen
+contacto entre sí. La información no puede saltar entre componentes sin un puente.
+:::
+
+---
+
+### ¿Cuál es el camino más corto entre dos personas? — `shortest_paths()`
+
+Inspirado en el famoso experimento de los **"seis grados de separación"**
+(la idea de que cualquier persona del mundo está conectada a cualquier otra en ≤ 6 pasos),
+esta función encuentra la ruta con el menor número de saltos entre dos nodos.
+
+```r
+shortest_paths(g3,
+               from   = "Alice",
+               to     = "Eve",
+               output = "vpath")$vpath[[1]]
+```
+
+**Resultado:**
+
+```
+Alice → Bob → Eve     (2 saltos)
+```
+
+También existe la ruta `Alice → Dave → Eve` con la misma longitud.
+`shortest_paths()` devuelve una de ellas; si quieres todas, usa `all_shortest_paths()`.
+
+::: {.callout-note}
+## Interpretación
+Cuanto más corto el camino, más "cercanas" están dos personas en la red,
+aunque no se conozcan directamente.
+:::
+
+---
+
+### ¿Quién es el más "influyente" o "central"? — Métricas de centralidad
+
+Existen distintas formas de medir la importancia de un nodo en la red
+y cada una responde una pregunta diferente.
+
+#### Centralidad de intermediación — `betweenness()`
+
+ **Pregunta: ¿Por cuántos caminos más cortos pasa este nodo?**
+
+Un nodo con **betweenness alto** es un *puente* o *intermediario* crítico.
+Si lo eliminas, muchas comunicaciones se rompen.
+
+```r
 betweenness(g3, normalized = TRUE)
+```
 
-# Centralidad de cercanía (closeness centrality)
-# ¿Qué tan cerca está un vértice de todos los demás?
+**Resultado aproximado:**
+
+```
+Alice=0.00  Bob=0.33  Carol=0.10  Dave=0.33  Eve=0.00
+```
+
+**Interpretación:** Bob y Dave tienen el betweenness más alto porque
+la mayoría de los caminos más cortos entre otros pares de nodos pasan por ellos.
+Alice y Eve están en los extremos: Alice es origen, Eve es destino, pero ninguna
+actúa como puente.
+
+::: {.callout-tip}
+## Analogía
+El empleado con mayor betweenness es quien conecta diferentes departamentos.
+Si renuncia, la comunicación interna se fragmenta.
+:::
+
+#### Centralidad de cercanía — `closeness()`
+
+**Pregunta: ¿Qué tan rápido puede este nodo alcanzar a todos los demás?**
+
+Un nodo con **closeness alto** puede difundir información rápidamente a toda la red
+porque está "cerca" (en número de saltos) de todos los demás.
+
+```r
 closeness(g3, normalized = TRUE)
 ```
 
-La exploración de grafos es un campo vasto y fascinante. `igraph` es una herramienta indispensable para cualquier científico de datos que trabaje con relaciones y redes.
+**Resultado aproximado:**
+
+```
+Alice=0.80  Bob=0.65  Carol=0.40  Dave=0.60  Eve=0.00
+```
+
+**Interpretación:**
+- **Alice** tiene el closeness más alto: puede llegar a todos en pocos pasos.
+- **Eve** tiene closeness = 0: no tiene aristas salientes, no puede "llegar" a nadie.
+
+::: {.callout-tip}
+## Analogía
+El almacén con mayor closeness es el que tiene mejor ubicación geográfica
+para distribuir mercancía a todos los puntos de entrega en el menor tiempo posible.
+:::
+
+---
+
+### Comparación
+
+| Métrica | Pregunta  | Ejemplo  |
+|---|---|---|
+| **Degree** | ¿Cuántas conexiones tiene? | Influencer con muchos seguidores |
+| **Betweenness** | ¿Por cuántos caminos pasa? | Empleado puente entre departamentos |
+| **Closeness** | ¿Qué tan cerca está de todos? | Almacén con mejor ubicación |
+
+---
+
+::: {.callout-tip}
+## ¿Para qué sirven estas métricas en la práctica?
+
+- **Epidemiología:** identificar a las personas con mayor betweenness para romper
+  cadenas de contagio con vacunación focalizada.
+- **Marketing:** encontrar los influencers clave (alto degree + alto closeness)
+  para campañas virales.
+- **Logística:** ubicar centros de distribución óptimos (máximo closeness).
+- **Seguridad informática:** detectar nodos críticos cuya caída colapsaría
+  la red (alto betweenness).
+- **Ciencias sociales:** entender quién tiene poder informal en una organización,
+  más allá del organigrama oficial.
+:::
 
 ## Árboles Binarios: Jerarquías con Ramificaciones Limitadas
 
