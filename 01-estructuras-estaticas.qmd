@@ -18,7 +18,7 @@ En este capítulo vamos a conocer dos estructuras súper importantes que funcion
 
 A continuacion se obersvar ejemplos de como crear estos tipo de estructuras en Java y Phyton:
 
-```{java}
+```{java eval=FALSE}
 // EJEMPLO DE ARREGLO EN JAVA
 public class EjemploArreglo {
     public static void main(String[] args) {
@@ -43,7 +43,7 @@ public class EjemploArreglo {
 }
 ```
 
-```{java}
+```{java eval=FALSE}
 // EJEMPLO DE ARCHIVO EN JAVA
 import java.io.FileWriter;
 import java.io.IOException;
@@ -68,7 +68,8 @@ public class EjemploArchivo {
     }
 }
 ```
-```{python}
+
+```{python eval=FALSE}
 # EJEMPLO DE ARREGLO EN PYTHON
 
 # Lista de cromos del álbum
@@ -88,7 +89,7 @@ for i in range(len(cromos)):
     print("Posición", i, ":", cromos[i])
 ```
 
-```{python}
+```{python eval=FALSE}
 # EJEMPLO DE ARCHIVO EN PYTHON
 
 # Crear archivo de texto
@@ -102,8 +103,6 @@ archivo.close()
 
 print("Archivo creado correctamente")
 ```
-
-
 
 ## Arreglos: La Caja de Herramientas Estática {#sec-arreglos}
 
