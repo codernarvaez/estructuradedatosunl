@@ -62,6 +62,33 @@ Pero de repente llega un Dominus nuevo y el coach decide meterlo justo entre el 
 
 Y ahí está el problema: si en vez de 5 autos tienes 50 repartidos por toda la arena, meter uno nuevo al principio significa que los 50 tienen que correrse. Es como intentar reorganizar toda la rotación del equipo en pleno overtime, lento y caótico. Por eso más adelante se buscan estructuras más flexibles, como si cada auto pudiera simplemente saltar a cualquier parte del campo sin arrastrar a nadie más.
 
+Ejemplos en Java, Javascrip y Python
+
+```{r}
+#| eval: false
+# Ejemplo en Python de inserciones
+autos = ["Octane", "Fennec", "Breakout"]
+autos.insert(1, "Dominus")  # Todos se corren un lugar
+print(autos)  # ["Octane", "Dominus", "Fennec", "Breakout"]
+```
+
+```{r}
+#| eval: false
+# Ejemplo en Java de eliminación 
+List<String> autos = new ArrayList<>(Arrays.asList("Octane", "Fennec", "Breakout"));
+autos.add(1, "Dominus");      
+autos.remove("Fennec");        
+```
+
+```{r}
+#| eval: false
+# Ejemplo en Javascrip de inserciones
+const autos = ["Octane", "Fennec", "Breakout"];
+autos.splice(1, 0, "Dominus"); 
+console.log(autos); 
+```
+
+
 ## Archivos: Persistencia mas allá del Partido {#sec-archivos}
 
 Los Archivos son como los replays de Rocket League: cuando cierras el juego todo lo que pasó en RAM desaparece, pero el replay queda guardado en tu disco para siempre, como una larga grabación de cada boost consumido, cada gol y cada derrota apilados uno tras otro. Eso es exactamente lo que hace este código, abrir un archivo y escribir jugada por jugada de forma permanente:
@@ -76,6 +103,29 @@ with open("datos.txt", "w") as archivo:
 ```
 
 El problema es que escribir en ese archivo es muchísimo más lento que simplemente recordar lo que acabas de jugar, porque acceder al disco siempre tiene su penalización. Por eso los sistemas inteligentes no mandan cada jugada al disco una por una, sino que las acumulan todas en memoria y las escriben de un solo jalón, como esperar el momento exacto para rematar en vez de tirar a gol cada vez que tocas la bola.
+
+Ahora presentare dos ejemplos de persintencias realizados en Java y Javascrip:
+
+```{r}
+#| eval: false
+# Ejemplo en Java
+FileWriter replay = new FileWriter("datos.txt");
+replay.write("Salvada épica de Breakout en la línea de gol...");
+replay.write("Choque aéreo fallido por Fennec...");
+replay.write("Victoria en tiempo extra 2-1...");
+replay.close();
+```
+
+```{r}
+#| eval: false
+# Ejemplo Javascrip
+const fs = require("fs");
+fs.writeFileSync("datos.txt",
+    "Dominus roba boost grande a los 4:12...\n" +
+    "Octane anota de techo con supersónico...\n" +
+    "Remontada épica de 0-2 a 3-2..."
+);
+```
 
 ## Matrices y Arreglos Multidimensionales {#sec-matrices}
 
