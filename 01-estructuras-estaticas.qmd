@@ -311,10 +311,6 @@ El problema surge cuando quieres "agregar" una figurita. Como el álbum no cambi
 
 ### Resolución de Problemas
 
-**El Reto de Fusión Cíclica (Merge Files)**
-
-Imagina un caso de la vida real: tienes en posesión dos archivos gigantes, `registros_A.csv` y `registros_B.csv`, y ambos contienen columnas financieras estáticas formadas por IDs crecientes ordenados ascendentemente (1, 2, 5... | 3, 4, 6...). Están ubicados en el lenta memoria secundaria, pero son colosales; no todos los IDs caben dentro del corto cinturón RAM como arreglos masivos.
-
 *Reto:*
 Sistema de Álbum del Mundial
 
