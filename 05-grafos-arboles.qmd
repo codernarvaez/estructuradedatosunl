@@ -14,10 +14,37 @@ Formalmente, un grafo se compone de un conjunto de **vértices** (también llama
 
 ### Tipos de Grafos
 
-*   **Dirigidos (Directed)**: Las aristas tienen una dirección específica (ej. un seguimiento en Twitter: A sigue a B, pero B no necesariamente sigue a A).
-*   **No Dirigidos (Undirected)**: Las aristas no tienen una dirección (ej. una amistad en Facebook: si A es amigo de B, B es amigo de A).
-*   **Ponderados (Weighted)**: Las aristas tienen un valor o "peso" asociado (ej. la distancia entre dos ciudades, la fuerza de una conexión).
-*   **No Ponderados (Unweighted)**: Las aristas simplemente indican una conexión, sin un valor adicional.
+*   **Dirigidos (Directed)**: En estos, cada arista (i,j) tiene una
+    dirección específica que va desde el vértice fuente i hacia el
+    vértice objetivo j . Los caminos en estos grafos deben seguir el
+    sentido de las flechas.
+*   **No Dirigidos (Undirected)**: Son aquellos donde la relación entre
+    vértices es simétrica; es decir, la arista (i,j) está presente si y
+    solo si también existe la arista (j,i).
+*   **Ponderados (Weighted)**: Aunque las fuentes no dedican un capítulo
+    exclusivo a los grafos ponderados (o pesados), mencionan
+    explícitamente cómo se pueden implementar y en qué contextos se
+    utilizan: Implementación mediante Objetos: En el esquema de Listas
+    de Adyacencia, las fuentes sugieren que las aristas pueden ser
+    tratadas como "objetos de primera clase" que contienen sus propios
+    datos asociados . Estos datos asociados son los "pesos" o "costos"
+    de la arista. Contexto Algorítmico: Se menciona el algoritmo de
+    Dijkstra para encontrar el camino más corto . Este algoritmo es el
+    uso principal de los grafos ponderados, donde cada arista tiene un
+    peso que representa una distancia o un costo . Implementación en
+    Matriz: Aunque la implementación básica usa booleanos, las fuentes
+    señalan que se pueden usar valores enteros en la matriz para
+    realizar operaciones algebraicas, como calcular el número de caminos
+    de una longitud específica entre dos vértices.
+*   **No Ponderados (Unweighted)**:  La mayor parte de la discusión
+    técnica en las fuentes sobre la representación de grafos se centra
+    en los grafos no ponderados. En estos, la relación entre dos
+    vértices es binaria: la arista existe o no existe . Representación
+    en Matriz de Adyacencia: Se utiliza una matriz de n×n donde las
+    entradas son valores booleanos (true si existe la arista, false si
+    no) . Representación en Listas de Adyacencia: Se mantiene un arreglo
+    de listas donde cada lista adj\[i\] simplemente contiene los índices
+    de los vértices hacia los cuales apunta una arista desde i
 
 ### Grafos en R: El Paquete `igraph`
 
