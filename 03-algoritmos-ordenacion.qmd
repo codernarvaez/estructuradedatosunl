@@ -46,6 +46,10 @@ El funcionamiento básico es el siguiente:
 
 La recursión termina cuando una sublista tiene cero o un elemento, ya que ya están ordenados.
 
+# Quick_sort
+
+![Quick_sort](images/0_vAMz_7iAbCplF4Z7.png)
+
 Particion y pivote
 
 1.  **Pivote**: Es el elemento alrededor del cual se divide la matriz, por ende, se puede elgir cualquier elemtno como pivote, pero las estrategias mcomunes incluyen la selección del primer elemento, el último elemento o un elemento aleatorio.
@@ -139,7 +143,7 @@ public class QuickSort {
 ### Complejidad del Algoritmo
 
 *   **Complejidad temporal**:
-    *   **Mejor caso**: O(n log n). Ocurre cuando el pivote divide el array en dos mitades aproximadamente iguales.
+    *   **Mejor caso**: (O(n log n)). Ocurre cuando el pivote divide el array en dos mitades aproximadamente iguales.
     *   **Caso promedio**: O(n log n). Con pivotes aleatorios o datos distribuidos uniformemente.
     *   **Peor caso**: O(n²): Cuando el pivote siempre es el elemento más pequeño o más grande.
 *   **Complejidad espacial**:
@@ -285,12 +289,12 @@ function quick_sort(arr) {
     *   Llama recursivamente a **quick_sort** en la sublista **`less`**
     *   EL **pivot** se coloca en medio, ya que está en su posición final
     *   Llama recursivamente a **`quick_sort`** en la sublista **`greater`**
-    *   EL operador spread **`...`** concatena estas tres resultados en el array final ordenado.
+    *   EL operador spread **`...`** concatena estos tres resultados en el array final ordenado.
 
 ### Complejidad del Algoritmo
 
 *   **Complejidad temporal**:
-    *   **Mejor caso**: O(n log n). Ocurre cuando el pivote divide el array en dos mitades aproximadamente iguales
+    *   **Mejor caso**: (O(n log n)). Ocurre cuando el pivote divide el array en dos mitades aproximadamente iguales
     *   **Caso promedio**: O(n log n). Con pivotes aleatorios o datos distribuidos uniformemente.
     *   **Peor caso**: O(n²): Ocurre cuando el pivote siempre es el elemento más pequeño o más grande 
 *   **Complejidad espaciall**:
