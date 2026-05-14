@@ -1,5 +1,7 @@
-/.quarto/
-**/*.quarto_ipynb
+*.html
 _book/
+.quarto/
+**/*.quarto_ipynb
 *.log
 *.tex
+/.quarto/
