@@ -1,5 +1,7 @@
 ---
 title: "Algoritmos de Ordenación"
+bibliography: references.bib
+
 ---
 
 # Algoritmos de Ordenación
@@ -172,89 +174,324 @@ vector_ordenado_p <- insertion_sort(vector_pequeño)
 print(paste("Vector ordenado (Insertion Sort):", paste(vector_ordenado_p, collapse = ", ")))
 ```
 
-## Mergesort
+## Merge Sort
 
 ### Concepto
 
-Mergesort es un algoritmo de ordenación eficiente y estable que sigue el paradigma "divide y vencerás". Su principio es dividir el array de entrada en dos mitades, ordenar cada mitad recursivamente, y luego combinar (fusionar) las dos mitades ordenadas para producir el array final ordenado.
+Merge Sort es un algoritmo de ordenamiento avanzado quee se base en el pricipio de “Divide y Vencerás”, utilizado con frecuencia para sistemas que requieren alto redimiento, estabilidad y eficiencia al trabajar con grandes volúmenes de datos.[@asin2021medicion] Su principal ventaja es mantener un tiempo de ejcucion predecibles incluso cuando el tamaño de los datos aumenta. El funcionamiento del Merge Sort consiste en dividir de manera repetitiva un arreglo en partes mas pequeñas hasta obtener subproblemas de un solo elemento que se lo considera ordenado.[@gurin2004algoritmos] Posteriormente el argorroritmo empieza a mezclar de manera ordenada comparando sus elementos hasta reconstruir completamente el arreglo original, pero ahora organizado en orden ascendente. Este proceso puede imaginarse como el ordenamiento de una baraja de cartas. Si intentáramos ordenarla de manera tradicional, tendríamos que revisar varias veces las mismas cartas para determinar su posición correcta. Sin embargo, al aplicar el principio de “Divide y Vencerás”, la baraja puede dividirse en grupos más pequeños, facilitando el ordenamiento de cada parte por separado. Permitiendo que los grupos ya ordenados se vuelven a unir poco a poco hasta obtener toda la baraja organizada.
 
-Los pasos principales son:
-1.  **Dividir**: Si la lista tiene más de un elemento, divídela en dos sublistas aproximadamente iguales.
-2.  **Conquistar**: Ordena recursivamente cada sublista utilizando Mergesort.
-3.  **Combinar (Merge)**: Fusiona las dos sublistas ordenadas en una única lista ordenada. La fase de combinación es donde ocurre la mayor parte del trabajo.
+![Cartas ordenadas mediante Merge Sort](images/000059.jpg){width=70% fig-align="center"}
 
-La recursión termina cuando la sublista tiene un solo elemento, ya que una lista de un solo elemento se considera ordenada por definición.
+El algoritmo funciona siguiento tres pasos principales:
 
-### Implementación en R
+1.  **Dividir**: Si el arreglo contiene varios elemento este se divide a la mitad en dos subgrupos diferentes reduciendo el problema en partes mas pequeñas.
+2.  **Vencer**: Una vez divididos en subgrupos se aplica el mismo procesos de divicion de manera recursiva a cada subgrupo hasta obtener subarreglos de un solo elemento.
+3.  **Combinar (Merge)**: Finalmente todos los subarreglos se unen de forma ordenada comparando cada uno de sus elementos colocandolos en sus posicion correcta hasta formar un nuevo super arreglo.
 
-Necesitaremos dos funciones: una para la lógica recursiva de división (`merge_sort`) y otra para la combinación de dos arrays ya ordenados (`merge_arrays`).
+Este proceso continúa ejecutándose de manera recursiva hasta llegar a subarreglos de un solo elemento. Debido a que cada subarreglo contiene únicamente un dato, estos se consideran ordenados. A partir de ese punto, el algoritmo comienza el proceso de mezcla y reconstrucción ordenada hasta obtener el arreglo final completamente organizado.
 
-```{r}
-# Función para combinar dos sub-arrays ordenados
-merge_arrays <- function(left, right) {
-  result <- c()
-  
-  # Mientras ambos arrays tengan elementos
-  while (length(left) > 0 && length(right) > 0) {
-    if (left[1] <= right[1]) {
-      result <- c(result, left[1])
-      left <- left[-1] # Elimina el primer elemento
-    } else {
-      result <- c(result, right[1])
-      right <- right[-1] # Elimina el primer elemento
+
+### Implementación en Java
+
+Para la realizacion de este algoritmo necesitaremos dos funciones: una para la lógica recursiva de división (`merge_sort`) y otra para la combinación de dos arrays ya ordenados (`merge_arrays`).
+
+```{java}
+//| eval: false
+public class Mergesort {
+    /*
+     * Metodo encargado de combinar dos subarreglos ordenados
+     * en un unico arreglo ordenado.
+     */
+    public void merge_arrays(int[] arr, int l, int m, int r) {
+
+        // Tamaño del subarreglo izquierdo
+        int n1 = m - l + 1;
+
+        // Tamaño del subarreglo derecho
+        int n2 = r - m;
+
+        // Arreglos auxiliares
+        int[] L = new int[n1];
+        int[] R = new int[n2];
+
+        // Copiar elementos al arreglo izquierdo
+        for (int i = 0; i < n1; i++) {
+            L[i] = arr[l + i];
+        }
+
+        // Copiar elementos al arreglo derecho
+        for (int j = 0; j < n2; j++) {
+            R[j] = arr[m + 1 + j];
+        }
+
+        // Variables de control
+        int i = 0; // Indice del arreglo izquierdo
+        int j = 0; // Indice del arreglo derecho
+        int k = l; // Indice del arreglo principal
+
+
+        //Comparar elementos de ambos arreglos y colocarlos en orden ascendente
+        while (i < n1 && j < n2) {
+            if (L[i] <= R[j]) {
+                arr[k] = L[i];
+                i++;
+            } else {
+                arr[k] = R[j];
+                j++;
+            }
+            k++;
+        }
+
+        //Copiar los elementos restantes del arreglo izquierdo
+        while (i < n1) {
+            arr[k] = L[i];
+            i++;
+            k++;
+        }
+        //Copiar los elementos restantes del arreglo derecho
+        while (j < n2) {
+            arr[k] = R[j];
+            j++;
+            k++;
+        }
     }
-  }
-  
-  # Añade los elementos restantes, si los hay
-  if (length(left) > 0) {
-    result <- c(result, left)
-  }
-  if (length(right) > 0) {
-    result <- c(result, right)
-  }
-  
-  return(result)
-}
 
-# Función principal de Mergesort
-merge_sort <- function(arr) {
-  n <- length(arr)
-  
-  # Caso base: un array con 0 o 1 elemento ya está ordenado
-  if (n <= 1) {
-    return(arr)
-  }
-  
-  # Divide el array en dos mitades
-  mid <- floor(n / 2)
-  left_half <- arr[1:mid]
-  right_half <- arr[(mid + 1):n]
-  
-  # Ordena recursivamente cada mitad
-  sorted_left <- merge_sort(left_half)
-  sorted_right <- merge_sort(right_half)
-  
-  # Combina las mitades ordenadas
-  return(merge_arrays(sorted_left, sorted_right))
+    /*
+     * Metodo principal de Merge Sort.
+     * Divide el arreglo recursivamente.
+     */
+    public void merge_sort(int arr[], int l, int r) {
+        if (l < r) {
+          
+            // Calculo del punto medio
+            int m = l + (r - l) / 2;
+            
+            // Ordenar mitad izquierda
+            merge_sort(arr, l, m);
+            
+            // Ordenar mitad derecha
+            merge_sort(arr, m + 1, r);
+            
+            // Combinar ambas mitades
+            merge_arrays(arr, l, m, r);
+        }
+    }
 }
+```
+
+
+### Implementación en Python
+
+
+```{python}
+#| eval: false
+class Mergesort:
+    # Metodo encargado de combinar dos subarreglos ordenados en un unico arreglo ordenado.
+    def merge_arrays(self, arr, l, m, r):
+
+        # Tamaño del subarreglo izquierdo
+        n1 = m - l + 1
+
+        # Tamaño del subarreglo derecho
+        n2 = r - m
+
+        # Arreglos auxiliares
+        L = [0] * n1
+        R = [0] * n2
+
+        # Copiar elementos al arreglo izquierdo
+        for i in range(n1):
+            L[i] = arr[l + i]
+
+        # Copiar elementos al arreglo derecho
+        for j in range(n2):
+            R[j] = arr[m + 1 + j]
+
+        # Variables de control
+        i = 0   # Indice del arreglo izquierdo
+        j = 0   # Indice del arreglo derecho
+        k = l   # Indice del arreglo principal
+        
+        #Comparar elementos de ambos arreglos y colocarlos en orden ascendente
+        while i < n1 and j < n2:
+            if L[i] <= R[j]:
+                arr[k] = L[i]
+                i += 1
+            else:
+                arr[k] = R[j]
+                j += 1
+            k += 1
+        
+        #Copiar los elementos restantes del arreglo izquierdo
+        while i < n1:
+            arr[k] = L[i]
+            i += 1
+            k += 1
+        
+        #Copiar los elementos restantes del arreglo derecho
+        while j < n2:
+            arr[k] = R[j]
+            j += 1
+            k += 1
+
+   
+    # Metodo principal de Merge Sort Divide el arreglo recursivamente.
+    def merge_sort(self, arr, l, r):
+
+        # Verifica si el arreglo puede seguir dividiendose
+        if l < r:
+            
+            # Calculo del punto medio
+            m = l + (r - l) // 2
+            
+            # Ordenar mitad izquierda
+            self.merge_sort(arr, l, m)
+            
+            # Ordenar mitad izquierda
+            self.merge_sort(arr, m + 1, r)
+            
+            # Combinar ambas mitades
+            self.merge_arrays(arr, l, m, r)
+```
+
+### Implementación en JavaScript
+
+```{JavaScript}
+//| eval: false
+class MergeSort {
+
+    /*
+     * Metodo encargado de combinar dos subarreglos ordenados
+     * en un unico arreglo ordenado.
+     */
+    merge_arrays(arr, l, m, r) {
+
+        // Tamaño del subarreglo izquierdo
+        let n1 = m - l + 1;
+
+        // Tamaño del subarreglo derecho
+        let n2 = r - m;
+
+        // Arreglos auxiliares
+        let L = new Array(n1);
+        let R = new Array(n2);
+
+        // Copiar elementos al arreglo izquierdo
+        for (let i = 0; i < n1; i++) {
+            L[i] = arr[l + i];
+        }
+
+        // Copiar elementos al arreglo derecho
+        for (let j = 0; j < n2; j++) {
+            R[j] = arr[m + 1 + j];
+        }
+
+        // Variables de control
+        let i = 0; // Indice del arreglo izquierdo
+        let j = 0; // Indice del arreglo derecho
+        let k = l; // Indice del arreglo principal
+
+        // Comparar elementos de ambos arreglos y colocarlos en orden ascendente
+        while (i < n1 && j < n2) {
+
+            if (L[i] <= R[j]) {
+                arr[k] = L[i];
+                i++;
+
+            } else {
+                arr[k] = R[j];
+                j++;
+            }
+            k++;
+        }
+
+        // Copiar los elementos restantes del arreglo izquierdo
+        while (i < n1) {
+            arr[k] = L[i];
+            i++;
+            k++;
+        }
+
+        // Copiar los elementos restantes del arreglo derecho
+        while (j < n2) {
+            arr[k] = R[j];
+            j++;
+            k++;
+        }
+    }
+
+    /*
+     * Metodo principal de Merge Sort.
+     * Divide el arreglo recursivamente.
+     */
+    merge_sort(arr, l, r) {
+
+        if (l < r) {
+
+            // Calculo del punto medio
+            let m = l + Math.floor((r - l) / 2);
+
+            // Ordenar mitad izquierda
+            this.merge_sort(arr, l, m);
+
+            // Ordenar mitad derecha
+            this.merge_sort(arr, m + 1, r);
+
+            // Combinar ambas mitades
+            this.merge_arrays(arr, l, m, r);
+        }
+    }
 ```
 
 ### Explicación del Código
 
-#### `merge_arrays(left, right)`:
-1.  **`result <- c()`**: Inicializamos un vector vacío para almacenar el resultado combinado.
-2.  **`while (length(left) > 0 && length(right) > 0)`**: Este bucle compara los primeros elementos de `left` y `right`.
-    *   El elemento más pequeño se añade a `result` y se elimina de su array original usando `left[-1]` o `right[-1]`. **Nota**: La eliminación de elementos al inicio de un vector en R es una operación costosa O(n) que puede impactar el rendimiento real de esta implementación en R. En lenguajes de bajo nivel se usarían punteros o índices.
-3.  **`if (length(left) > 0)` / `if (length(right) > 0)`**: Después del bucle `while`, uno de los arrays podría tener elementos restantes (porque uno se agotó antes que el otro). Estos elementos restantes ya están ordenados y simplemente se añaden al final de `result`.
-4.  **`return(result)`**: Devuelve el array combinado y ordenado.
+#### `merge_arrays(int[] arr, int l, int m, int r)`:
+1.  **`int n1 = m - l + 1` y `int n2 = r - m`**:
+    Calcula el tamaño de los dos subarreglos que se van a combinar.
+    *   `n1` representa el tamaño del subarreglo izquierdo.
+    *   `n2` representa el tamaño del subarreglo derecho.
 
-#### `merge_sort(arr)`:
-1.  **`n <- length(arr)`**: Obtiene la longitud del array.
-2.  **`if (n <= 1)`**: Este es el **caso base** de la recursión. Si el array tiene 0 o 1 elemento, ya está ordenado, así que lo devolvemos tal cual.
-3.  **`mid <- floor(n / 2)`**: Calcula el punto medio para dividir el array.
-4.  **`left_half <- arr[1:mid]` y `right_half <- arr[(mid + 1):n]`**: Crea las dos sub-mitades del array.
-5.  **`sorted_left <- merge_sort(left_half)` y `sorted_right <- merge_sort(right_half)`**: Llama recursivamente a `merge_sort` en cada mitad hasta que se alcanzan los casos base (arrays de un solo elemento).
-6.  **`return(merge_arrays(sorted_left, sorted_right))`**: Una vez que las mitades se han ordenado recursivamente, se fusionan utilizando la función `merge_arrays`.
+2.  **`int[] L = new int[n1]` y `int[] R = new int[n2]`**:
+    Se crean dos arreglos auxiliares temporales para almacenar los elementos de cada mitad del arreglo original.
+
+3.  **`for (int i = 0; i < n1; i++)`**:
+    Copia los elementos de la mitad izquierda del arreglo principal `arr` al arreglo auxiliar `L`.
+
+4.  **`for (int j = 0; j < n2; j++)`**:
+    Copia los elementos de la mitad derecha del arreglo principal `arr` al arreglo auxiliar `R`.
+
+5.  **`while (i < n1 && j < n2)`**:
+    Este bucle compara los elementos de los arreglos auxiliares `L` y `R`.
+    
+    *   Si `L[i] <= R[j]`, el elemento de `L` se coloca en el arreglo principal.
+    *   Caso contrario, el elemento de `R` se coloca en el arreglo principal.
+    
+    Después de cada comparación se incrementan los índices correspondientes.
+
+6.  **`while (i < n1)`**:
+    Si aún quedan elementos restantes en el arreglo izquierdo `L`, estos se copian directamente al arreglo principal.
+
+7.  **`while (j < n2)`**:
+    Si aún quedan elementos restantes en el arreglo derecho `R`, estos también se copian directamente al arreglo principal.
+    
+#### `merge_sort(int arr[], int l, int r)`:
+1.  **`if (l < r)`**:
+    Esta condición verifica si el arreglo puede seguir dividiéndose.
+    
+    *   Si el subarreglo tiene más de un elemento, el algoritmo continúa.
+    *   Si tiene un solo elemento, se considera ordenado y termina la recursión.
+
+2.  **`int m = l + (r - l) / 2`**:
+    Calcula el punto medio del arreglo para dividirlo en dos partes equilibradas.
+
+3.  **`merge_sort(arr, l, m)`**:
+    Llama recursivamente al método para ordenar la mitad izquierda del arreglo.
+
+4.  **`merge_sort(arr, m + 1, r)`**:
+    Llama recursivamente al método para ordenar la mitad derecha del arreglo.
+
+5.  **`merge_arrays(arr, l, m, r)`**:
+    Una vez que ambas mitades están ordenadas, se fusionan utilizando el método `merge_arrays`.
 
 ### Complejidad
 
@@ -262,26 +499,85 @@ merge_sort <- function(arr) {
     *   **Peor caso**: O(n log n).
     *   **Caso promedio**: O(n log n).
     *   **Mejor caso**: O(n log n).
-    Mergesort tiene un rendimiento consistente en todos los casos debido a su estrategia de división equitativa y la naturaleza de la operación de fusión. El factor `log n` viene de las divisiones recursivas, y `n` de la operación de fusión en cada nivel.
-*   **Espacio**: O(n). Mergesort no es un algoritmo "in-place" puro. Requiere espacio adicional para almacenar las sublistas temporales durante la fase de fusión. En nuestra implementación de R, la creación de nuevos vectores en cada paso de `merge_arrays` contribuye a esta complejidad espacial.
+    Mergesort cuenta con la ventaja de ser un algoritmo de ordenamiento estable con una eficiencia constante sin importar si el tamaño de los datos aumenta teniendo un tiempo de ejecucion mejor que otros algoritmos de ordenamiento. El factor `n log n` significa que el tiempo de ejcucion incrementa de manera logaritmica y lineal conforme crce el numeor de elementos. El termino `log n`  proviene de las divisiones recursivas que se realiza sobre el arreglo ya que se divide repetitivamente hasta obtener subarreglos de un solo elemento, y `n` corresponde al proceso de combinar y fucionar donde el algoritmo compara cada elemento para reconstruir el arreglo de manera ordenada. 
+*   **Espacio**: O(n). El Merge Sort no es un algoritmo in-place puro, ya que requiere espacio adicional para almacenar de manera temporal los subarreglos durante la ejecución del algoritmo. Esto ocurre porque la funcion  `merge_arrays` crea arreglos auxiliares para comparar y combinar los elementos, ordenándolos antes de reconstruir el arreglo principal lo que contribuye a su complejidad espacial.
 
 ### Ejemplo
 
-Veamos `merge_sort` en acción.
+Veamos el método 'merge_sort' en acción. Para ello utilizaremos un ejemplo clásico: imaginemos que tenemos una baraja de cartas con diferentes números y queremos ordenarlas de menor a mayor, sin importar su símbolo. 
+Primero, la baraja completa se divide en dos grupos más pequeños. Luego, cada grupo vuelve a dividirse repetidamente hasta obtener grupos de una sola carta. Debido a que una carta individual ya se considera ordenada, el algoritmo comienza a combinar nuevamente los grupos comparando los valores de cada carta.
 
-```{r}
-# Ejemplo 1: Un vector desordenado
-vector_desordenado <- c(38, 27, 43, 3, 9, 82, 10)
-print(paste("Vector original:", paste(vector_desordenado, collapse = ", ")))
-vector_ordenado <- merge_sort(vector_desordenado)
-print(paste("Vector ordenado (Mergesort):", paste(vector_ordenado, collapse = ", ")))
+Si tenemos este arregllo de cartas [4, 5, 9, 2, 10, 1, 8, 6]
 
-# Ejemplo 2: Un vector con elementos duplicados
-vector_duplicados <- c(5, 2, 8, 2, 1, 5, 9)
-print(paste("Vector con duplicados:", paste(vector_duplicados, collapse = ", ")))
-vector_ordenado_dup <- merge_sort(vector_duplicados)
-print(paste("Vector ordenado (Mergesort):", paste(vector_ordenado_dup, collapse = ", ")))
+El algoritmo divide las cartas en grupos más pequeños:[4, 5, 9, 2]    [10, 1, 8, 6]
+
+Luego continúa separándolas: [4, 5] [9, 2] [10, 1] [8, 6]
+
+Hasta obtener grupos individuales: [4] [5] [9] [2] [10] [1] [8] [6]
+
+Finalmente, comienza el proceso de combinación ordenada: [4, 5] [2, 9] [1, 10] [6, 8]
+
+Y el resultado final será: [1, 2, 4, 5, 8, 9, 10]
+
+Lo cual podemos comprobar al ejecutar los códigos presentados, ya que ambos producen el mismo resultado. En cada caso, el algoritmo logra ordenar correctamente los elementos del arreglo principal, obteniendo finalmente una secuencia organizada en orden ascendente.
+
+#### Ejecucion con java
+
+```{java}
+//| eval: false
+public class Main {
+    public static void main(String[] args) {
+        // Instancia de la clase de lógica
+        Mergesort ordenador = new Mergesort();
+
+        // Caso 1: Cartas desordenadas
+        int[] arr1 = {4, 5, 9, 2, 10, 1, 8, 6};
+        System.out.println("Vector original: " + java.util.Arrays.toString(arr1));
+        
+        ordenador.merge_sort(arr1, 0, arr1.length - 1);
+        System.out.println("Vector ordenado: " + java.util.Arrays.toString(arr1));
+
+    }
+}
 ```
+
+#### Ejecucion con Python
+
+```{python}
+#| eval: false
+class Main:
+    @staticmethod
+    def ejecutar():
+        ordenador = Mergesort()
+
+        vector_1 = [4, 5, 9, 2, 10, 1, 8, 6]
+        print(f"Vector original: {vector_1}")
+        ordenador.merge_sort(vector_1, 0, len(vector_1) - 1)
+        print(f"Vector ordenado: {vector_1}")
+
+Main.ejecutar()
+```
+
+#### Ejecucion con JavaScript
+
+```{JavaScript}
+//| eval: false
+function main() {
+    let obj = new MergeSort();
+
+    let arr = [4, 5, 9, 2, 10, 1, 8, 6];
+
+    console.log("Arreglo original: " + arr.join(", "));
+
+    obj.merge_sort(arr, 0, arr.length - 1);
+
+    console.log("Arreglo ordenado: " + arr.join(", "));
+}
+
+// Ejecutar programa principal
+main();
+```
+
 
 ## Quicksort
 
