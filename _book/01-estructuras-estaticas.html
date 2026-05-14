@@ -158,7 +158,6 @@ window.Quarto = {
 };
 </script>
 
-<link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="nav-sidebar floating quarto-light">
@@ -484,6 +483,19 @@ Figura&nbsp;3.1: Tiempo de acceso constante O(1) en arreglos estáticos al conoc
 <p>Imagínate que tienes una fila de autos en el campo de Mannfield, cada uno estacionado perfectamente desde la portería hasta el boost grande naranja. El coach sabe exactamente en qué posición está el Octane, el Fennec y el Breakout, los ubica al instante sin problema. Todo ordenado, como una rotación perfecta.</p>
 <p>Pero de repente llega un Dominus nuevo y el coach decide meterlo justo entre el Octane y el Fennec. El problema es que el Fennec no puede simplemente aparecer en otro lado, tiene que retroceder un lugar, empujando al Breakout, que empuja al siguiente auto, y así hasta el fondo del campo. Todos moviéndose uno por uno como cuando en un partido te chocan en cadena contra la pared.</p>
 <p>Y ahí está el problema: si en vez de 5 autos tienes 50 repartidos por toda la arena, meter uno nuevo al principio significa que los 50 tienen que correrse. Es como intentar reorganizar toda la rotación del equipo en pleno overtime, lento y caótico. Por eso más adelante se buscan estructuras más flexibles, como si cada auto pudiera simplemente saltar a cualquier parte del campo sin arrastrar a nadie más.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Definición Tecnica
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La inserción y eliminación en arreglos (arrays) consiste en agregar o quitar elementos dentro de una estructura ordenada de memoria. El problema principal es que, cuando se inserta o elimina un elemento en una posición intermedia o al inicio, los demás elementos deben desplazarse para mantener el orden, lo que genera un costo de tiempo lineal O(n).</p>
+</div>
+</div>
 <p>Ejemplos en Java, Javascrip y Python</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo en Python de inserciones</span></span>
@@ -516,6 +528,20 @@ Figura&nbsp;3.1: Tiempo de acceso constante O(1) en arreglos estáticos al conoc
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">replay.write</span>(<span class="st">"Derrota de 0-3..."</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>El problema es que escribir en ese archivo es muchísimo más lento que simplemente recordar lo que acabas de jugar, porque acceder al disco siempre tiene su penalización. Por eso los sistemas inteligentes no mandan cada jugada al disco una por una, sino que las acumulan todas en memoria y las escriben de un solo jalón, como esperar el momento exacto para rematar en vez de tirar a gol cada vez que tocas la bola.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Definición Tecnica
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La persistencia de datos es la capacidad de un sistema para almacenar información de manera permanente en medios externos como archivos o bases de datos. A diferencia de la memoria RAM, los datos persistentes permanecen disponibles incluso después de cerrar el programa o apagar el equipo.</p>
+<p>Este proceso permite conservar registros, configuraciones o información importante para su uso futuro. Sin embargo, las operaciones de lectura y escritura suelen ser más lentas que el acceso a memoria principal, ya que dependen del almacenamiento físico del sistema.</p>
+</div>
+</div>
 <p>Ahora presentare dos ejemplos de persintencias realizados en Java y Javascrip:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo en Java</span></span>
@@ -631,7 +657,7 @@ Figura&nbsp;3.1: Tiempo de acceso constante O(1) en arreglos estáticos al conoc
 </section>
 <section id="enlace-del-video" class="level3" data-number="3.6.4">
 <h3 data-number="3.6.4" class="anchored" data-anchor-id="enlace-del-video"><span class="header-section-number">3.6.4</span> Enlace del video</h3>
-<p><a href="https://drive.google.com/drive/folders/1U28nG5ADFKvWmEGWCTL_hIbMUEL8cAh-?usp=sharing">Video del tema</a></p>
+<p><a href="https://drive.google.com/drive/folders/1U28nG5ADFKvWmEGWCTL_hIbMUEL8cAh-?usp=sharing">Material del proyecto</a></p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
