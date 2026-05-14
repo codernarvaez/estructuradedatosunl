@@ -451,7 +451,77 @@ public class Main {
 ### ¿Por qué son importantes?
 
 *   **Rendimiento garantizado:** A diferencia de un árbol de búsqueda binario simple, que puede degenerar en una lista enlazada (y $O(n)$ en el peor caso), los árboles AVL siempre ofrecen un rendimiento $O(\log n)$.
-*   **Aplicaciones:** Son útiles en bases de datos para indexación, sistemas de archivos y cualquier aplicación donde se necesite un diccionario o conjunto ordenado con inserciones y eliminaciones frecuentes y eficientes.
+
+Gracias a su equilibio, las operaciones principales tienen complejidad: 
+$$
+O(log  n)
+$$
+Esto significa que el tiempo de búsqueda aumenta muy poco aunque existen miles o millones de datos. [@adrianarboles]
+
+**Ejemplo**
+Si se almacena números en orden: 10 → 20 → 30 → 40
+
+En un árbol binario simple podría formarse algo parecido a una lista: 
+
+ 10                                          
+   \                                       
+   20                                    
+     \
+      30
+        \
+         40
+La búsqueda sería más lenta. 
+
+En cambio, en el árbol AVL rotaciones para equilibrarse:
+
+    20
+  /   \
+10    30
+        \
+         40 
+Así las búsquedas son mucho más rápidas.
+
+                  
+*  **Aplicaciones:** Son útiles en bases de datos para indexación, sistemas de archivos y cualquier aplicación donde se necesite un diccionario o conjunto ordenado con inserciones y eliminaciones frecuentes y eficientes.
+
+  **Indexación en Base de Datos:** Se utilizan para mantener registros ordenados que requieren búsquedas rápidas, especialmente en escenarios donde las búsquedas son más frecuentes que las actualizaciones. 
+    
+  **Sistemas de Archivos:** Los sistemas de archivos utilizan árboles AVL para gestionar eficientemente directorios y estructuras de archivos, lo que permite búsquedas, inserciones y eliminaciones rápidas de archivos.
+    
+  **Diccionario y Conjuntos:** Son ideales para implementar estructuras de datos de tipo diccionario (mapas) o conjuntos donde el orden de los elementos es importante y se necesitan búsquedas y modificaciones frecuentes.[@gurin2004arboles] 
+
+     
+*   **Auto - Equilibrio:** La diferencia de altura entre los subárboles izquierdo y derecho de cualquier nodo (factor equilibrio) es máximo 1. Esto se mantiene mediante rotaciones (simples o dobles) tras cada inserción o eliminación. 
+La diferencia entre la altura del subárbol izquierdo y derecho de un nodo no puede ser mayor que
+A esto se le llama factor de equilibrio. 
+
+$$
+Factor = Altura(Izquierda) − Altura(Derecha)
+$$
+Los valores permitidos son: -1, 0, 1
+Si el árbol pierde el equilibrio, se realizan rotaciones para corregirlo. [@gonzalez2004visualizacion] 
+
+**Ejemplo** 
+Al insertar los números: 30, 20, 10 
+El árbol queda desbalanceado:
+
+       30
+      /
+    20
+   /
+ 10
+ 
+Entonces se aplica una rotación simple a la derecha y el árbol queda:
+
+   20
+  /  \
+10    30
+
+*   **Busqueda rápida:** Al mantener la altura lo más baja posible (logarítmica), el tiempo para localizar datos es constante y rápido, ideal para conjuntos de datos grandes.  
+
+**Ejemplo**
+Un sistema universitario podría usar árboles AVL para buscar rápidamente: estudiantes, materias, códigos y calificaciones.
+En lugar de revisar todos los registros uno por uno, el árbol permite encontrar datos en pocos pasos. 
 
 ### Árboles AVL y R
 
