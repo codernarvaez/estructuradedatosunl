@@ -245,6 +245,44 @@ System.out.println("El cromo en la posición [1][2] es el número: " + paginaAlb
 
 La cadena de caracteres es como el álbum del Mundial de Fútbol: cada página es una cadena de texto, un arreglo fijo de huecos para stickers de jugadores como "Messi" o "Mbappé". En lenguajes como Java o Python, estas cadenas son objetos inmutables, como un álbum plastificado que no puedes mover ni borrar stickers una vez pegados; Internamente usan un arreglo estático de caracteres terminados por un marcador invisible (\0), para saber dónde acaba.
 
+La declaracion de cadenas de caracteres suele variar un poco, pero en si, la sintaxis es la misma, por ejemplo:
+```{java eval=FALSE}
+// EJEMPLO DE CADENA DE CARACTERES EN JAVA
+
+public class EjemploCadena {
+    public static void main(String[] args) {
+
+        // Cadena con nombres de jugadores
+        String jugador = "Messi";
+
+        // Mostrar la cadena completa
+        System.out.println("Jugador favorito: " + jugador);
+
+        // Acceder a un carácter específico
+        System.out.println("Primera letra: " + jugador.charAt(0));
+
+        // Longitud de la cadena
+        System.out.println("Cantidad de letras: " + jugador.length());
+    }
+}
+```
+
+```{python eval=FALSE}
+# EJEMPLO DE CADENA DE CARACTERES EN PYTHON
+
+# Cadena con nombre de jugador
+jugador = "Mbappé"
+
+# Mostrar la cadena completa
+print("Jugador favorito:", jugador)
+
+# Acceder a un carácter específico
+print("Primera letra:", jugador[0])
+
+# Longitud de la cadena
+print("Cantidad de letras:", len(jugador))
+```
+
 **La Trampa del Rendimiento (Eficiencia $\mathcal{O}(N^2)$)**
 
 El problema surge cuando quieres "agregar" una figurita. Como el álbum no cambia, la computadora se ve obligada a comprar un álbum nuevo más grande, copiar todas las figuritas que ya tenías y recién ahí pegar la nueva. Si haces esto figurita por figurita, el proceso se vuelve lentísimo y pesado (O(N^2)); por eso, para pegar miles de fotos, es mejor usar un StringBuilder, que funciona como una carpeta de ganchos donde agregas hojas sin tener que desechar todo el álbum cada vez.
