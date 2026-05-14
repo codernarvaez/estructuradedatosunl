@@ -1,5 +1,6 @@
 /.quarto/
 **/*.quarto_ipynb
+<<<<<<< HEAD
 
 .vscode/
 
@@ -58,3 +59,8 @@ images/
 01-estructuras-estaticas.qmd
 
 _quarto.yml
+=======
+.Rproj.user
+>>>>>>> origin/develop
+
+estructuradedatosunlGrupoH.Rproj

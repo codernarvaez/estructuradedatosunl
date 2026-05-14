@@ -1,5 +1,6 @@
 ---
 title: "Estructuras No Lineales"
+        "Grafos y arboles
 ---
 
 ¡Hola a todos y bienvenidos a este capítulo sobre Estructuras No Lineales en R! En el mundo de la programación y el análisis de datos, no todo es una tabla bonita o un vector secuencial. A menudo, la información que manejamos tiene relaciones complejas, jerarquías o interconexiones que las estructuras de datos lineales simplemente no pueden representar de manera eficiente o intuitiva. Aquí es donde entran en juego los **grafos** y los **árboles binarios**.
@@ -13,6 +14,21 @@ En este capítulo, además exploraremos cómo R nos permite trabajar con estas e
 
 
 
+Los grafos y los árboles son estructuras fundamentales en informática y matemáticas, usadas para representar relaciones entre elementos.
+
+Las principales semejanzas de estas dos estructuras de datos no lineales: Grafos y arboles son:
+
+1. Estan formados por nodos y aristas.
+2. Representan relaciones, y ambos sirven para modelar conexiones entre elementos.
+3. Se pueden recorrer de manera transversal, pues ambos algoritmos sirven para buscar informacion dentro de la estructura.
+4. Se utilizan en informatica y en programacion para Bases de datos, redes y sistemas de recomendacion.
+5. Ambos pueden representarse graficamente y se visualizan como diagrama de puntos(nodos) conectados por lineas(aristas).
+6. Ambos modelan estructuras en la vida real y se usan para representar: jerarquias, redes, dependencias.
+
+NOTA: Un punto clave a mencionar es que todo arbol es un grafo, pero no todo grafo es un arbol.
+
+Hasta ahora hemos visto las semejanzas y las relaciones de estas dos estructuras de datos no lineales, ahora a continuacion veremos cada estructura de datos no lineales, por separado y daremos una breve conclusion de los grafos y de los arboles como estructuras de datos no lineales.
+
 ## Grafos: Tejiendo Redes de Relaciones
 
 ### ¿Qué es un grafo? 
@@ -24,9 +40,43 @@ variables, arreglos y listas. Pero llega un momento donde necesitamos representa
 Imagina que tienes un grupo de amigos y quieres representar **quién se conoce con quién**.
 Una forma sería hacer una lista:
 
+<<<<<<< HEAD
 - Ana conoce a Bruno
 - Bruno conoce a Carlos
 - Carlos conoce a Diana
+=======
+*   **Dirigidos (Directed)**: En estos, cada arista (i,j) tiene una
+    dirección específica que va desde el vértice fuente i hacia el
+    vértice objetivo j . Los caminos en estos grafos deben seguir el
+    sentido de las flechas.
+*   **No Dirigidos (Undirected)**: Son aquellos donde la relación entre
+    vértices es simétrica; es decir, la arista (i,j) está presente si y
+    solo si también existe la arista (j,i).
+*   **Ponderados (Weighted)**: Aunque las fuentes no dedican un capítulo
+    exclusivo a los grafos ponderados (o pesados), mencionan
+    explícitamente cómo se pueden implementar y en qué contextos se
+    utilizan: Implementación mediante Objetos: En el esquema de Listas
+    de Adyacencia, las fuentes sugieren que las aristas pueden ser
+    tratadas como "objetos de primera clase" que contienen sus propios
+    datos asociados . Estos datos asociados son los "pesos" o "costos"
+    de la arista. Contexto Algorítmico: Se menciona el algoritmo de
+    Dijkstra para encontrar el camino más corto . Este algoritmo es el
+    uso principal de los grafos ponderados, donde cada arista tiene un
+    peso que representa una distancia o un costo . Implementación en
+    Matriz: Aunque la implementación básica usa booleanos, las fuentes
+    señalan que se pueden usar valores enteros en la matriz para
+    realizar operaciones algebraicas, como calcular el número de caminos
+    de una longitud específica entre dos vértices.
+*   **No Ponderados (Unweighted)**:  La mayor parte de la discusión
+    técnica en las fuentes sobre la representación de grafos se centra
+    en los grafos no ponderados. En estos, la relación entre dos
+    vértices es binaria: la arista existe o no existe . Representación
+    en Matriz de Adyacencia: Se utiliza una matriz de n×n donde las
+    entradas son valores booleanos (true si existe la arista, false si
+    no) . Representación en Listas de Adyacencia: Se mantiene un arreglo
+    de listas donde cada lista adj\[i\] simplemente contiene los índices
+    de los vértices hacia los cuales apunta una arista desde i
+>>>>>>> origin/develop
 
 Pero esa lista se vuelve imposible de leer cuando tienes muchas personas. Ahora imagina
 que en cambio dibujas un **círculo por cada persona** y trazas una **línea entre los que
@@ -713,6 +763,7 @@ plot(g3,
      edge.color       = "gray40")
 ```
 
+<<<<<<< HEAD
 ::: {.callout-tip icon="true"}
 ##  `layout_nicely()` vs otros layouts
 `igraph` ofrece varios algoritmos para distribuir los nodos visualmente:
@@ -738,6 +789,10 @@ plot(g3,
 
 ## Propiedades y Análisis de Grafos
 
+=======
+## Propiedades y Análisis de Grafos
+
+>>>>>>> origin/develop
 Usaremos como ejemplo una red social pequeña con cinco personas:
 
 **1-Alice, 2- Bob 3-Carol, 4-Dave, 5-Eve**
@@ -746,7 +801,11 @@ Usaremos como ejemplo una red social pequeña con cinco personas:
 
 Una vez que tenemos nuestro grafo, podemos consultar:
 
+<<<<<<< HEAD
 
+=======
+---
+>>>>>>> origin/develop
 
 ### ¿Cuántos vértices y aristas tiene el grafo?
 
@@ -757,8 +816,13 @@ vcount(g3)  # Número de personas en la red  = 5
 ecount(g3)  # Número de conexiones          = 7
 ```
 
+<<<<<<< HEAD
 
 
+=======
+---
+
+>>>>>>> origin/develop
 ### ¿Cuántas conexiones tiene cada persona? — Grado (`degree`)
 
 El **grado** de un vértice es cuántas conexiones tiene.
@@ -766,7 +830,11 @@ En un grafo **dirigido** (las aristas tienen dirección, como en las redes socia
 distinguimos dos tipos:
 
 | Tipo | Significado | Analogía                  |
+<<<<<<< HEAD
 |---|---|---|
+=======
+|------|-------------|---------------------------|
+>>>>>>> origin/develop
 | `in-degree` | Conexiones que **llegan** al nodo | Cuántas personas te siguen a ti |
 | `out-degree` | Conexiones que **salen** del nodo | A cuántas personas sigues tú |
 | `all` | Suma de ambas | Actividad total en la red |
@@ -792,7 +860,11 @@ all:        Alice=2  Bob=3  Carol=3  Dave=3  Eve=3
 - **Eve** tiene `out-degree = 0`: recibe información pero no la transmite.
 :::
 
+<<<<<<< HEAD
 
+=======
+---
+>>>>>>> origin/develop
 
 ### ¿Están todos conectados entre sí? — Componentes conectados
 
@@ -827,7 +899,11 @@ Los componentes desconectados son comunidades que no tienen
 contacto entre sí. La información no puede saltar entre componentes sin un puente.
 :::
 
+<<<<<<< HEAD
 
+=======
+---
+>>>>>>> origin/develop
 
 ### ¿Cuál es el camino más corto entre dos personas? — `shortest_paths()`
 
@@ -857,7 +933,11 @@ Cuanto más corto el camino, más "cercanas" están dos personas en la red,
 aunque no se conozcan directamente.
 :::
 
+<<<<<<< HEAD
 
+=======
+---
+>>>>>>> origin/develop
 
 ### ¿Quién es el más "influyente" o "central"? — Métricas de centralidad
 
@@ -904,6 +984,49 @@ closeness(g3, normalized = TRUE)
 ```
 
 **Resultado aproximado:**
+<<<<<<< HEAD
+=======
+
+```
+Alice=0.80  Bob=0.65  Carol=0.40  Dave=0.60  Eve=0.00
+```
+
+**Interpretación:**
+- **Alice** tiene el closeness más alto: puede llegar a todos en pocos pasos.
+- **Eve** tiene closeness = 0: no tiene aristas salientes, no puede "llegar" a nadie.
+
+::: {.callout-tip}
+## Analogía
+El almacén con mayor closeness es el que tiene mejor ubicación geográfica
+para distribuir mercancía a todos los puntos de entrega en el menor tiempo posible.
+:::
+
+---
+
+### Comparación
+
+| Métrica | Pregunta  | Ejemplo  |
+|---|---|---|
+| **Degree** | ¿Cuántas conexiones tiene? | Influencer con muchos seguidores |
+| **Betweenness** | ¿Por cuántos caminos pasa? | Empleado puente entre departamentos |
+| **Closeness** | ¿Qué tan cerca está de todos? | Almacén con mejor ubicación |
+
+---
+
+::: {.callout-tip}
+## ¿Para qué sirven estas métricas en la práctica?
+
+- **Epidemiología:** identificar a las personas con mayor betweenness para romper
+  cadenas de contagio con vacunación focalizada.
+- **Marketing:** encontrar los influencers clave (alto degree + alto closeness)
+  para campañas virales.
+- **Logística:** ubicar centros de distribución óptimos (máximo closeness).
+- **Seguridad informática:** detectar nodos críticos cuya caída colapsaría
+  la red (alto betweenness).
+- **Ciencias sociales:** entender quién tiene poder informal en una organización,
+  más allá del organigrama oficial.
+:::
+>>>>>>> origin/develop
 
 ```
 Alice=0.80  Bob=0.65  Carol=0.40  Dave=0.60  Eve=0.00
