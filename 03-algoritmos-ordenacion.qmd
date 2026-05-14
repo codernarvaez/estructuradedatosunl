@@ -2,15 +2,100 @@
 
 
 
-## Definición e Importancia (Henry)
-<!-- 
-Indicaciones: 
-- Define qué es un algoritmo de ordenación.
-- Explica por qué son fundamentales (entrada/salida).
-- Menciona la relevancia en la eficiencia de otros procesos.
--->
+## **Bubble Sort**
 
-[Escribe aquí tu contenido...]
+### **Concepto**
+El **Bubble Sort** El Bubble Sort es un algoritmo de ordenamiento que organiza los elementos de una lista o vector mediante una relación de orden específica. El procedimiento técnico consiste en recorrer la estructura de datos comparando elementos adyacentes e intercambiando sus posiciones si se encuentran en el orden incorrecto. Este proceso se repite de forma iterativa hasta que se completa una pasada sin realizar intercambios, lo que confirma que la lista está ordenada. Es clasificado como un algoritmo de comparación estable y se considera el más ineficiente en términos asintóticos debido a su alto costo computacional. Su función principal en la actualidad es pedagógica, sirviendo para introducir conceptos de algoritmia a estudiantes de ciencias de la computación.
+
+---
+
+### **Codigo en java**
+
+```java
+public static void bubbleSort(int[] arr) {
+    int n = arr.length;
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+}
+```
+
+#### **Explicacion del codigo**
+El código utiliza un bucle externo que determina el número de iteraciones necesarias sobre el arreglo y un bucle interno que realiza las comparaciones directas entre el elemento en la posición j y el elemento en j + 1. Si el valor de la izquierda es superior al de la derecha, se realiza un intercambio de valores utilizando una variable auxiliar temp. El algoritmo presenta la deficiencia de volver a comparar segmentos del vector que ya han sido procesados y ordenados en iteraciones previas.
+
+#### **complejidad del algoritmo**
+*   **Peor caso y Caso promedio:** **O(n^2)**, ya que el número de comparaciones depende del cuadrado del número de términos.
+*   **Mejor caso:** **\Omega(n^2)** en su forma básica, ya que está forzado a pasar por todas las comparaciones aunque la lista ya esté ordenada. No obstante, versiones optimizadas pueden alcanzar **O(n)** si no se realizan intercambios.
+*   **Espacio:** **O(1)**, pues es un algoritmo "en el lugar" (in-place).
+
+#### **Ejemplo**
+Considerando el arreglo :
+
+* Se comparan el primer y segundo elemento **(4 y 2)**: como 2 < 4, se intercambian.
+* Se comparan el segundo y tercer elemento **(4 y 6)**: ya están en orden, no hay cambio.
+* Se comparan el tercer y cuarto elemento **(6 y 3)**: como 3 < 6, se intercambian.
+* Se comparan los ultimos dos elementos **(6 y 9)**: ya están en orden.
+
+---
+
+### **Codigo en python**
+
+```python
+def bubble_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        for j in range(0, n - i - 1):
+            if arr[j] > arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+```
+
+#### **Explicacion del codigo**
+La implementación en Python sigue la lógica de comparaciones adyacentes dentro de un rango que se reduce en cada iteración del bucle externo mediante la expresión n - i - 1. Esto optimiza el proceso al evitar la revisión de los elementos que ya han sido posicionados correctamente al final del arreglo en pasadas anteriores.
+
+#### **complejidad del algoritmo**
+El rendimiento en casos desfavorables, como una lista en orden inverso, genera un número de comparaciones e intercambios proporcional a n^2. Es un algoritmo estable, lo que garantiza que el orden relativo de elementos con valores idénticos se mantenga tras la ejecución.
+
+#### **Ejemplo**
+En una segunda pasada sobre el resultado anterior:
+
+*   **2 < 4**: no hay intercambio.
+*   **4 > 3**: se intercambian.
+*   El algoritmo requiere una pasada completa sin intercambios para confirmar que la lista está totalmente ordenada.
+
+---
+
+### **Codigo en javascript**
+
+```javascript
+function bubbleSort(arr) {
+  let n = arr.length;
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < n - i - 1; j++) {
+      if (arr[j] > arr[j + 1]) {
+        [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+      }
+    }
+  }
+  return arr;
+}
+```
+
+#### **Explicacion del codigo**
+En JavaScript, el algoritmo itera a través de la lista permitiendo que los valores extremos se desplacen hacia las posiciones finales mediante intercambios sucesivos. La sintaxis de desestructuración de arreglos  `[arr[j], arr[j + 1]] = [arr[j + 1], arr[j]] ` permite realizar el intercambio de posiciones sin necesidad de declarar explícitamente una variable temporal.
+
+#### **complejidad del algoritmo**
+La complejidad temporal se mantiene en `O(n^2)`, lo que lo hace significativamente más lento que algoritmos como el Quick Sort o Merge Sort. Pruebas experimentales en entornos de ejecución como Java indican que puede ser hasta 5 veces más lento que el ordenamiento por inserción.
+
+#### **Ejemplo**
+En un tercer paso por la lista , el algoritmo realizará todas las comparaciones (`2 vs 3`, `3 vs 4`, etc.) y, al no encontrar intercambios necesarios, finalizará el proceso.
+
+---
 
 ---
 
