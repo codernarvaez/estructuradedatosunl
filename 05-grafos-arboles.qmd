@@ -1132,4 +1132,4 @@ Hemos recorrido un camino fascinante por el mundo de las estructuras no lineales
 
 Dominar estas estructuras amplía enormemente su capacidad para abordar problemas de datos más complejos y estructurados. Sigan experimentando con `igraph` y, si se sienten aventureros, intenten implementar algoritmos básicos de árboles binarios en R para solidificar su comprensión.
 
-¡Hasta la próxima!
+¡Hasta la próxima! :)
