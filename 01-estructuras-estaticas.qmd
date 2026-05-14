@@ -1,7 +1,10 @@
 ---
 title: "Capítulo 1: Estructuras Estáticas"
 author: "Experto en Ciencias de la Computación"
-format: html
+format:
+  html:
+    theme: cosmo
+    css: styles.css
 ---
 
 ## Introducción {#sec-intro-estaticas}
@@ -358,4 +361,4 @@ Agregar un menú interactivo con lo siguiente(usar Scanner):
 [estructuradedatosunl_Grupo4](https://github.com/sebastiancordova-sudo/estructuradedatosunl_Grupo4.git?utm_source=chatgpt.com)
 
 ### Enlace del video
-[Material del proyecto](https://drive.google.com/drive/folders/1U28nG5ADFKvWmEGWCTL_hIbMUEL8cAh-?usp=sharing)
+[Video del tema](https://drive.google.com/drive/folders/1U28nG5ADFKvWmEGWCTL_hIbMUEL8cAh-?usp=sharing)
