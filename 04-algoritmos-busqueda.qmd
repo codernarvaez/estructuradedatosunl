@@ -249,9 +249,11 @@ Sin embargo, su principal desventaja es su eficiencia.
 -   **Complejidad Temporal (Best Case):** O(1). En el mejor de los casos (cuando el elemento es el primero), solo necesita una comparación.
 -   **Complejidad Temporal (Average Case):** O(n). En promedio, revisará `n/2` elementos.
 
-La búsqueda secuencial es apropiada para: \* Conjuntos de datos pequeños.
-\* Datos que no están ordenados y ordenar los datos sería más costoso que realizar la búsqueda secuencial.
-\* Cuando solo se necesitan realizar unas pocas búsquedas.
+La búsqueda secuencial es apropiada para:
+
+-   Conjuntos de datos pequeños.
+-   Datos que no están ordenados y ordenar los datos sería más costoso que realizar la búsqueda secuencial.
+-   Cuando solo se necesitan realizar unas pocas búsquedas.
 
 Para conjuntos de datos grandes, la búsqueda secuencial puede ser muy lenta.
 Es aquí donde la búsqueda binaria brilla.
@@ -630,9 +632,11 @@ En cada paso, el algoritmo reduce el espacio de búsqueda a la mitad.
 
 -   **Complejidad Temporal:** O(log n). Esto significa que el tiempo de ejecución crece logarítmicamente con el tamaño de los datos. Para un vector de 1 millón de elementos, la búsqueda binaria podría necesitar solo unas 20 comparaciones (log₂ de 1,000,000 es aproximadamente 19.9), mientras que la búsqueda secuencial podría necesitar hasta 1 millón.
 
-La búsqueda binaria es ideal para: \* Grandes conjuntos de datos.
-\* Cuando los datos están (o pueden estar) ordenados.
-\* Cuando se realizan muchas búsquedas en el mismo conjunto de datos (amortizando el costo de ordenamiento inicial).
+La búsqueda binaria es ideal para: 
+
+- Grandes conjuntos de datos.
+- Cuando los datos están (o pueden estar) ordenados.
+- Cuando se realizan muchas búsquedas en el mismo conjunto de datos (amortizando el costo de ordenamiento inicial).
 
 ## Comparación y Cuándo Usar Cada Uno
 
@@ -661,3 +665,28 @@ La eficiencia de sus programas a menudo depende de estas decisiones algorítmica
 ¡Sigan practicando y experimentando con estos algoritmos!
 La próxima vez que necesiten encontrar algo en un conjunto de datos, podrán tomar una decisión informada sobre la mejor estrategia de búsqueda.
 ¡Hasta el próximo capítulo!
+
+## Reto de Programación: "Goles del Mundial"
+
+Durante un partido del Mundial, se registraron los minutos exactos en los que se marcaron los goles.
+Desarrolle un programa que implemente el algoritmo de búsqueda que considere más eficiente para responder las siguientes consultas sobre el partido mediante los métodos:
+
+-   `buscarGol(int minuto)`: retorna la posición del gol si existe, de lo contrario, `-1`.
+-   `golesAntesDe(int minuto)`: retorna cuántos goles se marcaron antes del minuto indicado.
+-   `golesDespuesDe(int minuto)`: retorna cuántos goles se marcaron después del minuto indicado.
+-   `golesEnRango(int inicio, int fin)`: retorna todos los goles anotados entre dos minutos (inclusive).
+
+Utilice el siguiente arreglo de datos:
+
+``` java
+int[] minutosGoles = {12, 27, 35, 42, 48, 51, 67, 73, 85, 90};
+```
+
+### Restricciones
+
+-   Debe utilizar uno de los algoritmos de búsqueda estudiados: **búsqueda secuencial** o **búsqueda binaria**.
+
+### Análisis Final
+
+Al finalizar, indique cuál algoritmo de búsqueda utilizó y explique por qué lo considera el más adecuado para resolver este problema, mencionando su complejidad temporal.
+
