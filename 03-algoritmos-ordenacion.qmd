@@ -138,7 +138,7 @@ for (let num of nums) {
 
 ### Complejidad
 
-    *   **Tiempo**:
+*   **Tiempo**:
     *   **Peor caso**: O(n^2). Ocurre al momento de listar al reves, en el ejercicio esto ocurre al momento de crear el arreglo
     *   **Caso promedio**: O(n^2). El programa va a realizar las comparaciones de los dos ciclos por completo, como son 6 numeros nos daria aproximadamente 36 comparaciones
     
@@ -331,7 +331,7 @@ El algoritmo funciona siguiento tres pasos principales:
 Este proceso continúa ejecutándose de manera recursiva hasta llegar a subarreglos de un solo elemento. Debido a que cada subarreglo contiene únicamente un dato, estos se consideran ordenados. A partir de ese punto, el algoritmo comienza el proceso de mezcla y reconstrucción ordenada hasta obtener el arreglo final completamente organizado.
 
 
-### Implementación en Java ![](images/p-80-java.webp){width=10% fig-align="left"}
+### Implementación en Java ![](images/p-80-java.png){width=10% fig-align="left"}
 
 Para la realizacion de este algoritmo necesitaremos dos funciones: una para la lógica recursiva de división (`merge_sort`) y otra para la combinación de dos arrays ya ordenados (`merge_arrays`).
 
@@ -494,7 +494,7 @@ class Mergesort:
             self.merge_arrays(arr, l, m, r)
 ```
 
-### Implementación en JavaScript ![](images/javascript.webp){width=10% fig-align="left"}
+### Implementación en JavaScript ![](images/javascript.png){width=10% fig-align="left"}
 
 ```javascript
 class MergeSort {
@@ -937,7 +937,7 @@ def quick_sort(arr):
     *   **Mejor caso**: O(n log n). Ocurre cuando el pivote divide la lista en dos mitades aproximadamente iguales
     *   **Caso promedio**: O(n log n). Con pivotes aleatorios o datos distribuidos uniformemente.
     *   **Peor caso**: O(n²): Ocurre cuando el pivote siempre es el elemento más pequeño o más grande 
-*   **Complejidad espaciall**:
+*   **Complejidad espacial**:
     *   **O(n log n) en el peor caso**: Debido a que creamos nuevas listas en cada nivel de recursión.
     *   Esta implementación no es "in-place", por lo que utiliza más memoria que una versión optimizada con índices.
 
