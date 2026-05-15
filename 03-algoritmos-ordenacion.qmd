@@ -1,11 +1,15 @@
-# Algoritmos de Ordenación: Guía Técnica
+---
+  title: "Algoritmos de Ordenación"
+  bibliography: references.bib
+---
 
+# Algoritmos de Ordenación: Guía Técnica
 
 
 ## **Bubble Sort**
 
 ### **Concepto**
-El **Bubble Sort** El Bubble Sort es un algoritmo de ordenamiento que organiza los elementos de una lista o vector mediante una relación de orden específica. El procedimiento técnico consiste en recorrer la estructura de datos comparando elementos adyacentes e intercambiando sus posiciones si se encuentran en el orden incorrecto. Este proceso se repite de forma iterativa hasta que se completa una pasada sin realizar intercambios, lo que confirma que la lista está ordenada. Es clasificado como un algoritmo de comparación estable y se considera el más ineficiente en términos asintóticos debido a su alto costo computacional. Su función principal en la actualidad es pedagógica, sirviendo para introducir conceptos de algoritmia a estudiantes de ciencias de la computación.
+El **Bubble Sort** El Bubble Sort es un algoritmo de ordenamiento que organiza los elementos de una lista o vector mediante una relación de orden específica. El procedimiento técnico consiste en recorrer la estructura de datos comparando elementos adyacentes e intercambiando sus posiciones si se encuentran en el orden incorrecto. Este proceso se repite de forma iterativa hasta que se completa una pasada sin realizar intercambios, lo que confirma que la lista está ordenada. Es clasificado como un algoritmo de comparación estable y se considera el más ineficiente en términos asintóticos debido a su alto costo computacional. Su función principal en la actualidad es pedagógica, sirviendo para introducir conceptos de algoritmia a estudiantes de ciencias de la computación[@freeCodeCamp2023][@EcuRedBubble].
 
 ---
 
