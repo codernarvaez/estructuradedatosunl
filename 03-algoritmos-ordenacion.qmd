@@ -668,10 +668,9 @@ Y el resultado final será: `[1, 2, 4, 5, 8, 9, 10]`
 
 Lo cual podemos comprobar al ejecutar los códigos presentados, ya que ambos producen el mismo resultado. En cada caso, el algoritmo logra ordenar correctamente los elementos del arreglo principal, obteniendo finalmente una secuencia organizada en orden ascendente.
 
-#### Ejecucion con java ![](images/p-80-java.webp){width=10% fig-align="left"}
+#### Ejecucion con java ![](images/p-80-java.png){width=10% fig-align="left"}
 
 ```java
-//| eval: false
 public class Main {
     public static void main(String[] args) {
         // Instancia de la clase de lógica
@@ -691,7 +690,6 @@ public class Main {
 #### Ejecucion con Python ![](images/Python-Emblem.png){width=10% fig-align="left"}
 
 ```python
-#| eval: false
 class Main:
     @staticmethod
     def ejecutar():
@@ -705,7 +703,7 @@ class Main:
 Main.ejecutar()
 ```
 
-#### Ejecucion con JavaScript ![](images/javascript.webp){width=10% fig-align="left"}
+#### Ejecucion con JavaScript ![](images/javascript.png){width=10% fig-align="left"}
 
 ```javascript
 function main() {
@@ -752,23 +750,12 @@ Particion y pivote
 
 2. **Partición**: SU objetivo es mover todos los elementos más pequeños que el pivote a su izquierda y todos los elementos más grandes a su derecha. 
 
-### Implementación en Java
+### Implementación en Java ![](images/java111.png){width=70% fig-align="center"}
 
-::: {style="display: grid; grid-template-columns: 3fr 1fr; grid-gap: 18px;"}
-
-::: {}
 Implementaremos `quick_sort` en Java. Esta implementación es una versión 
 simplificada que crea nuevos arrays en cada paso de la partición, lo cual 
 es más fácil de entender pero menos eficiente en espacio que una 
 implementación "in-place" con índices.
-:::
-
-::: {style="margin-left: 20px; margin-top: -15px;"}
-![](images/java111.png){width=80%}
-:::
-
-:::
-
 
 ```java
 public class QuickSort {
@@ -829,7 +816,8 @@ public class QuickSort {
         int[] result = new int[sortedLess.length + 1 + sortedGreater.length];
         System.arraycopy(sortedLess, 0, result, 0, sortedLess.length);
         result[sortedLess.length] = pivot;
-        System.arraycopy(sortedGreater, 0, result, sortedLess.length + 1, sortedGreater.length);
+        System.arraycopy(sortedGreater, 0, result, sortedLess.length + 1, 
+        sortedGreater.length);
         
         return result;
     }
@@ -878,19 +866,9 @@ int[] vector_ordenado_neg = quick_sort(vector_negativos);
 System.out.print("Vector ordenado (Quicksort): " + Arrays.toString(vector_ordenado_neg));
 ```
 
-### Implementación en Python
-::: {style="display: grid; grid-template-columns: 3fr 1fr; grid-gap: 18px;"}
+### Implementación en Python ![](images/Python.svg.png){width=70% fig-align="center"}
 
-::: {}
 Implementaremos `quick_sort` en Java. Esta implementacion es una versión simplificada que crea nueva listas en cada paso de la partición, lo cual es más idiomático en Python pero menos eficiente en especio que una implementación "in-place" con índices.
-:::
-
-::: {style="margin-left: 20px; margin-top: -15px;"}
-![](images/Python.svg.png){width=80%}
-
-:::
-
-:::
 
 ```python
 def quick_sort(arr):
@@ -965,17 +943,9 @@ vector_ordenado_dup = quick_sort(vector_duplicados)
 print(f"Vector ordenado (Quicksort): {vector_ordenado_dup}")
 ```
 
-### Implementación en JavaScript
-::: {style="display: grid; grid-template-columns: 3fr 1fr; grid-gap: 18px;"}
+### Implementación en JavaScript ![](images/js.png){width=70% fig-align="center"}
 
-::: {}
 Implementaremos `quick_sort` en JavaScript. Esta implementacion es unaversión simplificada que crea nuevos arrays en cada paso de la partición, lo cual es más idiomático en JavaScript pero menos eficiente en especio que una implementación "in-place" con índices.
-:::
-
-::: {style="margin-left: 20px; margin-top: -15px;"}
-![](images/js.png){width=80%}
-:::
-:::
 
 ```js
 function quick_sort(arr) {
