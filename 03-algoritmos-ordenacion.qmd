@@ -10,106 +10,6 @@ Los algoritmos de ordenamiento tienen una gran importancia dentro del campo de l
 En este capítulo, exploraremos algunos de los algoritmos de ordenación más conocidos y fundamentales: Burbuja (Bubble Sort), Inserción (Insertion Sort), Mergesort y Quicksort.
 
 
-## **Insertion Sort**
-
-### **Concepto**
-El **Insertion Sort** (ordenación por inserción) es un algoritmo de ordenamiento simple diseñado para procesar una cantidad pequeña de elementos. Su funcionamiento técnico consiste en recorrer un arreglo desde el segundo elemento (índice 1) y compararlo, tratándolo como una "clave" (key), con los elementos precedentes. Si los elementos anteriores son mayores que la clave, el algoritmo los desplaza una posición hacia adelante para permitir la inserción del valor clave en su lugar correspondiente. Se clasifica como un algoritmo de comparación **no recursivo**, **estable** (mantiene el orden de elementos con claves iguales) y **en el lugar** (in-place), lo que significa que no requiere memoria adicional significativa para su ejecución. En términos de rendimiento práctico, es superior al Bubble Sort, siendo hasta 5 veces más rápido en implementaciones en Java[@freeCodeCamp2023].
-
----
-
-### **Codigo en java**
-
-```java
-public static void insertionSort(int[] arr) {
-    int n = arr.length;
-    for (int i = 1; i < n; i++) {
-        int key = arr[i];
-        int j = i - 1;
-        while (j >= 0 && arr[j] > key) {
-            arr[j + 1] = arr[j];
-            j = j - 1;
-        }
-        arr[j + 1] = key;
-    }
-}
-```
-
-#### **Explicacion del codigo**
-El procedimiento inicia la iteración en el índice 1 del arreglo. El valor en la posición actual se almacena en la variable `key`. Un bucle interno retrocede por los elementos anteriores (índice `j`); mientras estos sean mayores que la clave, se desplazan una posición a la derecha. Finalmente, la clave se inserta en la posición vacía generada.
-
-#### **complejidad del algoritmo**
-*   **Temporal (Peor y promedio):** $O(n^2)$, ocurre cuando el arreglo está ordenado de forma inversa o aleatoria.
-*   **Temporal (Mejor caso):** $O(n)$, sucede cuando el arreglo ya se encuentra ordenado, requiriendo solo una pasada.
-*   **Espacial:** $O(1)$, ya que las operaciones de ordenamiento se ejecutan directamente sobre el arreglo original (in-place).
-
-#### **Ejemplo**
-Dado el arreglo inicial :
-
-1.  **Paso 1:** Clave = 3. Como $8 > 3$, el 8 se mueve a la derecha. 
-2.  **Paso 2:** Clave = 5. Como $8 > 5$, el 8 se mueve a la derecha. 
-3.  **Paso 3:** Clave = 1. Se desplazan consecutivamente 8, 5 y 3 para insertar el 1 al inicio.
-
----
-
-### **Código en python**
-
-```python
-def insertion_sort(arr):
-    for i in range(1, len(arr)):
-        key = arr[i]
-        j = i - 1
-        while j >= 0 and key < arr[j]:
-            arr[j + 1] = arr[j]
-            j -= 1
-        arr[j + 1] = key
-```
-
-#### **Explicacion del codigo**
-La implementación en Python utiliza un ciclo `for` para recorrer la lista y un ciclo `while` para realizar los desplazamientos necesarios hacia la derecha. Esta técnica es fundamental en algoritmos modernos como el **Timsort**, que es una mezcla de Insertion Sort y Merge Sort utilizada por defecto en las funciones de ordenamiento nativas de Python.
-
-#### **complejidad del algoritmo**
-Mantiene una complejidad temporal de **$O(n^2)$** en casos desfavorables. Es un algoritmo **estable**, garantizando que no se altere el orden relativo de elementos que posean valores idénticos.
-
-#### **Ejemplo**
-En una lista, al procesar la clave 5:
-
-1.  Se compara 5 con 8. Dado que $8 > 5$, el 8 se desplaza.
-2.  Se compara 5 con 4. Dado que $4 < 5$, el desplazamiento se detiene y el 5 se inserta en la posición inmediatamente posterior al 4.
-
----
-
-### **Codigo en javascript**
-
-```javascript
-function insertionSort(arr) {
-  for (let i = 1; i < arr.length; i++) {
-    let key = arr[i];
-    let j = i - 1;
-    while (j >= 0 && arr[j] > key) {
-      arr[j + 1] = arr[j];
-      j--;
-    }
-    arr[j + 1] = key;
-  }
-  return arr;
-}
-```
-
-#### **Explicacion del codigo**
-El algoritmo itera desde la segunda posición del arreglo, extrayendo el elemento clave y comparándolo de forma regresiva con los elementos ya procesados a su izquierda. Los elementos se desplazan hacia la derecha hasta localizar el punto de inserción exacto para la clave.
-
-#### **complejidad del algoritmo**
-La complejidad temporal promedio es **$O(n^2)$**, lo que lo hace menos eficiente para grandes conjuntos de datos en comparación con algoritmos de orden $O(n \log n)$. No obstante, su bajo consumo de recursos (espacio **$O(1)$**) lo hace adecuado para sistemas con limitaciones de memoria.
-
-#### **Ejemplo**
-Con el arreglo:
-
-1.  La clave 1 se compara con 6, 4, 3 y 2 consecutivamente.
-2.  Cada uno de estos elementos se desplaza un lugar a la derecha.
-3.  El 1 se inserta en el índice 0, resultando en la lista final ordenada:.
-
-
-
 ## Burbuja (Bubble Sort)
 
 ### Concepto
@@ -315,164 +215,422 @@ for (let i = 0; i < size; i++) {
 
 console.log(nums.join(" "));
 ```
-## Inserción (Insertion Sort)
+
+## **Insertion Sort**
+
+### **Concepto**
+El **Insertion Sort** (ordenación por inserción) es un algoritmo de ordenamiento simple diseñado para procesar una cantidad pequeña de elementos. Su funcionamiento técnico consiste en recorrer un arreglo desde el segundo elemento (índice 1) y compararlo, tratándolo como una "clave" (key), con los elementos precedentes. Si los elementos anteriores son mayores que la clave, el algoritmo los desplaza una posición hacia adelante para permitir la inserción del valor clave en su lugar correspondiente. Se clasifica como un algoritmo de comparación **no recursivo**, **estable** (mantiene el orden de elementos con claves iguales) y **en el lugar** (in-place), lo que significa que no requiere memoria adicional significativa para su ejecución. En términos de rendimiento práctico, es superior al Bubble Sort, siendo hasta 5 veces más rápido en implementaciones en Java[@freeCodeCamp2023].
+
+En este capítulo, exploraremos algunos de los algoritmos de ordenación más conocidos y fundamentales: Burbuja (Bubble Sort), Inserción (Insertion Sort), Mergesort y Quicksort. Analizaremos su funcionamiento, implementaremos cada uno en R con bloques de código ejecutables y discutiremos sus características de rendimiento, incluyendo su complejidad temporal y espacial.
+
+### **Codigo en java**
+
+```java
+public static void insertionSort(int[] arr) {
+    int n = arr.length;
+    for (int i = 1; i < n; i++) {
+        int key = arr[i];
+        int j = i - 1;
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j = j - 1;
+        }
+        arr[j + 1] = key;
+    }
+}
+```
+
+#### **Explicacion del codigo**
+El procedimiento inicia la iteración en el índice 1 del arreglo. El valor en la posición actual se almacena en la variable `key`. Un bucle interno retrocede por los elementos anteriores (índice `j`); mientras estos sean mayores que la clave, se desplazan una posición a la derecha. Finalmente, la clave se inserta en la posición vacía generada.
+
+#### **complejidad del algoritmo**
+*   **Temporal (Peor y promedio):** $O(n^2)$, ocurre cuando el arreglo está ordenado de forma inversa o aleatoria.
+*   **Temporal (Mejor caso):** $O(n)$, sucede cuando el arreglo ya se encuentra ordenado, requiriendo solo una pasada.
+*   **Espacial:** $O(1)$, ya que las operaciones de ordenamiento se ejecutan directamente sobre el arreglo original (in-place).
+
+#### **Ejemplo**
+Dado el arreglo inicial :
+
+1.  **Paso 1:** Clave = 3. Como $8 > 3$, el 8 se mueve a la derecha. 
+2.  **Paso 2:** Clave = 5. Como $8 > 5$, el 8 se mueve a la derecha. 
+3.  **Paso 3:** Clave = 1. Se desplazan consecutivamente 8, 5 y 3 para insertar el 1 al inicio.
+
+El algoritmo de ordenación por burbuja es uno de los más sencillos de entender e implementar. Su nombre proviene del hecho de que los elementos más "grandes" (o más "pesados", si imaginamos burbujas) "flotan" gradualmente hacia el final de la lista a medida que se realizan comparaciones y posibles intercambios.
+
+
+### **Código en python**
+
+```python
+def insertion_sort(arr):
+    for i in range(1, len(arr)):
+        key = arr[i]
+        j = i - 1
+        while j >= 0 and key < arr[j]:
+            arr[j + 1] = arr[j]
+            j -= 1
+        arr[j + 1] = key
+```
+
+#### **Explicacion del codigo**
+La implementación en Python utiliza un ciclo `for` para recorrer la lista y un ciclo `while` para realizar los desplazamientos necesarios hacia la derecha. Esta técnica es fundamental en algoritmos modernos como el **Timsort**, que es una mezcla de Insertion Sort y Merge Sort utilizada por defecto en las funciones de ordenamiento nativas de Python.
+
+#### **complejidad del algoritmo**
+Mantiene una complejidad temporal de **$O(n^2)$** en casos desfavorables. Es un algoritmo **estable**, garantizando que no se altere el orden relativo de elementos que posean valores idénticos.
+
+#### **Ejemplo**
+En una lista, al procesar la clave 5:
+
+1.  Se compara 5 con 8. Dado que $8 > 5$, el 8 se desplaza.
+2.  Se compara 5 con 4. Dado que $4 < 5$, el desplazamiento se detiene y el 5 se inserta en la posición inmediatamente posterior al 4.
+
+### **Codigo en javascript**
+
+```javascript
+function insertionSort(arr) {
+  for (let i = 1; i < arr.length; i++) {
+    let key = arr[i];
+    let j = i - 1;
+    while (j >= 0 && arr[j] > key) {
+      arr[j + 1] = arr[j];
+      j--;
+    }
+    arr[j + 1] = key;
+  }
+  return arr;
+}
+```
+
+#### **Explicacion del codigo**
+El algoritmo itera desde la segunda posición del arreglo, extrayendo el elemento clave y comparándolo de forma regresiva con los elementos ya procesados a su izquierda. Los elementos se desplazan hacia la derecha hasta localizar el punto de inserción exacto para la clave.
+
+#### **complejidad del algoritmo**
+La complejidad temporal promedio es **$O(n^2)$**, lo que lo hace menos eficiente para grandes conjuntos de datos en comparación con algoritmos de orden $O(n \log n)$. No obstante, su bajo consumo de recursos (espacio **$O(1)$**) lo hace adecuado para sistemas con limitaciones de memoria.
+
+#### **Ejemplo**
+Con el arreglo:
+
+1.  La clave 1 se compara con 6, 4, 3 y 2 consecutivamente.
+2.  Cada uno de estos elementos se desplaza un lugar a la derecha.
+3.  El 1 se inserta en el índice 0, resultando en la lista final ordenada:.
+
+
+## Merge Sort
 
 ### Concepto
 
-El algoritmo de ordenación por inserción funciona de manera similar a cómo ordenaríamos un mazo de cartas en nuestra mano. Recorremos la lista elemento por elemento, tomando cada elemento y "insertándolo" en la posición correcta dentro de la parte ya ordenada de la lista.
+Merge Sort es un algoritmo de ordenamiento avanzado quee se base en el pricipio de “Divide y Vencerás”, utilizado con frecuencia para sistemas que requieren alto redimiento, estabilidad y eficiencia al trabajar con grandes volúmenes de datos.[@asin2021medicion] Su principal ventaja es mantener un tiempo de ejcucion predecibles incluso cuando el tamaño de los datos aumenta. El funcionamiento del Merge Sort consiste en dividir de manera repetitiva un arreglo en partes mas pequeñas hasta obtener subproblemas de un solo elemento que se lo considera ordenado.[@gurin2004algoritmos] Posteriormente el argorroritmo empieza a mezclar de manera ordenada comparando sus elementos hasta reconstruir completamente el arreglo original, pero ahora organizado en orden ascendente. Este proceso puede imaginarse como el ordenamiento de una baraja de cartas. Si intentáramos ordenarla de manera tradicional, tendríamos que revisar varias veces las mismas cartas para determinar su posición correcta. Sin embargo, al aplicar el principio de “Divide y Vencerás”, la baraja puede dividirse en grupos más pequeños, facilitando el ordenamiento de cada parte por separado. Permitiendo que los grupos ya ordenados se vuelven a unir poco a poco hasta obtener toda la baraja organizada.
 
-La lista se divide conceptualmente en dos partes: una sublista ordenada (inicialmente solo el primer elemento) y el resto de elementos desordenados. En cada paso, se toma el primer elemento de la parte desordenada y se compara con los elementos de la sublista ordenada, desplazando los elementos mayores que él para hacer espacio y luego insertándolo en su posición correcta.
+![Cartas ordenadas mediante Merge Sort](images/000059.jpg){width=70% fig-align="center"}
 
-### Implementación en R
+El algoritmo funciona siguiento tres pasos principales:
 
-Implementaremos `insertion_sort` en R.
+1.  **Dividir**: Si el arreglo contiene varios elemento este se divide a la mitad en dos subgrupos diferentes reduciendo el problema en partes mas pequeñas.
+2.  **Vencer**: Una vez divididos en subgrupos se aplica el mismo procesos de divicion de manera recursiva a cada subgrupo hasta obtener subarreglos de un solo elemento.
+3.  **Combinar (Merge)**: Finalmente todos los subarreglos se unen de forma ordenada comparando cada uno de sus elementos colocandolos en sus posicion correcta hasta formar un nuevo super arreglo.
 
-```{r}
-insertion_sort <- function(arr) {
-  n <- length(arr)
-  
-  # Itera desde el segundo elemento hasta el final
-  for (i in 2:n) {
-    key <- arr[i] # Elemento actual a insertar
-    j <- i - 1     # Índice del último elemento de la sublista ordenada
-    
-    # Mueve los elementos de arr[0..i-1], que son mayores que key,
-    # una posición adelante de su posición actual
-    while (j >= 1 && arr[j] > key) {
-      arr[j + 1] <- arr[j]
-      j <- j - 1
+Este proceso continúa ejecutándose de manera recursiva hasta llegar a subarreglos de un solo elemento. Debido a que cada subarreglo contiene únicamente un dato, estos se consideran ordenados. A partir de ese punto, el algoritmo comienza el proceso de mezcla y reconstrucción ordenada hasta obtener el arreglo final completamente organizado.
+
+
+### Implementación en Java ![](images/p-80-java.webp){width=10% fig-align="left"}
+
+Para la realizacion de este algoritmo necesitaremos dos funciones: una para la lógica recursiva de división (`merge_sort`) y otra para la combinación de dos arrays ya ordenados (`merge_arrays`).
+
+```{java}
+//| eval: false
+public class Mergesort {
+    /*
+     * Metodo encargado de combinar dos subarreglos ordenados
+     * en un unico arreglo ordenado.
+     */
+    public void merge_arrays(int[] arr, int l, int m, int r) {
+
+        // Tamaño del subarreglo izquierdo
+        int n1 = m - l + 1;
+
+        // Tamaño del subarreglo derecho
+        int n2 = r - m;
+
+        // Arreglos auxiliares
+        int[] L = new int[n1];
+        int[] R = new int[n2];
+
+        // Copiar elementos al arreglo izquierdo
+        for (int i = 0; i < n1; i++) {
+            L[i] = arr[l + i];
+        }
+
+        // Copiar elementos al arreglo derecho
+        for (int j = 0; j < n2; j++) {
+            R[j] = arr[m + 1 + j];
+        }
+
+        // Variables de control
+        int i = 0; // Indice del arreglo izquierdo
+        int j = 0; // Indice del arreglo derecho
+        int k = l; // Indice del arreglo principal
+
+
+        //Comparar elementos de ambos arreglos y colocarlos en orden ascendente
+        while (i < n1 && j < n2) {
+            if (L[i] <= R[j]) {
+                arr[k] = L[i];
+                i++;
+            } else {
+                arr[k] = R[j];
+                j++;
+            }
+            k++;
+        }
+
+        //Copiar los elementos restantes del arreglo izquierdo
+        while (i < n1) {
+            arr[k] = L[i];
+            i++;
+            k++;
+        }
+        //Copiar los elementos restantes del arreglo derecho
+        while (j < n2) {
+            arr[k] = R[j];
+            j++;
+            k++;
+        }
     }
-    
-    # Inserta key en su posición correcta
-    arr[j + 1] <- key
-  }
-  return(arr)
-}
-```
 
-### Explicación del Código
-
-1.  **`insertion_sort(arr)`**: Nuestra función toma un vector `arr` como entrada.
-2.  **`n <- length(arr)`**: Obtenemos la longitud del vector.
-3.  **`for (i in 2:n)`**: Este bucle exterior comienza desde el segundo elemento (`i=2`) porque asumimos que el primer elemento (`arr[1]`) ya es una sublista ordenada de un solo elemento.
-4.  **`key <- arr[i]`**: `key` es el elemento actual que queremos insertar en la sublista ordenada.
-5.  **`j <- i - 1`**: `j` es el índice del último elemento de la sublista ya ordenada.
-6.  **`while (j >= 1 && arr[j] > key)`**: Este bucle `while` se encarga de:
-    *   Comparar `key` con los elementos de la sublista ordenada (`arr[j]`).
-    *   Si un elemento `arr[j]` es mayor que `key`, lo desplaza una posición a la derecha (`arr[j + 1] <- arr[j]`).
-    *   `j` se decrementa para moverse hacia el inicio de la sublista ordenada, buscando el lugar correcto para `key`.
-7.  **`arr[j + 1] <- key`**: Una vez que el bucle `while` termina (ya sea porque `j` llegó a 0 o porque `arr[j]` es menor o igual que `key`), significa que `j + 1` es la posición correcta para insertar `key`.
-8.  **`return(arr)`**: La función devuelve el vector ordenado.
-
-### Complejidad
-
-*   **Tiempo**:
-    *   **Peor caso**: O(n^2). Ocurre cuando el array está ordenado en orden inverso. Cada elemento debe ser comparado y desplazado a través de casi toda la sublista ordenada.
-    *   **Caso promedio**: O(n^2).
-    *   **Mejor caso**: O(n). Si el array ya está ordenado, cada elemento se compara solo con el elemento adyacente anterior, lo que resulta en un tiempo lineal.
-*   **Espacio**: O(1). Es un algoritmo "in-place".
-
-### Ejemplo
-
-Veamos `insertion_sort` en acción.
-
-```{r}
-# Ejemplo 1: Un vector desordenado
-vector_desordenado <- c(12, 11, 13, 5, 6)
-print(paste("Vector original:", paste(vector_desordenado, collapse = ", ")))
-vector_ordenado <- insertion_sort(vector_desordenado)
-print(paste("Vector ordenado (Insertion Sort):", paste(vector_ordenado, collapse = ", ")))
-
-# Ejemplo 2: Un vector pequeño
-vector_pequeño <- c(4, 1, 3, 2)
-print(paste("Vector pequeño:", paste(vector_pequeño, collapse = ", ")))
-vector_ordenado_p <- insertion_sort(vector_pequeño)
-print(paste("Vector ordenado (Insertion Sort):", paste(vector_ordenado_p, collapse = ", ")))
-```
-
-## Mergesort
-
-### Concepto
-
-Mergesort es un algoritmo de ordenación eficiente y estable que sigue el paradigma "divide y vencerás". Su principio es dividir el array de entrada en dos mitades, ordenar cada mitad recursivamente, y luego combinar (fusionar) las dos mitades ordenadas para producir el array final ordenado.
-
-Los pasos principales son:
-1.  **Dividir**: Si la lista tiene más de un elemento, divídela en dos sublistas aproximadamente iguales.
-2.  **Conquistar**: Ordena recursivamente cada sublista utilizando Mergesort.
-3.  **Combinar (Merge)**: Fusiona las dos sublistas ordenadas en una única lista ordenada. La fase de combinación es donde ocurre la mayor parte del trabajo.
-
-La recursión termina cuando la sublista tiene un solo elemento, ya que una lista de un solo elemento se considera ordenada por definición.
-
-### Implementación en R
-
-Necesitaremos dos funciones: una para la lógica recursiva de división (`merge_sort`) y otra para la combinación de dos arrays ya ordenados (`merge_arrays`).
-
-```{r}
-# Función para combinar dos sub-arrays ordenados
-merge_arrays <- function(left, right) {
-  result <- c()
-  
-  # Mientras ambos arrays tengan elementos
-  while (length(left) > 0 && length(right) > 0) {
-    if (left[1] <= right[1]) {
-      result <- c(result, left[1])
-      left <- left[-1] # Elimina el primer elemento
-    } else {
-      result <- c(result, right[1])
-      right <- right[-1] # Elimina el primer elemento
+    /*
+     * Metodo principal de Merge Sort.
+     * Divide el arreglo recursivamente.
+     */
+    public void merge_sort(int arr[], int l, int r) {
+        if (l < r) {
+          
+            // Calculo del punto medio
+            int m = l + (r - l) / 2;
+            
+            // Ordenar mitad izquierda
+            merge_sort(arr, l, m);
+            
+            // Ordenar mitad derecha
+            merge_sort(arr, m + 1, r);
+            
+            // Combinar ambas mitades
+            merge_arrays(arr, l, m, r);
+        }
     }
-  }
-  
-  # Añade los elementos restantes, si los hay
-  if (length(left) > 0) {
-    result <- c(result, left)
-  }
-  if (length(right) > 0) {
-    result <- c(result, right)
-  }
-  
-  return(result)
-}
-
-# Función principal de Mergesort
-merge_sort <- function(arr) {
-  n <- length(arr)
-  
-  # Caso base: un array con 0 o 1 elemento ya está ordenado
-  if (n <= 1) {
-    return(arr)
-  }
-  
-  # Divide el array en dos mitades
-  mid <- floor(n / 2)
-  left_half <- arr[1:mid]
-  right_half <- arr[(mid + 1):n]
-  
-  # Ordena recursivamente cada mitad
-  sorted_left <- merge_sort(left_half)
-  sorted_right <- merge_sort(right_half)
-  
-  # Combina las mitades ordenadas
-  return(merge_arrays(sorted_left, sorted_right))
 }
 ```
 
-### Explicación del Código
 
-#### `merge_arrays(left, right)`:
-1.  **`result <- c()`**: Inicializamos un vector vacío para almacenar el resultado combinado.
-2.  **`while (length(left) > 0 && length(right) > 0)`**: Este bucle compara los primeros elementos de `left` y `right`.
-    *   El elemento más pequeño se añade a `result` y se elimina de su array original usando `left[-1]` o `right[-1]`. **Nota**: La eliminación de elementos al inicio de un vector en R es una operación costosa O(n) que puede impactar el rendimiento real de esta implementación en R. En lenguajes de bajo nivel se usarían punteros o índices.
-3.  **`if (length(left) > 0)` / `if (length(right) > 0)`**: Después del bucle `while`, uno de los arrays podría tener elementos restantes (porque uno se agotó antes que el otro). Estos elementos restantes ya están ordenados y simplemente se añaden al final de `result`.
-4.  **`return(result)`**: Devuelve el array combinado y ordenado.
+### Implementación en Python ![](images/Python-Emblem.png){width=10% fig-align="left"}
 
-#### `merge_sort(arr)`:
-1.  **`n <- length(arr)`**: Obtiene la longitud del array.
-2.  **`if (n <= 1)`**: Este es el **caso base** de la recursión. Si el array tiene 0 o 1 elemento, ya está ordenado, así que lo devolvemos tal cual.
-3.  **`mid <- floor(n / 2)`**: Calcula el punto medio para dividir el array.
-4.  **`left_half <- arr[1:mid]` y `right_half <- arr[(mid + 1):n]`**: Crea las dos sub-mitades del array.
-5.  **`sorted_left <- merge_sort(left_half)` y `sorted_right <- merge_sort(right_half)`**: Llama recursivamente a `merge_sort` en cada mitad hasta que se alcanzan los casos base (arrays de un solo elemento).
-6.  **`return(merge_arrays(sorted_left, sorted_right))`**: Una vez que las mitades se han ordenado recursivamente, se fusionan utilizando la función `merge_arrays`.
+
+```{python}
+#| eval: false
+class Mergesort:
+    # Metodo encargado de combinar dos subarreglos ordenados en un unico arreglo ordenado.
+    def merge_arrays(self, arr, l, m, r):
+
+        # Tamaño del subarreglo izquierdo
+        n1 = m - l + 1
+
+        # Tamaño del subarreglo derecho
+        n2 = r - m
+
+        # Arreglos auxiliares
+        L = [0] * n1
+        R = [0] * n2
+
+        # Copiar elementos al arreglo izquierdo
+        for i in range(n1):
+            L[i] = arr[l + i]
+
+        # Copiar elementos al arreglo derecho
+        for j in range(n2):
+            R[j] = arr[m + 1 + j]
+
+        # Variables de control
+        i = 0   # Indice del arreglo izquierdo
+        j = 0   # Indice del arreglo derecho
+        k = l   # Indice del arreglo principal
+        
+        #Comparar elementos de ambos arreglos y colocarlos en orden ascendente
+        while i < n1 and j < n2:
+            if L[i] <= R[j]:
+                arr[k] = L[i]
+                i += 1
+            else:
+                arr[k] = R[j]
+                j += 1
+            k += 1
+        
+        #Copiar los elementos restantes del arreglo izquierdo
+        while i < n1:
+            arr[k] = L[i]
+            i += 1
+            k += 1
+        
+        #Copiar los elementos restantes del arreglo derecho
+        while j < n2:
+            arr[k] = R[j]
+            j += 1
+            k += 1
+
+   
+    # Metodo principal de Merge Sort Divide el arreglo recursivamente.
+    def merge_sort(self, arr, l, r):
+
+        # Verifica si el arreglo puede seguir dividiendose
+        if l < r:
+            
+            # Calculo del punto medio
+            m = l + (r - l) // 2
+            
+            # Ordenar mitad izquierda
+            self.merge_sort(arr, l, m)
+            
+            # Ordenar mitad izquierda
+            self.merge_sort(arr, m + 1, r)
+            
+            # Combinar ambas mitades
+            self.merge_arrays(arr, l, m, r)
+```
+
+### Implementación en JavaScript ![](images/javascript.webp){width=10% fig-align="left"}
+
+```{JavaScript}
+class MergeSort {
+
+    /*
+     * Metodo encargado de combinar dos subarreglos ordenados
+     * en un unico arreglo ordenado.
+     */
+    merge_arrays(arr, l, m, r) {
+
+        // Tamaño del subarreglo izquierdo
+        let n1 = m - l + 1;
+
+        // Tamaño del subarreglo derecho
+        let n2 = r - m;
+
+        // Arreglos auxiliares
+        let L = new Array(n1);
+        let R = new Array(n2);
+
+        // Copiar elementos al arreglo izquierdo
+        for (let i = 0; i < n1; i++) {
+            L[i] = arr[l + i];
+        }
+
+        // Copiar elementos al arreglo derecho
+        for (let j = 0; j < n2; j++) {
+            R[j] = arr[m + 1 + j];
+        }
+
+        // Variables de control
+        let i = 0; // Indice del arreglo izquierdo
+        let j = 0; // Indice del arreglo derecho
+        let k = l; // Indice del arreglo principal
+
+        // Comparar elementos de ambos arreglos y colocarlos en orden ascendente
+        while (i < n1 && j < n2) {
+
+            if (L[i] <= R[j]) {
+                arr[k] = L[i];
+                i++;
+
+            } else {
+                arr[k] = R[j];
+                j++;
+            }
+            k++;
+        }
+
+        // Copiar los elementos restantes del arreglo izquierdo
+        while (i < n1) {
+            arr[k] = L[i];
+            i++;
+            k++;
+        }
+
+        // Copiar los elementos restantes del arreglo derecho
+        while (j < n2) {
+            arr[k] = R[j];
+            j++;
+            k++;
+        }
+    }
+
+    /*
+     * Metodo principal de Merge Sort.
+     * Divide el arreglo recursivamente.
+     */
+    merge_sort(arr, l, r) {
+
+        if (l < r) {
+
+            // Calculo del punto medio
+            let m = l + Math.floor((r - l) / 2);
+
+            // Ordenar mitad izquierda
+            this.merge_sort(arr, l, m);
+
+            // Ordenar mitad derecha
+            this.merge_sort(arr, m + 1, r);
+
+            // Combinar ambas mitades
+            this.merge_arrays(arr, l, m, r);
+        }
+    }
+```
+
+### Explicación del Código (Java)
+
+#### `merge_arrays(int[] arr, int l, int m, int r)`:
+1.  **`int n1 = m - l + 1` y `int n2 = r - m`**:
+    Calcula el tamaño de los dos subarreglos que se van a combinar.
+    *   `n1` representa el tamaño del subarreglo izquierdo.
+    *   `n2` representa el tamaño del subarreglo derecho.
+
+2.  **`int[] L = new int[n1]` y `int[] R = new int[n2]`**:
+    Se crean dos arreglos auxiliares temporales para almacenar los elementos de cada mitad del arreglo original.
+
+3.  **`for (int i = 0; i < n1; i++)`**:
+    Copia los elementos de la mitad izquierda del arreglo principal `arr` al arreglo auxiliar `L`.
+
+4.  **`for (int j = 0; j < n2; j++)`**:
+    Copia los elementos de la mitad derecha del arreglo principal `arr` al arreglo auxiliar `R`.
+
+5.  **`while (i < n1 && j < n2)`**:
+    Este bucle compara los elementos de los arreglos auxiliares `L` y `R`.
+    
+    *   Si `L[i] <= R[j]`, el elemento de `L` se coloca en el arreglo principal.
+    *   Caso contrario, el elemento de `R` se coloca en el arreglo principal.
+    
+    Después de cada comparación se incrementan los índices correspondientes.
+
+6.  **`while (i < n1)`**:
+    Si aún quedan elementos restantes en el arreglo izquierdo `L`, estos se copian directamente al arreglo principal.
+
+7.  **`while (j < n2)`**:
+    Si aún quedan elementos restantes en el arreglo derecho `R`, estos también se copian directamente al arreglo principal.
+    
+#### `merge_sort(int arr[], int l, int r)`:
+1.  **`if (l < r)`**:
+    Esta condición verifica si el arreglo puede seguir dividiéndose.
+    
+    *   Si el subarreglo tiene más de un elemento, el algoritmo continúa.
+    *   Si tiene un solo elemento, se considera ordenado y termina la recursión.
+
+2.  **`int m = l + (r - l) / 2`**:
+    Calcula el punto medio del arreglo para dividirlo en dos partes equilibradas.
+
+3.  **`merge_sort(arr, l, m)`**:
+    Llama recursivamente al método para ordenar la mitad izquierda del arreglo.
+
+4.  **`merge_sort(arr, m + 1, r)`**:
+    Llama recursivamente al método para ordenar la mitad derecha del arreglo.
+
+5.  **`merge_arrays(arr, l, m, r)`**:
+    Una vez que ambas mitades están ordenadas, se fusionan utilizando el método `merge_arrays`.
 
 ### Complejidad
 
@@ -480,122 +638,106 @@ merge_sort <- function(arr) {
     *   **Peor caso**: O(n log n).
     *   **Caso promedio**: O(n log n).
     *   **Mejor caso**: O(n log n).
-    Mergesort tiene un rendimiento consistente en todos los casos debido a su estrategia de división equitativa y la naturaleza de la operación de fusión. El factor `log n` viene de las divisiones recursivas, y `n` de la operación de fusión en cada nivel.
-*   **Espacio**: O(n). Mergesort no es un algoritmo "in-place" puro. Requiere espacio adicional para almacenar las sublistas temporales durante la fase de fusión. En nuestra implementación de R, la creación de nuevos vectores en cada paso de `merge_arrays` contribuye a esta complejidad espacial.
+    
+::: {.callout-note title="Importante" collapse="true"}
+Mergesort cuenta con la ventaja de ser un algoritmo de ordenamiento estable con una eficiencia constante sin importar si el tamaño de los datos aumenta teniendo un tiempo de ejecucion mejor que otros algoritmos de ordenamiento. El factor `n log n` significa que el tiempo de ejcucion incrementa de manera logaritmica y lineal conforme crce el numeor de elementos. El termino `log n`  proviene de las divisiones recursivas que se realiza sobre el arreglo ya que se divide repetitivamente hasta obtener subarreglos de un solo elemento, y `n` corresponde al proceso de combinar y fucionar donde el algoritmo compara cada elemento para reconstruir el arreglo de manera ordenada. 
+:::
+    
+*   **Espacio**: O(n). 
+
+::: {.callout-note title="Importante" collapse="true"}
+El Merge Sort no es un algoritmo in-place puro, ya que requiere espacio adicional para almacenar de manera temporal los subarreglos durante la ejecución del algoritmo. Esto ocurre porque la funcion  `merge_arrays` crea arreglos auxiliares para comparar y combinar los elementos, ordenándolos antes de reconstruir el arreglo principal lo que contribuye a su complejidad espacial.
+:::
 
 ### Ejemplo
 
-Veamos `merge_sort` en acción.
+Veamos el método `merge_sort` en acción. Para ello utilizaremos un ejemplo clásico: imaginemos que tenemos una baraja de cartas con diferentes números y queremos ordenarlas de menor a mayor, sin importar su símbolo. 
+Primero, la baraja completa se divide en dos grupos más pequeños. Luego, cada grupo vuelve a dividirse repetidamente hasta obtener grupos de una sola carta. Debido a que una carta individual ya se considera ordenada, el algoritmo comienza a combinar nuevamente los grupos comparando los valores de cada carta.
 
-```{r}
-# Ejemplo 1: Un vector desordenado
-vector_desordenado <- c(38, 27, 43, 3, 9, 82, 10)
-print(paste("Vector original:", paste(vector_desordenado, collapse = ", ")))
-vector_ordenado <- merge_sort(vector_desordenado)
-print(paste("Vector ordenado (Mergesort):", paste(vector_ordenado, collapse = ", ")))
+Si tenemos este arreglo de cartas: `[4, 5, 9, 2, 10, 1, 8, 6]`
 
-# Ejemplo 2: Un vector con elementos duplicados
-vector_duplicados <- c(5, 2, 8, 2, 1, 5, 9)
-print(paste("Vector con duplicados:", paste(vector_duplicados, collapse = ", ")))
-vector_ordenado_dup <- merge_sort(vector_duplicados)
-print(paste("Vector ordenado (Mergesort):", paste(vector_ordenado_dup, collapse = ", ")))
-```
+El algoritmo divide las cartas en grupos más pequeños: `[4, 5, 9, 2] [10, 1, 8, 6]`
 
-## Quicksort
+Luego continúa separándolas: `[4, 5] [9, 2] [10, 1] [8, 6]`
 
-### Concepto
+Hasta obtener grupos individuales: `[4] [5] [9] [2] [10] [1] [8] [6]`
 
-Quicksort es otro algoritmo de ordenación eficiente basado en el paradigma "divide y vencerás". Es considerado uno de los algoritmos de ordenación más rápidos en la práctica para grandes conjuntos de datos no estructurados.
+Finalmente, comienza el proceso de combinación ordenada: `[4, 5] [2, 9] [1, 10] [6, 8]`
 
-El funcionamiento básico es el siguiente:
-1.  **Elegir un Pivote**: Selecciona un elemento del array, llamado "pivote". La elección del pivote es crucial para el rendimiento.
-2.  **Particionar**: Reordena el array de modo que todos los elementos con valores menores que el pivote queden a su izquierda, y todos los elementos con valores mayores queden a su derecha. Los elementos iguales al pivote pueden ir a cualquiera de los dos lados. Después de la partición, el pivote está en su posición final ordenada.
-3.  **Recursión**: Aplica Quicksort recursivamente a la sublista de elementos con valores menores que el pivote y a la sublista de elementos con valores mayores que el pivote.
+Y el resultado final será: `[1, 2, 4, 5, 8, 9, 10]`
 
-La recursión termina cuando una sublista tiene cero o un elemento, ya que ya están ordenados.
+Lo cual podemos comprobar al ejecutar los códigos presentados, ya que ambos producen el mismo resultado. En cada caso, el algoritmo logra ordenar correctamente los elementos del arreglo principal, obteniendo finalmente una secuencia organizada en orden ascendente.
 
-### Implementación en R
+#### Ejecucion con java ![](images/p-80-java.webp){width=10% fig-align="left"}
 
-Implementaremos `quick_sort` en R. Esta implementación es una versión simplificada que crea nuevos vectores en cada paso de la partición, lo cual es más idiomático en R pero menos eficiente en espacio que una implementación "in-place" con punteros.
+```{java}
+//| eval: false
+public class Main {
+    public static void main(String[] args) {
+        // Instancia de la clase de lógica
+        Mergesort ordenador = new Mergesort();
 
-```{r}
-quick_sort <- function(arr) {
-  n <- length(arr)
-  
-  # Caso base: un array con 0 o 1 elemento ya está ordenado
-  if (n <= 1) {
-    return(arr)
-  }
-  
-  # Elegir un pivote. Aquí usamos el último elemento por simplicidad.
-  # Otras estrategias incluyen elegir el primero, el del medio, o un pivote aleatorio.
-  pivot_index <- n
-  pivot <- arr[pivot_index]
-  
-  # Separar los elementos menores y mayores que el pivote
-  # Excluimos el pivote del array original antes de la partición
-  remaining_elements <- arr[-pivot_index]
-  
-  # Utilizar un enfoque R-idiomático para la partición
-  # Esto crea nuevos vectores, lo que impacta la eficiencia espacial
-  less <- remaining_elements[remaining_elements < pivot]
-  greater <- remaining_elements[remaining_elements >= pivot] # >= para incluir iguales o mayores
-  
-  # Ordenar recursivamente las sublistas y combinar
-  return(c(quick_sort(less), pivot, quick_sort(greater)))
+        // Caso 1: Cartas desordenadas
+        int[] arr1 = {4, 5, 9, 2, 10, 1, 8, 6};
+        System.out.println("Vector original: " + java.util.Arrays.toString(arr1));
+        
+        ordenador.merge_sort(arr1, 0, arr1.length - 1);
+        System.out.println("Vector ordenado: " + java.util.Arrays.toString(arr1));
+
+    }
 }
 ```
 
-### Explicación del Código
+#### Ejecucion con Python ![](images/Python-Emblem.png){width=10% fig-align="left"}
 
-1.  **`quick_sort(arr)`**: Nuestra función toma un vector `arr`.
-2.  **`if (n <= 1)`**: El **caso base** de la recursión. Si el array tiene 0 o 1 elemento, se devuelve tal cual.
-3.  **`pivot_index <- n` / `pivot <- arr[pivot_index]`**: Elegimos el último elemento como pivote. Esta es una elección simple, pero puede llevar al peor caso si el array ya está ordenado o casi ordenado.
-4.  **`remaining_elements <- arr[-pivot_index]`**: Creamos un nuevo vector que contiene todos los elementos excepto el pivote.
-5.  **`less <- remaining_elements[remaining_elements < pivot]`**: Filtra los elementos de `remaining_elements` que son menores que el pivote.
-6.  **`greater <- remaining_elements[remaining_elements >= pivot]`**: Filtra los elementos que son mayores o iguales que el pivote. Es importante incluir los iguales para evitar bucles infinitos en casos con duplicados si solo se usara `>` y el pivote fuera único.
-7.  **`return(c(quick_sort(less), pivot, quick_sort(greater)))`**: Esta es la fase de combinación.
-    *   Llama recursivamente a `quick_sort` en la sublista `less`.
-    *   El `pivot` se coloca en medio, ya que está en su posición final.
-    *   Llama recursivamente a `quick_sort` en la sublista `greater`.
-    *   `c()` concatena estos tres resultados en el array final ordenado.
+```{python}
+#| eval: false
+class Main:
+    @staticmethod
+    def ejecutar():
+        ordenador = Mergesort()
 
-### Complejidad
+        vector_1 = [4, 5, 9, 2, 10, 1, 8, 6]
+        print(f"Vector original: {vector_1}")
+        ordenador.merge_sort(vector_1, 0, len(vector_1) - 1)
+        print(f"Vector ordenado: {vector_1}")
 
-*   **Tiempo**:
-    *   **Peor caso**: O(n^2). Ocurre cuando la elección del pivote es consistentemente mala (por ejemplo, siempre el elemento más pequeño o más grande), lo que resulta en particiones desequilibradas (una sublista de `n-1` elementos y otra de 0).
-    *   **Caso promedio**: O(n log n). Con una buena elección de pivote (que divide el array en dos subproblemas de tamaño similar), Quicksort es muy eficiente.
-    *   **Mejor caso**: O(n log n).
-*   **Espacio**:
-    *   **Caso promedio**: O(log n). Esto se debe al espacio utilizado por la pila de recursión para almacenar las llamadas a la función.
-    *   **Peor caso**: O(n). Si las particiones son muy desequilibradas, la pila de recursión puede crecer linealmente con el tamaño de `n`.
-    *   Nuestra implementación en R, al crear nuevos vectores `less` y `greater` en cada llamada, tiene una complejidad espacial mayor en la práctica que una implementación "in-place" típica de Quicksort, que solo usa espacio para la pila de recursión.
+Main.ejecutar()
+```
+
+#### Ejecucion con JavaScript ![](images/javascript.webp){width=10% fig-align="left"}
+
+```{JavaScript}
+function main() {
+    let obj = new MergeSort();
+
+    let arr = [4, 5, 9, 2, 10, 1, 8, 6];
+
+    console.log("Arreglo original: " + arr.join(", "));
+
+    obj.merge_sort(arr, 0, arr.length - 1);
+
+    console.log("Arreglo ordenado: " + arr.join(", "));
+}
+
+// Ejecutar programa principal
+main();
+```
+
+## Reto
+
+Imagina que tienes una caja llena de azulejos con letras (mayúsculas y minúsculas) totalmente desordenadas. Tu objetivo es crear un programa que saque todas las letras de la caja y las organice en una fila perfectamente ordenada de la A a la Z.
+Escribe una función que reciba una cadena de texto (la caja desordenada) y devuelva una nueva cadena con las letras en orden alfabético.
+
+### Restricciones
+
+1.  **Libertad de Algoritmo:** Puedes usar cualquier método de ordenación que prefieras (desde los más sencillos hasta los más avanzados).
+2.  **Sin Librerías Externas:** Intenta programar la lógica de ordenamiento tú mismo en lugar de usar funciones automáticas del lenguaje (como .sort() o sorted()), para demostrar que entiendes cómo se mueven los datos
+3.  **Resultado Limpio:**: El resultado final debe ser una sola cadena de texto con todas las letras juntas y en orden.
 
 ### Ejemplo
 
-Veamos `quick_sort` en acción.
-
-```{r}
-# Ejemplo 1: Un vector desordenado
-vector_desordenado <- c(10, 80, 30, 90, 40, 50, 70)
-print(paste("Vector original:", paste(vector_desordenado, collapse = ", ")))
-vector_ordenado <- quick_sort(vector_desordenado)
-print(paste("Vector ordenado (Quicksort):", paste(vector_ordenado, collapse = ", ")))
-
-# Ejemplo 2: Un vector con números negativos
-vector_negativos <- c(-5, 3, -1, 8, 0, -10)
-print(paste("Vector con negativos:", paste(vector_negativos, collapse = ", ")))
-vector_ordenado_neg <- quick_sort(vector_negativos)
-print(paste("Vector ordenado (Quicksort):", paste(vector_ordenado_neg, collapse = ", ")))
-```
-
-## Conclusión
-
-Hemos recorrido cuatro algoritmos de ordenación fundamentales, cada uno con su enfoque único y características de rendimiento.
-
-*   **Bubble Sort** e **Insertion Sort** son algoritmos simples de entender e implementar, adecuados para arrays pequeños o casi ordenados (donde rinden en O(n)). Sin embargo, su complejidad de O(n^2) los hace imprácticos para grandes volúmenes de datos.
-*   **Mergesort** y **Quicksort** son algoritmos de "divide y vencerás" que ofrecen un rendimiento mucho mejor, generalmente O(n log n).
-    *   **Mergesort** es estable y tiene un rendimiento consistente de O(n log n) en todos los casos, pero requiere O(n) de espacio adicional.
-    *   **Quicksort** es típicamente el más rápido en la práctica (O(n log n) promedio), especialmente en implementaciones "in-place", aunque su peor caso es O(n^2) y puede ser inestable. La elección del pivote es crítica para su eficiencia.
-
-En R, para tareas de ordenación cotidianas, generalmente se recomienda usar las funciones nativas optimizadas como `sort()` o `order()`, ya que están implementadas en C/Fortran y son extremadamente eficientes. Sin embargo, comprender los algoritmos subyacentes es crucial para cualquier científico de datos o programador que desee escribir código eficiente y comprender las bases de la informática. ¡Espero que este capítulo le haya proporcionado una base sólida!
+ *   **Entrada:** "algoritmo".
+ *   **Salida:** "agilmort".
+ 
+ Ahora la palabra "algoritmo" se encuentra ordenada en orden alfabetico.
