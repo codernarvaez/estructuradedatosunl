@@ -1,6 +1,6 @@
 ---
 title: "Capítulo 1: Estructuras Estáticas"
-author: "Experto en Ciencias de la Computación"
+author: "Sebastian Cordova, Elian Herrera, Diego Iñiguez, Eduardo Moreno(Grupo D)"
 format:
   html:
     theme: cosmo
