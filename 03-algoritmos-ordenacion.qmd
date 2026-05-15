@@ -1,14 +1,115 @@
 ---
-title: "Algoritmos de Ordenación"
----
 
-# Algoritmos de Ordenación
+  title: "Algoritmos de Ordenación"
+  bibliography: references.bib
+---
 
 ¡Hola, amigo/a programador! Bienvenidos/as a este capítulo 5 de este libro. En este capítulo hablaremos sobre los principales Algoritmos de Ordenación; veremos cómo es su estructura, funcionamiento y cómo estos nos ayudan a la hora de programar.
 
 Los algoritmos de ordenamiento tienen una gran importancia dentro del campo de la Ciencia de la Computación porque, al momento de realizar varios procesos, necesitaremos que nuestros datos estén ordenados para poder implementar otros algoritmos. @bustosestudio.  
 
 En este capítulo, exploraremos algunos de los algoritmos de ordenación más conocidos y fundamentales: Burbuja (Bubble Sort), Inserción (Insertion Sort), Mergesort y Quicksort.
+
+
+## **Insertion Sort**
+
+### **Concepto**
+El **Insertion Sort** (ordenación por inserción) es un algoritmo de ordenamiento simple diseñado para procesar una cantidad pequeña de elementos. Su funcionamiento técnico consiste en recorrer un arreglo desde el segundo elemento (índice 1) y compararlo, tratándolo como una "clave" (key), con los elementos precedentes. Si los elementos anteriores son mayores que la clave, el algoritmo los desplaza una posición hacia adelante para permitir la inserción del valor clave en su lugar correspondiente. Se clasifica como un algoritmo de comparación **no recursivo**, **estable** (mantiene el orden de elementos con claves iguales) y **en el lugar** (in-place), lo que significa que no requiere memoria adicional significativa para su ejecución. En términos de rendimiento práctico, es superior al Bubble Sort, siendo hasta 5 veces más rápido en implementaciones en Java[@freeCodeCamp2023].
+
+---
+
+### **Codigo en java**
+
+```java
+public static void insertionSort(int[] arr) {
+    int n = arr.length;
+    for (int i = 1; i < n; i++) {
+        int key = arr[i];
+        int j = i - 1;
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j = j - 1;
+        }
+        arr[j + 1] = key;
+    }
+}
+```
+
+#### **Explicacion del codigo**
+El procedimiento inicia la iteración en el índice 1 del arreglo. El valor en la posición actual se almacena en la variable `key`. Un bucle interno retrocede por los elementos anteriores (índice `j`); mientras estos sean mayores que la clave, se desplazan una posición a la derecha. Finalmente, la clave se inserta en la posición vacía generada.
+
+#### **complejidad del algoritmo**
+*   **Temporal (Peor y promedio):** $O(n^2)$, ocurre cuando el arreglo está ordenado de forma inversa o aleatoria.
+*   **Temporal (Mejor caso):** $O(n)$, sucede cuando el arreglo ya se encuentra ordenado, requiriendo solo una pasada.
+*   **Espacial:** $O(1)$, ya que las operaciones de ordenamiento se ejecutan directamente sobre el arreglo original (in-place).
+
+#### **Ejemplo**
+Dado el arreglo inicial :
+
+1.  **Paso 1:** Clave = 3. Como $8 > 3$, el 8 se mueve a la derecha. 
+2.  **Paso 2:** Clave = 5. Como $8 > 5$, el 8 se mueve a la derecha. 
+3.  **Paso 3:** Clave = 1. Se desplazan consecutivamente 8, 5 y 3 para insertar el 1 al inicio.
+
+---
+
+### **Código en python**
+
+```python
+def insertion_sort(arr):
+    for i in range(1, len(arr)):
+        key = arr[i]
+        j = i - 1
+        while j >= 0 and key < arr[j]:
+            arr[j + 1] = arr[j]
+            j -= 1
+        arr[j + 1] = key
+```
+
+#### **Explicacion del codigo**
+La implementación en Python utiliza un ciclo `for` para recorrer la lista y un ciclo `while` para realizar los desplazamientos necesarios hacia la derecha. Esta técnica es fundamental en algoritmos modernos como el **Timsort**, que es una mezcla de Insertion Sort y Merge Sort utilizada por defecto en las funciones de ordenamiento nativas de Python.
+
+#### **complejidad del algoritmo**
+Mantiene una complejidad temporal de **$O(n^2)$** en casos desfavorables. Es un algoritmo **estable**, garantizando que no se altere el orden relativo de elementos que posean valores idénticos.
+
+#### **Ejemplo**
+En una lista, al procesar la clave 5:
+
+1.  Se compara 5 con 8. Dado que $8 > 5$, el 8 se desplaza.
+2.  Se compara 5 con 4. Dado que $4 < 5$, el desplazamiento se detiene y el 5 se inserta en la posición inmediatamente posterior al 4.
+
+---
+
+### **Codigo en javascript**
+
+```javascript
+function insertionSort(arr) {
+  for (let i = 1; i < arr.length; i++) {
+    let key = arr[i];
+    let j = i - 1;
+    while (j >= 0 && arr[j] > key) {
+      arr[j + 1] = arr[j];
+      j--;
+    }
+    arr[j + 1] = key;
+  }
+  return arr;
+}
+```
+
+#### **Explicacion del codigo**
+El algoritmo itera desde la segunda posición del arreglo, extrayendo el elemento clave y comparándolo de forma regresiva con los elementos ya procesados a su izquierda. Los elementos se desplazan hacia la derecha hasta localizar el punto de inserción exacto para la clave.
+
+#### **complejidad del algoritmo**
+La complejidad temporal promedio es **$O(n^2)$**, lo que lo hace menos eficiente para grandes conjuntos de datos en comparación con algoritmos de orden $O(n \log n)$. No obstante, su bajo consumo de recursos (espacio **$O(1)$**) lo hace adecuado para sistemas con limitaciones de memoria.
+
+#### **Ejemplo**
+Con el arreglo:
+
+1.  La clave 1 se compara con 6, 4, 3 y 2 consecutivamente.
+2.  Cada uno de estos elementos se desplaza un lugar a la derecha.
+3.  El 1 se inserta en el índice 0, resultando en la lista final ordenada:.
+
+
 
 ## Burbuja (Bubble Sort)
 
