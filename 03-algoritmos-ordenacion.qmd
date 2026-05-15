@@ -138,7 +138,7 @@ for (let num of nums) {
 
 ### Complejidad
 
-*   **Tiempo**:
+    *   **Tiempo**:
     *   **Peor caso**: O(n^2). Ocurre al momento de listar al reves, en el ejercicio esto ocurre al momento de crear el arreglo
     *   **Caso promedio**: O(n^2). El programa va a realizar las comparaciones de los dos ciclos por completo, como son 6 numeros nos daria aproximadamente 36 comparaciones
     
@@ -723,6 +723,355 @@ function main() {
 // Ejecutar programa principal
 main();
 ```
+
+## Quicksort
+
+### Concepto
+
+Quicksort es un algoritmo de ordenación  creado por Tony Hoare en 1961 y se basa en el paradigma "divide y vencerás", siendo considerado uno de los algoritmos más rápidos en la práctica para grandes conjuntos de datos no estructurados. 
+Aunque quicksort puede tener algunas desventajas, en la práctica funciona bien y supera a otros algoritmos de ordenación en velocidad y eficiencia espacial debido a su propóstio general. 
+
+Basicamente se basa en la división y consquista que clasifica una matriz seleccionando un elemento "pivote" y dividiendo los otros elementos en dos subconjunyos, de acuerdo con si son menores o mayores que el pivote. Este proceso se repite recursivamente hasta que se clasifica la matriz [@dealgoritmo]. 
+
+::: {.callout-note icon=false}
+## 🗺️ El funcionamiento básico es el siguiente:
+1.  **Elegir un Pivote**: Selecciona un elemento del array, llamado "pivote". La elección del pivote es crucial para el rendimiento.
+2.  **Particionar**: Reordena el array de modo que todos los elementos con valores menores que el pivote queden a su izquierda, y todos los elementos con valores mayores queden a su derecha. Los elementos iguales al pivote pueden ir a cualquiera de los dos lados. Después de la partición, el pivote está en su posición final ordenada.
+3.  **Recursión**: Aplica Quicksort recursivamente a la sublista de elementos con valores menores que el pivote y a la sublista de elementos con valores mayores que el pivote.
+
+La recursión termina cuando una sublista tiene cero o un elemento, ya que ya están ordenados.
+:::
+
+# Quick_sort
+
+![Quick_sort](images/0_vAMz_7iAbCplF4Z7.png)
+
+Particion y pivote
+
+1.  **Pivote**: Es el elemento alrededor del cual se divide la matriz, por ende, se puede elgir cualquier elemtno como pivote, pero las estrategias mcomunes incluyen la selección del primer elemento, el último elemento o un elemento aleatorio.
+
+2. **Partición**: SU objetivo es mover todos los elementos más pequeños que el pivote a su izquierda y todos los elementos más grandes a su derecha. 
+
+### Implementación en Java
+
+::: {style="display: grid; grid-template-columns: 3fr 1fr; grid-gap: 18px;"}
+
+::: {}
+Implementaremos `quick_sort` en Java. Esta implementación es una versión 
+simplificada que crea nuevos arrays en cada paso de la partición, lo cual 
+es más fácil de entender pero menos eficiente en espacio que una 
+implementación "in-place" con índices.
+:::
+
+::: {style="margin-left: 20px; margin-top: -15px;"}
+![](images/java111.png){width=80%}
+:::
+
+:::
+
+
+```java
+public class QuickSort {
+    
+    public static int[] quick_sort(int[] arr) {
+        int n = arr.length;
+        
+        # Caso base: un array con 0 o 1 elemento ya está ordenado
+        if (n <= 1) {
+            return arr;
+        }
+        
+        # Elegir un pivote. Aquí usamos el último elemento por simplicidad.
+        # Otras estrategias incluyen elegir el primero, el del medio, o un pivote aleatorio.
+        int pivot_index = n - 1;
+        int pivot = arr[pivot_index];
+        
+        # Separar los elementos menores y mayores que el pivote
+        # Excluimos el pivote del array original antes de la partición
+        int[] remaining_elements = new int[n - 1];
+        for (int i = 0, j = 0; i < n; i++) {
+            if (i != pivot_index) {
+                remaining_elements[j++] = arr[i];
+            }
+        }
+        
+        # Utilizar un enfoque para la partición
+        # Esto crea nuevos arrays, lo que impacta la eficiencia espacial
+        # Contar elementos menores y mayores
+        int lessCount = 0, greaterCount = 0;
+        for (int num : remaining_elements) {
+            if (num < pivot) {
+                lessCount++;
+            } else {
+                greaterCount++;
+            }
+        }
+        
+        # Crear arrays para less y greater
+        int[] less = new int[lessCount];
+        int[] greater = new int[greaterCount];
+        
+        # Llenar los arrays
+        int lessIdx = 0, greaterIdx = 0;
+        for (int num : remaining_elements) {
+            if (num < pivot) {
+                less[lessIdx++] = num;
+            } else {
+                greater[greaterIdx++] = num; # >= para incluir iguales o mayores
+            }
+        }
+        
+        # Ordenar recursivamente las sublistas y combinar
+        int[] sortedLess = quick_sort(less);
+        int[] sortedGreater = quick_sort(greater);
+        
+        # Combinar: sortedLess + pivot + sortedGreater
+        int[] result = new int[sortedLess.length + 1 + sortedGreater.length];
+        System.arraycopy(sortedLess, 0, result, 0, sortedLess.length);
+        result[sortedLess.length] = pivot;
+        System.arraycopy(sortedGreater, 0, result, sortedLess.length + 1, sortedGreater.length);
+        
+        return result;
+    }
+}
+```
+
+### Explicación del Código
+
+1.  **`quickSort(int[] arr)`**: Nuestra función toma un array de enteros `arr`.
+2.  **`if (n <= 1)`**: El **caso base** de la recursión. Si el array tiene 0 o 1 elemento, se devuelve tal cual.
+3.  **`pivot_index = n - 1` / `pivot = arr[pivot_index]`**: Elegimos el último elemento como pivote. Esta es una elección simple, pero puede llevar al peor caso si el array ya está ordenado o casi ordenado.
+4.  **`remaining_elements`**: Creamos un nuevo array que contiene todos los elementos excepto el pivote.
+5.  **`less y greater`**: Filtramos los elementos en dos arrays:
+    *   **less**: elementos menores que el pivote
+    *   **greater**: elementos mayores o iguales que el pivote
+6.  **`sortedLess = quickSort(less) y sortedGreater = quickSort(greater)`**: Llamadas recursivas para ordenar cada subarray.
+7.  **`return result`**: Esta es la fase de combinación.
+    *   Concatena `sorteddLess`, el `pivot` y `sortedGreater` en un nuevo array.
+    *   `System.arraycopy()` se usa para copiar eficientemente los elementos. 
+
+### Complejidad del Algoritmo
+
+*   **Complejidad temporal**:
+    *   **Mejor caso**: (O(n log n)). Ocurre cuando el pivote divide el array en dos mitades aproximadamente iguales.
+    *   **Caso promedio**: O(n log n). Con pivotes aleatorios o datos distribuidos uniformemente.
+    *   **Peor caso**: O(n²): Cuando el pivote siempre es el elemento más pequeño o más grande.
+*   **Complejidad espacial**:
+    *   **O(n log n) en el peor caso**: Debido a que creamos nuevos arrays en cada nivel de recursión.
+    *   Nuestra implementación en java, no es "in-place" por lo que utiliza más memoria que una versión optimizada con índices.
+
+### Ejemplo
+
+Veamos `quick_sort` en acción.
+
+```java
+# Ejemplo 1: Un vector desordenado
+int[] vector_desordenado = {10, 80, 30, 90, 40, 50, 70};
+System.out.print("Vector original: " + Arrays.toString(vector_desordenado));
+int[] vector_ordenado = quick_sort(vector_desordenado);
+System.out.print("Vector ordenado (Quicksort): " + Arrays.toString(vector_ordenado));
+
+# Ejemplo 2: Un vector con números negativos
+int[] vector_negativos = {-5, 3, -1, 8, 0, -10};
+System.out.print("Vector con negativos: " + Arrays.toString(vector_negativos));
+int[] vector_ordenado_neg = quick_sort(vector_negativos);
+System.out.print("Vector ordenado (Quicksort): " + Arrays.toString(vector_ordenado_neg));
+```
+
+### Implementación en Python
+::: {style="display: grid; grid-template-columns: 3fr 1fr; grid-gap: 18px;"}
+
+::: {}
+Implementaremos `quick_sort` en Java. Esta implementacion es una versión simplificada que crea nueva listas en cada paso de la partición, lo cual es más idiomático en Python pero menos eficiente en especio que una implementación "in-place" con índices.
+:::
+
+::: {style="margin-left: 20px; margin-top: -15px;"}
+![](images/Python.svg.png){width=80%}
+
+:::
+
+:::
+
+```python
+def quick_sort(arr):
+    n = len(arr)
+    
+    # Caso base: una lista con 0 o 1 elemento ya está ordenada
+    if n <= 1:
+        return arr
+    
+    # Elegir un pivote. Aquí se usa el último elemento por simplicidad.
+    # Otras estrategias incluyen elegir el primero, el del medio, o un pivote aleatorio.
+    pivot_index = n - 1
+    pivot = arr[pivot_index]
+    
+    # Separar los elementos menores y mayores que el pivote
+    # Excluimos el pivote de la lista original antes de la partición
+    remaining_elements = arr[:pivot_index] + arr[pivot_index + 1:]
+    
+    # Utilizar un enfoque Python-idiomático para la partición
+    # Esto crea nuevas listas, lo que impacta la eficiencia espacial
+    less = [x for x in remaining_elements if x < pivot]
+    greater = [x for x in remaining_elements if x >= pivot]  # >= para incluir iguales o mayores
+    
+    # Ordenar recursivamente las sublistas y combinar
+    return quick_sort(less) + [pivot] + quick_sort(greater)
+```
+
+### Explicación del Código
+
+1.  **`quickSort(int[] arr)`**: Nuestra función toma una lista `arr`.
+2.  **`if (n <= 1)`**: El **caso base** de la recursión. Si la lista tiene 0 o 1 elemento, se devuelve tal cual.
+3.  **`pivot_index = n - 1` / `pivot = arr[pivot_index]`**: Elegimos el último elemento como pivote. Esta es una elección simple, pero puede llevar al peor caso si la lista ya está ordenada o casi ordenada.
+4.  **`remaining_elements = arr [:pivot_index] + arr[pivot_index + 1]`**: Creamos una nueva lista que contiene todos los elementos excepto el pivote.
+5.  **`less = [x for x in remaining_elements if x >= pivot]`**: Filtra los elementos que son mayores o iguales que el pivote, por ende, es importante incluir los iguales para evitar bucles infinitos en casos con duplicados si solo se usara **`>`** y el pivote fuera único.
+7.  **`return quick_sort(less) + [pivot] + quick_sort(greater)`**: Esta es la fase de combinación
+    *   Llama recursivamente a **quick_sort** en la sublista **`less`**
+    *   EL **pivot** se coloca en medio, ya que está en su posición final
+    *   Llama recursivamente a **`quick_sort`** en la sublista **`greater`**
+    *   EL operador **`+`** concatena estas tres listas en la lista final ordenada.
+
+### Complejidad del Algoritmo
+
+*   **Complejidad temporal**:
+    *   **Mejor caso**: O(n log n). Ocurre cuando el pivote divide la lista en dos mitades aproximadamente iguales
+    *   **Caso promedio**: O(n log n). Con pivotes aleatorios o datos distribuidos uniformemente.
+    *   **Peor caso**: O(n²): Ocurre cuando el pivote siempre es el elemento más pequeño o más grande 
+*   **Complejidad espaciall**:
+    *   **O(n log n) en el peor caso**: Debido a que creamos nuevas listas en cada nivel de recursión.
+    *   Esta implementación no es "in-place", por lo que utiliza más memoria que una versión optimizada con índices.
+
+### Ejemplo
+
+Veamos `quick_sort` en acción.
+
+```python
+# Ejemplo 1: Una lista desordenada
+vector_desordenado = [10, 80, 30, 90, 40, 50, 70]
+print(f"Vector original: {vector_desordenado}")
+vector_ordenado = quick_sort(vector_desordenado)
+print(f"Vector ordenado (Quicksort): {vector_ordenado}")
+
+# Ejemplo 2: Una lista con números negativos
+vector_negativos = [-5, 3, -1, 8, 0, -10]
+print(f"Vector con negativos: {vector_negativos}")
+vector_ordenado_neg = quick_sort(vector_negativos)
+print(f"Vector ordenado (Quicksort): {vector_ordenado_neg}")
+
+# Ejemplo 3: Una lista con elementos duplicados
+vector_duplicados = [5, 2, 8, 2, 5, 1, 8]
+print(f"Vector con duplicados: {vector_duplicados}")
+vector_ordenado_dup = quick_sort(vector_duplicados)
+print(f"Vector ordenado (Quicksort): {vector_ordenado_dup}")
+```
+
+### Implementación en JavaScript
+::: {style="display: grid; grid-template-columns: 3fr 1fr; grid-gap: 18px;"}
+
+::: {}
+Implementaremos `quick_sort` en JavaScript. Esta implementacion es unaversión simplificada que crea nuevos arrays en cada paso de la partición, lo cual es más idiomático en JavaScript pero menos eficiente en especio que una implementación "in-place" con índices.
+:::
+
+::: {style="margin-left: 20px; margin-top: -15px;"}
+![](images/js.png){width=80%}
+:::
+:::
+
+```js
+function quick_sort(arr) {
+    const n = arr.length;
+    
+    # Caso base: un array con 0 o 1 elemento ya está ordenado
+    if (n <= 1) {
+        return arr;
+    }
+    
+    # Elegir un pivote. Aquí se usa el último elemento por simplicidad.
+    # Otras estrategias incluyen elegir el primero, el del medio, o un pivote aleatorio.
+    const pivot_index = n - 1;
+    const pivot = arr[pivot_index];
+    
+    # Separar los elementos menores y mayores que el pivote
+    # Excluimos el pivote del array original antes de la partición
+    const remaining_elements = arr.slice(0, pivot_index).concat(arr.slice(pivot_index + 1));
+    
+    # Utilizar un enfoque JavaScript-idiomático para la partición
+    # Esto crea nuevos arrays, lo que impacta la eficiencia espacial
+    const less = remaining_elements.filter(x => x < pivot);
+    const greater = remaining_elements.filter(x => x >= pivot); # >= para incluir iguales o mayores
+    
+    # Ordenar recursivamente las sublistas y combinar
+    return [...quick_sort(less), pivot, ...quick_sort(greater)];
+}
+```
+
+### Explicación del Código
+
+1.  **`quickSort(int[] arr)`**: Nuestra función toma una array `arr`.
+2.  **`if (n <= 1)`**: El **caso base** de la recursión. Si el array tiene 0 o 1 elemento, se devuelve tal cual.
+3.  **`pivot_index = n - 1` / `pivot = arr[pivot_index]`**: Elegimos el último elemento como pivote. Esta es una elección simple, pero puede llevar al peor caso si el array ya está ordenado o casi ordenado.
+4.  **`remaining_elements`**: Creamos un array que contiene todos los elementos excepto el pivote usando **`slice()`** y **`concat()`** .
+5.  **`less = remaining_elements.filter (x => x < pivot)`**: Usamoe el método **`filter()`** para obtener los elementos **`remaining_elements** que son menores que el pivote.
+7.  **`greater = remaining_elements.filter(x => x >= pivot)`**: Filtra los elementos que son mayores o iguales que el pivote
+8.  **`return [...quick_sort(less), pivot, ...quick_sort(greater)]`**: Esta es la fase de combinacion
+    *   Llama recursivamente a **quick_sort** en la sublista **`less`**
+    *   EL **pivot** se coloca en medio, ya que está en su posición final
+    *   Llama recursivamente a **`quick_sort`** en la sublista **`greater`**
+    *   EL operador spread **`...`** concatena estos tres resultados en el array final ordenado.
+
+### Complejidad del Algoritmo
+
+*   **Complejidad temporal**:
+    *   **Mejor caso**: (O(n log n)). Ocurre cuando el pivote divide el array en dos mitades aproximadamente iguales
+    *   **Caso promedio**: O(n log n). Con pivotes aleatorios o datos distribuidos uniformemente.
+    *   **Peor caso**: O(n²): Ocurre cuando el pivote siempre es el elemento más pequeño o más grande 
+*   **Complejidad espaciall**:
+    *   **O(n log n) en el peor caso**: Debido a que creamos nuevas listas en cada nivel de recursión.
+    *   Esta implementación no es "in-place", por lo que utiliza más memoria que una versión optimizada con índices.
+
+### Ejemplo
+
+Veamos `quick_sort` en acción.
+
+```js
+# Ejemplo 1: Una lista desordenada
+const vector_desordenado = [10, 80, 30, 90, 40, 50, 70];
+console.log(`Vector original: ${vector_desordenado}`);
+const vector_ordenado = quick_sort(vector_desordenado);
+console.log(`Vector ordenado (Quicksort): ${vector_ordenado}`);
+
+# Ejemplo 2: Un array con números negativos
+const vector_negativos = [-5, 3, -1, 8, 0, -10];
+console.log(`Vector con negativos: ${vector_negativos}`);
+const vector_ordenado_neg = quick_sort(vector_negativos);
+console.log(`Vector ordenado (Quicksort): ${vector_ordenado_neg}`);
+
+# Ejemplo 3: Un array con elementos duplicados
+const vector_duplicados = [5, 2, 8, 2, 5, 1, 8];
+console.log(`Vector con duplicados: ${vector_duplicados}`);
+const vector_ordenado_dup = quick_sort(vector_duplicados);
+console.log(`Vector ordenado (Quicksort): ${vector_ordenado_dup}`);
+```  
+
+## Conclusión
+
+Se ha recorrido cuatro algoritmos de ordenación fundamentales, cada uno con su enfoque único y características de rendimiento que definen su utilidad y eficiencia en el desarrollo de software moderno.
+
+:::{.callout icon=false}
+*   **Bubble Sort** e **Insertion Sort** Son algoritmos intuitivos y eficientes lo cual los hacen ideal para comprender la lógica de control de flujos, asi mismo, son adecuados para colecciones pequeñas o datos que ya estan casi ordenados ya que requieren un número minimo de intercambios.
+
+    Sin embargo, su complejidad 0(n²) provoca que el tiempo de ejecución se dispare ante volúmenes de datos medianos o grandes por lo que su uso es nulo frente a alternativas más escalabes.
+
+*   **Mergesort** y **Quicksort** Estos algoritmos representan la eficiencia del paradigma "divide y vencerás", la cual consiste en fragmentar el problema original en partes mas pequeñas logrando generalmente un rendimiento de **O(n log n)**. 
+
+    *   **Mergesort** Es un algoritmo esable con una propiedad crítica cuando necesitamos que los elementos claves iguales mantengan su orden original. 
+    
+    *   **Quicksort** Este es un algoritmo reconocido por ser el más veloz en la práctica debido a su baja carga administrativa y el aprovechamiento de la caché del procesador.
+    
+    Al ser un algoritmo "in-place" es muy eficiente en el uso de memoria RAM donde depende de la elección del pivote, por lo que si escogemos mal la elección de datos ya ordenados puede degradar su rendimiento a **O(N²)**.
+:::
+
+No obstante, para la demostración de todos estos algoritmos de ordenación usamos 3 lenguajes de programación, en este caso fue java, pyhton y javascript. Aunque la sintaxis variaba un poco el comportamiento era el mismo, cada uno se centraba en estructuras estándar asegurando de no se altere el orden previo de elementos iguales, demostrando que al implementar estos algoritmos en distintos lenguajes no dependen simplemente de la herramienta, sino del dominio de la complejidad algorítmica y la gestión de los recursos del sistema.
 
 ## Reto
 
