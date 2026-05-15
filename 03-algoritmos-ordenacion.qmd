@@ -1,12 +1,11 @@
 ---
-
   title: "Algoritmos de Ordenación"
   bibliography: references.bib
 ---
 
 ¡Hola, amigo/a programador! Bienvenidos/as a este capítulo 5 de este libro. En este capítulo hablaremos sobre los principales Algoritmos de Ordenación; veremos cómo es su estructura, funcionamiento y cómo estos nos ayudan a la hora de programar.
 
-Los algoritmos de ordenamiento tienen una gran importancia dentro del campo de la Ciencia de la Computación porque, al momento de realizar varios procesos, necesitaremos que nuestros datos estén ordenados para poder implementar otros algoritmos. @bustosestudio.  
+Los algoritmos de ordenamiento tienen una gran importancia dentro del campo de la Ciencia de la Computación porque, al momento de realizar varios procesos, necesitaremos que nuestros datos estén ordenados para poder implementar otros algoritmos. [@bustosestudio].  
 
 En este capítulo, exploraremos algunos de los algoritmos de ordenación más conocidos y fundamentales: Burbuja (Bubble Sort), Inserción (Insertion Sort), Mergesort y Quicksort.
 
