@@ -370,10 +370,3 @@ Agregar un menú interactivo con lo siguiente (usar `Scanner`):
 3. Buscar jugador.
 4. Reemplazar cromo.
 5. Salir.
-
-
-### Enlace del repositorio de github en donde se hicieron los cambios
-[estructuras estaticas_Grupo4](https://github.com/sebastiancordova-sudo/estructuradedatosunl_Grupo4.git?utm_source=chatgpt.com)
-
-### Enlace del video
-[Video del tema](https://drive.google.com/drive/folders/1U28nG5ADFKvWmEGWCTL_hIbMUEL8cAh-?usp=sharing)
