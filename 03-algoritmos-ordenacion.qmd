@@ -335,7 +335,7 @@ Este proceso continúa ejecutándose de manera recursiva hasta llegar a subarreg
 
 Para la realizacion de este algoritmo necesitaremos dos funciones: una para la lógica recursiva de división (`merge_sort`) y otra para la combinación de dos arrays ya ordenados (`merge_arrays`).
 
-```{java}
+```java
 //| eval: false
 public class Mergesort {
     /*
@@ -423,7 +423,7 @@ public class Mergesort {
 ### Implementación en Python ![](images/Python-Emblem.png){width=10% fig-align="left"}
 
 
-```{python}
+```python
 #| eval: false
 class Mergesort:
     # Metodo encargado de combinar dos subarreglos ordenados en un unico arreglo ordenado.
@@ -496,7 +496,7 @@ class Mergesort:
 
 ### Implementación en JavaScript ![](images/javascript.webp){width=10% fig-align="left"}
 
-```{JavaScript}
+```javascript
 class MergeSort {
 
     /*
@@ -670,7 +670,7 @@ Lo cual podemos comprobar al ejecutar los códigos presentados, ya que ambos pro
 
 #### Ejecucion con java ![](images/p-80-java.webp){width=10% fig-align="left"}
 
-```{java}
+```java
 //| eval: false
 public class Main {
     public static void main(String[] args) {
@@ -690,7 +690,7 @@ public class Main {
 
 #### Ejecucion con Python ![](images/Python-Emblem.png){width=10% fig-align="left"}
 
-```{python}
+```python
 #| eval: false
 class Main:
     @staticmethod
@@ -707,7 +707,7 @@ Main.ejecutar()
 
 #### Ejecucion con JavaScript ![](images/javascript.webp){width=10% fig-align="left"}
 
-```{JavaScript}
+```javascript
 function main() {
     let obj = new MergeSort();
 
@@ -731,7 +731,7 @@ Escribe una función que reciba una cadena de texto (la caja desordenada) y devu
 
 ### Restricciones
 
-1.  **Libertad de Algoritmo:** Puedes usar cualquier método de ordenación que prefieras (desde los más sencillos hasta los más avanzados).
+<!-- 1.  **Libertad de Algoritmo:** Puedes usar cualquier método de ordenación que prefieras (desde los más sencillos hasta los más avanzados). -->
 2.  **Sin Librerías Externas:** Intenta programar la lógica de ordenamiento tú mismo en lugar de usar funciones automáticas del lenguaje (como .sort() o sorted()), para demostrar que entiendes cómo se mueven los datos
 3.  **Resultado Limpio:**: El resultado final debe ser una sola cadena de texto con todas las letras juntas y en orden.
 
