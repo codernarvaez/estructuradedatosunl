@@ -593,6 +593,11 @@ Entonces se aplica una rotación simple a la derecha y el árbol queda:
 Un sistema universitario podría usar árboles AVL para buscar rápidamente: estudiantes, materias, códigos y calificaciones.
 En lugar de revisar todos los registros uno por uno, el árbol permite encontrar datos en pocos pasos. 
 
+### Reto Planteado: Fusión de dos árboles AVL
+
+Dados dos AVL con claves no repetidas entre sí, implementa merge(AVLTree t1, AVLTree t2) que retorne un nuevo AVL con todos los elementos de ambos, correctamente balanceado.
+Restricción: No puedes simplemente insertar uno a uno desde cero de forma naïve. Piensa en serializar a array ordenado primero. Complejidad esperada: $O(m + n)$
+
 ### Árboles AVL y R
 
 En R, la implementación de un árbol AVL desde cero es una tarea no trivial y, sinceramente, rara vez el enfoque más eficiente para la mayoría de los problemas que abordamos. R sobresale en operaciones vectorizadas y en el manejo de grandes volúmenes de datos mediante estructuras como `data.frame`, `data.table` o `tibble`, que están altamente optimizadas y, a menudo, respaldadas por código C/C++.
@@ -642,10 +647,6 @@ findInterval(7, sorted_vector) # Indica el índice donde se insertaría o se enc
 
 En resumen, mientras que los árboles AVL son fundamentales en la ciencia de la computación, en R, su implementación directa rara vez es el camino más eficiente. En su lugar, nos apoyamos en las optimizaciones internas de R para vectores ordenados o utilizamos estructuras de datos proporcionadas por paquetes bien diseñados que pueden tener sus propias implementaciones en C/C++.
 
-### Reto Planteado: Fusión de dos árboles AVL
-
-Dados dos AVL con claves no repetidas entre sí, implementa merge(AVLTree t1, AVLTree t2) que retorne un nuevo AVL con todos los elementos de ambos, correctamente balanceado.
-Restricción: No puedes simplemente insertar uno a uno desde cero de forma naïve. Piensa en serializar a array ordenado primero. Complejidad esperada: $O(m + n)$
 
 
 ## Árboles B
