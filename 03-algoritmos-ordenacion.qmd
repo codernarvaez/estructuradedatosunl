@@ -613,11 +613,20 @@ console.log(`Vector ordenado (Quicksort): ${vector_ordenado_dup}`);
 ```
 ## Conclusión
 
-Hemos recorrido cuatro algoritmos de ordenación fundamentales, cada uno con su enfoque único y características de rendimiento.
+Se ha recorrido cuatro algoritmos de ordenación fundamentales, cada uno con su enfoque único y características de rendimiento que definen su utilidad y eficiencia en el desarrollo de software moderno.
 
-*   **Bubble Sort** e **Insertion Sort** son algoritmos simples de entender e implementar, adecuados para arrays pequeños o casi ordenados (donde rinden en O(n)). Sin embargo, su complejidad de O(n^2) los hace imprácticos para grandes volúmenes de datos.
-*   **Mergesort** y **Quicksort** son algoritmos de "divide y vencerás" que ofrecen un rendimiento mucho mejor, generalmente O(n log n).
-    *   **Mergesort** es estable y tiene un rendimiento consistente de O(n log n) en todos los casos, pero requiere O(n) de espacio adicional.
-    *   **Quicksort** es típicamente el más rápido en la práctica (O(n log n) promedio), especialmente en implementaciones "in-place", aunque su peor caso es O(n^2) y puede ser inestable. La elección del pivote es crítica para su eficiencia.
+:::{.callout icon=false}
+*   **Bubble Sort** e **Insertion Sort** Son algoritmos intuitivos y eficientes lo cual los hacen ideal para comprender la lógica de control de flujos, asi mismo, son adecuados para colecciones pequeñas o datos que ya estan casi ordenados ya que requieren un número minimo de intercambios.
 
-En R, para tareas de ordenación cotidianas, generalmente se recomienda usar las funciones nativas optimizadas como `sort()` o `order()`, ya que están implementadas en C/Fortran y son extremadamente eficientes. Sin embargo, comprender los algoritmos subyacentes es crucial para cualquier científico de datos o programador que desee escribir código eficiente y comprender las bases de la informática. ¡Espero que este capítulo le haya proporcionado una base sólida!
+    Sin embargo, su complejidad 0(n²) provoca que el tiempo de ejecución se dispare ante volúmenes de datos medianos o grandes por lo que su uso es nulo frente a alternativas más escalabes.
+
+*   **Mergesort** y **Quicksort** Estos algoritmos representan la eficiencia del paradigma "divide y vencerás", la cual consiste en fragmentar el problema original en partes mas pequeñas logrando generalmente un rendimiento de **O(n log n)**. 
+
+    *   **Mergesort** Es un algoritmo esable con una propiedad crítica cuando necesitamos que los elementos claves iguales mantengan su orden original. 
+    
+    *   **Quicksort** Este es un algoritmo reconocido por ser el más veloz en la práctica debido a su baja carga administrativa y el aprovechamiento de la caché del procesador.
+    
+    Al ser un algoritmo "in-place" es muy eficiente en el uso de memoria RAM donde depende de la elección del pivote, por lo que si escogemos mal la elección de datos ya ordenados puede degradar su rendimiento a **O(N²)**.
+:::
+
+No obstante, para la demostración de todos estos algoritmos de ordenación usamos 3 lenguajes de programación, en este caso fue java, pyhton y javascript. Aunque la sintaxis variaba un poco el comportamiento era el mismo, cada uno se centraba en estructuras estándar asegurando de no se altere el orden previo de elementos iguales, demostrando que al implementar estos algoritmos en distintos lenguajes no dependen simplemente de la herramienta, sino del dominio de la complejidad algorítmica y la gestión de los recursos del sistema.  
