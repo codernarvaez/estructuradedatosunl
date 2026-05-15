@@ -750,7 +750,8 @@ Particion y pivote
 
 2. **Partición**: SU objetivo es mover todos los elementos más pequeños que el pivote a su izquierda y todos los elementos más grandes a su derecha. 
 
-### Implementación en Java ![](images/java111.png){width=70% fig-align="center"}
+### Implementación en Java 
+![](images/java111.png){width=10% fig-align="left"}
 
 Implementaremos `quick_sort` en Java. Esta implementación es una versión 
 simplificada que crea nuevos arrays en cada paso de la partición, lo cual 
@@ -763,18 +764,18 @@ public class QuickSort {
     public static int[] quick_sort(int[] arr) {
         int n = arr.length;
         
-        # Caso base: un array con 0 o 1 elemento ya está ordenado
+        // Caso base: un array con 0 o 1 elemento ya está ordenado
         if (n <= 1) {
             return arr;
         }
         
-        # Elegir un pivote. Aquí usamos el último elemento por simplicidad.
-        # Otras estrategias incluyen elegir el primero, el del medio, o un pivote aleatorio.
+        // Elegir un pivote. Aquí usamos el último elemento por simplicidad.
+        // Otras estrategias incluyen elegir el primero, el del medio, o un pivote aleatorio.
         int pivot_index = n - 1;
         int pivot = arr[pivot_index];
         
-        # Separar los elementos menores y mayores que el pivote
-        # Excluimos el pivote del array original antes de la partición
+        // Separar los elementos menores y mayores que el pivote
+        // Excluimos el pivote del array original antes de la partición
         int[] remaining_elements = new int[n - 1];
         for (int i = 0, j = 0; i < n; i++) {
             if (i != pivot_index) {
@@ -782,9 +783,9 @@ public class QuickSort {
             }
         }
         
-        # Utilizar un enfoque para la partición
-        # Esto crea nuevos arrays, lo que impacta la eficiencia espacial
-        # Contar elementos menores y mayores
+        // Utilizar un enfoque para la partición
+        // Esto crea nuevos arrays, lo que impacta la eficiencia espacial
+        // Contar elementos menores y mayores
         int lessCount = 0, greaterCount = 0;
         for (int num : remaining_elements) {
             if (num < pivot) {
@@ -794,25 +795,25 @@ public class QuickSort {
             }
         }
         
-        # Crear arrays para less y greater
+        // Crear arrays para less y greater
         int[] less = new int[lessCount];
         int[] greater = new int[greaterCount];
         
-        # Llenar los arrays
+        // Llenar los arrays
         int lessIdx = 0, greaterIdx = 0;
         for (int num : remaining_elements) {
             if (num < pivot) {
                 less[lessIdx++] = num;
             } else {
-                greater[greaterIdx++] = num; # >= para incluir iguales o mayores
+                greater[greaterIdx++] = num; // >= para incluir iguales o mayores
             }
         }
         
-        # Ordenar recursivamente las sublistas y combinar
+        // Ordenar recursivamente las sublistas y combinar
         int[] sortedLess = quick_sort(less);
         int[] sortedGreater = quick_sort(greater);
         
-        # Combinar: sortedLess + pivot + sortedGreater
+        // Combinar: sortedLess + pivot + sortedGreater
         int[] result = new int[sortedLess.length + 1 + sortedGreater.length];
         System.arraycopy(sortedLess, 0, result, 0, sortedLess.length);
         result[sortedLess.length] = pivot;
@@ -866,7 +867,8 @@ int[] vector_ordenado_neg = quick_sort(vector_negativos);
 System.out.print("Vector ordenado (Quicksort): " + Arrays.toString(vector_ordenado_neg));
 ```
 
-### Implementación en Python ![](images/Python.svg.png){width=70% fig-align="center"}
+### Implementación en Python 
+![](images/Python.svg.png){width=10% fig-align="left"}
 
 Implementaremos `quick_sort` en Java. Esta implementacion es una versión simplificada que crea nueva listas en cada paso de la partición, lo cual es más idiomático en Python pero menos eficiente en especio que una implementación "in-place" con índices.
 
@@ -943,7 +945,8 @@ vector_ordenado_dup = quick_sort(vector_duplicados)
 print(f"Vector ordenado (Quicksort): {vector_ordenado_dup}")
 ```
 
-### Implementación en JavaScript ![](images/js.png){width=70% fig-align="center"}
+### Implementación en JavaScript 
+![](images/js.png){width=10% fig-align="left"}
 
 Implementaremos `quick_sort` en JavaScript. Esta implementacion es unaversión simplificada que crea nuevos arrays en cada paso de la partición, lo cual es más idiomático en JavaScript pero menos eficiente en especio que una implementación "in-place" con índices.
 
@@ -951,26 +954,26 @@ Implementaremos `quick_sort` en JavaScript. Esta implementacion es unaversión s
 function quick_sort(arr) {
     const n = arr.length;
     
-    # Caso base: un array con 0 o 1 elemento ya está ordenado
+    // Caso base: un array con 0 o 1 elemento ya está ordenado
     if (n <= 1) {
         return arr;
     }
     
-    # Elegir un pivote. Aquí se usa el último elemento por simplicidad.
-    # Otras estrategias incluyen elegir el primero, el del medio, o un pivote aleatorio.
+    // Elegir un pivote. Aquí se usa el último elemento por simplicidad.
+    // Otras estrategias incluyen elegir el primero, el del medio, o un pivote aleatorio.
     const pivot_index = n - 1;
     const pivot = arr[pivot_index];
     
-    # Separar los elementos menores y mayores que el pivote
-    # Excluimos el pivote del array original antes de la partición
+    // Separar los elementos menores y mayores que el pivote
+    // Excluimos el pivote del array original antes de la partición
     const remaining_elements = arr.slice(0, pivot_index).concat(arr.slice(pivot_index + 1));
     
-    # Utilizar un enfoque JavaScript-idiomático para la partición
-    # Esto crea nuevos arrays, lo que impacta la eficiencia espacial
+    // Utilizar un enfoque JavaScript-idiomático para la partición
+    // Esto crea nuevos arrays, lo que impacta la eficiencia espacial
     const less = remaining_elements.filter(x => x < pivot);
     const greater = remaining_elements.filter(x => x >= pivot); # >= para incluir iguales o mayores
     
-    # Ordenar recursivamente las sublistas y combinar
+    // Ordenar recursivamente las sublistas y combinar
     return [...quick_sort(less), pivot, ...quick_sort(greater)];
 }
 ```
