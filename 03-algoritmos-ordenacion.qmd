@@ -1,53 +1,1065 @@
-# Algoritmos de Ordenación: Guía Técnica
-
-
-
-## Definición e Importancia (Henry)
-<!-- 
-Indicaciones: 
-- Define qué es un algoritmo de ordenación.
-- Explica por qué son fundamentales (entrada/salida).
-- Menciona la relevancia en la eficiencia de otros procesos.
--->
-
-[Escribe aquí tu contenido...]
-
+---
+  title: "Algoritmos de Ordenación"
+  bibliography: references.bib
 ---
 
-## Cómo se clasifican los algoritmos (Francisco)
-<!-- 
-Indicaciones: 
-- Explica los parámetros de clasificación:
-  1. Intercambios y Comparaciones (Big-O).
-  2. Recursividad.
-  3. Estabilidad (usa el ejemplo de valores repetidos).
-  4. Espacio adicional (In-place vs Out-of-place).
--->
+¡Hola, amigo/a programador! Bienvenidos/as a este capítulo 5 de este libro. En este capítulo hablaremos sobre los principales Algoritmos de Ordenación; veremos cómo es su estructura, funcionamiento y cómo estos nos ayudan a la hora de programar.
 
-[Escribe aquí tu contenido...]
+Los algoritmos de ordenamiento tienen una gran importancia dentro del campo de la Ciencia de la Computación porque, al momento de realizar varios procesos, necesitaremos que nuestros datos estén ordenados para poder implementar otros algoritmos. [@bustosestudio].  
 
----
+En este capítulo, exploraremos algunos de los algoritmos de ordenación más conocidos y fundamentales: Burbuja (Bubble Sort), Inserción (Insertion Sort), Mergesort y Quicksort.
 
-## Algoritmos de ordenación más comunes (Alexander)
-<!-- 
-Indicaciones: 
-- Explica brevemente el concepto de los siguientes métodos:
-  - Selección (Selection Sort).
-  - Burbuja (Bubble Sort).
-  - Inserción (Insertion Sort).
-  - Combinación (Merge Sort).
--->
 
-[Escribe aquí tu contenido...]
+## Burbuja (Bubble Sort)
 
----
+### Concepto
 
-## El Reto: <!-- Titulo del reto --> (Franz)
-<!-- 
-Indicaciones: 
-- Explica a profundidad el método Quick Sort (Lógica del pivote).
-- Realiza una simulación paso a paso con una lista de ejemplo (ej. [8, 3, 5, 1, 4, 2]).
-- Inserta un bloque de código con una implementación base en un lenguaje de programación.
--->
+El método de burbuja o Bubble Sort es uno de los más simples y fáciles de comprender, ya que su función es comparar todos los elementos de una lista entre sí; su condición es que, si uno es mayor o menor que el otro, intercambien su posición.
 
-[Escribe aquí tu contenido...]
+El recorrido de la lista se repite hasta que no se necesiten más intercambios, lo que indica que la lista está ordenada. El número de repeticiones suele ser proporcional al tamaño de la lista; es decir, cuanto mayor sea el número de elementos, mayor será el número de pasadas necesarias. Aunque este algoritmo sea simple, es demasiado lento y poco práctico para la mayoría de los problemas; sin embargo, puede ser útil si la entrada ya está casi ordenada o es pequeña. Su rendimiento es crítico cuando la lista se encuentra ordenada en el orden inverso al requerido. @joaquin2014algoritmos.
+
+### Implementación en Java
+
+A continuación, implementaremos `bubble_sort` en Java.
+
+```java
+public  class  BubbleSort { 
+
+ public  static  void  main (String[] args) { 
+     int nums[] = { 5 , 1 , 6 , 2 , 4 , 3 }; 
+     int  size  = nums.length; 
+     int  temp  =  0 ; 
+     
+     System.out.println( "antes de ordenar" ); 
+    
+     for ( int num : nums){                                           
+         System.out.print(num + " ");      //imprimiendo array
+      } 
+    
+        System.out.println();   
+       for ( int  i  =  0 ; i < size; i++) { 
+        for ( int  j  =  0 ; j < size - i - 1 ; j++) { 
+            if (nums[j] > nums[j + 1 ]) { 
+                temp = nums[j]; 
+                nums[j] = nums[j + 1 ]; 
+                nums[j + 1 ] = temp; // Intercambio de elementos
+             } 
+          } 
+       } 
+     System.out.println( "después de ordenar" ); 
+    
+     for ( int num : nums){                              
+       
+          System.out.print(num + " " ); //imprimiendo el array
+      } 
+  } 
+
+}
+```
+### Implementacion en Python
+```python
+# Definimos la lista de números
+nums = [5, 1, 6, 2, 4, 3]
+size = len(nums)
+temp = 0
+
+print("antes de ordenar")
+
+# Imprimiendo el array original
+for num in nums:
+    print(num)
+
+print() # Espacio en blanco
+
+# Lógica del Ordenamiento Burbuja
+for i in range(size):
+    for j in range(0, size - i - 1):
+        if nums[j] > nums[j + 1]:
+            # Intercambio de elementos usando la variable temp
+            temp = nums[j]
+            nums[j] = nums[j + 1]
+            nums[j + 1] = temp
+
+print("después de ordenar")
+
+# Imprimiendo el array ordenado
+for num in nums:
+    print(num)
+```
+
+### Implementacion en JavaScript
+```javascript
+// Definimos el arreglo de números
+let nums = [5, 1, 6, 2, 4, 3];
+let size = nums.length;
+let temp = 0;
+
+console.log("antes de ordenar");
+
+// Imprimiendo el array original
+for (let num of nums) {
+    console.log(num);
+}
+
+console.log(""); // Espacio en blanco
+
+// Lógica del Ordenamiento Burbuja
+for (let i = 0; i < size; i++) {
+    for (let j = 0; j < size - i - 1; j++) {
+        if (nums[j] > nums[j + 1]) {
+            // Intercambio de elementos usando la variable temp
+            temp = nums[j];
+            nums[j] = nums[j + 1];
+            nums[j + 1] = temp;
+        }
+    }
+}
+
+console.log("después de ordenar");
+
+// Imprimiendo el array ordenado
+for (let num of nums) {
+    console.log(num);
+}
+```
+### Explicación del Código (Java)
+
+1.  **`int nums[] = { 5, 1, 6, 2, 4, 3 };`**: Creamos un arreglo de numeros enteros de forma desordenada.
+2.  **`int size = nums.length;`**: Guardamos el tamaño de la lista .
+3.  **`int temp = 0;`**: Crearemos una variable vacia que va a servir como un auxiliar cuando nesecesitemos intercambiar dos números de lugar .
+4.  **`for (int num : nums) { System.out.println(num);}:`**: Este bucle recorrera la lista completa y mostrara tal como esta nuestro arreglo
+5.  **`for (int i = 0; i < size; i++)`**: Este primer bucle controlara cuántas veces se necesita revisar la lista completa, cada vez que termina una vuelta, el numero mas grande habra llegado a su posición final
+6.  **`for (int j = 0; j < size - i - 1; j++)`**: En este segundo bucle va a comparar cada número vecino de dos en dos comparando el actual con el siguiente
+7.  **`if (nums[j] > nums[j + 1])`**: Compara si el elemento actual es mayor que el siguiente. Si lo es, están en el orden incorrecto y se movera para que el menor sea primero.
+8.  **`temp = nums[j];`**: El numero se guardara en la variable auxiliar
+9.  **`nums[j] = nums[j + 1]`**: Toma el valor que esta en la derecha y le haze una copia en la posicion izquierda.
+10.  **`nums[j + 1] = temp;`**: Se añade el numero que se guardo en la variable auxiliar en lugar del segundo
+11.  **`for (int num : nums) { System.out.println(num); }`**: La función devuelve el arreglo ordenado.
+
+### Complejidad
+
+*   **Tiempo**:
+    *   **Peor caso**: O(n^2). Ocurre al momento de listar al reves, en el ejercicio esto ocurre al momento de crear el arreglo
+    *   **Caso promedio**: O(n^2). El programa va a realizar las comparaciones de los dos ciclos por completo, como son 6 numeros nos daria aproximadamente 36 comparaciones
+    
+### Ejemplo
+Ordene el siguiente arreglo de menor a mayor por el metodo de la burbuja 
+<center>
+![](images/ejemplo.png)
+</center>
+
+Implementaremos el metodo de burbuja para poder resolver nuestro problema
+
+```java
+public class Ejemplo {
+
+    public static void main(String[] args) {
+        int nums[] = {5, 6, 1, 0, 3};
+        int size = nums.length;
+        int temp = 0;
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size - i - 1; j++) {
+                if (nums[j] > nums[j + 1]) {
+                    temp = nums[j];
+                    nums[j] = nums[j + 1];
+                    nums[j + 1] = temp;
+                }
+            }
+        }
+        for (int num : nums) {
+
+            System.out.print(num + " " );
+
+        }
+
+    }
+}
+
+```
+Como nos pide que ordenemos de menor a mayor nuestra funcion comparara todos los valores de izquierda a derecha comenzando por el número 5, después con el 6, el 1, el 0 y el 3, si el número actual es mayor que el de su derecha intercambiara su posición con su vecino y seguira asi en bucle hasta que los valores de su derecha no sean mayores que los de su izquierda, dandonos como resultado sus valores ordenados 
+
+<center>
+![](images/correcto.png)
+</center>
+
+### Implementación en Python
+```python
+nums = [5, 6, 1, 0, 3]
+size = len(nums)
+
+for i in range(size):
+    for j in range(0, size - i - 1):
+        if nums[j] > nums[j + 1]:
+            nums[j], nums[j + 1] = nums[j + 1], nums[j]
+
+
+for num in nums:
+    print(num, end=" ")
+    
+```
+### Implementación en JavaScript
+``` javascript
+let nums = [5, 6, 1, 0, 3];
+let size = nums.length;
+let temp = 0;
+
+for (let i = 0; i < size; i++) {
+    for (let j = 0; j < size - i - 1; j++) {
+        if (nums[j] > nums[j + 1]) {
+            temp = nums[j];
+            nums[j] = nums[j + 1];
+            nums[j + 1] = temp;
+        }
+    }
+}
+
+console.log(nums.join(" "));
+```
+
+## **Insertion Sort**
+
+### **Concepto**
+El **Insertion Sort** (ordenación por inserción) es un algoritmo de ordenamiento simple diseñado para procesar una cantidad pequeña de elementos. Su funcionamiento técnico consiste en recorrer un arreglo desde el segundo elemento (índice 1) y compararlo, tratándolo como una "clave" (key), con los elementos precedentes. Si los elementos anteriores son mayores que la clave, el algoritmo los desplaza una posición hacia adelante para permitir la inserción del valor clave en su lugar correspondiente. Se clasifica como un algoritmo de comparación **no recursivo**, **estable** (mantiene el orden de elementos con claves iguales) y **en el lugar** (in-place), lo que significa que no requiere memoria adicional significativa para su ejecución. En términos de rendimiento práctico, es superior al Bubble Sort, siendo hasta 5 veces más rápido en implementaciones en Java[@freeCodeCamp2023].
+
+En este capítulo, exploraremos algunos de los algoritmos de ordenación más conocidos y fundamentales: Burbuja (Bubble Sort), Inserción (Insertion Sort), Mergesort y Quicksort. Analizaremos su funcionamiento, implementaremos cada uno en R con bloques de código ejecutables y discutiremos sus características de rendimiento, incluyendo su complejidad temporal y espacial.
+
+### **Codigo en java**
+
+```java
+public static void insertionSort(int[] arr) {
+    int n = arr.length;
+    for (int i = 1; i < n; i++) {
+        int key = arr[i];
+        int j = i - 1;
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j = j - 1;
+        }
+        arr[j + 1] = key;
+    }
+}
+```
+
+#### **Explicacion del codigo**
+El procedimiento inicia la iteración en el índice 1 del arreglo. El valor en la posición actual se almacena en la variable `key`. Un bucle interno retrocede por los elementos anteriores (índice `j`); mientras estos sean mayores que la clave, se desplazan una posición a la derecha. Finalmente, la clave se inserta en la posición vacía generada.
+
+#### **complejidad del algoritmo**
+*   **Temporal (Peor y promedio):** $O(n^2)$, ocurre cuando el arreglo está ordenado de forma inversa o aleatoria.
+*   **Temporal (Mejor caso):** $O(n)$, sucede cuando el arreglo ya se encuentra ordenado, requiriendo solo una pasada.
+*   **Espacial:** $O(1)$, ya que las operaciones de ordenamiento se ejecutan directamente sobre el arreglo original (in-place).
+
+#### **Ejemplo**
+Dado el arreglo inicial :
+
+1.  **Paso 1:** Clave = 3. Como $8 > 3$, el 8 se mueve a la derecha. 
+2.  **Paso 2:** Clave = 5. Como $8 > 5$, el 8 se mueve a la derecha. 
+3.  **Paso 3:** Clave = 1. Se desplazan consecutivamente 8, 5 y 3 para insertar el 1 al inicio.
+
+El algoritmo de ordenación por burbuja es uno de los más sencillos de entender e implementar. Su nombre proviene del hecho de que los elementos más "grandes" (o más "pesados", si imaginamos burbujas) "flotan" gradualmente hacia el final de la lista a medida que se realizan comparaciones y posibles intercambios.
+
+
+### **Código en python**
+
+```python
+def insertion_sort(arr):
+    for i in range(1, len(arr)):
+        key = arr[i]
+        j = i - 1
+        while j >= 0 and key < arr[j]:
+            arr[j + 1] = arr[j]
+            j -= 1
+        arr[j + 1] = key
+```
+
+#### **Explicacion del codigo**
+La implementación en Python utiliza un ciclo `for` para recorrer la lista y un ciclo `while` para realizar los desplazamientos necesarios hacia la derecha. Esta técnica es fundamental en algoritmos modernos como el **Timsort**, que es una mezcla de Insertion Sort y Merge Sort utilizada por defecto en las funciones de ordenamiento nativas de Python.
+
+#### **complejidad del algoritmo**
+Mantiene una complejidad temporal de **$O(n^2)$** en casos desfavorables. Es un algoritmo **estable**, garantizando que no se altere el orden relativo de elementos que posean valores idénticos.
+
+#### **Ejemplo**
+En una lista, al procesar la clave 5:
+
+1.  Se compara 5 con 8. Dado que $8 > 5$, el 8 se desplaza.
+2.  Se compara 5 con 4. Dado que $4 < 5$, el desplazamiento se detiene y el 5 se inserta en la posición inmediatamente posterior al 4.
+
+### **Codigo en javascript**
+
+```javascript
+function insertionSort(arr) {
+  for (let i = 1; i < arr.length; i++) {
+    let key = arr[i];
+    let j = i - 1;
+    while (j >= 0 && arr[j] > key) {
+      arr[j + 1] = arr[j];
+      j--;
+    }
+    arr[j + 1] = key;
+  }
+  return arr;
+}
+```
+
+#### **Explicacion del codigo**
+El algoritmo itera desde la segunda posición del arreglo, extrayendo el elemento clave y comparándolo de forma regresiva con los elementos ya procesados a su izquierda. Los elementos se desplazan hacia la derecha hasta localizar el punto de inserción exacto para la clave.
+
+#### **complejidad del algoritmo**
+La complejidad temporal promedio es **$O(n^2)$**, lo que lo hace menos eficiente para grandes conjuntos de datos en comparación con algoritmos de orden $O(n \log n)$. No obstante, su bajo consumo de recursos (espacio **$O(1)$**) lo hace adecuado para sistemas con limitaciones de memoria.
+
+#### **Ejemplo**
+Con el arreglo:
+
+1.  La clave 1 se compara con 6, 4, 3 y 2 consecutivamente.
+2.  Cada uno de estos elementos se desplaza un lugar a la derecha.
+3.  El 1 se inserta en el índice 0, resultando en la lista final ordenada:.
+
+
+## Merge Sort
+
+### Concepto
+
+Merge Sort es un algoritmo de ordenamiento avanzado quee se base en el pricipio de “Divide y Vencerás”, utilizado con frecuencia para sistemas que requieren alto redimiento, estabilidad y eficiencia al trabajar con grandes volúmenes de datos.[@asin2021medicion] Su principal ventaja es mantener un tiempo de ejcucion predecibles incluso cuando el tamaño de los datos aumenta. El funcionamiento del Merge Sort consiste en dividir de manera repetitiva un arreglo en partes mas pequeñas hasta obtener subproblemas de un solo elemento que se lo considera ordenado.[@gurin2004algoritmos] Posteriormente el argorroritmo empieza a mezclar de manera ordenada comparando sus elementos hasta reconstruir completamente el arreglo original, pero ahora organizado en orden ascendente. Este proceso puede imaginarse como el ordenamiento de una baraja de cartas. Si intentáramos ordenarla de manera tradicional, tendríamos que revisar varias veces las mismas cartas para determinar su posición correcta. Sin embargo, al aplicar el principio de “Divide y Vencerás”, la baraja puede dividirse en grupos más pequeños, facilitando el ordenamiento de cada parte por separado. Permitiendo que los grupos ya ordenados se vuelven a unir poco a poco hasta obtener toda la baraja organizada.
+
+![Cartas ordenadas mediante Merge Sort](images/000059.jpg){width=70% fig-align="center"}
+
+El algoritmo funciona siguiento tres pasos principales:
+
+1.  **Dividir**: Si el arreglo contiene varios elemento este se divide a la mitad en dos subgrupos diferentes reduciendo el problema en partes mas pequeñas.
+2.  **Vencer**: Una vez divididos en subgrupos se aplica el mismo procesos de divicion de manera recursiva a cada subgrupo hasta obtener subarreglos de un solo elemento.
+3.  **Combinar (Merge)**: Finalmente todos los subarreglos se unen de forma ordenada comparando cada uno de sus elementos colocandolos en sus posicion correcta hasta formar un nuevo super arreglo.
+
+Este proceso continúa ejecutándose de manera recursiva hasta llegar a subarreglos de un solo elemento. Debido a que cada subarreglo contiene únicamente un dato, estos se consideran ordenados. A partir de ese punto, el algoritmo comienza el proceso de mezcla y reconstrucción ordenada hasta obtener el arreglo final completamente organizado.
+
+
+### Implementación en Java ![](images/p-80-java.png){width=10% fig-align="left"}
+
+Para la realizacion de este algoritmo necesitaremos dos funciones: una para la lógica recursiva de división (`merge_sort`) y otra para la combinación de dos arrays ya ordenados (`merge_arrays`).
+
+```java
+//| eval: false
+public class Mergesort {
+    /*
+     * Metodo encargado de combinar dos subarreglos ordenados
+     * en un unico arreglo ordenado.
+     */
+    public void merge_arrays(int[] arr, int l, int m, int r) {
+
+        // Tamaño del subarreglo izquierdo
+        int n1 = m - l + 1;
+
+        // Tamaño del subarreglo derecho
+        int n2 = r - m;
+
+        // Arreglos auxiliares
+        int[] L = new int[n1];
+        int[] R = new int[n2];
+
+        // Copiar elementos al arreglo izquierdo
+        for (int i = 0; i < n1; i++) {
+            L[i] = arr[l + i];
+        }
+
+        // Copiar elementos al arreglo derecho
+        for (int j = 0; j < n2; j++) {
+            R[j] = arr[m + 1 + j];
+        }
+
+        // Variables de control
+        int i = 0; // Indice del arreglo izquierdo
+        int j = 0; // Indice del arreglo derecho
+        int k = l; // Indice del arreglo principal
+
+
+        //Comparar elementos de ambos arreglos y colocarlos en orden ascendente
+        while (i < n1 && j < n2) {
+            if (L[i] <= R[j]) {
+                arr[k] = L[i];
+                i++;
+            } else {
+                arr[k] = R[j];
+                j++;
+            }
+            k++;
+        }
+
+        //Copiar los elementos restantes del arreglo izquierdo
+        while (i < n1) {
+            arr[k] = L[i];
+            i++;
+            k++;
+        }
+        //Copiar los elementos restantes del arreglo derecho
+        while (j < n2) {
+            arr[k] = R[j];
+            j++;
+            k++;
+        }
+    }
+
+    /*
+     * Metodo principal de Merge Sort.
+     * Divide el arreglo recursivamente.
+     */
+    public void merge_sort(int arr[], int l, int r) {
+        if (l < r) {
+          
+            // Calculo del punto medio
+            int m = l + (r - l) / 2;
+            
+            // Ordenar mitad izquierda
+            merge_sort(arr, l, m);
+            
+            // Ordenar mitad derecha
+            merge_sort(arr, m + 1, r);
+            
+            // Combinar ambas mitades
+            merge_arrays(arr, l, m, r);
+        }
+    }
+}
+```
+
+
+### Implementación en Python ![](images/Python-Emblem.png){width=10% fig-align="left"}
+
+
+```python
+#| eval: false
+class Mergesort:
+    # Metodo encargado de combinar dos subarreglos ordenados en un unico arreglo ordenado.
+    def merge_arrays(self, arr, l, m, r):
+
+        # Tamaño del subarreglo izquierdo
+        n1 = m - l + 1
+
+        # Tamaño del subarreglo derecho
+        n2 = r - m
+
+        # Arreglos auxiliares
+        L = [0] * n1
+        R = [0] * n2
+
+        # Copiar elementos al arreglo izquierdo
+        for i in range(n1):
+            L[i] = arr[l + i]
+
+        # Copiar elementos al arreglo derecho
+        for j in range(n2):
+            R[j] = arr[m + 1 + j]
+
+        # Variables de control
+        i = 0   # Indice del arreglo izquierdo
+        j = 0   # Indice del arreglo derecho
+        k = l   # Indice del arreglo principal
+        
+        #Comparar elementos de ambos arreglos y colocarlos en orden ascendente
+        while i < n1 and j < n2:
+            if L[i] <= R[j]:
+                arr[k] = L[i]
+                i += 1
+            else:
+                arr[k] = R[j]
+                j += 1
+            k += 1
+        
+        #Copiar los elementos restantes del arreglo izquierdo
+        while i < n1:
+            arr[k] = L[i]
+            i += 1
+            k += 1
+        
+        #Copiar los elementos restantes del arreglo derecho
+        while j < n2:
+            arr[k] = R[j]
+            j += 1
+            k += 1
+
+   
+    # Metodo principal de Merge Sort Divide el arreglo recursivamente.
+    def merge_sort(self, arr, l, r):
+
+        # Verifica si el arreglo puede seguir dividiendose
+        if l < r:
+            
+            # Calculo del punto medio
+            m = l + (r - l) // 2
+            
+            # Ordenar mitad izquierda
+            self.merge_sort(arr, l, m)
+            
+            # Ordenar mitad izquierda
+            self.merge_sort(arr, m + 1, r)
+            
+            # Combinar ambas mitades
+            self.merge_arrays(arr, l, m, r)
+```
+
+### Implementación en JavaScript ![](images/javascript.png){width=10% fig-align="left"}
+
+```javascript
+class MergeSort {
+
+    /*
+     * Metodo encargado de combinar dos subarreglos ordenados
+     * en un unico arreglo ordenado.
+     */
+    merge_arrays(arr, l, m, r) {
+
+        // Tamaño del subarreglo izquierdo
+        let n1 = m - l + 1;
+
+        // Tamaño del subarreglo derecho
+        let n2 = r - m;
+
+        // Arreglos auxiliares
+        let L = new Array(n1);
+        let R = new Array(n2);
+
+        // Copiar elementos al arreglo izquierdo
+        for (let i = 0; i < n1; i++) {
+            L[i] = arr[l + i];
+        }
+
+        // Copiar elementos al arreglo derecho
+        for (let j = 0; j < n2; j++) {
+            R[j] = arr[m + 1 + j];
+        }
+
+        // Variables de control
+        let i = 0; // Indice del arreglo izquierdo
+        let j = 0; // Indice del arreglo derecho
+        let k = l; // Indice del arreglo principal
+
+        // Comparar elementos de ambos arreglos y colocarlos en orden ascendente
+        while (i < n1 && j < n2) {
+
+            if (L[i] <= R[j]) {
+                arr[k] = L[i];
+                i++;
+
+            } else {
+                arr[k] = R[j];
+                j++;
+            }
+            k++;
+        }
+
+        // Copiar los elementos restantes del arreglo izquierdo
+        while (i < n1) {
+            arr[k] = L[i];
+            i++;
+            k++;
+        }
+
+        // Copiar los elementos restantes del arreglo derecho
+        while (j < n2) {
+            arr[k] = R[j];
+            j++;
+            k++;
+        }
+    }
+
+    /*
+     * Metodo principal de Merge Sort.
+     * Divide el arreglo recursivamente.
+     */
+    merge_sort(arr, l, r) {
+
+        if (l < r) {
+
+            // Calculo del punto medio
+            let m = l + Math.floor((r - l) / 2);
+
+            // Ordenar mitad izquierda
+            this.merge_sort(arr, l, m);
+
+            // Ordenar mitad derecha
+            this.merge_sort(arr, m + 1, r);
+
+            // Combinar ambas mitades
+            this.merge_arrays(arr, l, m, r);
+        }
+    }
+```
+
+### Explicación del Código (Java)
+
+#### `merge_arrays(int[] arr, int l, int m, int r)`:
+1.  **`int n1 = m - l + 1` y `int n2 = r - m`**:
+    Calcula el tamaño de los dos subarreglos que se van a combinar.
+    *   `n1` representa el tamaño del subarreglo izquierdo.
+    *   `n2` representa el tamaño del subarreglo derecho.
+
+2.  **`int[] L = new int[n1]` y `int[] R = new int[n2]`**:
+    Se crean dos arreglos auxiliares temporales para almacenar los elementos de cada mitad del arreglo original.
+
+3.  **`for (int i = 0; i < n1; i++)`**:
+    Copia los elementos de la mitad izquierda del arreglo principal `arr` al arreglo auxiliar `L`.
+
+4.  **`for (int j = 0; j < n2; j++)`**:
+    Copia los elementos de la mitad derecha del arreglo principal `arr` al arreglo auxiliar `R`.
+
+5.  **`while (i < n1 && j < n2)`**:
+    Este bucle compara los elementos de los arreglos auxiliares `L` y `R`.
+    
+    *   Si `L[i] <= R[j]`, el elemento de `L` se coloca en el arreglo principal.
+    *   Caso contrario, el elemento de `R` se coloca en el arreglo principal.
+    
+    Después de cada comparación se incrementan los índices correspondientes.
+
+6.  **`while (i < n1)`**:
+    Si aún quedan elementos restantes en el arreglo izquierdo `L`, estos se copian directamente al arreglo principal.
+
+7.  **`while (j < n2)`**:
+    Si aún quedan elementos restantes en el arreglo derecho `R`, estos también se copian directamente al arreglo principal.
+    
+#### `merge_sort(int arr[], int l, int r)`:
+1.  **`if (l < r)`**:
+    Esta condición verifica si el arreglo puede seguir dividiéndose.
+    
+    *   Si el subarreglo tiene más de un elemento, el algoritmo continúa.
+    *   Si tiene un solo elemento, se considera ordenado y termina la recursión.
+
+2.  **`int m = l + (r - l) / 2`**:
+    Calcula el punto medio del arreglo para dividirlo en dos partes equilibradas.
+
+3.  **`merge_sort(arr, l, m)`**:
+    Llama recursivamente al método para ordenar la mitad izquierda del arreglo.
+
+4.  **`merge_sort(arr, m + 1, r)`**:
+    Llama recursivamente al método para ordenar la mitad derecha del arreglo.
+
+5.  **`merge_arrays(arr, l, m, r)`**:
+    Una vez que ambas mitades están ordenadas, se fusionan utilizando el método `merge_arrays`.
+
+### Complejidad
+
+*   **Tiempo**:
+    *   **Peor caso**: O(n log n).
+    *   **Caso promedio**: O(n log n).
+    *   **Mejor caso**: O(n log n).
+    
+::: {.callout-note title="Importante" collapse="true"}
+Mergesort cuenta con la ventaja de ser un algoritmo de ordenamiento estable con una eficiencia constante sin importar si el tamaño de los datos aumenta teniendo un tiempo de ejecucion mejor que otros algoritmos de ordenamiento. El factor `n log n` significa que el tiempo de ejcucion incrementa de manera logaritmica y lineal conforme crce el numeor de elementos. El termino `log n`  proviene de las divisiones recursivas que se realiza sobre el arreglo ya que se divide repetitivamente hasta obtener subarreglos de un solo elemento, y `n` corresponde al proceso de combinar y fucionar donde el algoritmo compara cada elemento para reconstruir el arreglo de manera ordenada. 
+:::
+    
+*   **Espacio**: O(n). 
+
+::: {.callout-note title="Importante" collapse="true"}
+El Merge Sort no es un algoritmo in-place puro, ya que requiere espacio adicional para almacenar de manera temporal los subarreglos durante la ejecución del algoritmo. Esto ocurre porque la funcion  `merge_arrays` crea arreglos auxiliares para comparar y combinar los elementos, ordenándolos antes de reconstruir el arreglo principal lo que contribuye a su complejidad espacial.
+:::
+
+### Ejemplo
+
+Veamos el método `merge_sort` en acción. Para ello utilizaremos un ejemplo clásico: imaginemos que tenemos una baraja de cartas con diferentes números y queremos ordenarlas de menor a mayor, sin importar su símbolo. 
+Primero, la baraja completa se divide en dos grupos más pequeños. Luego, cada grupo vuelve a dividirse repetidamente hasta obtener grupos de una sola carta. Debido a que una carta individual ya se considera ordenada, el algoritmo comienza a combinar nuevamente los grupos comparando los valores de cada carta.
+
+Si tenemos este arreglo de cartas: `[4, 5, 9, 2, 10, 1, 8, 6]`
+
+El algoritmo divide las cartas en grupos más pequeños: `[4, 5, 9, 2] [10, 1, 8, 6]`
+
+Luego continúa separándolas: `[4, 5] [9, 2] [10, 1] [8, 6]`
+
+Hasta obtener grupos individuales: `[4] [5] [9] [2] [10] [1] [8] [6]`
+
+Finalmente, comienza el proceso de combinación ordenada: `[4, 5] [2, 9] [1, 10] [6, 8]`
+
+Y el resultado final será: `[1, 2, 4, 5, 8, 9, 10]`
+
+Lo cual podemos comprobar al ejecutar los códigos presentados, ya que ambos producen el mismo resultado. En cada caso, el algoritmo logra ordenar correctamente los elementos del arreglo principal, obteniendo finalmente una secuencia organizada en orden ascendente.
+
+#### Ejecucion con java ![](images/p-80-java.png){width=10% fig-align="left"}
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        // Instancia de la clase de lógica
+        Mergesort ordenador = new Mergesort();
+
+        // Caso 1: Cartas desordenadas
+        int[] arr1 = {4, 5, 9, 2, 10, 1, 8, 6};
+        System.out.println("Vector original: " + java.util.Arrays.toString(arr1));
+        
+        ordenador.merge_sort(arr1, 0, arr1.length - 1);
+        System.out.println("Vector ordenado: " + java.util.Arrays.toString(arr1));
+
+    }
+}
+```
+
+#### Ejecucion con Python ![](images/Python-Emblem.png){width=10% fig-align="left"}
+
+```python
+class Main:
+    @staticmethod
+    def ejecutar():
+        ordenador = Mergesort()
+
+        vector_1 = [4, 5, 9, 2, 10, 1, 8, 6]
+        print(f"Vector original: {vector_1}")
+        ordenador.merge_sort(vector_1, 0, len(vector_1) - 1)
+        print(f"Vector ordenado: {vector_1}")
+
+Main.ejecutar()
+```
+
+#### Ejecucion con JavaScript ![](images/javascript.png){width=10% fig-align="left"}
+
+```javascript
+function main() {
+    let obj = new MergeSort();
+
+    let arr = [4, 5, 9, 2, 10, 1, 8, 6];
+
+    console.log("Arreglo original: " + arr.join(", "));
+
+    obj.merge_sort(arr, 0, arr.length - 1);
+
+    console.log("Arreglo ordenado: " + arr.join(", "));
+}
+
+// Ejecutar programa principal
+main();
+```
+
+## Quicksort
+
+### Concepto
+
+Quicksort es un algoritmo de ordenación  creado por Tony Hoare en 1961 y se basa en el paradigma "divide y vencerás", siendo considerado uno de los algoritmos más rápidos en la práctica para grandes conjuntos de datos no estructurados. 
+Aunque quicksort puede tener algunas desventajas, en la práctica funciona bien y supera a otros algoritmos de ordenación en velocidad y eficiencia espacial debido a su propóstio general. 
+
+Basicamente se basa en la división y consquista que clasifica una matriz seleccionando un elemento "pivote" y dividiendo los otros elementos en dos subconjunyos, de acuerdo con si son menores o mayores que el pivote. Este proceso se repite recursivamente hasta que se clasifica la matriz [@dealgoritmo]. 
+
+::: {.callout-note icon=false}
+## 🗺️ El funcionamiento básico es el siguiente:
+1.  **Elegir un Pivote**: Selecciona un elemento del array, llamado "pivote". La elección del pivote es crucial para el rendimiento.
+2.  **Particionar**: Reordena el array de modo que todos los elementos con valores menores que el pivote queden a su izquierda, y todos los elementos con valores mayores queden a su derecha. Los elementos iguales al pivote pueden ir a cualquiera de los dos lados. Después de la partición, el pivote está en su posición final ordenada.
+3.  **Recursión**: Aplica Quicksort recursivamente a la sublista de elementos con valores menores que el pivote y a la sublista de elementos con valores mayores que el pivote.
+
+La recursión termina cuando una sublista tiene cero o un elemento, ya que ya están ordenados.
+:::
+
+# Quick_sort
+
+![Quick_sort](images/0_vAMz_7iAbCplF4Z7.png)
+
+Particion y pivote
+
+1.  **Pivote**: Es el elemento alrededor del cual se divide la matriz, por ende, se puede elgir cualquier elemtno como pivote, pero las estrategias mcomunes incluyen la selección del primer elemento, el último elemento o un elemento aleatorio.
+
+2. **Partición**: SU objetivo es mover todos los elementos más pequeños que el pivote a su izquierda y todos los elementos más grandes a su derecha. 
+
+### Implementación en Java 
+![](images/java111.png){width=10% fig-align="left"}
+
+Implementaremos `quick_sort` en Java. Esta implementación es una versión 
+simplificada que crea nuevos arrays en cada paso de la partición, lo cual 
+es más fácil de entender pero menos eficiente en espacio que una 
+implementación "in-place" con índices.
+
+```java
+public class QuickSort {
+    
+    public static int[] quick_sort(int[] arr) {
+        int n = arr.length;
+        
+        // Caso base: un array con 0 o 1 elemento ya está ordenado
+        if (n <= 1) {
+            return arr;
+        }
+        
+        // Elegir un pivote. Aquí usamos el último elemento por simplicidad.
+        // Otras estrategias incluyen elegir el primero, el del medio, o un pivote aleatorio.
+        int pivot_index = n - 1;
+        int pivot = arr[pivot_index];
+        
+        // Separar los elementos menores y mayores que el pivote
+        // Excluimos el pivote del array original antes de la partición
+        int[] remaining_elements = new int[n - 1];
+        for (int i = 0, j = 0; i < n; i++) {
+            if (i != pivot_index) {
+                remaining_elements[j++] = arr[i];
+            }
+        }
+        
+        // Utilizar un enfoque para la partición
+        // Esto crea nuevos arrays, lo que impacta la eficiencia espacial
+        // Contar elementos menores y mayores
+        int lessCount = 0, greaterCount = 0;
+        for (int num : remaining_elements) {
+            if (num < pivot) {
+                lessCount++;
+            } else {
+                greaterCount++;
+            }
+        }
+        
+        // Crear arrays para less y greater
+        int[] less = new int[lessCount];
+        int[] greater = new int[greaterCount];
+        
+        // Llenar los arrays
+        int lessIdx = 0, greaterIdx = 0;
+        for (int num : remaining_elements) {
+            if (num < pivot) {
+                less[lessIdx++] = num;
+            } else {
+                greater[greaterIdx++] = num; // >= para incluir iguales o mayores
+            }
+        }
+        
+        // Ordenar recursivamente las sublistas y combinar
+        int[] sortedLess = quick_sort(less);
+        int[] sortedGreater = quick_sort(greater);
+        
+        // Combinar: sortedLess + pivot + sortedGreater
+        int[] result = new int[sortedLess.length + 1 + sortedGreater.length];
+        System.arraycopy(sortedLess, 0, result, 0, sortedLess.length);
+        result[sortedLess.length] = pivot;
+        System.arraycopy(sortedGreater, 0, result, sortedLess.length + 1, 
+        sortedGreater.length);
+        
+        return result;
+    }
+}
+```
+
+### Explicación del Código
+
+1.  **`quickSort(int[] arr)`**: Nuestra función toma un array de enteros `arr`.
+2.  **`if (n <= 1)`**: El **caso base** de la recursión. Si el array tiene 0 o 1 elemento, se devuelve tal cual.
+3.  **`pivot_index = n - 1` / `pivot = arr[pivot_index]`**: Elegimos el último elemento como pivote. Esta es una elección simple, pero puede llevar al peor caso si el array ya está ordenado o casi ordenado.
+4.  **`remaining_elements`**: Creamos un nuevo array que contiene todos los elementos excepto el pivote.
+5.  **`less y greater`**: Filtramos los elementos en dos arrays:
+    *   **less**: elementos menores que el pivote
+    *   **greater**: elementos mayores o iguales que el pivote
+6.  **`sortedLess = quickSort(less) y sortedGreater = quickSort(greater)`**: Llamadas recursivas para ordenar cada subarray.
+7.  **`return result`**: Esta es la fase de combinación.
+    *   Concatena `sorteddLess`, el `pivot` y `sortedGreater` en un nuevo array.
+    *   `System.arraycopy()` se usa para copiar eficientemente los elementos. 
+
+### Complejidad del Algoritmo
+
+*   **Complejidad temporal**:
+    *   **Mejor caso**: (O(n log n)). Ocurre cuando el pivote divide el array en dos mitades aproximadamente iguales.
+    *   **Caso promedio**: O(n log n). Con pivotes aleatorios o datos distribuidos uniformemente.
+    *   **Peor caso**: O(n²): Cuando el pivote siempre es el elemento más pequeño o más grande.
+*   **Complejidad espacial**:
+    *   **O(n log n) en el peor caso**: Debido a que creamos nuevos arrays en cada nivel de recursión.
+    *   Nuestra implementación en java, no es "in-place" por lo que utiliza más memoria que una versión optimizada con índices.
+
+### Ejemplo
+
+Veamos `quick_sort` en acción.
+
+```java
+# Ejemplo 1: Un vector desordenado
+int[] vector_desordenado = {10, 80, 30, 90, 40, 50, 70};
+System.out.print("Vector original: " + Arrays.toString(vector_desordenado));
+int[] vector_ordenado = quick_sort(vector_desordenado);
+System.out.print("Vector ordenado (Quicksort): " + Arrays.toString(vector_ordenado));
+
+# Ejemplo 2: Un vector con números negativos
+int[] vector_negativos = {-5, 3, -1, 8, 0, -10};
+System.out.print("Vector con negativos: " + Arrays.toString(vector_negativos));
+int[] vector_ordenado_neg = quick_sort(vector_negativos);
+System.out.print("Vector ordenado (Quicksort): " + Arrays.toString(vector_ordenado_neg));
+```
+
+### Implementación en Python 
+![](images/Python.svg.png){width=10% fig-align="left"}
+
+Implementaremos `quick_sort` en Java. Esta implementacion es una versión simplificada que crea nueva listas en cada paso de la partición, lo cual es más idiomático en Python pero menos eficiente en especio que una implementación "in-place" con índices.
+
+```python
+def quick_sort(arr):
+    n = len(arr)
+    
+    # Caso base: una lista con 0 o 1 elemento ya está ordenada
+    if n <= 1:
+        return arr
+    
+    # Elegir un pivote. Aquí se usa el último elemento por simplicidad.
+    # Otras estrategias incluyen elegir el primero, el del medio, o un pivote aleatorio.
+    pivot_index = n - 1
+    pivot = arr[pivot_index]
+    
+    # Separar los elementos menores y mayores que el pivote
+    # Excluimos el pivote de la lista original antes de la partición
+    remaining_elements = arr[:pivot_index] + arr[pivot_index + 1:]
+    
+    # Utilizar un enfoque Python-idiomático para la partición
+    # Esto crea nuevas listas, lo que impacta la eficiencia espacial
+    less = [x for x in remaining_elements if x < pivot]
+    greater = [x for x in remaining_elements if x >= pivot]  # >= para incluir iguales o mayores
+    
+    # Ordenar recursivamente las sublistas y combinar
+    return quick_sort(less) + [pivot] + quick_sort(greater)
+```
+
+### Explicación del Código
+
+1.  **`quickSort(int[] arr)`**: Nuestra función toma una lista `arr`.
+2.  **`if (n <= 1)`**: El **caso base** de la recursión. Si la lista tiene 0 o 1 elemento, se devuelve tal cual.
+3.  **`pivot_index = n - 1` / `pivot = arr[pivot_index]`**: Elegimos el último elemento como pivote. Esta es una elección simple, pero puede llevar al peor caso si la lista ya está ordenada o casi ordenada.
+4.  **`remaining_elements = arr [:pivot_index] + arr[pivot_index + 1]`**: Creamos una nueva lista que contiene todos los elementos excepto el pivote.
+5.  **`less = [x for x in remaining_elements if x >= pivot]`**: Filtra los elementos que son mayores o iguales que el pivote, por ende, es importante incluir los iguales para evitar bucles infinitos en casos con duplicados si solo se usara **`>`** y el pivote fuera único.
+7.  **`return quick_sort(less) + [pivot] + quick_sort(greater)`**: Esta es la fase de combinación
+    *   Llama recursivamente a **quick_sort** en la sublista **`less`**
+    *   EL **pivot** se coloca en medio, ya que está en su posición final
+    *   Llama recursivamente a **`quick_sort`** en la sublista **`greater`**
+    *   EL operador **`+`** concatena estas tres listas en la lista final ordenada.
+
+### Complejidad del Algoritmo
+
+*   **Complejidad temporal**:
+    *   **Mejor caso**: O(n log n). Ocurre cuando el pivote divide la lista en dos mitades aproximadamente iguales
+    *   **Caso promedio**: O(n log n). Con pivotes aleatorios o datos distribuidos uniformemente.
+    *   **Peor caso**: O(n²): Ocurre cuando el pivote siempre es el elemento más pequeño o más grande 
+*   **Complejidad espacial**:
+    *   **O(n log n) en el peor caso**: Debido a que creamos nuevas listas en cada nivel de recursión.
+    *   Esta implementación no es "in-place", por lo que utiliza más memoria que una versión optimizada con índices.
+
+### Ejemplo
+
+Veamos `quick_sort` en acción.
+
+```python
+# Ejemplo 1: Una lista desordenada
+vector_desordenado = [10, 80, 30, 90, 40, 50, 70]
+print(f"Vector original: {vector_desordenado}")
+vector_ordenado = quick_sort(vector_desordenado)
+print(f"Vector ordenado (Quicksort): {vector_ordenado}")
+
+# Ejemplo 2: Una lista con números negativos
+vector_negativos = [-5, 3, -1, 8, 0, -10]
+print(f"Vector con negativos: {vector_negativos}")
+vector_ordenado_neg = quick_sort(vector_negativos)
+print(f"Vector ordenado (Quicksort): {vector_ordenado_neg}")
+
+# Ejemplo 3: Una lista con elementos duplicados
+vector_duplicados = [5, 2, 8, 2, 5, 1, 8]
+print(f"Vector con duplicados: {vector_duplicados}")
+vector_ordenado_dup = quick_sort(vector_duplicados)
+print(f"Vector ordenado (Quicksort): {vector_ordenado_dup}")
+```
+
+### Implementación en JavaScript 
+![](images/js.png){width=10% fig-align="left"}
+
+Implementaremos `quick_sort` en JavaScript. Esta implementacion es unaversión simplificada que crea nuevos arrays en cada paso de la partición, lo cual es más idiomático en JavaScript pero menos eficiente en especio que una implementación "in-place" con índices.
+
+```js
+function quick_sort(arr) {
+    const n = arr.length;
+    
+    // Caso base: un array con 0 o 1 elemento ya está ordenado
+    if (n <= 1) {
+        return arr;
+    }
+    
+    // Elegir un pivote. Aquí se usa el último elemento por simplicidad.
+    // Otras estrategias incluyen elegir el primero, el del medio, o un pivote aleatorio.
+    const pivot_index = n - 1;
+    const pivot = arr[pivot_index];
+    
+    // Separar los elementos menores y mayores que el pivote
+    // Excluimos el pivote del array original antes de la partición
+    const remaining_elements = arr.slice(0, pivot_index).concat(arr.slice(pivot_index + 1));
+    
+    // Utilizar un enfoque JavaScript-idiomático para la partición
+    // Esto crea nuevos arrays, lo que impacta la eficiencia espacial
+    const less = remaining_elements.filter(x => x < pivot);
+    const greater = remaining_elements.filter(x => x >= pivot); # >= para incluir iguales o mayores
+    
+    // Ordenar recursivamente las sublistas y combinar
+    return [...quick_sort(less), pivot, ...quick_sort(greater)];
+}
+```
+
+### Explicación del Código
+
+1.  **`quickSort(int[] arr)`**: Nuestra función toma una array `arr`.
+2.  **`if (n <= 1)`**: El **caso base** de la recursión. Si el array tiene 0 o 1 elemento, se devuelve tal cual.
+3.  **`pivot_index = n - 1` / `pivot = arr[pivot_index]`**: Elegimos el último elemento como pivote. Esta es una elección simple, pero puede llevar al peor caso si el array ya está ordenado o casi ordenado.
+4.  **`remaining_elements`**: Creamos un array que contiene todos los elementos excepto el pivote usando **`slice()`** y **`concat()`** .
+5.  **`less = remaining_elements.filter (x => x < pivot)`**: Usamoe el método **`filter()`** para obtener los elementos **`remaining_elements** que son menores que el pivote.
+7.  **`greater = remaining_elements.filter(x => x >= pivot)`**: Filtra los elementos que son mayores o iguales que el pivote
+8.  **`return [...quick_sort(less), pivot, ...quick_sort(greater)]`**: Esta es la fase de combinacion
+    *   Llama recursivamente a **quick_sort** en la sublista **`less`**
+    *   EL **pivot** se coloca en medio, ya que está en su posición final
+    *   Llama recursivamente a **`quick_sort`** en la sublista **`greater`**
+    *   EL operador spread **`...`** concatena estos tres resultados en el array final ordenado.
+
+### Complejidad del Algoritmo
+
+*   **Complejidad temporal**:
+    *   **Mejor caso**: (O(n log n)). Ocurre cuando el pivote divide el array en dos mitades aproximadamente iguales
+    *   **Caso promedio**: O(n log n). Con pivotes aleatorios o datos distribuidos uniformemente.
+    *   **Peor caso**: O(n²): Ocurre cuando el pivote siempre es el elemento más pequeño o más grande 
+*   **Complejidad espaciall**:
+    *   **O(n log n) en el peor caso**: Debido a que creamos nuevas listas en cada nivel de recursión.
+    *   Esta implementación no es "in-place", por lo que utiliza más memoria que una versión optimizada con índices.
+
+### Ejemplo
+
+Veamos `quick_sort` en acción.
+
+```js
+# Ejemplo 1: Una lista desordenada
+const vector_desordenado = [10, 80, 30, 90, 40, 50, 70];
+console.log(`Vector original: ${vector_desordenado}`);
+const vector_ordenado = quick_sort(vector_desordenado);
+console.log(`Vector ordenado (Quicksort): ${vector_ordenado}`);
+
+# Ejemplo 2: Un array con números negativos
+const vector_negativos = [-5, 3, -1, 8, 0, -10];
+console.log(`Vector con negativos: ${vector_negativos}`);
+const vector_ordenado_neg = quick_sort(vector_negativos);
+console.log(`Vector ordenado (Quicksort): ${vector_ordenado_neg}`);
+
+# Ejemplo 3: Un array con elementos duplicados
+const vector_duplicados = [5, 2, 8, 2, 5, 1, 8];
+console.log(`Vector con duplicados: ${vector_duplicados}`);
+const vector_ordenado_dup = quick_sort(vector_duplicados);
+console.log(`Vector ordenado (Quicksort): ${vector_ordenado_dup}`);
+```  
+
+## Conclusión
+
+Se ha recorrido cuatro algoritmos de ordenación fundamentales, cada uno con su enfoque único y características de rendimiento que definen su utilidad y eficiencia en el desarrollo de software moderno.
+
+:::{.callout icon=false}
+*   **Bubble Sort** e **Insertion Sort** Son algoritmos intuitivos y eficientes lo cual los hacen ideal para comprender la lógica de control de flujos, asi mismo, son adecuados para colecciones pequeñas o datos que ya estan casi ordenados ya que requieren un número minimo de intercambios.
+
+    Sin embargo, su complejidad 0(n²) provoca que el tiempo de ejecución se dispare ante volúmenes de datos medianos o grandes por lo que su uso es nulo frente a alternativas más escalabes.
+
+*   **Mergesort** y **Quicksort** Estos algoritmos representan la eficiencia del paradigma "divide y vencerás", la cual consiste en fragmentar el problema original en partes mas pequeñas logrando generalmente un rendimiento de **O(n log n)**. 
+
+    *   **Mergesort** Es un algoritmo esable con una propiedad crítica cuando necesitamos que los elementos claves iguales mantengan su orden original. 
+    
+    *   **Quicksort** Este es un algoritmo reconocido por ser el más veloz en la práctica debido a su baja carga administrativa y el aprovechamiento de la caché del procesador.
+    
+    Al ser un algoritmo "in-place" es muy eficiente en el uso de memoria RAM donde depende de la elección del pivote, por lo que si escogemos mal la elección de datos ya ordenados puede degradar su rendimiento a **O(N²)**.
+:::
+
+No obstante, para la demostración de todos estos algoritmos de ordenación usamos 3 lenguajes de programación, en este caso fue java, pyhton y javascript. Aunque la sintaxis variaba un poco el comportamiento era el mismo, cada uno se centraba en estructuras estándar asegurando de no se altere el orden previo de elementos iguales, demostrando que al implementar estos algoritmos en distintos lenguajes no dependen simplemente de la herramienta, sino del dominio de la complejidad algorítmica y la gestión de los recursos del sistema.
+
+## Reto
+
+Imagina que tienes una caja llena de azulejos con letras (mayúsculas y minúsculas) totalmente desordenadas. Tu objetivo es crear un programa que saque todas las letras de la caja y las organice en una fila perfectamente ordenada de la A a la Z.
+Escribe una función que reciba una cadena de texto (la caja desordenada) y devuelva una nueva cadena con las letras en orden alfabético.
+
+### Restricciones
+
+<!-- 1.  **Libertad de Algoritmo:** Puedes usar cualquier método de ordenación que prefieras (desde los más sencillos hasta los más avanzados). -->
+2.  **Sin Librerías Externas:** Intenta programar la lógica de ordenamiento tú mismo en lugar de usar funciones automáticas del lenguaje (como .sort() o sorted()), para demostrar que entiendes cómo se mueven los datos
+3.  **Resultado Limpio:**: El resultado final debe ser una sola cadena de texto con todas las letras juntas y en orden.
+
+### Ejemplo
+
+ *   **Entrada:** "algoritmo".
+ *   **Salida:** "agilmort".
+ 
+ Ahora la palabra "algoritmo" se encuentra ordenada en orden alfabetico.
