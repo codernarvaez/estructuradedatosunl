@@ -23,6 +23,7 @@ book:
     - 04-algoritmos-busqueda.qmd
     - 05-grafos-arboles.qmd
     - 06-estructuras-avanzadas.qmd
+    - 07-arboles_B_R.qmd
     - references.qmd
 
 bibliography: references.bib
