@@ -1,4 +1,14 @@
 ---
+title: "Algoritmos de Ordenación"
+---
+
+# Algoritmos de Ordenación
+
+¡Bienvenidos a este capítulo fundamental en la ciencia de la computación y la programación con R! La ordenación de datos es una de las operaciones más comunes y críticas que realizamos. Desde organizar una tabla de datos por una columna específica hasta optimizar algoritmos más complejos, la capacidad de ordenar eficientemente es indispensable.
+
+Comprender cómo funcionan los diferentes algoritmos de ordenación no solo mejora nuestra capacidad para escribir código eficiente, sino que también profundiza nuestra comprensión de la complejidad algorítmica, la eficiencia de los recursos y la lógica de programación.
+
+En este capítulo, exploraremos algunos de los algoritmos de ordenación más conocidos y fundamentales: Burbuja (Bubble Sort), Inserción (Insertion Sort), Mergesort y Quicksort. Analizaremos su funcionamiento, implementaremos cada uno en R con bloques de código ejecutables y discutiremos sus características de rendimiento, incluyendo su complejidad temporal y espacial.
   title: "Algoritmos de Ordenación"
   bibliography: references.bib
 ---
@@ -14,131 +24,247 @@ En este capítulo, exploraremos algunos de los algoritmos de ordenación más co
 
 ### Concepto
 
-El método de burbuja o Bubble Sort es uno de los más simples y fáciles de comprender, ya que su función es comparar todos los elementos de una lista entre sí; su condición es que, si uno es mayor o menor que el otro, intercambien su posición.
+El algoritmo de ordenación por burbuja es uno de los más sencillos de entender e implementar. Su nombre proviene del hecho de que los elementos más "grandes" (o más "pesados", si imaginamos burbujas) "flotan" gradualmente hacia el final de la lista a medida que se realizan comparaciones y posibles intercambios.
 
-El recorrido de la lista se repite hasta que no se necesiten más intercambios, lo que indica que la lista está ordenada. El número de repeticiones suele ser proporcional al tamaño de la lista; es decir, cuanto mayor sea el número de elementos, mayor será el número de pasadas necesarias. Aunque este algoritmo sea simple, es demasiado lento y poco práctico para la mayoría de los problemas; sin embargo, puede ser útil si la entrada ya está casi ordenada o es pequeña. Su rendimiento es crítico cuando la lista se encuentra ordenada en el orden inverso al requerido. @joaquin2014algoritmos.
+El algoritmo funciona recorriendo repetidamente la lista, comparando cada par de elementos adyacentes y cambiándolos de posición si están en el orden incorrecto. Este proceso se repite hasta que ya no se necesiten intercambios en una pasada completa, lo que indica que la lista está ordenada.
 
-### Implementación en Java
+### Implementación en R
 
-A continuación, implementaremos `bubble_sort` en Java.
+A continuación, implementaremos `bubble_sort` en R.
 
-```java
-public  class  BubbleSort { 
-
- public  static  void  main (String[] args) { 
-     int nums[] = { 5 , 1 , 6 , 2 , 4 , 3 }; 
-     int  size  = nums.length; 
-     int  temp  =  0 ; 
-     
-     System.out.println( "antes de ordenar" ); 
+```{r}
+bubble_sort <- function(arr) {
+  n <- length(arr)
+  
+  # Bucle exterior para cada pasada (n-1 pasadas como máximo)
+  for (i in 1:(n - 1)) {
+    swapped <- FALSE # Bandera para optimización: si no hay intercambios, está ordenado
     
-     for ( int num : nums){                                           
-         System.out.print(num + " ");      //imprimiendo array
-      } 
-    
-        System.out.println();   
-       for ( int  i  =  0 ; i < size; i++) { 
-        for ( int  j  =  0 ; j < size - i - 1 ; j++) { 
-            if (nums[j] > nums[j + 1 ]) { 
-                temp = nums[j]; 
-                nums[j] = nums[j + 1 ]; 
-                nums[j + 1 ] = temp; // Intercambio de elementos
-             } 
-          } 
-       } 
-     System.out.println( "después de ordenar" ); 
-    
-     for ( int num : nums){                              
-       
-          System.out.print(num + " " ); //imprimiendo el array
-      } 
-  } 
-
-}
-```
-### Implementacion en Python
-```python
-# Definimos la lista de números
-nums = [5, 1, 6, 2, 4, 3]
-size = len(nums)
-temp = 0
-
-print("antes de ordenar")
-
-# Imprimiendo el array original
-for num in nums:
-    print(num)
-
-print() # Espacio en blanco
-
-# Lógica del Ordenamiento Burbuja
-for i in range(size):
-    for j in range(0, size - i - 1):
-        if nums[j] > nums[j + 1]:
-            # Intercambio de elementos usando la variable temp
-            temp = nums[j]
-            nums[j] = nums[j + 1]
-            nums[j + 1] = temp
-
-print("después de ordenar")
-
-# Imprimiendo el array ordenado
-for num in nums:
-    print(num)
-```
-
-### Implementacion en JavaScript
-```javascript
-// Definimos el arreglo de números
-let nums = [5, 1, 6, 2, 4, 3];
-let size = nums.length;
-let temp = 0;
-
-console.log("antes de ordenar");
-
-// Imprimiendo el array original
-for (let num of nums) {
-    console.log(num);
-}
-
-console.log(""); // Espacio en blanco
-
-// Lógica del Ordenamiento Burbuja
-for (let i = 0; i < size; i++) {
-    for (let j = 0; j < size - i - 1; j++) {
-        if (nums[j] > nums[j + 1]) {
-            // Intercambio de elementos usando la variable temp
-            temp = nums[j];
-            nums[j] = nums[j + 1];
-            nums[j + 1] = temp;
-        }
+    # Bucle interior para comparaciones y swaps
+    # En cada pasada, el elemento más grande "burbujea" a su posición final
+    # Por lo tanto, no necesitamos comparar los últimos i elementos
+    for (j in 1:(n - i)) {
+      if (arr[j] > arr[j + 1]) {
+        # Intercambiar elementos
+        temp <- arr[j]
+        arr[j] <- arr[j + 1]
+        arr[j + 1] <- temp
+        swapped <- TRUE
+      }
     }
-}
-
-console.log("después de ordenar");
-
-// Imprimiendo el array ordenado
-for (let num of nums) {
-    console.log(num);
+    
+    # Si no hubo intercambios en esta pasada, la lista está ordenada
+    if (!swapped) {
+      break
+    }
+  }
+  return(arr)
 }
 ```
-### Explicación del Código (Java)
 
-1.  **`int nums[] = { 5, 1, 6, 2, 4, 3 };`**: Creamos un arreglo de numeros enteros de forma desordenada.
-2.  **`int size = nums.length;`**: Guardamos el tamaño de la lista .
-3.  **`int temp = 0;`**: Crearemos una variable vacia que va a servir como un auxiliar cuando nesecesitemos intercambiar dos números de lugar .
-4.  **`for (int num : nums) { System.out.println(num);}:`**: Este bucle recorrera la lista completa y mostrara tal como esta nuestro arreglo
-5.  **`for (int i = 0; i < size; i++)`**: Este primer bucle controlara cuántas veces se necesita revisar la lista completa, cada vez que termina una vuelta, el numero mas grande habra llegado a su posición final
-6.  **`for (int j = 0; j < size - i - 1; j++)`**: En este segundo bucle va a comparar cada número vecino de dos en dos comparando el actual con el siguiente
-7.  **`if (nums[j] > nums[j + 1])`**: Compara si el elemento actual es mayor que el siguiente. Si lo es, están en el orden incorrecto y se movera para que el menor sea primero.
-8.  **`temp = nums[j];`**: El numero se guardara en la variable auxiliar
-9.  **`nums[j] = nums[j + 1]`**: Toma el valor que esta en la derecha y le haze una copia en la posicion izquierda.
-10.  **`nums[j + 1] = temp;`**: Se añade el numero que se guardo en la variable auxiliar en lugar del segundo
-11.  **`for (int num : nums) { System.out.println(num); }`**: La función devuelve el arreglo ordenado.
+### Explicación del Código
+
+1.  **`bubble_sort(arr)`**: Nuestra función toma un vector `arr` como entrada.
+2.  **`n <- length(arr)`**: Obtenemos la longitud del vector.
+3.  **`for (i in 1:(n - 1))`**: Este bucle exterior controla el número de pasadas a través de la lista. En el peor de los casos, necesitaremos `n-1` pasadas para asegurar que todos los elementos estén en su lugar.
+4.  **`swapped <- FALSE`**: Esta bandera es una optimización. Si una pasada completa no realiza ningún intercambio, significa que la lista ya está ordenada, y podemos salir del bucle exterior prematuramente.
+5.  **`for (j in 1:(n - i))`**: Este bucle interior es el corazón del algoritmo. Recorre los elementos adyacentes.
+    *   La condición `n - i` es crucial: después de la primera pasada (`i=1`), el elemento más grande ya está en la última posición. Después de la segunda pasada (`i=2`), los dos elementos más grandes están en las dos últimas posiciones, y así sucesivamente. Por lo tanto, no necesitamos comparar los últimos `i` elementos que ya están ordenados.
+6.  **`if (arr[j] > arr[j + 1])`**: Compara si el elemento actual es mayor que el siguiente. Si lo es, están en el orden incorrecto.
+7.  **Intercambio**: Si la condición es verdadera, se realiza un intercambio simple utilizando una variable temporal `temp`.
+8.  **`if (!swapped) break`**: Si después de una pasada completa del bucle interior, `swapped` sigue siendo `FALSE`, significa que no se realizaron intercambios, y la lista ya está ordenada. Rompemos el bucle exterior para mejorar la eficiencia.
+9.  **`return(arr)`**: La función devuelve el vector ordenado.
 
 ### Complejidad
 
 *   **Tiempo**:
+    *   **Peor caso**: O(n^2). Ocurre cuando el array está ordenado en orden inverso. Cada elemento necesita "burbujear" a través de casi toda la lista.
+    *   **Caso promedio**: O(n^2).
+    *   **Mejor caso**: O(n). Si el array ya está ordenado, la optimización con la bandera `swapped` hará que el algoritmo complete en una sola pasada.
+*   **Espacio**: O(1). Es un algoritmo de ordenación "in-place" ya que solo utiliza una cantidad constante de memoria adicional para la variable `temp`.
+
+### Ejemplo
+
+Veamos `bubble_sort` en acción con algunos datos de ejemplo.
+
+```{r}
+# Ejemplo 1: Un vector desordenado
+vector_desordenado <- c(5, 1, 4, 2, 8)
+print(paste("Vector original:", paste(vector_desordenado, collapse = ", ")))
+vector_ordenado <- bubble_sort(vector_desordenado)
+print(paste("Vector ordenado (Bubble Sort):", paste(vector_ordenado, collapse = ", ")))
+
+# Ejemplo 2: Un vector ya ordenado (para ver la optimización)
+vector_ordenado_previo <- c(1, 2, 3, 4, 5)
+print(paste("Vector original (ya ordenado):", paste(vector_ordenado_previo, collapse = ", ")))
+vector_ordenado_opt <- bubble_sort(vector_ordenado_previo)
+print(paste("Vector ordenado (Bubble Sort):", paste(vector_ordenado_opt, collapse = ", ")))
+
+# Ejemplo 3: Un vector con elementos duplicados
+vector_duplicados <- c(7, 2, 5, 2, 1, 9)
+print(paste("Vector con duplicados:", paste(vector_duplicados, collapse = ", ")))
+vector_ordenado_dup <- bubble_sort(vector_duplicados)
+print(paste("Vector ordenado (Bubble Sort):", paste(vector_ordenado_dup, collapse = ", ")))
+```
+
+## Inserción (Insertion Sort)
+
+### Concepto
+
+El algoritmo de ordenación por inserción funciona de manera similar a cómo ordenaríamos un mazo de cartas en nuestra mano. Recorremos la lista elemento por elemento, tomando cada elemento y "insertándolo" en la posición correcta dentro de la parte ya ordenada de la lista.
+
+La lista se divide conceptualmente en dos partes: una sublista ordenada (inicialmente solo el primer elemento) y el resto de elementos desordenados. En cada paso, se toma el primer elemento de la parte desordenada y se compara con los elementos de la sublista ordenada, desplazando los elementos mayores que él para hacer espacio y luego insertándolo en su posición correcta.
+
+### Implementación en R
+
+Implementaremos `insertion_sort` en R.
+
+```{r}
+insertion_sort <- function(arr) {
+  n <- length(arr)
+  
+  # Itera desde el segundo elemento hasta el final
+  for (i in 2:n) {
+    key <- arr[i] # Elemento actual a insertar
+    j <- i - 1     # Índice del último elemento de la sublista ordenada
+    
+    # Mueve los elementos de arr[0..i-1], que son mayores que key,
+    # una posición adelante de su posición actual
+    while (j >= 1 && arr[j] > key) {
+      arr[j + 1] <- arr[j]
+      j <- j - 1
+    }
+    
+    # Inserta key en su posición correcta
+    arr[j + 1] <- key
+  }
+  return(arr)
+}
+```
+
+### Explicación del Código
+
+1.  **`insertion_sort(arr)`**: Nuestra función toma un vector `arr` como entrada.
+2.  **`n <- length(arr)`**: Obtenemos la longitud del vector.
+3.  **`for (i in 2:n)`**: Este bucle exterior comienza desde el segundo elemento (`i=2`) porque asumimos que el primer elemento (`arr[1]`) ya es una sublista ordenada de un solo elemento.
+4.  **`key <- arr[i]`**: `key` es el elemento actual que queremos insertar en la sublista ordenada.
+5.  **`j <- i - 1`**: `j` es el índice del último elemento de la sublista ya ordenada.
+6.  **`while (j >= 1 && arr[j] > key)`**: Este bucle `while` se encarga de:
+    *   Comparar `key` con los elementos de la sublista ordenada (`arr[j]`).
+    *   Si un elemento `arr[j]` es mayor que `key`, lo desplaza una posición a la derecha (`arr[j + 1] <- arr[j]`).
+    *   `j` se decrementa para moverse hacia el inicio de la sublista ordenada, buscando el lugar correcto para `key`.
+7.  **`arr[j + 1] <- key`**: Una vez que el bucle `while` termina (ya sea porque `j` llegó a 0 o porque `arr[j]` es menor o igual que `key`), significa que `j + 1` es la posición correcta para insertar `key`.
+8.  **`return(arr)`**: La función devuelve el vector ordenado.
+
+### Complejidad
+
+*   **Tiempo**:
+    *   **Peor caso**: O(n^2). Ocurre cuando el array está ordenado en orden inverso. Cada elemento debe ser comparado y desplazado a través de casi toda la sublista ordenada.
+    *   **Caso promedio**: O(n^2).
+    *   **Mejor caso**: O(n). Si el array ya está ordenado, cada elemento se compara solo con el elemento adyacente anterior, lo que resulta en un tiempo lineal.
+*   **Espacio**: O(1). Es un algoritmo "in-place".
+
+### Ejemplo
+
+Veamos `insertion_sort` en acción.
+
+```{r}
+# Ejemplo 1: Un vector desordenado
+vector_desordenado <- c(12, 11, 13, 5, 6)
+print(paste("Vector original:", paste(vector_desordenado, collapse = ", ")))
+vector_ordenado <- insertion_sort(vector_desordenado)
+print(paste("Vector ordenado (Insertion Sort):", paste(vector_ordenado, collapse = ", ")))
+
+# Ejemplo 2: Un vector pequeño
+vector_pequeño <- c(4, 1, 3, 2)
+print(paste("Vector pequeño:", paste(vector_pequeño, collapse = ", ")))
+vector_ordenado_p <- insertion_sort(vector_pequeño)
+print(paste("Vector ordenado (Insertion Sort):", paste(vector_ordenado_p, collapse = ", ")))
+```
+
+## Mergesort
+
+### Concepto
+
+Mergesort es un algoritmo de ordenación eficiente y estable que sigue el paradigma "divide y vencerás". Su principio es dividir el array de entrada en dos mitades, ordenar cada mitad recursivamente, y luego combinar (fusionar) las dos mitades ordenadas para producir el array final ordenado.
+
+Los pasos principales son:
+1.  **Dividir**: Si la lista tiene más de un elemento, divídela en dos sublistas aproximadamente iguales.
+2.  **Conquistar**: Ordena recursivamente cada sublista utilizando Mergesort.
+3.  **Combinar (Merge)**: Fusiona las dos sublistas ordenadas en una única lista ordenada. La fase de combinación es donde ocurre la mayor parte del trabajo.
+
+La recursión termina cuando la sublista tiene un solo elemento, ya que una lista de un solo elemento se considera ordenada por definición.
+
+### Implementación en R
+
+Necesitaremos dos funciones: una para la lógica recursiva de división (`merge_sort`) y otra para la combinación de dos arrays ya ordenados (`merge_arrays`).
+
+```{r}
+# Función para combinar dos sub-arrays ordenados
+merge_arrays <- function(left, right) {
+  result <- c()
+  
+  # Mientras ambos arrays tengan elementos
+  while (length(left) > 0 && length(right) > 0) {
+    if (left[1] <= right[1]) {
+      result <- c(result, left[1])
+      left <- left[-1] # Elimina el primer elemento
+    } else {
+      result <- c(result, right[1])
+      right <- right[-1] # Elimina el primer elemento
+    }
+  }
+  
+  # Añade los elementos restantes, si los hay
+  if (length(left) > 0) {
+    result <- c(result, left)
+  }
+  if (length(right) > 0) {
+    result <- c(result, right)
+  }
+  
+  return(result)
+}
+
+# Función principal de Mergesort
+merge_sort <- function(arr) {
+  n <- length(arr)
+  
+  # Caso base: un array con 0 o 1 elemento ya está ordenado
+  if (n <= 1) {
+    return(arr)
+  }
+  
+  # Divide el array en dos mitades
+  mid <- floor(n / 2)
+  left_half <- arr[1:mid]
+  right_half <- arr[(mid + 1):n]
+  
+  # Ordena recursivamente cada mitad
+  sorted_left <- merge_sort(left_half)
+  sorted_right <- merge_sort(right_half)
+  
+  # Combina las mitades ordenadas
+  return(merge_arrays(sorted_left, sorted_right))
+}
+```
+
+### Explicación del Código
+
+#### `merge_arrays(left, right)`:
+1.  **`result <- c()`**: Inicializamos un vector vacío para almacenar el resultado combinado.
+2.  **`while (length(left) > 0 && length(right) > 0)`**: Este bucle compara los primeros elementos de `left` y `right`.
+    *   El elemento más pequeño se añade a `result` y se elimina de su array original usando `left[-1]` o `right[-1]`. **Nota**: La eliminación de elementos al inicio de un vector en R es una operación costosa O(n) que puede impactar el rendimiento real de esta implementación en R. En lenguajes de bajo nivel se usarían punteros o índices.
+3.  **`if (length(left) > 0)` / `if (length(right) > 0)`**: Después del bucle `while`, uno de los arrays podría tener elementos restantes (porque uno se agotó antes que el otro). Estos elementos restantes ya están ordenados y simplemente se añaden al final de `result`.
+4.  **`return(result)`**: Devuelve el array combinado y ordenado.
+
+#### `merge_sort(arr)`:
+1.  **`n <- length(arr)`**: Obtiene la longitud del array.
+2.  **`if (n <= 1)`**: Este es el **caso base** de la recursión. Si el array tiene 0 o 1 elemento, ya está ordenado, así que lo devolvemos tal cual.
+3.  **`mid <- floor(n / 2)`**: Calcula el punto medio para dividir el array.
+4.  **`left_half <- arr[1:mid]` y `right_half <- arr[(mid + 1):n]`**: Crea las dos sub-mitades del array.
+5.  **`sorted_left <- merge_sort(left_half)` y `sorted_right <- merge_sort(right_half)`**: Llama recursivamente a `merge_sort` en cada mitad hasta que se alcanzan los casos base (arrays de un solo elemento).
+6.  **`return(merge_arrays(sorted_left, sorted_right))`**: Una vez que las mitades se han ordenado recursivamente, se fusionan utilizando la función `merge_arrays`.
     *   **Peor caso**: O(n^2). Ocurre al momento de listar al reves, en el ejercicio esto ocurre al momento de crear el arreglo
     *   **Caso promedio**: O(n^2). El programa va a realizar las comparaciones de los dos ciclos por completo, como son 6 numeros nos daria aproximadamente 36 comparaciones
     
@@ -638,6 +764,25 @@ class MergeSort {
     *   **Peor caso**: O(n log n).
     *   **Caso promedio**: O(n log n).
     *   **Mejor caso**: O(n log n).
+    Mergesort tiene un rendimiento consistente en todos los casos debido a su estrategia de división equitativa y la naturaleza de la operación de fusión. El factor `log n` viene de las divisiones recursivas, y `n` de la operación de fusión en cada nivel.
+*   **Espacio**: O(n). Mergesort no es un algoritmo "in-place" puro. Requiere espacio adicional para almacenar las sublistas temporales durante la fase de fusión. En nuestra implementación de R, la creación de nuevos vectores en cada paso de `merge_arrays` contribuye a esta complejidad espacial.
+
+### Ejemplo
+
+Veamos `merge_sort` en acción.
+
+```{r}
+# Ejemplo 1: Un vector desordenado
+vector_desordenado <- c(38, 27, 43, 3, 9, 82, 10)
+print(paste("Vector original:", paste(vector_desordenado, collapse = ", ")))
+vector_ordenado <- merge_sort(vector_desordenado)
+print(paste("Vector ordenado (Mergesort):", paste(vector_ordenado, collapse = ", ")))
+
+# Ejemplo 2: Un vector con elementos duplicados
+vector_duplicados <- c(5, 2, 8, 2, 1, 5, 9)
+print(paste("Vector con duplicados:", paste(vector_duplicados, collapse = ", ")))
+vector_ordenado_dup <- merge_sort(vector_duplicados)
+print(paste("Vector ordenado (Mergesort):", paste(vector_ordenado_dup, collapse = ", ")))
     
 ::: {.callout-note title="Importante" collapse="true"}
 Mergesort cuenta con la ventaja de ser un algoritmo de ordenamiento estable con una eficiencia constante sin importar si el tamaño de los datos aumenta teniendo un tiempo de ejecucion mejor que otros algoritmos de ordenamiento. El factor `n log n` significa que el tiempo de ejcucion incrementa de manera logaritmica y lineal conforme crce el numeor de elementos. El termino `log n`  proviene de las divisiones recursivas que se realiza sobre el arreglo ya que se divide repetitivamente hasta obtener subarreglos de un solo elemento, y `n` corresponde al proceso de combinar y fucionar donde el algoritmo compara cada elemento para reconstruir el arreglo de manera ordenada. 
@@ -726,6 +871,9 @@ main();
 
 ### Concepto
 
+Quicksort es otro algoritmo de ordenación eficiente basado en el paradigma "divide y vencerás". Es considerado uno de los algoritmos de ordenación más rápidos en la práctica para grandes conjuntos de datos no estructurados.
+
+El funcionamiento básico es el siguiente:
 Quicksort es un algoritmo de ordenación  creado por Tony Hoare en 1961 y se basa en el paradigma "divide y vencerás", siendo considerado uno de los algoritmos más rápidos en la práctica para grandes conjuntos de datos no estructurados. 
 Aunque quicksort puede tener algunas desventajas, en la práctica funciona bien y supera a otros algoritmos de ordenación en velocidad y eficiencia espacial debido a su propóstio general. 
 
@@ -738,6 +886,36 @@ Basicamente se basa en la división y consquista que clasifica una matriz selecc
 3.  **Recursión**: Aplica Quicksort recursivamente a la sublista de elementos con valores menores que el pivote y a la sublista de elementos con valores mayores que el pivote.
 
 La recursión termina cuando una sublista tiene cero o un elemento, ya que ya están ordenados.
+
+### Implementación en R
+
+Implementaremos `quick_sort` en R. Esta implementación es una versión simplificada que crea nuevos vectores en cada paso de la partición, lo cual es más idiomático en R pero menos eficiente en espacio que una implementación "in-place" con punteros.
+
+```{r}
+quick_sort <- function(arr) {
+  n <- length(arr)
+  
+  # Caso base: un array con 0 o 1 elemento ya está ordenado
+  if (n <= 1) {
+    return(arr)
+  }
+  
+  # Elegir un pivote. Aquí usamos el último elemento por simplicidad.
+  # Otras estrategias incluyen elegir el primero, el del medio, o un pivote aleatorio.
+  pivot_index <- n
+  pivot <- arr[pivot_index]
+  
+  # Separar los elementos menores y mayores que el pivote
+  # Excluimos el pivote del array original antes de la partición
+  remaining_elements <- arr[-pivot_index]
+  
+  # Utilizar un enfoque R-idiomático para la partición
+  # Esto crea nuevos vectores, lo que impacta la eficiencia espacial
+  less <- remaining_elements[remaining_elements < pivot]
+  greater <- remaining_elements[remaining_elements >= pivot] # >= para incluir iguales o mayores
+  
+  # Ordenar recursivamente las sublistas y combinar
+  return(c(quick_sort(less), pivot, quick_sort(greater)))
 :::
 
 # Quick_sort
@@ -827,6 +1005,28 @@ public class QuickSort {
 
 ### Explicación del Código
 
+1.  **`quick_sort(arr)`**: Nuestra función toma un vector `arr`.
+2.  **`if (n <= 1)`**: El **caso base** de la recursión. Si el array tiene 0 o 1 elemento, se devuelve tal cual.
+3.  **`pivot_index <- n` / `pivot <- arr[pivot_index]`**: Elegimos el último elemento como pivote. Esta es una elección simple, pero puede llevar al peor caso si el array ya está ordenado o casi ordenado.
+4.  **`remaining_elements <- arr[-pivot_index]`**: Creamos un nuevo vector que contiene todos los elementos excepto el pivote.
+5.  **`less <- remaining_elements[remaining_elements < pivot]`**: Filtra los elementos de `remaining_elements` que son menores que el pivote.
+6.  **`greater <- remaining_elements[remaining_elements >= pivot]`**: Filtra los elementos que son mayores o iguales que el pivote. Es importante incluir los iguales para evitar bucles infinitos en casos con duplicados si solo se usara `>` y el pivote fuera único.
+7.  **`return(c(quick_sort(less), pivot, quick_sort(greater)))`**: Esta es la fase de combinación.
+    *   Llama recursivamente a `quick_sort` en la sublista `less`.
+    *   El `pivot` se coloca en medio, ya que está en su posición final.
+    *   Llama recursivamente a `quick_sort` en la sublista `greater`.
+    *   `c()` concatena estos tres resultados en el array final ordenado.
+
+### Complejidad
+
+*   **Tiempo**:
+    *   **Peor caso**: O(n^2). Ocurre cuando la elección del pivote es consistentemente mala (por ejemplo, siempre el elemento más pequeño o más grande), lo que resulta en particiones desequilibradas (una sublista de `n-1` elementos y otra de 0).
+    *   **Caso promedio**: O(n log n). Con una buena elección de pivote (que divide el array en dos subproblemas de tamaño similar), Quicksort es muy eficiente.
+    *   **Mejor caso**: O(n log n).
+*   **Espacio**:
+    *   **Caso promedio**: O(log n). Esto se debe al espacio utilizado por la pila de recursión para almacenar las llamadas a la función.
+    *   **Peor caso**: O(n). Si las particiones son muy desequilibradas, la pila de recursión puede crecer linealmente con el tamaño de `n`.
+    *   Nuestra implementación en R, al crear nuevos vectores `less` y `greater` en cada llamada, tiene una complejidad espacial mayor en la práctica que una implementación "in-place" típica de Quicksort, que solo usa espacio para la pila de recursión.
 1.  **`quickSort(int[] arr)`**: Nuestra función toma un array de enteros `arr`.
 2.  **`if (n <= 1)`**: El **caso base** de la recursión. Si el array tiene 0 o 1 elemento, se devuelve tal cual.
 3.  **`pivot_index = n - 1` / `pivot = arr[pivot_index]`**: Elegimos el último elemento como pivote. Esta es una elección simple, pero puede llevar al peor caso si el array ya está ordenado o casi ordenado.
@@ -853,6 +1053,30 @@ public class QuickSort {
 
 Veamos `quick_sort` en acción.
 
+```{r}
+# Ejemplo 1: Un vector desordenado
+vector_desordenado <- c(10, 80, 30, 90, 40, 50, 70)
+print(paste("Vector original:", paste(vector_desordenado, collapse = ", ")))
+vector_ordenado <- quick_sort(vector_desordenado)
+print(paste("Vector ordenado (Quicksort):", paste(vector_ordenado, collapse = ", ")))
+
+# Ejemplo 2: Un vector con números negativos
+vector_negativos <- c(-5, 3, -1, 8, 0, -10)
+print(paste("Vector con negativos:", paste(vector_negativos, collapse = ", ")))
+vector_ordenado_neg <- quick_sort(vector_negativos)
+print(paste("Vector ordenado (Quicksort):", paste(vector_ordenado_neg, collapse = ", ")))
+```
+
+## Conclusión
+
+Hemos recorrido cuatro algoritmos de ordenación fundamentales, cada uno con su enfoque único y características de rendimiento.
+
+*   **Bubble Sort** e **Insertion Sort** son algoritmos simples de entender e implementar, adecuados para arrays pequeños o casi ordenados (donde rinden en O(n)). Sin embargo, su complejidad de O(n^2) los hace imprácticos para grandes volúmenes de datos.
+*   **Mergesort** y **Quicksort** son algoritmos de "divide y vencerás" que ofrecen un rendimiento mucho mejor, generalmente O(n log n).
+    *   **Mergesort** es estable y tiene un rendimiento consistente de O(n log n) en todos los casos, pero requiere O(n) de espacio adicional.
+    *   **Quicksort** es típicamente el más rápido en la práctica (O(n log n) promedio), especialmente en implementaciones "in-place", aunque su peor caso es O(n^2) y puede ser inestable. La elección del pivote es crítica para su eficiencia.
+
+En R, para tareas de ordenación cotidianas, generalmente se recomienda usar las funciones nativas optimizadas como `sort()` o `order()`, ya que están implementadas en C/Fortran y son extremadamente eficientes. Sin embargo, comprender los algoritmos subyacentes es crucial para cualquier científico de datos o programador que desee escribir código eficiente y comprender las bases de la informática. ¡Espero que este capítulo le haya proporcionado una base sólida!
 ```java
 # Ejemplo 1: Un vector desordenado
 int[] vector_desordenado = {10, 80, 30, 90, 40, 50, 70};

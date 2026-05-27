@@ -3,6 +3,10 @@ project:
 
 lang: es
 
+execute:
+  cache: false
+  freeze: false
+  daemon: false
 book:
   title: "Estructura de Datos"
   author: "Cristian Narváez Guillén"
