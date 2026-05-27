@@ -1,10 +1,6 @@
 ---
 title: "Capítulo 1: Estructuras Estáticas"
 author: "Sebastian Cordova, Elian Herrera, Diego Iñiguez, Eduardo Moreno(Grupo 4)"
-format:
-  html:
-    theme: cosmo
-    css: styles.css
 ---
 
 ## Introducción {#sec-intro-estaticas}
