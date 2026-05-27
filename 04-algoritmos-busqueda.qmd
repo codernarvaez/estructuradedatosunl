@@ -1,236 +1,687 @@
 ---
 title: "Algoritmos de Búsqueda"
+editor: 
+  markdown: 
+    wrap: sentence
 ---
 
-¡Hola a todos y bienvenidos a este capítulo sobre algoritmos de búsqueda en R! Como analistas de datos, científicos de datos o simplemente entusiastas de la programación, constantemente nos enfrentamos a la tarea de encontrar elementos específicos dentro de colecciones de datos. Ya sea que estemos buscando una transacción particular en un enorme conjunto de datos financieros, un usuario específico en una base de datos de millones de registros, o un valor dentro de un vector en R, la eficiencia con la que realizamos estas búsquedas puede tener un impacto significativo en el rendimiento de nuestras aplicaciones y en nuestro tiempo de espera.
+¡Hola a todos y bienvenidos a este capítulo sobre algoritmos de búsqueda!
+Como analistas de datos, científicos de datos o simplemente entusiastas de la programación, constantemente nos enfrentamos a la tarea de encontrar elementos específicos dentro de colecciones de datos.
+Ya sea que estemos buscando una transacción particular en un enorme conjunto de datos financieros, un usuario específico en una base de datos de millones de registros, o un valor dentro de un arreglo o lista, la eficiencia con la que realizamos estas búsquedas puede tener un impacto significativo en el rendimiento de nuestras aplicaciones y en nuestro tiempo de espera.
 
-En este capítulo, exploraremos dos de los algoritmos de búsqueda más fundamentales y ampliamente utilizados: la Búsqueda Secuencial (también conocida como Búsqueda Lineal) y la Búsqueda Binaria. Entenderemos cómo funcionan, cuándo usar cada uno y cómo implementarlos eficientemente en R. ¡Prepárense para optimizar sus búsquedas!
+En este capítulo, exploraremos dos de los algoritmos de búsqueda más fundamentales y ampliamente utilizados: la Búsqueda Secuencial (también conocida como Búsqueda Lineal) y la Búsqueda Binaria.
+Entenderemos cómo funcionan, cuándo usar cada uno y cómo implementarlos eficientemente en en Java, Python y JavaScript.
+¡Prepárense para optimizar sus búsquedas!
 
 ## Búsqueda Secuencial (Linear Search)
 
-La búsqueda secuencial es el algoritmo de búsqueda más directo e intuitivo. Imaginen que están buscando un libro específico en una estantería desorganizada. Lo más lógico sería empezar por el primer libro, revisarlo, luego pasar al segundo, y así sucesivamente, hasta que encuentren el libro que buscan o hasta que se queden sin libros. Eso es precisamente lo que hace la búsqueda secuencial.
+La búsqueda secuencial es uno de los algoritmos más sencillos para localizar un elemento dentro de una colección de datos. Consiste en recorrer los elementos uno por uno, desde el inicio hasta el final, comparando cada valor con el objetivo buscado hasta encontrarlo o hasta agotar toda la colección [@taborda2020comparacion].
+Imaginen que están buscando un libro específico en una estantería desorganizada.
+Lo más lógico sería empezar por el primer libro, revisarlo, luego pasar al segundo, y así sucesivamente, hasta que encuentren el libro que buscan o hasta que se queden sin libros.
+Eso es precisamente lo que hace la búsqueda secuencial.
 
 Este algoritmo examina cada elemento de la colección uno por uno, en el orden en que aparecen, hasta que encuentra el elemento deseado o hasta que ha revisado todos los elementos sin éxito.
 
 ### ¿Cómo funciona?
 
-1.  Se inicia en el primer elemento de la colección.
-2.  Se compara el elemento actual con el valor objetivo que estamos buscando.
-3.  Si coinciden, la búsqueda termina y se devuelve la posición (índice) del elemento.
-4.  Si no coinciden, se avanza al siguiente elemento.
-5.  Este proceso se repite hasta que se encuentra el elemento o se alcanza el final de la colección.
+1.  El algoritmo comienza en la primera posición porque necesita revisar todos los datos en orden. En este paso toma el primer elemento para empezar la comparación.
+2.  El programa verifica si el dato de la posición actual es igual al valor que el usuario desea encontrar. Esta comparación es la parte más importante del algoritmo.
+3.  Cuando el dato del arreglo coincide con el valor buscado, el algoritmo detiene la búsqueda y muestra la posición donde se encontró el elemento.
+4.  Si el dato actual no coincide, el algoritmo continúa con la siguiente posición del arreglo para seguir buscando.
+5.  El programa sigue revisando cada elemento del arreglo uno por uno hasta encontrar el valor o hasta llegar al último elemento.
+6.  Cuando el algoritmo llega al final del arreglo sin encontrar el valor buscado, muestra un mensaje indicando que el dato no existe dentro de la colección.
 
-### Implementación en R
+### Implementación
 
-Vamos a implementar una función `busqueda_secuencial` en R. Esta función tomará un vector (`datos`) y un valor objetivo (`objetivo`) como entrada.
+A continuación, implementaremos una función llamada búsqueda secuencial en Java, Python y JavaScript.
+Esta función tomará una colección de datos (datos) y un valor objetivo (objetivo) como entrada.
 
-```{r}
-#' Función para realizar una búsqueda secuencial en un vector
-#'
-#' @param datos Un vector numérico o de caracteres donde buscar.
-#' @param objetivo El valor que se desea encontrar.
-#' @return El índice (posición) del objetivo si se encuentra, de lo contrario, NULL.
-#'
-#' @examples
-#' mi_vector <- c(10, 5, 20, 15, 30, 25)
-#' busqueda_secuencial(mi_vector, 15) # Debería devolver 4
-#' busqueda_secuencial(mi_vector, 99) # Debería devolver NULL
-busqueda_secuencial <- function(datos, objetivo) {
-  # Recorremos el vector desde el primer elemento hasta el último
-  for (i in seq_along(datos)) {
-    # Comparamos el elemento actual con el objetivo
-    if (datos[i] == objetivo) {
-      # Si coinciden, devolvemos su índice (posición)
-      message(paste("Objetivo", objetivo, "encontrado en el índice", i))
-      return(i)
+#### Java
+
+``` java
+public class BusquedaSecuencial {
+    //Se crea el metodo para buscar un numero en un arreglo
+    public static int buscar(int[] numeros, int objetivo) {
+
+        //Recorremos el arreglo por completo
+        for (int i = 0; i < numeros.length; i++) {
+
+            //Despues verificamos si el número actual es igual al objetivo
+            if (numeros[i] == objetivo) {
+
+                System.out.println("Número encontrado en la posición: " + i);
+
+                //Una vez encontramos el numero, retornamos la posición donde 
+                se lo encontro
+                return i;
+            }
+        }
+
+        // Se utiliza un sout por si no encuentra el número para que termine 
+        el ciclo
+        System.out.println("Número no encontrado");
+
+        return -1;
     }
-  }
-  # Si el bucle termina y no hemos encontrado el objetivo, devolvemos NULL
-  message(paste("Objetivo", objetivo, "no encontrado en el vector."))
-  return(NULL)
+}
+//Se crea una nueva clase Main para poder ejecutar el programa y verificar si
+funciona nuestra logica en el codigo.
+
+public class Main {
+    public static void main(String[] args) {
+
+        //Generamos un arreglo de numeros aleatorios
+        int[] numeros = {10, 5, 20, 15, 30, 25};
+
+        //Despues ingresamos el numero que queremos buscar
+        int objetivo = 15;
+
+        //Y por ultimo llamamos al metodo buscar para q lo amuestre en consola
+        BusquedaSecuencial.buscar(numeros, objetivo);
+    }
+}
+```
+
+#### Python
+
+```{python}
+def busqueda_secuencial(datos, objetivo):
+    """
+    Función para realizar una búsqueda secuencial en una lista.
+    
+    :param datos: Una lista numérica o de texto donde buscar.
+    :param objetivo: El valor que se desea encontrar.
+    :return: El índice (posición) del objetivo si se encuentra, de lo contrario
+    , None.
+    """
+    # Recorremos la lista desde el primer elemento hasta el último
+    for i in range(len(datos)):
+        # Comparamos el elemento actual con el objetivo
+        if datos[i] == objetivo:
+            # Si coinciden, mostramos mensaje y devolvemos su índice
+            print(f"Objetivo {objetivo} encontrado en el índice {i}")
+            return i
+            
+    # Si el bucle termina y no hemos encontrado el objetivo, devolvemos None
+    print(f"Objetivo {objetivo} no encontrado en la lista.")
+    return None
+```
+
+#### JavaScript
+
+``` javascript
+/**
+ * Función para realizar una búsqueda secuencial en un arreglo
+ *
+ * @param {Array} datos Un arreglo numérico o de texto donde buscar.
+ * @param {*} objetivo El valor que se desea encontrar.
+ * @return {number|null} El índice (posición) del objetivo si se encuentra, 
+ de lo contrario, null.
+ */
+function busquedaSecuencial(datos, objetivo) {
+    // Recorremos el arreglo desde el primer elemento hasta el último
+    for (let i = 0; i < datos.length; i++) {
+        // Comparamos el elemento actual con el objetivo
+        if (datos[i] === objetivo) {
+            // Si coinciden, mostramos mensaje y devolvemos su índice
+            console.log(`Objetivo ${objetivo} encontrado en el índice ${i}`);
+            return i;
+        }
+    }
+    // Si el bucle termina y no hemos encontrado el objetivo, devolvemos null
+    console.log(`Objetivo ${objetivo} no encontrado en el arreglo.`);
+    return null;
 }
 ```
 
 ### Ejemplos de Uso
 
-Veamos nuestra función en acción con algunos ejemplos.
+Veamos nuestra función en acción con algunos ejemplos, probando en cada lenguaje tanto con datos numéricos como de texto.
 
-```{r}
+#### Java
+
+``` java
+// Ejemplo 1: El número está presente
+int[] numeros = {10, 5, 20, 15, 30, 25};
+buscar(numeros, 15);
+
+// Salida:
+// Número encontrado en la posición: 3
+
+
+// Ejemplo 2: El número no está presente
+buscar(numeros, 50);
+
+// Salida:
+// Número no encontrado
+
+
+// Ejemplo 3: El número es el primer elemento
+buscar(numeros, 10);
+
+// Salida:
+// Número encontrado en la posición: 0
+
+
+// Ejemplo 4: El número es el último elemento
+buscar(numeros, 25);
+
+// Salida:
+// Número encontrado en la posición: 5
+
+
+// Ejemplo 5: Búsqueda en otro arreglo
+int[] edades = {18, 20, 22, 25, 30};
+buscar(edades, 22);
+
+// Salida:
+// Número encontrado en la posición: 2
+
+
+// Ejemplo 6: Arreglo con números repetidos
+int[] repetidos = {5, 8, 3, 8, 10};
+buscar(repetidos, 8);
+
+// Salida:
+// Número encontrado en la posición: 1
+```
+
+#### Python
+
+```{python}
+#| output: false
+edades = [15, 22, 18, 30, 45, 12, 60]
+
 # Ejemplo 1: El objetivo está presente
-numeros <- c(4, 2, 7, 1, 9, 5, 8, 3, 6)
-busqueda_secuencial(numeros, 9)
+busqueda_secuencial(edades, 30)
+# Salida: Objetivo 30 encontrado en el índice 3
 
 # Ejemplo 2: El objetivo no está presente
-busqueda_secuencial(numeros, 10)
+busqueda_secuencial(edades, 99)
+# Salida: Objetivo 99 no encontrado en la lista.
 
 # Ejemplo 3: Con datos de texto
-frutas <- c("manzana", "platano", "cereza", "dátil", "elderberry")
-busqueda_secuencial(frutas, "cereza")
-busqueda_secuencial(frutas, "kiwi")
+colores = ["rojo", "verde", "azul", "amarillo", "naranja"]
+busqueda_secuencial(colores, "azul")
+# Salida: Objetivo azul encontrado en el índice 2
+busqueda_secuencial(colores, "morado")
+# Salida: Objetivo morado no encontrado en la lista.
 
 # Ejemplo 4: El objetivo es el primer elemento
-busqueda_secuencial(numeros, 4)
+busqueda_secuencial(edades, 15)
+# Salida: Objetivo 15 encontrado en el índice 0
 
 # Ejemplo 5: El objetivo es el último elemento
-busqueda_secuencial(numeros, 6)
+busqueda_secuencial(edades, 60)
+# Salida: Objetivo 60 encontrado en el índice 6
+```
+
+#### JavaScript
+
+``` javascript
+const edades = [15, 22, 18, 30, 45, 12, 60];
+
+// Ejemplo 1: El objetivo está presente
+busquedaSecuencial(edades, 30);
+// Salida: Objetivo 30 encontrado en el índice 3
+
+// Ejemplo 2: El objetivo no está presente
+busquedaSecuencial(edades, 99);
+// Salida: Objetivo 99 no encontrado en el arreglo.
+
+// Ejemplo 3: Con datos de texto
+const colores = ["rojo", "verde", "azul", "amarillo", "naranja"];
+busquedaSecuencial(colores, "azul");
+// Salida: Objetivo azul encontrado en el índice 2
+busquedaSecuencial(colores, "morado");
+// Salida: Objetivo morado no encontrado en el arreglo.
+
+// Ejemplo 4: El objetivo es el primer elemento
+busquedaSecuencial(edades, 15);
+// Salida: Objetivo 15 encontrado en el índice 0
+
+// Ejemplo 5: El objetivo es el último elemento
+busquedaSecuencial(edades, 60);
+// Salida: Objetivo 60 encontrado en el índice 6
 ```
 
 ### Eficiencia y Casos de Uso
 
-La principal ventaja de la búsqueda secuencial es su simplicidad y que no requiere que los datos estén ordenados. Sin embargo, su principal desventaja es su eficiencia.
+La principal ventaja de la búsqueda secuencial es su simplicidad y que no requiere que los datos estén ordenados.
+Sin embargo, su principal desventaja es su eficiencia.
 
-*   **Complejidad Temporal (Worst Case):** O(n). En el peor de los casos (cuando el elemento no está presente o está al final), el algoritmo debe revisar todos los `n` elementos.
-*   **Complejidad Temporal (Best Case):** O(1). En el mejor de los casos (cuando el elemento es el primero), solo necesita una comparación.
-*   **Complejidad Temporal (Average Case):** O(n). En promedio, revisará `n/2` elementos.
+-   **Complejidad Temporal (Worst Case):** O(n). En el peor de los casos (cuando el elemento no está presente o está al final), el algoritmo debe revisar todos los `n` elementos.
+-   **Complejidad Temporal (Best Case):** O(1). En el mejor de los casos (cuando el elemento es el primero), solo necesita una comparación.
+-   **Complejidad Temporal (Average Case):** O(n). En promedio, revisará `n/2` elementos.
 
 La búsqueda secuencial es apropiada para:
-*   Conjuntos de datos pequeños.
-*   Datos que no están ordenados y ordenar los datos sería más costoso que realizar la búsqueda secuencial.
-*   Cuando solo se necesitan realizar unas pocas búsquedas.
 
-Para conjuntos de datos grandes, la búsqueda secuencial puede ser muy lenta. Es aquí donde la búsqueda binaria brilla.
+-   Conjuntos de datos pequeños.
+-   Datos que no están ordenados y ordenar los datos sería más costoso que realizar la búsqueda secuencial.
+-   Cuando solo se necesitan realizar unas pocas búsquedas.
+
+Para conjuntos de datos grandes, la búsqueda secuencial puede ser muy lenta.
+Es aquí donde la búsqueda binaria brilla.
 
 ## Búsqueda Binaria (Binary Search)
 
-A diferencia de la búsqueda secuencial, la búsqueda binaria es un algoritmo mucho más eficiente, pero tiene un requisito fundamental: **los datos deben estar ordenados**.
+A diferencia de la búsqueda secuencial, la búsqueda binaria permite extraer información almacenada de manera organizada,y es un metodo mas rapido que la secuencial,pero tiene una regla de que deben cumplir: **los datos deben estar perfectamente ordenados (como los números del 1 al 100 o las letras de la A a la Z)** [@rojasaprender].
 
-Piensen en cómo buscan una palabra en un diccionario. No empiezan por la primera palabra y revisan una por una. Abren el diccionario por la mitad, miran si la palabra está antes o después, y luego descartan la mitad del diccionario que no les sirve. Repiten este proceso en la mitad restante hasta encontrar la palabra. La búsqueda binaria opera bajo el mismo principio de "divide y vencerás".
+Piensen en cómo buscan una palabra en un diccionario.
+No empiezan desde la primera página revisando palabra por palabra.
+Lo que hacen es abrir el diccionario por la mitad y se fijan: "¿La palabra que busco está antes o después de la que tengo aquí?".
+Así, descartan de un solo golpe toda la mitad que no les sirve y repiten lo mismo con la parte que queda.
+A esto se le llama "divide y vencerás" [@rojasaprender].
 
-### ¿Cómo funciona?
+**¿Cómo funciona?**
 
-1.  Asegurarse de que el vector esté **ordenado**. Si no lo está, primero deben ordenarlo.
-2.  Se define un rango de búsqueda dentro del vector, inicialmente todo el vector. Este rango está delimitado por un índice `inicio` y un índice `fin`.
-3.  Se calcula el índice del elemento central del rango: `medio = (inicio + fin) / 2`.
-4.  Se compara el elemento en la posición `medio` con el valor objetivo:
-    *   Si coinciden, el elemento ha sido encontrado y se devuelve `medio`.
-    *   Si el elemento en `medio` es **menor** que el objetivo, significa que el objetivo (si existe) debe estar en la mitad **derecha** del rango. Se ajusta `inicio` a `medio + 1`.
-    *   Si el elemento en `medio` es **mayor** que el objetivo, significa que el objetivo (si existe) debe estar en la mitad **izquierda** del rango. Se ajusta `fin` a `medio - 1`.
-5.  Los pasos 2 a 4 se repiten hasta que el objetivo se encuentra o hasta que el rango de búsqueda se reduce a cero (lo que significa que el objetivo no está presente).
+1.  **Revisar el orden**: Primero confirmamos que la lista de datos esté ordenada (por ejemplo, de menos puntos a más puntos).
+    Si está desordenada, el algoritmo se confunde y no funciona.
 
-### Implementación en R
+2.  **Marcar el territorio**: El programa define un área de búsqueda.
+    Al principio es toda la lista, marcando dónde está el inicio (la primera posición) y el fin (la última posición).
 
-Implementaremos una versión iterativa de la búsqueda binaria.
+3.  **Calcular el centro**: El algoritmo se va directo al grano y calcula quién es el elemento que está justo en el medio de ese rango.
 
-```{r}
-#' Función para realizar una búsqueda binaria en un vector ordenado
-#'
-#' @param datos Un vector numérico o de caracteres ORDENADO donde buscar.
-#' @param objetivo El valor que se desea encontrar.
-#' @return El índice (posición) del objetivo si se encuentra, de lo contrario, NULL.
-#'
-#' @examples
-#' vector_ordenado <- c(5, 10, 15, 20, 25, 30)
-#' busqueda_binaria(vector_ordenado, 20) # Debería devolver 4
-#' busqueda_binaria(vector_ordenado, 12) # Debería devolver NULL
-busqueda_binaria <- function(datos, objetivo) {
-  # Verificar que el vector no esté vacío
-  if (length(datos) == 0) {
-    message("El vector está vacío.")
-    return(NULL)
-  }
+4.  **Comparar el valor**: Miramos el dato que está en el medio y lo comparamos con el que queremos encontrar:
 
-  # Se asume que el vector 'datos' ya está ordenado.
-  # Si no estuviera ordenado, necesitaríamos una línea como:
-  # datos <- sort(datos)
-  # Pero esto añade una complejidad O(n log n) y no es parte del algoritmo de búsqueda binaria en sí.
+    - **Si es igual**: Lo encontramos, el programa nos avisa en qué posición está y se detiene.
+    - **Si es menor**: Si el del medio es más pequeño que nuestro objetivo, significa que lo que buscamos está en la derecha. Así que movemos el inicio justo después del medio.
+    - **Si es mayor**: Si el del medio es más grande, lo que buscamos está en la izquierda. Así que movemos el fin justo antes del medio.
 
-  inicio <- 1
-  fin <- length(datos)
+5.  **Cerrar el círculo**: Estos pasos se repiten una y otra vez.
+    Cada vez el área de búsqueda es más pequeña, hasta que encontramos el valor o hasta que nos damos cuenta de que el dato no existe porque ya no quedan más lugares donde buscar.
 
-  while (inicio <= fin) {
-    # Calcular el punto medio. Usamos floor para asegurar un índice entero.
-    medio <- floor((inicio + fin) / 2)
+### Implementación en Java !
 
-    # Comparamos el elemento en el medio con el objetivo
-    if (datos[medio] == objetivo) {
-      message(paste("Objetivo", objetivo, "encontrado en el índice", medio))
-      return(medio) # ¡Encontrado!
-    } else if (datos[medio] < objetivo) {
-      # El objetivo está en la mitad derecha
-      inicio <- medio + 1
-    } else {
-      # El objetivo está en la mitad izquierda
-      fin <- medio - 1
+Se dispone de un arreglo de números enteros (int\[\]) que contiene las edades de los jugadores (16, 18, 19, 21, 22, 24, 25, 28, 30, 32) de un equipo de fútbol.
+Por la organización por categorías, las edades están ordenadas de menor a mayor (orden ascendente).
+
+Se desea implementar un método de búsqueda binaria en su versión iterativa que, dada una edad objetivo (target), devuelva la posición (índice) dentro del arreglo donde se encuentra dicha edad.
+
+``` java
+/**
+ * Método (función) para realizar una búsqueda binaria en un arreglo ordenado.
+ *
+ * @param datos    Un arreglo numérico o de caracteres ORDENADO donde haremos 
+ nuestra búsqueda.
+ * @param objetivo El valor que se desea encontrar.
+ * @return El índice (posición) del objetivo si se encuentra, de lo contrario 
+ nos devolvería -1 (NULL en Java se representa con -1).
+ * 
+ * @example
+ * Tenemos un arreglo ordenado 
+ int[] arregloOrdenado = {16, 18, 19, 21, 22, 24, 25, 28, 30, 32};
+ * busquedaBinaria(arregloOrdenado, 22) // Debería devolver 4, ya que en Java 
+ el índice inicia en 0 y finaliza en n-1
+ * busquedaBinaria(arregloOrdenado, 13) // Debería devolver -1
+ */
+public class BusquedaBinaria {
+
+    public static int busquedaBinaria(int[] datos, int objetivo) {
+
+        if (datos.length == 0) {
+            System.out.println("El arreglo está vacío.");
+            return -1;
+        }
+        // El arreglo ya está ordenado.
+        // Si no estuviera ordenado, necesitaríamos una línea como:
+        // Arrays.sort(datos);
+        // Pero esto añade una complejidad O(n log n) y no es parte del
+        algoritmo de búsqueda binaria en sí.
+
+        int inicio = 0;
+        int fin = datos.length - 1;
+
+        while (inicio <= fin) {
+            // Calculamos el punto medio.
+            int medio = inicio + (fin - inicio) / 2;
+
+            // Comparamos el elemento en el medio con el objetivo
+            if (datos[medio] == objetivo) {
+                System.out.println("El objetivo " + objetivo + " encontrado en
+                el índice " + medio);
+                return medio; // Encontrado
+            } else if (datos[medio] < objetivo) {
+                // El objetivo está en la mitad derecha
+                inicio = medio + 1;
+            } else {
+                // El objetivo está en la mitad izquierda
+                fin = medio - 1;
+            }
+        }
+        // Si el bucle termina, el objetivo no fue encontrado
+        System.out.println("El objetivo " + objetivo + " no se encuentra en el
+        arreglo.");
+        return -1;
     }
-  }
+  public static void main(String[] args) {
+    int[] arregloOrdenado = {16, 18, 19, 21, 22, 24, 25, 28, 30, 32};
+    
+     // Buscar edad existente (22)
+    busquedaBinaria(arregloOrdenado, 22);
+    
+     // Buscar edad no existente (13)
+    busquedaBinaria(arregloOrdenado, 13); 
+}
+}
+```
 
-  # Si el bucle termina, el objetivo no fue encontrado
-  message(paste("Objetivo", objetivo, "no encontrado en el vector."))
-  return(NULL)
+### Implementación Python
+
+```{python}
+def busqueda_binaria(datos, objetivo):
+    """
+    Función para realizar una búsqueda binaria en una lista ordenada.
+    
+    :param datos: Una lista numérica o de caracteres ORDENADA.
+    :param objetivo: El valor que se desea encontrar.
+    :return: El índice del objetivo si se encuentra, de lo contrario, None.
+    """
+    # Verificar que la lista no esté vacía
+    if not datos:
+        print("La lista está vacía.")
+        return None
+
+    inicio = 0
+    fin = len(datos) - 1
+
+    while inicio <= fin:
+        # Calcular el punto medio usando división entera
+        medio = (inicio + fin) // 2
+
+        # Comparamos el elemento en el medio con el objetivo
+        if datos[medio] == objetivo:
+            print(f"Objetivo {objetivo} encontrado en el índice {medio}")
+            return medio  # ¡Encontrado!
+        elif datos[medio] < objetivo:
+            # El objetivo está en la mitad derecha
+            inicio = medio + 1
+        else:
+            # El objetivo está en la mitad izquierda
+            fin = medio - 1
+
+    # Si el bucle termina, el objetivo no fue encontrado
+    print(f"Objetivo {objetivo} no encontrado en la lista.")
+    return None
+```
+
+### Implementacion JavaScript
+
+``` javascript
+function busqueda_binaria(arr, objetivo) {
+    let inicio = 0;
+    let fin = arr.length - 1;
+
+    while (inicio <= fin) {
+        let medio = Math.floor((inicio + fin) / 2); // Calcula el índice 
+        central
+
+        if (arr[medio] === objetivo) {
+            return medio; // Objetivo encontrado
+        } else if (arr[medio] < objetivo) {
+            inicio = medio + 1; // Buscar en la mitad derecha
+        } else {
+            fin = medio - 1; // Buscar en la mitad izquierda
+        }
+    }
+    return -1; // Objetivo no encontrado
 }
 ```
 
 ### Ejemplos de Uso
 
-Recuerden, el vector DEBE estar ordenado para que la búsqueda binaria funcione correctamente.
+Recuerden, el arreglo debe estar ordenado para que la búsqueda binaria funcione correctamente.
 
-```{r}
-# Creamos un vector ordenado
-numeros_ordenados <- c(1, 3, 5, 7, 9, 11, 13, 15, 17, 19)
+### Java
 
-# Ejemplo 1: El objetivo está presente
-busqueda_binaria(numeros_ordenados, 9)
+``` java
+// Creamos un arreglo ordenado
+int[] arreglo_ordenado = {5, 10, 15, 20, 25, 30, 35, 40, 45, 50};
 
-# Ejemplo 2: El objetivo no está presente
-busqueda_binaria(numeros_ordenados, 10)
+// Ejemplo 1: El objetivo (número) Sí se encuentra dentro del arreglo
+System.out.println(busquedaBinaria(arreglo_ordenado, 35));
 
-# Ejemplo 3: El objetivo es el primer elemento
-busqueda_binaria(numeros_ordenados, 1)
+// Ejemplo 2: El objetivo NO está presente
+System.out.println(busquedaBinaria(arreglo_ordenado, 12));
 
-# Ejemplo 4: El objetivo es el último elemento
-busqueda_binaria(numeros_ordenados, 19)
+// Ejemplo 3: El objetivo es el primer elemento
+System.out.println(busquedaBinaria(arreglo_ordenado, 5));   
 
-# Ejemplo 5: Con un vector de un solo elemento (objetivo presente)
-busqueda_binaria(c(5), 5)
+// Ejemplo 4: El objetivo es el último elemento
+System.out.println(busquedaBinaria(arreglo_ordenado, 50));  
 
-# Ejemplo 6: Con un vector de un solo elemento (objetivo ausente)
-busqueda_binaria(c(5), 10)
+// Ejemplo 5: Arreglo de un solo elemento (objetivo presente)
+System.out.println(busquedaBinaria(new int[]{10}, 10));     
+
+// Ejemplo 6: Arreglo de un solo elemento (objetivo ausente)
+System.out.println(busquedaBinaria(new int[]{10}, 60));     
 ```
 
-**¡Advertencia!** ¿Qué pasa si el vector no está ordenado?
+### Python
 
-```{r}
-numeros_desordenados <- c(5, 1, 9, 3, 7)
-# Si intentamos buscar 3, ¡dará un resultado incorrecto o NULL!
-# (En este caso, 3 está en la posición 4, pero la búsqueda binaria podría devolver NULL o algo erróneo)
-busqueda_binaria(numeros_desordenados, 3) # Resultado erróneo porque el vector no está ordenado
+```{python}
+#| output: false
+# Ejemplo: Búsqueda de un Pokémon por su nombre
+pokedex = ["Abra", "Bulbasaur", "Charmander", "Dragonite", "Eevee", 
+"Gengar", "Zubat"]
+print(busqueda_binaria(pokedex, "Charmander"))
+# Salida: 2 (Objetivo Charmander encontrado en el índice 2)
+
+# Ejemplo: Buscando materiales en un cofre de Minecraft (Ordenado)
+cofre_doble = ["Adoquín", "Carbón", "Diamante", "Hierro", "Madera", 
+"Piedra", "Redstone"]
+print(busqueda_binaria(cofre_doble, "Diamante"))
+# Salida: 2 (¡Diamante encontrado en el Slot 2 del cofre!)
+
+# Ejemplo: Búsqueda de una Skin de Free Fire
+skins_m4a1 = ["Arenas Ardientes", "Cataclismo", "Genos", "Grifo", 
+"Lobo Ártico", "Subterránea"]
+print(busqueda_binaria(skins_m4a1, "Genos"))
+# Salida: 2 (Objetivo Genos encontrado en el índice 2)
+
+# Ejemplo: Buscando cartas de Clash Royale por nivel
+niveles_cartas = [1, 5, 9, 11, 12, 13, 14, 15]
+nivel_buscado = 14
+print(busqueda_binaria(niveles_cartas, nivel_buscado))
+# Salida: 6 (Carta nivel 14 encontrada en el índice 6)
 ```
-Para corregirlo, simplemente ordenamos el vector antes de buscar:
-```{r}
-numeros_desordenados_ordenados <- sort(numeros_desordenados)
-busqueda_binaria(numeros_desordenados_ordenados, 3) # Ahora sí funciona correctamente
+
+### Javascript
+
+``` javascript
+// Ejemplo: Búsqueda de un Pokémon por su nombre
+const pokedex = ["Abra", "Bulbasaur", "Charmander", "Dragonite", "Eevee", 
+"Gengar", "Zubat"];
+console.log(busqueda_binaria(pokedex, "Charmander"));
+// Salida: 2 (Objetivo Charmander encontrado en el índice 2)
+
+// Ejemplo: Buscando materiales en un cofre ordenado alfabéticamente
+const cofreDoble = ["Adoquín", "Carbón", "Diamante", "Hierro", "Madera", 
+"Piedra", "Redstone"];
+console.log(busqueda_binaria(cofreDoble, "Diamante"));
+// Salida: 2 (¡Diamante encontrado en el Slot 2 del cofre!)
+
+// Ejemplo 1: Búsqueda de una Skin específica en tu colección de Free Fire
+const skinsM4A1 = ["Arenas Ardientes", "Cataclismo", "Genos", "Grifo", 
+"Lobo Ártico", "Subterránea"];
+console.log(busqueda_binaria(skinsM4A1, "Genos"));
+// Salida: 2 (Objetivo Genos encontrado en el índice 2)
+
+// Ejemplo: Buscando cartas por su nivel de fuerza (Datos numéricos)
+const nivelesCartas = [1, 5, 9, 11, 12, 13, 14, 15]; // Nivel 15 es Élite
+const nivelBuscado = 14;
+
+console.log(busqueda_binaria(nivelesCartas, nivelBuscado));
+// Salida: 6 (Carta nivel 14 encontrada en el índice 6)
+```
+
+**¿Qué pasa si el arreglo no está ordenado?**.
+Si en caso de usar busqueda binaria en un arreglo que no este ordenado el valor que se devuelve es NULL como en los siguientes casos.
+
+### Java
+
+``` java
+// Ejemplo: Skins de Free Fire sin ordenar
+String[] skinsDesordenadas = {"Genos", "Arenas Ardientes", "Subterránea", 
+"Grifo"};
+
+// Buscamos "Arenas Ardientes"
+int posicion = busquedaBinariaString(skinsDesordenadas, "Arenas Ardientes");
+
+System.out.println(posicion);
+// Salida: -1 (Objetivo no encontrado debido al desorden del arreglo)
+```
+
+### Python
+
+```{python}
+#| output: false
+# Ejemplo: El "Cofre de la Suerte" (Desordenado)
+# Ítems: Diamante, Tierra, Antorcha, Madera
+inventario_desordenado = ["Diamante", "Tierra", "Antorcha", "Madera"]
+
+# Buscamos "Antorcha"
+resultado = busqueda_binaria(inventario_desordenado, "Antorcha")
+
+print(resultado)
+# Salida: -1 (O None). El algoritmo falló: aunque la antorcha está, 
+#el desorden lo engañó.
+```
+
+### Javascript
+
+``` javascript
+// Ejemplo: La Pokédex hackeada por el Team Rocket
+const pokedex_caotica = ["Zubat", "Abra", "Charmander", "Mewtwo"];
+
+// Buscamos a "Zubat"
+const resultado = busqueda_binaria(pokedex_caotica, "Zubat");
+
+console.log(resultado);
+// Salida: -1. El algoritmo fue al medio, vio donde esta posicionado "Abra", 
+pensó que "Zubat" debía estar a la derecha del arreglo porque supuestamente 
+esta ordenado y nunca regresó a mirar el inicio.
+```
+
+**Para corregirlo, simplemente ordenamos el arreglo antes de buscar:**.
+
+### Java
+
+En Java, usamos la clase utilidad Arrays.sort ,es muy eficiente, pero recuerda que este paso es el que hace que la búsqueda binaria sea posible.
+
+``` java
+
+// Ejemplo: Skins de Free Fire desordenadas
+String[] skinsDesordenadas = {"Genos", "Arenas Ardientes", "Subterránea",
+"Grifo"};
+
+// Corregimos: Usamos Arrays.sort para organizar las skins
+Arrays.sort(skinsDesordenadas); 
+// El arreglo ahora es: {"Arenas Ardientes", "Genos", "Grifo", "Subterránea"}
+
+// Ahora buscamos "Arenas Ardientes"
+int posicion = busquedaBinariaString(skinsDesordenadas, "Arenas Ardientes");
+// Salida: 0 (¡Skin encontrada en el índice 0!)
+```
+
+### Python
+
+En Python, la forma más limpia es usar sorted(), que toma tu cofre desordenado y te entrega uno nuevo perfectamente alineado.
+
+```{python}
+#| output: false
+# Ejemplo: El "Cofre de la Suerte" que estaba desordenado
+inventario_desordenado = ["Diamante", "Tierra", "Antorcha", "Madera"]
+
+# Corregimos: Ordenamos alfabéticamente ("Antorcha", "Diamante", "Madera",
+#"Tierra")
+inventario_ordenado = sorted(inventario_desordenado)
+
+# Ahora la búsqueda binaria encontrará la Antorcha sin problemas
+resultado = busqueda_binaria(inventario_ordenado, "Antorcha")
+# Salida: 0 (¡Antorcha encontrada en la primera posición!)
+```
+
+### Javascript
+
+En JavaScript, usamos el método .sort(), para textos funciona de forma directa
+
+``` javascript
+
+// Ejemplo: La Pokédex hackeada por el Team Rocket
+const pokedex_caotica = ["Zubat", "Abra", "Charmander", "Mewtwo"];
+
+// Corregimos: Ordenamos la Pokédex (Abra, Charmander, Mewtwo, Zubat)
+pokedex_caotica.sort(); 
+
+// Ahora buscamos a Zubat
+const resultado = busqueda_binaria(pokedex_caotica, "Zubat");
+// Salida: 3 (¡Zubat encontrado al final de la lista ordenada!)
 ```
 
 ### Eficiencia y Casos de Uso
 
-La eficiencia de la búsqueda binaria es su mayor fortaleza. En cada paso, el algoritmo reduce el espacio de búsqueda a la mitad.
+La eficiencia de la búsqueda binaria es su mayor fortaleza.
+En cada paso, el algoritmo reduce el espacio de búsqueda a la mitad.
 
-*   **Complejidad Temporal:** O(log n). Esto significa que el tiempo de ejecución crece logarítmicamente con el tamaño de los datos. Para un vector de 1 millón de elementos, la búsqueda binaria podría necesitar solo unas 20 comparaciones (log₂ de 1,000,000 es aproximadamente 19.9), mientras que la búsqueda secuencial podría necesitar hasta 1 millón.
+-   **Complejidad Temporal:** O(log n). Esto significa que el tiempo de ejecución crece logarítmicamente con el tamaño de los datos. Para un arreglo de 1 millón de elementos, la búsqueda binaria podría necesitar solo unas 20 comparaciones (log₂ de 1,000,000 es aproximadamente 19.9), mientras que la búsqueda secuencial podría necesitar hasta 1 millón.
 
-La búsqueda binaria es ideal para:
-*   Grandes conjuntos de datos.
-*   Cuando los datos están (o pueden estar) ordenados.
-*   Cuando se realizan muchas búsquedas en el mismo conjunto de datos (amortizando el costo de ordenamiento inicial).
+La búsqueda binaria es ideal para: 
+
+- Grandes conjuntos de datos.
+- Cuando los datos están (o pueden estar) ordenados.
+- Cuando se realizan muchas búsquedas en el mismo conjunto de datos (amortizando el costo de ordenamiento inicial).
 
 ## Comparación y Cuándo Usar Cada Uno
 
-| Característica            | Búsqueda Secuencial (Lineal) | Búsqueda Binaria     |
-| :------------------------ | :--------------------------- | :------------------- |
-| **Requisito de Orden**   | No requiere                  | **Requiere**         |
-| **Complejidad Temporal**  | O(n) (lineal)                | O(log n) (logarítmica) |
-| **Tamaño de Datos**       | Pequeños                     | Grandes              |
-| **Simplicidad**           | Muy simple de implementar    | Más compleja         |
-| **Escenarios Típicos**    | Datos desordenados, pocas búsquedas, listas pequeñas | Datos ordenados, muchas búsquedas, listas grandes |
+| Característica | Búsqueda Secuencial (Lineal) | Búsqueda Binaria |
+|:-----------------------|:-----------------------|:-----------------------|
+| **Requisito de Orden** | No requiere | **Requiere** |
+| **Complejidad Temporal** | O(n) (lineal) | O(log n) (logarítmica) |
+| **Tamaño de Datos** | Pequeños | Grandes |
+| **Simplicidad** | Muy simple de implementar | Más compleja |
+| **Escenarios Típicos** | Datos desordenados, pocas búsquedas, listas pequeñas | Datos ordenados, muchas búsquedas, listas grandes |
 
 **En resumen:**
 
-*   Si tus datos no están ordenados y el tamaño es pequeño, o si solo necesitas hacer una única búsqueda y el costo de ordenar sería excesivo, usa la **Búsqueda Secuencial**.
-*   Si tus datos están ordenados o si necesitas realizar muchas búsquedas en un conjunto de datos grande (haciendo que el costo de ordenar los datos inicialmente valga la pena), la **Búsqueda Binaria** es la elección superior por su eficiencia.
+-   Si tus datos no están ordenados y el tamaño es pequeño, o si solo necesitas hacer una única búsqueda y el costo de ordenar sería excesivo, usa la **Búsqueda Secuencial**.
+-   Si tus datos están ordenados o si necesitas realizar muchas búsquedas en un conjunto de datos grande (haciendo que el costo de ordenar los datos inicialmente valga la pena), la **Búsqueda Binaria** es la elección superior por su eficiencia.
 
-En R, para tareas comunes de búsqueda, funciones como `which()` o `%in%` a menudo son eficientes para vectores, ya que están implementadas en C y optimizadas. Sin embargo, entender los algoritmos subyacentes como la búsqueda secuencial y binaria es crucial para comprender la eficiencia y el diseño de soluciones en contextos más complejos, como la implementación en estructuras de datos personalizadas o en escenarios de entrevistas técnicas.
+En lenguajes modernos, para tareas comunes de búsqueda existen métodos nativos (como in en Python, o indexOf() en Java y JS) que ya están optimizados.
+Sin embargo, entender los algoritmos subyacentes como la búsqueda secuencial y binaria es crucial para comprender la eficiencia y el diseño de soluciones en contextos más complejos, como la implementación en estructuras de datos personalizadas o en escenarios de entrevistas técnicas.
 
 ## Conclusión
 
-Hemos cubierto los fundamentos de la búsqueda secuencial y la búsqueda binaria. Ahora entienden cómo funcionan estos algoritmos, cómo implementarlos en R y, lo que es más importante, cuándo y por qué elegir uno sobre el otro. La eficiencia de sus programas a menudo depende de estas decisiones algorítmicas básicas, y dominar estos conceptos es un paso crucial para convertirse en un experto en R y en programación en general.
+Hemos cubierto los fundamentos de la búsqueda secuencial y la búsqueda binaria.
+Ahora entienden cómo funcionan estos algoritmos, cómo implementarlos en estos lenguajes y, lo que es más importante, cuándo y por qué elegir uno sobre el otro.
+La eficiencia de sus programas a menudo depende de estas decisiones algorítmicas básicas, y dominar estos conceptos es un paso crucial para convertirse en programación en general.
 
-¡Sigan practicando y experimentando con estos algoritmos! La próxima vez que necesiten encontrar algo en un conjunto de datos, podrán tomar una decisión informada sobre la mejor estrategia de búsqueda. ¡Hasta el próximo capítulo!
+¡Sigan practicando y experimentando con estos algoritmos!
+La próxima vez que necesiten encontrar algo en un conjunto de datos, podrán tomar una decisión informada sobre la mejor estrategia de búsqueda.
+¡Hasta el próximo capítulo!
+
+## Reto de Programación: "Goles del Mundial"
+
+Durante un partido del Mundial, se registraron los minutos exactos en los que se marcaron los goles.
+Desarrolle un programa que implemente el algoritmo de búsqueda que considere más eficiente para responder las siguientes consultas sobre el partido mediante los métodos:
+
+-   `buscarGol(int minuto)`: retorna la posición del gol si existe, de lo contrario, `-1`.
+-   `golesAntesDe(int minuto)`: retorna cuántos goles se marcaron antes del minuto indicado.
+-   `golesDespuesDe(int minuto)`: retorna cuántos goles se marcaron después del minuto indicado.
+-   `golesEnRango(int inicio, int fin)`: retorna todos los goles anotados entre dos minutos (inclusive).
+
+Utilice el siguiente arreglo de datos:
+
+``` java
+int[] minutosGoles = {12, 27, 35, 42, 48, 51, 67, 73, 85, 90};
+```
+
+### Restricciones
+
+-   Debe utilizar uno de los algoritmos de búsqueda estudiados: **búsqueda secuencial** o **búsqueda binaria**.
+
+### Análisis Final
+
+Al finalizar, indique cuál algoritmo de búsqueda utilizó y explique por qué lo considera el más adecuado para resolver este problema, mencionando su complejidad temporal.
+
