@@ -31,7 +31,7 @@ Un arreglo es como una página del álbum del Mundial donde todos los espacios p
 Un archivo es como guardar los mejores momentos de una partida o una colección completa de cromos del Mundial para poder volver a verla después, incluso cuando el programa ya se cerró. A diferencia de los arreglos, que viven temporalmente en memoria RAM, los archivos permiten almacenar información de forma permanente en el disco duro. Dentro de ellos se pueden guardar datos como nombres de jugadores, resultados de partidos o estadísticas, organizados línea por línea, igual que un historial de jugadas o un álbum digital que permanece intacto aunque apagues la computadora.
 :::
 
-A continuacion se obersvar ejemplos de como crear estos tipo de estructuras en Java y Phyton, ademas de su consumos de memoria al momento de declarar cada tipo de estructura:
+A continuación, se observan ejemplos de cómo crear este tipo de estructuras en Java y Python, además de su consumo de memoria al momento de declarar cada tipo de estructura:
 
 En Java, la memoria Heap funciona como el lugar donde se guardan temporalmente los arreglos y archivos mientras el programa está en ejecución. Los arreglos reservan espacios consecutivos en memoria para acceder rápidamente a los datos, mientras que objetos como `FileWriter` permiten guardar información permanentemente en el disco. Cuando esos objetos ya no se utilizan, el Garbage Collector libera automáticamente el espacio para evitar que la memoria se llene [@deitel_java; @datastructure_lab].
 
