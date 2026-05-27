@@ -1,3 +1,8 @@
+
+/.quarto/
+**/*.quarto_ipynb
+/_book/
+/*_cache/
 *.html
 _book/
 .quarto/
