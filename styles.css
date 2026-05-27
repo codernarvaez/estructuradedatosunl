@@ -1,3 +1,11 @@
 p {
-  text-align: justify;
+    text-align: justify;
+}
+
+.callout {
+    text-align: justify;
+}
+
+li {
+    text-align: justify;
 }

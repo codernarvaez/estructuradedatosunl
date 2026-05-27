@@ -1,2 +1,12 @@
+
 /.quarto/
 **/*.quarto_ipynb
+/_book/
+/*_cache/
+*.html
+_book/
+.quarto/
+**/*.quarto_ipynb
+*.log
+*.tex
+/.quarto/
