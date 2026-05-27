@@ -551,7 +551,7 @@ ciclico.put("C", Arrays.asList("A")); // Regresa a A
 System.out.println(ciclico.get("C")); // [A]
 
 // ACÍCLICO
-Map> aciclico = new HashMap<>();
+Map<String, List<String>> aciclico = new HashMap<>();
 aciclico.put("A", Arrays.asList("B", "C"));
 aciclico.put("B", Arrays.asList("D"));
 aciclico.put("C", new ArrayList<>());
