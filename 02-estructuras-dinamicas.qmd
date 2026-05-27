@@ -502,7 +502,7 @@ CircularLinkedList <- R6::R6Class(
         # Buscar último nodo
         while (
           !is.null(current$next_node) &&
-          current$next_node$value != self$head$value
+          !identical(current$next_node, self$head)
         ) {
           
           current <- current$next_node
