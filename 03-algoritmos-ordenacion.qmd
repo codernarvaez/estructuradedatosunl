@@ -783,7 +783,8 @@ vector_duplicados <- c(5, 2, 8, 2, 1, 5, 9)
 print(paste("Vector con duplicados:", paste(vector_duplicados, collapse = ", ")))
 vector_ordenado_dup <- merge_sort(vector_duplicados)
 print(paste("Vector ordenado (Mergesort):", paste(vector_ordenado_dup, collapse = ", ")))
-    
+```
+
 ::: {.callout-note title="Importante" collapse="true"}
 Mergesort cuenta con la ventaja de ser un algoritmo de ordenamiento estable con una eficiencia constante sin importar si el tamaño de los datos aumenta teniendo un tiempo de ejecucion mejor que otros algoritmos de ordenamiento. El factor `n log n` significa que el tiempo de ejcucion incrementa de manera logaritmica y lineal conforme crce el numeor de elementos. El termino `log n`  proviene de las divisiones recursivas que se realiza sobre el arreglo ya que se divide repetitivamente hasta obtener subarreglos de un solo elemento, y `n` corresponde al proceso de combinar y fucionar donde el algoritmo compara cada elemento para reconstruir el arreglo de manera ordenada. 
 :::
@@ -886,6 +887,7 @@ Basicamente se basa en la división y consquista que clasifica una matriz selecc
 3.  **Recursión**: Aplica Quicksort recursivamente a la sublista de elementos con valores menores que el pivote y a la sublista de elementos con valores mayores que el pivote.
 
 La recursión termina cuando una sublista tiene cero o un elemento, ya que ya están ordenados.
+:::
 
 ### Implementación en R
 
@@ -916,7 +918,8 @@ quick_sort <- function(arr) {
   
   # Ordenar recursivamente las sublistas y combinar
   return(c(quick_sort(less), pivot, quick_sort(greater)))
-:::
+}
+```
 
 # Quick_sort
 

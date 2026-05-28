@@ -1,0 +1,67 @@
+# Publica el libro Quarto en GitHub Pages al hacer push a main.
+# Configuración en el repo: Settings → Pages → Source: GitHub Actions
+
+name: Publicar en GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configurar Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+
+      - name: Configurar R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: "4.4"
+
+      - name: Instalar dependencias R
+        run: Rscript scripts/install-r-deps.R
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Instalar dependencias Python
+        run: pip install -r requirements.txt
+
+      - name: Renderizar libro (HTML)
+        run: quarto render --to html
+
+      - name: Preparar sitio para GitHub Pages
+        run: touch _book/.nojekyll
+
+      - name: Subir artefacto
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _book
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Desplegar en GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

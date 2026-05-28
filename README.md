@@ -1,42 +1,69 @@
-# 📘 Estructuras de Datos: Guía Maestra
-> **Carrera de Computación - Universidad Nacional de Loja (UNL)** > **Docente:** Magister Cristian R. Narváez Guillén
+# Estructuras de Datos — UNL
 
-![Java](https://img.shields.io/badge/Java-17%2B-orange) ![Python](https://img.shields.io/badge/Python-3.10%2B-blue) ![Status](https://img.shields.io/badge/Status-Academic_2026-green)
+Libro Quarto para el curso de Estructuras de Datos (Carrera de Computación, UNL).
 
-Este repositorio contiene el material educativo, ejemplos de código y guías de práctica (APE) del libro diseñado para el tercer ciclo de la carrera de Computación. El enfoque principal es la **evaluación auténtica** mediante el desarrollo incremental de un sistema real.
+**Sitio publicado:** [https://codernarvaez.github.io/estructuradedatosunl/](https://codernarvaez.github.io/estructuradedatosunl/)
 
----
+## Compilar en local
 
-## 🚀 Propósito del Proyecto
-El contenido de este repositorio está articulado con el **Proyecto Integrador de Saberes (PIS)**: 
-**"Software de Administración del Hospital Veterinario de la UNL"**.  
-Cada estructura de datos estudiada se implementa para resolver una necesidad específica del hospital, desde la gestión de turnos hasta la optimización de rutas de suministros.
+Requisitos: [Quarto](https://quarto.org), R, Python 3 + Jupyter. Para PDF además: TinyTeX (`quarto install tinytex`).
 
+```bash
+# Dependencias R (primera vez)
+Rscript scripts/install-r-deps.R
 
-## 📅 Planificación por Unidades
+# Dependencias Python (primera vez)
+pip install -r requirements.txt
 
-### [Unidad 1: Estructuras Lineales y Memoria](./docs/unidad_1.md)
-* **Teoría:** TDA, Abstracción, Pilas, Colas y Listas Enlazadas.
-* **Proyecto:** Eficiencia Energética en Programación (Green Computing).
-* **Prácticas:** APE 01 a APE 06.
+# HTML (igual que GitHub Pages)
+make html
+# o: quarto render --to html
 
-### [Unidad 2: Ordenación, Búsqueda y Eficiencia](./docs/unidad_2.md)
-* **Teoría:** Notación Big-O, QuickSort, MergeSort y Búsqueda Binaria.
-* **Proyecto:** Motor de búsqueda de fichas clínicas y ordenamiento de citas por prioridad.
-* **Prácticas:** APE 07 a APE 10.
+# HTML + PDF
+make render
 
-### [Unidad 3: Estructuras No Lineales y Redes](./docs/unidad_3.md)
-* **Teoría:** Árboles Binarios (BST), Árboles Balanceados (AVL) y Grafos (Dijkstra).
-* **Proyecto:** Jerarquía de diagnósticos y optimización de logística interna del hospital.
-* **Prácticas:** APE 11 a APE 16.
+# Vista previa local del sitio
+make preview
+# Abre http://127.0.0.1:8000/
+```
 
----
+Salida HTML: `_book/index.html` · PDF: `_book/Estructura-de-Datos.pdf`
 
-## 📁 Estructura del Repositorio
-```text
-├── 📂 src/               # Código fuente en Java (Estructuras y Proyecto)
-│   ├── 📂 tda/           # Implementaciones base de estructuras
-│   └── 📂 hospital/      # Módulos del Proyecto Integrador
-├── 📂 notebooks/         # Laboratorios en Python (Simulaciones APE)
-├── 📂 docs/              # Guías APE en formato Markdown/PDF
-└── 📂 assets/            # Diagramas de flujo y modelos UML
+## CI/CD y GitHub Pages
+
+Al hacer **push a `main`**, el workflow [`.github/workflows/publish.yml`](.github/workflows/publish.yml) renderiza el libro y lo publica en GitHub Pages.
+
+### Activar GitHub Pages (una vez)
+
+1. En GitHub: **Settings → Pages**
+2. **Build and deployment → Source:** elige **GitHub Actions**
+3. Tras el primer push exitoso, el sitio quedará en  
+   `https://codernarvaez.github.io/estructuradedatosunl/`
+
+### Publicar manualmente desde local (opcional)
+
+```bash
+make publish
+# equivalente: quarto publish gh-pages
+```
+
+Requiere permisos de escritura en el remoto y crea/actualiza la rama `gh-pages`.
+
+### Ejecutar el workflow a mano
+
+**Actions → Publicar en GitHub Pages → Run workflow**
+
+## Estructura del repositorio
+
+| Ruta | Descripción |
+|------|-------------|
+| `01-*.qmd` … `07-*.qmd` | Capítulos del libro |
+| `images/` | Figuras |
+| `scripts/` | Dependencias R y vista previa local |
+| `.github/workflows/` | CI/CD para GitHub Pages |
+| `_book/` | Salida generada (no versionar) |
+
+## Notas
+
+- El PDF no se genera en CI (solo HTML) para mantener el despliegue rápido; genera el PDF en local con `make pdf`.
+- Artefactos de compilación: ver [`.gitignore`](.gitignore).

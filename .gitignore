@@ -1,12 +1,25 @@
-
+# Quarto / knitr
 /.quarto/
-**/*.quarto_ipynb
 /_book/
-/*_cache/
-*.html
-_book/
-.quarto/
 **/*.quarto_ipynb
+*_cache/
+*_files/
+
+# LaTeX / render intermediates
+*.aux
 *.log
 *.tex
-/.quarto/
+*.toc
+*.out
+
+# IDE / OS
+.idea/
+.Rhistory
+.DS_Store
+
+# Local-only (regenerar con quarto render)
+site_libs/
+summary_files/
+
+# Quarto publish metadata (generado por quarto publish gh-pages)
+_publish.yml

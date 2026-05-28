@@ -470,6 +470,14 @@ Una lista circular es una lista enlazada donde el último nodo apunta al primer 
 ```
 
 ```{r}
+# En R, los nodos circulares deben usar entornos para preservar referencias.
+crear_nodo_circular <- function(valor) {
+  node <- new.env(parent = emptyenv())
+  node$value <- valor
+  node$next_node <- NULL
+  node
+}
+
 # Clase CLL (Circular Linked List)
 CircularLinkedList <- R6::R6Class(
   "CircularLinkedList",
@@ -484,7 +492,7 @@ CircularLinkedList <- R6::R6Class(
     # Añadir nodo al final
     append = function(valor) {
       
-      new_node <- crear_nodo_simple(valor)
+      new_node <- crear_nodo_circular(valor)
       
       # Lista vacía
       if (is.null(self$head)) {
@@ -525,7 +533,7 @@ CircularLinkedList <- R6::R6Class(
     },
     
     # Imprimir lista
-    print = function() {
+    print_circular = function() {
       
       if (is.null(self$head)) {
         cat("Lista Circular: Vacía\n")
@@ -550,7 +558,7 @@ CircularLinkedList <- R6::R6Class(
         iter <- iter + 1
         
         # Volvió al inicio
-        if (current$value == self$head$value) {
+        if (identical(current, self$head)) {
           break
         }
         
@@ -581,8 +589,7 @@ CircularLinkedList <- R6::R6Class(
       
       # Un solo nodo
       if (
-        !is.null(self$head$next_node) &&
-        self$head$next_node$value == self$head$value &&
+        identical(self$head$next_node, self$head) &&
         self$head$value == valor
       ) {
         self$head <- NULL
@@ -608,7 +615,7 @@ CircularLinkedList <- R6::R6Class(
         iter <- iter + 1
         
         # No encontrado
-        if (current$value == self$head$value) {
+        if (identical(current, self$head)) {
           return(invisible(self))
         }
         
@@ -618,7 +625,7 @@ CircularLinkedList <- R6::R6Class(
       }
       
       # Eliminar cabeza
-      if (current$value == self$head$value) {
+      if (identical(current, self$head)) {
         
         temp_tail <- self$head
         
@@ -626,7 +633,7 @@ CircularLinkedList <- R6::R6Class(
         
         while (
           !is.null(temp_tail$next_node) &&
-          temp_tail$next_node$value != self$head$value
+          !identical(temp_tail$next_node, self$head)
         ) {
           
           temp_tail <- temp_tail$next_node
@@ -660,22 +667,22 @@ cll$append("Alfa")
 cll$append("Beta")
 cll$append("Gamma")
 
-cll$print()
+cll$print_circular()
 
 cll$delete("Beta")
-cll$print()
+cll$print_circular()
 
 cll$delete("Alfa") # Eliminar la cabeza
-cll$print()
+cll$print_circular()
 
 cll$delete("Gamma") # Eliminar el ultimo que queda
-cll$print()
+cll$print_circular()
 
 cll$append("unico")
-cll$print()
+cll$print_circular()
 
 cll$delete("unico")
-cll$print() # La lista esta vacia
+cll$print_circular() # La lista esta vacia
 
 rm(cll)
 gc()

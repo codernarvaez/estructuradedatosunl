@@ -1,5 +1,5 @@
-# Preface {.unnumbered}
+# Prefacio {.unnumbered}
 
-This is a Quarto book.
+Material del curso **Estructuras de Datos** de la carrera de Computación de la Universidad Nacional de Loja (UNL).
 
-To learn more about Quarto books visit <https://quarto.org/docs/books>.
+El libro integra teoría, ejemplos en varios lenguajes y actividades alineadas con el Proyecto Integrador de Saberes (PIS) del hospital veterinario.

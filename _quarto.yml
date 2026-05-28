@@ -1,12 +1,22 @@
 project:
   type: book
+  output-dir: _book
 
 lang: es
+
+website:
+  site-url: https://codernarvaez.github.io/estructuradedatosunl/
+  repo-url: https://github.com/codernarvaez/estructuradedatosunl
+  repo-actions: [source, issue]
 
 execute:
   cache: false
   freeze: false
   daemon: false
+
+knitr:
+  opts_chunk:
+    python.reticulate: false
 book:
   title: "Estructura de Datos"
   author: "Cristian Narváez Guillén"
@@ -42,6 +52,7 @@ format:
 
   pdf:
     documentclass: scrreprt
+    latex-auto-install: true
     include-in-header:
       text: |
         \usepackage{ragged2e}

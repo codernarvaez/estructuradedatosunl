@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Experto en Ciencias de la Computación">
+<meta name="author" content="Sebastian Cordova, Elian Herrera, Diego Iñiguez, Eduardo Moreno(Grupo 4)">
 
-<title>3&nbsp; Capítulo 1: Estructuras Estáticas – Estructura de Datos</title>
+<title>2&nbsp; Capítulo 1: Estructuras Estáticas – Estructura de Datos</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -59,7 +59,26 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -139,6 +158,7 @@ window.Quarto = {
 };
 </script>
 
+<link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="nav-sidebar floating quarto-light">
@@ -150,7 +170,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-estructuras-estaticas.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Capítulo 1: Estructuras Estáticas</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-estructuras-estaticas.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Capítulo 1: Estructuras Estáticas</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
@@ -185,55 +205,67 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Preface</span></a>
+ <span class="menu-text">Prefacio</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./summary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
+ <span class="menu-text">Resumen</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introducción</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introducción</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./01-estructuras-estaticas.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Capítulo 1: Estructuras Estáticas</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Capítulo 1: Estructuras Estáticas</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./02-estructuras-dinamicas.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Estructuras Dinámicas</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Estructuras Dinámicas</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./03-algoritmos-ordenacion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Algoritmos de Ordenación</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Algoritmos de Ordenación</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./04-algoritmos-busqueda.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Algoritmos de Búsqueda</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Algoritmos de Búsqueda</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./05-grafos-arboles.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Estructuras No Lineales</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Estructuras No Lineales</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./06-estructuras-avanzadas.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Estructuras Avanzadas</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Estructuras Avanzadas</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-ArbolesBinarios.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">07-ArbolesBinarios</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-arboles_B_R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Arboles B y R</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -252,22 +284,26 @@ window.Quarto = {
     <h2 id="toc-title">Tabla de contenidos</h2>
    
   <ul>
-  <li><a href="#sec-intro-estaticas" id="toc-sec-intro-estaticas" class="nav-link active" data-scroll-target="#sec-intro-estaticas"><span class="header-section-number">3.1</span> Introducción</a></li>
-  <li><a href="#sec-arreglos" id="toc-sec-arreglos" class="nav-link" data-scroll-target="#sec-arreglos"><span class="header-section-number">3.2</span> Arreglos: La Caja de Herramientas Estática</a>
+  <li><a href="#sec-intro-estaticas" id="toc-sec-intro-estaticas" class="nav-link active" data-scroll-target="#sec-intro-estaticas"><span class="header-section-number">2.1</span> Introducción</a></li>
+  <li><a href="#sec-arreglos" id="toc-sec-arreglos" class="nav-link" data-scroll-target="#sec-arreglos"><span class="header-section-number">2.2</span> Arreglos: La Caja de Herramientas Estática</a>
   <ul class="collapse">
-  <li><a href="#la-memoria-como-un-gran-casillero" id="toc-la-memoria-como-un-gran-casillero" class="nav-link" data-scroll-target="#la-memoria-como-un-gran-casillero"><span class="header-section-number">3.2.1</span> La Memoria como un Gran Casillero</a></li>
-  <li><a href="#el-lado-oscuro-inserciones-y-eliminaciones" id="toc-el-lado-oscuro-inserciones-y-eliminaciones" class="nav-link" data-scroll-target="#el-lado-oscuro-inserciones-y-eliminaciones"><span class="header-section-number">3.2.2</span> El Lado Oscuro: Inserciones y Eliminaciones</a></li>
+  <li><a href="#la-memoria-como-un-gran-casillero" id="toc-la-memoria-como-un-gran-casillero" class="nav-link" data-scroll-target="#la-memoria-como-un-gran-casillero"><span class="header-section-number">2.2.1</span> La Memoria como un Gran Casillero</a></li>
+  <li><a href="#inserciones-y-eliminaciones" id="toc-inserciones-y-eliminaciones" class="nav-link" data-scroll-target="#inserciones-y-eliminaciones"><span class="header-section-number">2.2.2</span> Inserciones y Eliminaciones</a></li>
   </ul></li>
-  <li><a href="#sec-archivos" id="toc-sec-archivos" class="nav-link" data-scroll-target="#sec-archivos"><span class="header-section-number">3.3</span> Archivos: Persistencia más allá de la RAM</a></li>
-  <li><a href="#sec-matrices" id="toc-sec-matrices" class="nav-link" data-scroll-target="#sec-matrices"><span class="header-section-number">3.4</span> Matrices y Arreglos Multidimensionales</a>
+  <li><a href="#sec-archivos" id="toc-sec-archivos" class="nav-link" data-scroll-target="#sec-archivos"><span class="header-section-number">2.3</span> Archivos: Persistencia mas allá del Partido</a></li>
+  <li><a href="#sec-matrices" id="toc-sec-matrices" class="nav-link" data-scroll-target="#sec-matrices"><span class="header-section-number">2.4</span> Matrices y Arreglos Multidimensionales</a>
   <ul class="collapse">
-  <li><a href="#mapeo-de-2d-a-memoria-lineal" id="toc-mapeo-de-2d-a-memoria-lineal" class="nav-link" data-scroll-target="#mapeo-de-2d-a-memoria-lineal"><span class="header-section-number">3.4.1</span> Mapeo de 2D a Memoria Lineal</a></li>
+  <li><a href="#mapeo-de-2d-a-memoria-lineal" id="toc-mapeo-de-2d-a-memoria-lineal" class="nav-link" data-scroll-target="#mapeo-de-2d-a-memoria-lineal"><span class="header-section-number">2.4.1</span> Mapeo de 2D a Memoria Lineal</a></li>
   </ul></li>
-  <li><a href="#sec-strings" id="toc-sec-strings" class="nav-link" data-scroll-target="#sec-strings"><span class="header-section-number">3.5</span> Cadenas de Caracteres (Strings)</a></li>
-  <li><a href="#metodologías-activas" id="toc-metodologías-activas" class="nav-link" data-scroll-target="#metodologías-activas"><span class="header-section-number">3.6</span> Metodologías Activas</a>
+  <li><a href="#sec-strings" id="toc-sec-strings" class="nav-link" data-scroll-target="#sec-strings"><span class="header-section-number">2.5</span> Cadenas de Caracteres (Strings)</a>
   <ul class="collapse">
-  <li><a href="#autoevaluación" id="toc-autoevaluación" class="nav-link" data-scroll-target="#autoevaluación"><span class="header-section-number">3.6.1</span> Autoevaluación</a></li>
-  <li><a href="#resolución-de-problemas" id="toc-resolución-de-problemas" class="nav-link" data-scroll-target="#resolución-de-problemas"><span class="header-section-number">3.6.2</span> Resolución de Problemas</a></li>
+  <li><a href="#autoevaluación" id="toc-autoevaluación" class="nav-link" data-scroll-target="#autoevaluación"><span class="header-section-number">2.5.1</span> Autoevaluación</a></li>
+  </ul></li>
+  <li><a href="#resolución-de-problemas" id="toc-resolución-de-problemas" class="nav-link" data-scroll-target="#resolución-de-problemas"><span class="header-section-number">2.6</span> Resolución de Problemas</a>
+  <ul class="collapse">
+  <li><a href="#reto-sistema-de-álbum-del-mundial" id="toc-reto-sistema-de-álbum-del-mundial" class="nav-link" data-scroll-target="#reto-sistema-de-álbum-del-mundial"><span class="header-section-number">2.6.1</span> Reto: Sistema de Álbum del Mundial</a></li>
+  <li><a href="#reglas-del-desafío" id="toc-reglas-del-desafío" class="nav-link" data-scroll-target="#reglas-del-desafío"><span class="header-section-number">2.6.2</span> Reglas del desafío</a></li>
+  <li><a href="#operaciones-opcionales-para-el-desafío" id="toc-operaciones-opcionales-para-el-desafío" class="nav-link" data-scroll-target="#operaciones-opcionales-para-el-desafío"><span class="header-section-number">2.6.3</span> Operaciones opcionales para el desafío</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -277,7 +313,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Capítulo 1: Estructuras Estáticas</span></h1>
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Capítulo 1: Estructuras Estáticas</span></h1>
 </div>
 
 
@@ -287,7 +323,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Autor/a</div>
     <div class="quarto-title-meta-contents">
-             <p>Experto en Ciencias de la Computación </p>
+             <p>Sebastian Cordova, Elian Herrera, Diego Iñiguez, Eduardo Moreno(Grupo 4) </p>
           </div>
   </div>
     
@@ -300,37 +336,144 @@ window.Quarto = {
 </header>
 
 
-<section id="sec-intro-estaticas" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="sec-intro-estaticas"><span class="header-section-number">3.1</span> Introducción</h2>
+<section id="sec-intro-estaticas" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="sec-intro-estaticas"><span class="header-section-number">2.1</span> Introducción</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cargamos las librerías necesarias para las visualizaciones</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Imagina que tienes una caja de herramientas de tamaño fijo. Sabes exactamente cuántos compartimentos tiene y qué herramienta va en cada uno. No puedes hacer la caja más grande sin comprar una nueva, pero a cambio, encontrar un destornillador específico es instantáneo porque conoces su ubicación exacta. Así es exactamente como funcionan las <strong>estructuras de datos estáticas</strong> en memoria.</p>
-<p>En este capítulo, exploraremos dos de las estructuras más fundamentales que comparten esta característica: los <strong>Arreglos</strong> (en memoria principal) y los <strong>Archivos</strong> (en memoria secundaria). Aunque en tus proyectos usarás lenguajes como Java o Python para interactuar con ellos, entender su comportamiento a nivel fundamental te dará el superpoder de escribir código increíblemente rápido y eficiente.</p>
-</section>
-<section id="sec-arreglos" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="sec-arreglos"><span class="header-section-number">3.2</span> Arreglos: La Caja de Herramientas Estática</h2>
-<p>Un arreglo es una colección contigua de elementos del mismo tipo. Su tamaño se define en el momento de la creación y, por naturaleza, no resorte cambios dinámicos.</p>
-<section id="la-memoria-como-un-gran-casillero" class="level3" data-number="3.2.1">
-<h3 data-number="3.2.1" class="anchored" data-anchor-id="la-memoria-como-un-gran-casillero"><span class="header-section-number">3.2.1</span> La Memoria como un Gran Casillero</h3>
-<p>Pensemos en la RAM como un edificio lleno de casilleros numerados secuencialmente.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode java code-with-copy"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Ilustración en Java de la declaración de un arreglo</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span><span class="op">[]</span> calificaciones <span class="op">=</span> <span class="kw">new</span> <span class="dt">int</span><span class="op">[</span><span class="dv">5</span><span class="op">];</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Cuando declaras ese arreglo en lenguajes fuertemente implementados como Java, el sistema operativo reserva 5 casilleros contiguos. Si la dirección base es la posición lógica <code>1000</code>, y cada entero ocupa 4 bytes, el siguiente elemento estará en <code>1004</code>, luego <code>1008</code>, etc.</p>
-<p>Esta contigüidad es la clave de su velocidad extrema de lectura: el tiempo de acceso es <span class="math inline">\(\mathcal{O}(1)\)</span>. Veamos una representación abstracta de cómo el tiempo de acceso se mantiene constante sin importar el volumen de la colección:</p>
+<p>Imagina que tienes un album del mundial con un numero fijo de paginas. Sabes exactamente cuántas paginas tiene y cuantos cromos va en cada una. No puedes hacer el albumn mas grande sin esperar a que salga la nueva edicion, pero a cambio, encontrar un un cromo especifico para su seleccion por que conoces en que seleccion va. Así es exactamente como funcionan las <strong>estructuras de datos estáticas</strong> en memoria.</p>
+<p>En este capítulo vamos a conocer dos estructuras súper importantes que funcionan de esta manera: los <strong>Arreglos</strong> (los datos que se guardan directamente en memoria) y los <strong>Archivos</strong> (la información que se almacena en el disco). Aunque normalmente usarás Java o Python para trabajar con ellos, entender cómo funcionan “por debajo” te ayudará a programar código mucho más rápido, ordenado y eficiente, casi como saber exactamente en qué página de tu álbum está cada cromo sin perder tiempo buscando.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Definición de Arreglo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Un arreglo es como una página del álbum del Mundial donde todos los espacios para cromos ya vienen organizados desde el inicio. Cada casilla tiene una posición exacta y solo puede guardar un tipo específico de dato, igual que una página dedicada únicamente a jugadores de una misma selección. La gran ventaja de los arreglos es que permiten encontrar cualquier cromo súper rápido, porque la computadora sabe exactamente en qué posición está guardado, sin necesidad de buscar por todo el álbum. Sin embargo, su tamaño es fijo, así que si se llena la página y quieres agregar más cromos, no puedes simplemente crear nuevos espacios; tendrías que conseguir otra página más grande y mover todo nuevamente.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Definición de Archivo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Un archivo es como guardar los mejores momentos de una partida o una colección completa de cromos del Mundial para poder volver a verla después, incluso cuando el programa ya se cerró. A diferencia de los arreglos, que viven temporalmente en memoria RAM, los archivos permiten almacenar información de forma permanente en el disco duro. Dentro de ellos se pueden guardar datos como nombres de jugadores, resultados de partidos o estadísticas, organizados línea por línea, igual que un historial de jugadas o un álbum digital que permanece intacto aunque apagues la computadora.</p>
+</div>
+</div>
+<p>A continuación, se observan ejemplos de cómo crear este tipo de estructuras en Java y Python, además de su consumo de memoria al momento de declarar cada tipo de estructura:</p>
+<p>En Java, la memoria Heap funciona como el lugar donde se guardan temporalmente los arreglos y archivos mientras el programa está en ejecución. Los arreglos reservan espacios consecutivos en memoria para acceder rápidamente a los datos, mientras que objetos como <code>FileWriter</code> permiten guardar información permanentemente en el disco. Cuando esos objetos ya no se utilizan, el Garbage Collector libera automáticamente el espacio para evitar que la memoria se llene <span class="citation" data-cites="deitel_java datastructure_lab">(<a href="references.html#ref-deitel_java" role="doc-biblioref">Deitel y Deitel 2020</a>; <a href="references.html#ref-datastructure_lab" role="doc-biblioref">Data Structure 3D Lab 2025</a>)</span>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode java code-with-copy"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">// EJEMPLO DE ARREGLO EN JAVA</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> EjemploArreglo <span class="op">{</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Arreglo con cromos del álbum</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">String</span><span class="op">[]</span> cromos <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Messi"</span><span class="op">,</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Mbappé"</span><span class="op">,</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Vinicius"</span><span class="op">,</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Bellingham"</span><span class="op">,</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Haaland"</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        <span class="op">};</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Acceso directo a un elemento</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">"Cromo en la posición 2: "</span> <span class="op">+</span> cromos<span class="op">[</span><span class="dv">2</span><span class="op">]);</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Recorrer el arreglo</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> cromos<span class="op">.</span><span class="fu">length</span><span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>            <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">"Posición "</span> <span class="op">+</span> i <span class="op">+</span> <span class="st">": "</span> <span class="op">+</span> cromos<span class="op">[</span>i<span class="op">]);</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode java code-with-copy"><code class="sourceCode java"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">// EJEMPLO DE ARCHIVO EN JAVA</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">java</span><span class="op">.</span><span class="im">io</span><span class="op">.</span><span class="im">FileWriter</span><span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">java</span><span class="op">.</span><span class="im">io</span><span class="op">.</span><span class="im">IOException</span><span class="op">;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> EjemploArchivo <span class="op">{</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>            <span class="bu">FileWriter</span> archivo <span class="op">=</span> <span class="kw">new</span> <span class="bu">FileWriter</span><span class="op">(</span><span class="st">"cromos.txt"</span><span class="op">);</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>            archivo<span class="op">.</span><span class="fu">write</span><span class="op">(</span><span class="st">"Messi</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>            archivo<span class="op">.</span><span class="fu">write</span><span class="op">(</span><span class="st">"Mbappé</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>            archivo<span class="op">.</span><span class="fu">write</span><span class="op">(</span><span class="st">"Vinicius</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>            archivo<span class="op">.</span><span class="fu">close</span><span class="op">();</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>            <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">"Archivo creado correctamente."</span><span class="op">);</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">catch</span> <span class="op">(</span><span class="bu">IOException</span> e<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>            <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">"Ocurrió un error."</span><span class="op">);</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>En Python, la memoria Heap también funciona como el espacio donde se almacenan los arreglos, cadenas y archivos mientras el programa está ejecutándose. Cuando creamos listas o abrimos archivos, Python guarda esos objetos dinámicamente en memoria para poder acceder a ellos rápidamente. A diferencia de otros lenguajes, Python administra la memoria de forma automática, utilizando un recolector de basura (<em>Garbage Collector</em>) que elimina los objetos que ya no se usan, evitando así que la memoria se llene innecesariamente <span class="citation" data-cites="python_docs datastructure_lab">(<a href="references.html#ref-python_docs" role="doc-biblioref">Python Software Foundation 2024</a>; <a href="references.html#ref-datastructure_lab" role="doc-biblioref">Data Structure 3D Lab 2025</a>)</span>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>tamanios <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">100</span>, <span class="dv">1000</span>, <span class="at">by=</span><span class="dv">100</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>tiempo_acceso <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="fu">length</span>(tamanios)) <span class="co"># Tiempo constante O(1) simulado</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">data.frame</span>(tamanios, tiempo_acceso), <span class="fu">aes</span>(<span class="at">x =</span> tamanios, <span class="at">y =</span> tiempo_acceso)) <span class="sc">+</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"steelblue"</span>, <span class="at">linewidth =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Evolución del Tiempo de Acceso en Arreglos"</span>,</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Cantidad de Elementos (N)"</span>,</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Tiempo Constante O(1)"</span>) <span class="sc">+</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">2</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># EJEMPLO DE ARREGLO EN PYTHON</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Lista de cromos del álbum</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>cromos <span class="op">=</span> [</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Messi"</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Mbappé"</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Vinicius"</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Bellingham"</span>,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Haaland"</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Acceso directo a un elemento</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Cromo en la posición 2:"</span>, cromos[<span class="dv">2</span>])</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Recorrer la lista</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(cromos)):</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Posición"</span>, i, <span class="st">":"</span>, cromos[i])</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># EJEMPLO DE ARCHIVO EN PYTHON</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear archivo de texto</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>archivo <span class="op">=</span> <span class="bu">open</span>(<span class="st">"cromos.txt"</span>, <span class="st">"w"</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>archivo.write(<span class="st">"Messi</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>archivo.write(<span class="st">"Mbappé</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>archivo.write(<span class="st">"Vinicius</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>archivo.close()</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Archivo creado correctamente"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="sec-arreglos" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="sec-arreglos"><span class="header-section-number">2.2</span> Arreglos: La Caja de Herramientas Estática</h2>
+<p>Un arreglo es una colección contigua de cromos de la misma Seleccion. Su tamaño se define en el momento de la creación y, por naturaleza, no resorte cambios dinámicos.</p>
+<section id="la-memoria-como-un-gran-casillero" class="level3" data-number="2.2.1">
+<h3 data-number="2.2.1" class="anchored" data-anchor-id="la-memoria-como-un-gran-casillero"><span class="header-section-number">2.2.1</span> La Memoria como un Gran Casillero</h3>
+<p>Pensemos en la RAM como un edificio lleno de casilleros numerados secuencialmente.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode java code-with-copy"><code class="sourceCode java"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>Ilustración en Java de la declaración de un arreglo</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span><span class="op">[]</span> calificaciones <span class="op">=</span> <span class="kw">new</span> <span class="dt">int</span><span class="op">[</span><span class="dv">5</span><span class="op">];</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Cuando creas ese arreglo en Java, es como cuando compras un paquete nuevo de hojas para tu álbum del mundial: el sistema separa espacios seguidos para guardar tus cromos, uno al lado del otro. Por ejemplo, si el primer cromo empieza en la posición “1000”, el siguiente estaría en “1004”, luego “1008” y así sucesivamente, porque cada espacio ocupa el mismo tamaño.</p>
+<p>Esa organización seguida es lo que hace que encontrar cromos sea súper rápido. Es como abrir tu álbum y saber exactamente en qué página está el cromo de una selección sin tener que buscar por todo el álbum. No importa si tienes pocos o muchísimos cromos, el tiempo para encontrarlos prácticamente siempre será el mismo.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>tamanios <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">100</span>, <span class="dv">1000</span>, <span class="at">by=</span><span class="dv">100</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>tiempo_acceso <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="fu">length</span>(tamanios)) <span class="co"># Tiempo constante O(1) simulado</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">data.frame</span>(tamanios, tiempo_acceso), <span class="fu">aes</span>(<span class="at">x =</span> tamanios, <span class="at">y =</span> tiempo_acceso)) <span class="sc">+</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"steelblue"</span>, <span class="at">linewidth =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Evolución del Tiempo de Acceso en Arreglos"</span>,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Cantidad de Elementos (N)"</span>,</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Tiempo Constante O(1)"</span>) <span class="sc">+</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">2</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-acceso-arreglo" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -338,73 +481,219 @@ window.Quarto = {
 <img src="01-estructuras-estaticas_files/figure-html/fig-acceso-arreglo-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-acceso-arreglo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;3.1: Tiempo de acceso constante O(1) en arreglos estáticos al conocer la dirección exacta.
+Figura&nbsp;2.1: Tiempo de acceso constante O(1) en arreglos estáticos al conocer la dirección exacta.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Como observamos en la <a href="#fig-acceso-arreglo" class="quarto-xref">Figura&nbsp;<span>3.1</span></a>, buscar el elemento <code>500</code> toma idéntico esfuerzo que buscar el primer elemento. La máquina simplemente ejecuta un cálculo matemático de salto: <code>Dirección Base + (Índice × Tamaño del Tipo)</code>.</p>
+<p>Como observamos en la <a href="#fig-acceso-arreglo" class="quarto-xref">Figura&nbsp;<span>2.1</span></a>, buscar el elemento <code>500</code> toma idéntico esfuerzo que buscar el primer elemento. La máquina simplemente ejecuta un cálculo matemático de salto: <code>Dirección Base + (Índice × Tamaño del Tipo)</code>.</p>
 </section>
-<section id="el-lado-oscuro-inserciones-y-eliminaciones" class="level3" data-number="3.2.2">
-<h3 data-number="3.2.2" class="anchored" data-anchor-id="el-lado-oscuro-inserciones-y-eliminaciones"><span class="header-section-number">3.2.2</span> El Lado Oscuro: Inserciones y Eliminaciones</h3>
-<p>Si bien acceder mediante un índice es magia pura, insertar un nuevo valor en medio del arreglo es un escenario diferente. Es similar a intentar meter un libro ancho en medio de un estante de biblioteca que ya está rebosante de tomos fuertemente empaquetados. Debes desplazar manualmente uno por uno todos los libros de la derecha para abrir un hueco.</p>
-<p>Este corrimiento implica un tiempo que escala linealmente u <span class="math inline">\(\mathcal{O}(N)\)</span> en el peor de los casos, preparando el terreno para la imperiosa necesidad de <em>estructuras dinámicas</em> que analizaremos más adelante.</p>
-</section>
-</section>
-<section id="sec-archivos" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="sec-archivos"><span class="header-section-number">3.3</span> Archivos: Persistencia más allá de la RAM</h2>
-<p>Mientras que los arreglos viven limitados al horizonte de la memoria volátil, los <strong>Archivos</strong> residen en el almacenamiento secundario. Funcionalmente, actúan como las inmensas bodegas a largo plazo de nuestra aplicación.</p>
-<p>Al igual que un arreglo es una tira de variables, un archivo puede interpretarse en su abstracción más simple como un gran arreglo de bytes apilado permanentemente.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo ilusitrativo de cómo en Python el arreglo persistente </span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># se expone como un stream lineal de datos</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>with <span class="fu">open</span>(<span class="st">"datos.txt"</span>, <span class="st">"w"</span>) as archivo<span class="sc">:</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">archivo.write</span>(<span class="st">"Persistencia consolidada..."</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="inserciones-y-eliminaciones" class="level3" data-number="2.2.2">
+<h3 data-number="2.2.2" class="anchored" data-anchor-id="inserciones-y-eliminaciones"><span class="header-section-number">2.2.2</span> Inserciones y Eliminaciones</h3>
+<p>Imagínate que tienes una fila de autos en el campo de Mannfield, cada uno estacionado perfectamente desde la portería hasta el boost grande naranja. El coach sabe exactamente en qué posición está el Octane, el Fennec y el Breakout, los ubica al instante sin problema. Todo ordenado, como una rotación perfecta.</p>
+<p>Pero de repente llega un Dominus nuevo y el coach decide meterlo justo entre el Octane y el Fennec. El problema es que el Fennec no puede simplemente aparecer en otro lado, tiene que retroceder un lugar, empujando al Breakout, que empuja al siguiente auto, y así hasta el fondo del campo. Todos moviéndose uno por uno como cuando en un partido te chocan en cadena contra la pared.</p>
+<p>Y ahí está el problema: si en vez de 5 autos tienes 50 repartidos por toda la arena, meter uno nuevo al principio significa que los 50 tienen que correrse. Es como intentar reorganizar toda la rotación del equipo en pleno overtime, lento y caótico. Por eso más adelante se buscan estructuras más flexibles, como si cada auto pudiera simplemente saltar a cualquier parte del campo sin arrastrar a nadie más.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<p>Interactuar físicamente con los discos magnéticos o solidos (I/O) siempre conlleva una penalización en latencia masiva comparado con la RAM. Por lo tanto, agrupar las peticiones (usando <em>buffers</em> locales basados en arreglos temporales rápidos) es la esencia clave para un I/O de calidad superior.</p>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Definición Tecnica
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La inserción y eliminación en arreglos (arrays) consiste en agregar o quitar elementos dentro de una estructura ordenada de memoria. El problema principal es que, cuando se inserta o elimina un elemento en una posición intermedia o al inicio, los demás elementos deben desplazarse para mantener el orden, lo que genera un costo de tiempo lineal O(n).</p>
+</div>
+</div>
+<p>Ejemplos en Java, Javascrip y Python</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo en Python de inserciones</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>autos <span class="ot">=</span> [<span class="st">"Octane"</span>, <span class="st">"Fennec"</span>, <span class="st">"Breakout"</span>]</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">autos.insert</span>(<span class="dv">1</span>, <span class="st">"Dominus"</span>)  <span class="co"># Todos se corren un lugar</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(autos)  <span class="co"># ["Octane", "Dominus", "Fennec", "Breakout"]</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo en Java de eliminación </span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>List<span class="sc">&lt;</span>String<span class="sc">&gt;</span> autos <span class="ot">=</span> new ArrayList<span class="sc">&lt;</span><span class="er">&gt;</span>(<span class="fu">Arrays.asList</span>(<span class="st">"Octane"</span>, <span class="st">"Fennec"</span>, <span class="st">"Breakout"</span>));</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">autos.add</span>(<span class="dv">1</span>, <span class="st">"Dominus"</span>);      </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">autos.remove</span>(<span class="st">"Fennec"</span>);        </span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo en Javascrip de inserciones</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>const autos <span class="ot">=</span> [<span class="st">"Octane"</span>, <span class="st">"Fennec"</span>, <span class="st">"Breakout"</span>];</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">autos.splice</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="st">"Dominus"</span>); </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">console.log</span>(autos); </span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
-<section id="sec-matrices" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="sec-matrices"><span class="header-section-number">3.4</span> Matrices y Arreglos Multidimensionales</h2>
-<p>Un paso más allá del arreglo unidimensional (vector), encontramos las matrices. Representan datos tabulares (filas y columnas) o espacios <span class="math inline">\(N\)</span>-dimensionales. En memoria, la computadora sigue siendo estrictamente lineal; no existe físicamente una “cuadrícula 2D” dentro de la RAM.</p>
-<p>Para lograr esta ilusión de multidimensionalidad, los compiladores y lenguajes de programación utilizan técnicas de transformación matemática, como la representación <strong>Row-Major Order</strong> (orden contiguo por filas) o la instanciación de “arreglos de arreglos” (el enfoque típico en Java).</p>
-<section id="mapeo-de-2d-a-memoria-lineal" class="level3" data-number="3.4.1">
-<h3 data-number="3.4.1" class="anchored" data-anchor-id="mapeo-de-2d-a-memoria-lineal"><span class="header-section-number">3.4.1</span> Mapeo de 2D a Memoria Lineal</h3>
-<p>Si tenemos una matriz cuadrática de <span class="math inline">\(3 \times 3\)</span>, en un enfoque de orden por filas, la primera fila completa ocupará las primeras 3 posiciones contiguas de memoria, seguida inmediatamente por la segunda fila, y así sucesivamente.</p>
-<p>La fórmula de traducción de un índice lógico <span class="math inline">\((i, j)\)</span> a una posición física lineal en una matriz de tamaño <span class="math inline">\(M \times N\)</span> (filas <span class="math inline">\(\times\)</span> columnas), asumiendo índices basados en cero, es:</p>
+</section>
+<section id="sec-archivos" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="sec-archivos"><span class="header-section-number">2.3</span> Archivos: Persistencia mas allá del Partido</h2>
+<p>Los Archivos son como los replays de Rocket League: cuando cierras el juego todo lo que pasó en RAM desaparece, pero el replay queda guardado en tu disco para siempre, como una larga grabación de cada boost consumido, cada gol y cada derrota apilados uno tras otro. Eso es exactamente lo que hace este código, abrir un archivo y escribir jugada por jugada de forma permanente:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo ilusitrativo de cómo en Python el arreglo persistente </span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>with <span class="fu">open</span>(<span class="st">"datos.txt"</span>, <span class="st">"w"</span>) as archivo<span class="sc">:</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">replay.write</span>(<span class="st">"Gol de Octane al minuto 2:34..."</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">replay.write</span>(<span class="st">"Boost naranja tomado por Fennec..."</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">replay.write</span>(<span class="st">"Derrota de 0-3..."</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>El problema es que escribir en ese archivo es muchísimo más lento que simplemente recordar lo que acabas de jugar, porque acceder al disco siempre tiene su penalización. Por eso los sistemas inteligentes no mandan cada jugada al disco una por una, sino que las acumulan todas en memoria y las escriben de un solo jalón, como esperar el momento exacto para rematar en vez de tirar a gol cada vez que tocas la bola.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Definición Tecnica
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La persistencia de datos es la capacidad de un sistema para almacenar información de manera permanente en medios externos como archivos o bases de datos. A diferencia de la memoria RAM, los datos persistentes permanecen disponibles incluso después de cerrar el programa o apagar el equipo.</p>
+<p>Este proceso permite conservar registros, configuraciones o información importante para su uso futuro. Sin embargo, las operaciones de lectura y escritura suelen ser más lentas que el acceso a memoria principal, ya que dependen del almacenamiento físico del sistema.</p>
+</div>
+</div>
+<p>Ahora presentare dos ejemplos de persintencias realizados en Java y Javascrip:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo en Java</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>FileWriter replay <span class="ot">=</span> new <span class="fu">FileWriter</span>(<span class="st">"datos.txt"</span>);</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">replay.write</span>(<span class="st">"Salvada épica de Breakout en la línea de gol..."</span>);</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="fu">replay.write</span>(<span class="st">"Choque aéreo fallido por Fennec..."</span>);</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">replay.write</span>(<span class="st">"Victoria en tiempo extra 2-1..."</span>);</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">replay.close</span>();</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo Javascrip</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>const fs <span class="ot">=</span> <span class="fu">require</span>(<span class="st">"fs"</span>);</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">fs.writeFileSync</span>(<span class="st">"datos.txt"</span>,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Dominus roba boost grande a los 4:12...</span><span class="sc">\n</span><span class="st">"</span> <span class="sc">+</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Octane anota de techo con supersónico...</span><span class="sc">\n</span><span class="st">"</span> <span class="sc">+</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Remontada épica de 0-2 a 3-2..."</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="sec-matrices" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="sec-matrices"><span class="header-section-number">2.4</span> Matrices y Arreglos Multidimensionales</h2>
+<p>Para entender porque un arreglo multidimensional va un paso más allá que un arreglo unidimensional, podemos imaginar que un vector (Arreglo unidimensional) es una fila de cromos pegados uno tras otro, mientras que una matriz (Arreglo multidimensional) vendría a ser como una página completa del album del mundial, en la cual los cromos van pegados en sus respectivas filas y columnas.</p>
+<p>Hay que tener en cuenta que la memoria RAM de una computadora no contiene una cuadrícula 2D física, lo que significa que debemos representar una página completa del album como una fila de infinta de cromos pegados uno tras otro, así se puede lograr que la computadora se engañe así misma para que por consiguiente se guarde en memoria.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo en Python</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>matriz <span class="ot">=</span> [</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>],</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>],</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>]</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(matriz[<span class="dv">1</span>][<span class="dv">2</span>])  <span class="co"># → 6</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>fila, col, num_cols <span class="ot">=</span> <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>indice_real <span class="ot">=</span> fila <span class="sc">*</span> num_cols <span class="sc">+</span> col</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(indice_real)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="mapeo-de-2d-a-memoria-lineal" class="level3" data-number="2.4.1">
+<h3 data-number="2.4.1" class="anchored" data-anchor-id="mapeo-de-2d-a-memoria-lineal"><span class="header-section-number">2.4.1</span> Mapeo de 2D a Memoria Lineal</h3>
+<p>¿Cómo mete la computadora una página del album en una fila de memoria? Para ello esta utiliza un truco llamado Row-Major Order (orden por filas).</p>
+<p>Imaginemos que se despegan los cromos de una de las páginas del album, pero en un orden estricto, primero se pega toda la fila 1, depues se pega la fila 2, y al final la fila 3. Para encontrar rapidamente al jugador que está en la Fila i y Columna i, la computadora evita buscar página por página, y para esto se necesita la siguiente fórmula:</p>
 <p><span class="math inline">\(Posición = DirecciónBase + (i \times N + j) \times TamañoDelDato\)</span></p>
-<p>Esto garantiza que el acceso a cualquier celda de la matriz siga siendo una operación aritmética simple y, por tanto, mantenga un tiempo de acceso <span class="math inline">\(\mathcal{O}(1)\)</span>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo en Python usando listas por comprensión para simular</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># una matriz (comportamiento 2D) de 3x3 inicializada en 0:</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>matriz <span class="op">=</span> [[<span class="dv">0</span> <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>)] <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>)]</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>matriz[<span class="dv">1</span>][<span class="dv">2</span>] <span class="op">=</span> <span class="dv">5</span> <span class="co"># Acceso lógico bidimensional O(1)</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Para explicar esta fórmula, imaginemos que <span class="math inline">\(N\)</span> es el número total de columnas, o sea cuántos cromos caben por fila, si se busca al primer jugador de la segunda fila <span class="math inline">\((i=1)\)</span>, se saltan todos los cromos de la primera fila <span class="math inline">\((1xN)\)</span> y luego se mueve j espacios para así llegar al jugador que se busca.</p>
+<p>EJEMPLO EN JAVA</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode java code-with-copy"><code class="sourceCode java"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Ejemplo en Java usando listas por comprensión para simular</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co">// una matriz (comportamiento 2D) de 3x3 inicializada en 0:</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span><span class="op">[][]</span> paginaAlbum <span class="op">=</span> <span class="kw">new</span> <span class="dt">int</span><span class="op">[</span><span class="dv">3</span><span class="op">][</span><span class="dv">3</span><span class="op">];</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>paginaAlbum<span class="op">[</span><span class="dv">1</span><span class="op">][</span><span class="dv">2</span><span class="op">]</span> <span class="op">=</span> <span class="dv">5</span><span class="op">;</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">"El cromo en la posición [1][2] es el número: "</span> <span class="op">+</span> paginaAlbum<span class="op">[</span><span class="dv">1</span><span class="op">][</span><span class="dv">2</span><span class="op">]);</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
-<section id="sec-strings" class="level2" data-number="3.5">
-<h2 data-number="3.5" class="anchored" data-anchor-id="sec-strings"><span class="header-section-number">3.5</span> Cadenas de Caracteres (Strings)</h2>
-<p>Las cadenas de texto, en su formato más fundacional (como en el lenguaje C), no son más que arreglos estáticos de caracteres primitivos (<code>char</code>) terminados por un carácter nulo (<code>\0</code>).</p>
-<p>En lenguajes orientados a objetos modernos como Java y Python, la mayoría de los <code>Strings</code> se diseñan como <strong>objetos inmutables</strong>, respaldados internamente bajo el capó por un arreglo estático de caracteres (o bytes para codificaciones como UTF-8).</p>
+<section id="sec-strings" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="sec-strings"><span class="header-section-number">2.5</span> Cadenas de Caracteres (Strings)</h2>
+<p>La cadena de caracteres es como el álbum del Mundial de Fútbol: cada página es una cadena de texto, un arreglo fijo de huecos para stickers de jugadores como “Messi” o “Mbappé”. En lenguajes como Java o Python, estas cadenas son objetos inmutables, como un álbum plastificado que no puedes mover ni borrar stickers una vez pegados; Internamente usan un arreglo estático de caracteres terminados por un marcador invisible (\0), para saber dónde acaba.</p>
+<p>La declaracion de cadenas de caracteres suele variar un poco, pero en si, la sintaxis es la misma, por ejemplo:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode java code-with-copy"><code class="sourceCode java"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">// EJEMPLO DE CADENA DE CARACTERES EN JAVA</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> EjemploCadena <span class="op">{</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Cadena con nombres de jugadores</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">String</span> jugador <span class="op">=</span> <span class="st">"Messi"</span><span class="op">;</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Mostrar la cadena completa</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">"Jugador favorito: "</span> <span class="op">+</span> jugador<span class="op">);</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Acceder a un carácter específico</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">"Primera letra: "</span> <span class="op">+</span> jugador<span class="op">.</span><span class="fu">charAt</span><span class="op">(</span><span class="dv">0</span><span class="op">));</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Longitud de la cadena</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">"Cantidad de letras: "</span> <span class="op">+</span> jugador<span class="op">.</span><span class="fu">length</span><span class="op">());</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># EJEMPLO DE CADENA DE CARACTERES EN PYTHON</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Cadena con nombre de jugador</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>jugador <span class="op">=</span> <span class="st">"Mbappé"</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Mostrar la cadena completa</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Jugador favorito:"</span>, jugador)</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Acceder a un carácter específico</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Primera letra:"</span>, jugador[<span class="dv">0</span>])</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Longitud de la cadena</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Cantidad de letras:"</span>, <span class="bu">len</span>(jugador))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <p><strong>La Trampa del Rendimiento (Eficiencia <span class="math inline">\(\mathcal{O}(N^2)\)</span>)</strong></p>
-<p>Esta inmutabilidad tiene una consecuencia directa en el rendimiento algorítmico: cada vez que “modificas” un String (por ejemplo, concatenando un carácter dentro de un bucle <code>for</code>), el sistema no modifica el arreglo original porque es estático e inmutable. En su lugar, el sistema se ve forzado a solicitar nueva memoria, crear un <strong>nuevo arreglo estático</strong> más grande, y copiar secuencialmente todos los caracteres viejos más el nuevo.</p>
-<p>Si repites esto miles de veces, el rendimiento de tu aplicación se desplomará drásticamente. Esta es la razón técnica por la cual, a nivel de síntesis de software avanzado, se debe utilizar <code>StringBuilder</code> en Java o métodos como <code>''.join(lista)</code> en Python cuando se construyen concatenaciones masivas de texto.</p>
-</section>
-<section id="metodologías-activas" class="level2" data-number="3.6">
-<h2 data-number="3.6" class="anchored" data-anchor-id="metodologías-activas"><span class="header-section-number">3.6</span> Metodologías Activas</h2>
-<section id="autoevaluación" class="level3" data-number="3.6.1">
-<h3 data-number="3.6.1" class="anchored" data-anchor-id="autoevaluación"><span class="header-section-number">3.6.1</span> Autoevaluación</h3>
+<p>El problema surge cuando quieres “agregar” una figurita. Como el álbum no cambia, la computadora se ve obligada a comprar un álbum nuevo más grande, copiar todas las figuritas que ya tenías y recién ahí pegar la nueva. Si haces esto figurita por figurita, el proceso se vuelve lentísimo y pesado (O(N^2)); por eso, para pegar miles de fotos, es mejor usar un StringBuilder, que funciona como una carpeta de ganchos donde agregas hojas sin tener que desechar todo el álbum cada vez.</p>
+<section id="autoevaluación" class="level3" data-number="2.5.1">
+<h3 data-number="2.5.1" class="anchored" data-anchor-id="autoevaluación"><span class="header-section-number">2.5.1</span> Autoevaluación</h3>
 <ol type="1">
-<li><strong>Reflexiona:</strong> Si necesitas almacenar una lista de usuarios de un <em>chat-room</em> activo, donde participantes se desconectan aleatoriamente y entran otros a diferente ritmo; ¿Qué desventajas concretas sufriera tu servidor intentando gestionar esas bajas si solo posees estructuras de tipo arreglo puro?</li>
-<li><strong>Experimenta Mentalmente:</strong> Modula la fórmula matemática de un arreglo <code>DirecciónBase + (Índice * OffsetBytes)</code>. ¿Qué ocurriría si intentaras buscar <code>calificaciones[10]</code> en el arreglo de 5 casillas instanciado antes? ¿Hacia donde apunta la memoria? (Investiga el concepto de <em>Buffer Overflow</em> o excepcion <em>Out of Bounds</em> de Java).</li>
+<li><strong>Reflexion Crítica:</strong> Las estructuras estáticas demostraron ser fundamentales para comprender cómo la computadora organiza la memoria y accede rápidamente a la información, de manera similar a un álbum del Mundial donde cada cromo tiene una posición exacta. A lo largo del proyecto se observó que arreglos, matrices, cadenas de caracteres y archivos permiten trabajar con datos de forma eficiente cuando el tamaño ya está definido, logrando accesos rápidos y un uso ordenado de la memoria Heap. Sin embargo, también quedó claro que esta rigidez puede convertirse en una limitación cuando los datos cambian constantemente, ya que insertar o eliminar elementos implica mover información completa, como reorganizar todos los cromos de una página. Además, el análisis de archivos permitió comprender la diferencia entre almacenamiento temporal en RAM y persistencia permanente en disco, mientras que conceptos como Garbage Collector mostraron cómo lenguajes como Java y Python administran automáticamente la memoria. En conjunto, el proyecto permitió entender no solo cómo funcionan las estructuras estáticas a nivel técnico, sino también por qué son la base para desarrollar sistemas más complejos y eficientes en programación.</li>
 </ol>
 </section>
-<section id="resolución-de-problemas" class="level3" data-number="3.6.2">
-<h3 data-number="3.6.2" class="anchored" data-anchor-id="resolución-de-problemas"><span class="header-section-number">3.6.2</span> Resolución de Problemas</h3>
-<p><strong>El Reto de Fusión Cíclica (Merge Files)</strong></p>
-<p>Imagina un caso de la vida real: tienes en posesión dos archivos gigantes, <code>registros_A.csv</code> y <code>registros_B.csv</code>, y ambos contienen columnas financieras estáticas formadas por IDs crecientes ordenados ascendentemente (1, 2, 5… | 3, 4, 6…). Están ubicados en el lenta memoria secundaria, pero son colosales; no todos los IDs caben dentro del corto cinturón RAM como arreglos masivos.</p>
-<p><em>Tu misión:</em> Escribe pseudocódigo o diseña la arquitectura paso-a-paso de una rutina (estilo de las que implementaríamos en Java o Python) que logre leer ambos archivos <em>simultáneamente</em> e ir inyectando sus datos fusionados iterativamente de manera sincronizada en un gran y final <code>merge.csv</code> ordenado, utilizando exclusivamente de a 2 casillas temporales en tu RAM mientras iteran.</p>
-<p>Este ejercicio fusiona lo mejor de ambos mundos: la inmensa capacidad de iteración de flujos de archivos estáticos y punteros lógicos en arreglos de retención. ¡Presenta tu algoritmo en el siguiente encuentro de codiseño!</p>
+</section>
+<section id="resolución-de-problemas" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="resolución-de-problemas"><span class="header-section-number">2.6</span> Resolución de Problemas</h2>
+<section id="reto-sistema-de-álbum-del-mundial" class="level3" data-number="2.6.1">
+<h3 data-number="2.6.1" class="anchored" data-anchor-id="reto-sistema-de-álbum-del-mundial"><span class="header-section-number">2.6.1</span> Reto: Sistema de Álbum del Mundial</h3>
+<p>Crea un programa en Java que simule un álbum del Mundial usando arreglos estáticos.</p>
+<p>El programa debe permitir lo siguiente:</p>
+<ol type="1">
+<li>Registrar hasta 20 cromos de jugadores.</li>
+<li>Mostrar todos los cromos guardados.</li>
+<li>Buscar un jugador específico.</li>
+<li>Contar cuántos espacios del álbum siguen vacíos.</li>
+<li>Reemplazar un cromo repetido por otro jugador.</li>
+</ol>
+</section>
+<section id="reglas-del-desafío" class="level3" data-number="2.6.2">
+<h3 data-number="2.6.2" class="anchored" data-anchor-id="reglas-del-desafío"><span class="header-section-number">2.6.2</span> Reglas del desafío</h3>
+<ol type="1">
+<li>Usa únicamente arreglos estáticos (<code>String[]</code>).</li>
+<li>No se permite usar <code>ArrayList</code>.</li>
+<li>El tamaño del arreglo debe ser fijo.</li>
+<li>Los espacios vacíos deben mostrarse como <code>"VACÍO"</code>.</li>
+</ol>
+</section>
+<section id="operaciones-opcionales-para-el-desafío" class="level3" data-number="2.6.3">
+<h3 data-number="2.6.3" class="anchored" data-anchor-id="operaciones-opcionales-para-el-desafío"><span class="header-section-number">2.6.3</span> Operaciones opcionales para el desafío</h3>
+<p>Agregar un menú interactivo con lo siguiente (usar <code>Scanner</code>):</p>
+<ol type="1">
+<li>Agregar cromo.</li>
+<li>Mostrar álbum.</li>
+<li>Buscar jugador.</li>
+<li>Reemplazar cromo.</li>
+<li>Salir.</li>
+</ol>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-datastructure_lab" class="csl-entry" role="listitem">
+Data Structure 3D Lab. 2025. <span>«Data Structure 3D Lab»</span>. <a href="https://datastructure-3d-lab-822617764466.us-east1.run.app/">https://datastructure-3d-lab-822617764466.us-east1.run.app/</a>.
+</div>
+<div id="ref-deitel_java" class="csl-entry" role="listitem">
+Deitel, Paul, y Harvey Deitel. 2020. <em>Java: How to Program</em>. 11.ª ed. Pearson.
+</div>
+<div id="ref-python_docs" class="csl-entry" role="listitem">
+Python Software Foundation. 2024. <em>Python Documentation</em>. <a href="https://docs.python.org/3/">https://docs.python.org/3/</a>.
+</div>
+</div>
 </section>
 </section>
 
@@ -812,12 +1101,12 @@ Figura&nbsp;3.1: Tiempo de acceso constante O(1) en arreglos estáticos al conoc
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./intro.html" class="pagination-link" aria-label="Introducción">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introducción</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introducción</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./02-estructuras-dinamicas.html" class="pagination-link" aria-label="Estructuras Dinámicas">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Estructuras Dinámicas</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Estructuras Dinámicas</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
